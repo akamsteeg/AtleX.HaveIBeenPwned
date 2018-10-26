@@ -6,6 +6,7 @@ trigger:
 
 variables:
   mainProject: 'src/AtleX.HaveIBeenPwned/AtleX.HaveIBeenPwned.csproj'
+  unitTestProject: 'src/AtleX.HaveIBeenPwned/AtleX.HaveIBeenPwned.Tests.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -28,7 +29,7 @@ steps:
   displayName: 'Run tests'
   inputs:
     command: test
-    projects: '**/*.Tests.csproj'
+    projects: '$(unitTestProject)'
     arguments: '--configuration $(buildConfiguration)'
 
 - task: CopyFiles@2
