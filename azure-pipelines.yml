@@ -3,6 +3,10 @@ pool:
   
 trigger:
   batch: true
+  branches:
+    include:
+    - master
+    - release/*
 
 variables:
   mainProject: '**/src/AtleX.HaveIBeenPwned/AtleX.HaveIBeenPwned.csproj'
