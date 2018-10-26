@@ -10,7 +10,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     : HaveIBeenPwnedClientTestsBase
   {
     [Fact]
-    public async Task GetBreachesAsync_WithNullValueForAccountParameter_Throws()
+    public async Task GetBreachesAsync_WithNullValueForAccount_Throws()
     {
       var c = new HaveIBeenPwnedClient();
 
@@ -24,6 +24,17 @@ namespace AtleX.HaveIBeenPwned.Tests
       c.Dispose();
 
       await Assert.ThrowsAsync<ObjectDisposedException>(async () => await c.GetBreachesAsync("DUMMY"));
+    }
+
+    [Fact]
+    public async Task GetBreachesAsync_WithValidValue_DoesNotThrow()
+    {
+      var ic = CreateServiceClient();
+      var c = new HaveIBeenPwnedClient(new ClientSettings(), ic);
+
+      var result = await c.GetBreachesAsync("DUMMY");
+
+      Assert.NotNull(result);
     }
   }
 }

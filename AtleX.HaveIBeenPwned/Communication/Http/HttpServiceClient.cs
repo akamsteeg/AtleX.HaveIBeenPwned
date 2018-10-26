@@ -4,9 +4,9 @@ using SwissArmyKnife;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace AtleX.HaveIBeenPwned.Communication.Http
 {
@@ -30,7 +30,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// <summary>
     /// Gets the base uri of the HaveIBeenPwned.com API
     /// </summary>
-    private const string BaseUri = "https://haveibeenpwned.com/api/v2/";
+    private const string BaseUri = "https://haveibeenpwned.com/api/v2";
 
     /// <summary>
     /// Initializes a new instance of <see cref="HttpServiceClient"/> with the
@@ -81,7 +81,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     {
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
 
-      var uriBuilder = new UriBuilder($"{BaseUri}breachedaccount/{account}");
+      var uriBuilder = new UriBuilder($"{BaseUri}/breachedaccount/{account}");
 
       if (modes == BreachMode.All || (modes & BreachMode.IncludeUnverified) == BreachMode.IncludeUnverified)
       {
@@ -92,6 +92,28 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
         .ConfigureAwait(false);
 
       return results;
+    }
+
+    /// <summary>
+    /// Get the pastes for an email address
+    /// </summary>
+    /// <param name="emailAddress">
+    /// The email address to get the pastes for
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
+    /// <see cref="Paste"/> the email address was found in
+    /// </returns>
+    public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress)
+    {
+      Throw.ArgumentNull.When(emailAddress.IsNullOrWhiteSpace(), nameof(emailAddress));
+
+      var requestUri = new Uri($"{BaseUri}/pasteaccount/{emailAddress}");
+
+      var results = await this.GetAsync<IEnumerable<Paste>>(requestUri)
+        .ConfigureAwait(false);
+
+      return results ?? Enumerable.Empty<Paste>();
     }
 
     /// <summary>
@@ -161,14 +183,21 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// </param>
     private static void HandleErrorResponse(HttpResponseMessage response)
     {
-      if ((int)response.StatusCode == 429) // Rate limit exceeded
+      switch ((int)response.StatusCode)
       {
-        var retryAfter = response.Headers.RetryAfter.Delta?.Seconds;
-        throw new RateLimitExceededException(retryAfter.Value);
-      }
-      else
-      {
-        throw new HaveIBeenPwnedClientException($"An error occured ({response.StatusCode.ToString()})");
+        case 429: // Rate limit exceeded
+          {
+            var retryAfter = response.Headers.RetryAfter.Delta?.Seconds;
+            throw new RateLimitExceededException(retryAfter.Value);
+          }
+        case 404: // Not found
+          {
+            return; // Do nothing
+          }
+        default:
+          {
+            throw new HaveIBeenPwnedClientException($"An error occured ({response.StatusCode.ToString()} {response.ReasonPhrase})");
+          }
       }
     }
 

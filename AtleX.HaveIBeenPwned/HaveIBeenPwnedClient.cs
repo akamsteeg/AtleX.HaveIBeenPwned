@@ -108,6 +108,28 @@ namespace AtleX.HaveIBeenPwned
     }
 
     /// <summary>
+    /// Get the pastes for an email address
+    /// </summary>
+    /// <param name="emailAddress">
+    /// The email address to get the pastes for
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
+    /// <see cref="Paste"/> the email address was found in
+    /// </returns>
+    public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress)
+    {
+      Throw.ArgumentNull.When(emailAddress.IsNullOrWhiteSpace(), nameof(emailAddress));
+      this.ThrowIfDisposed();
+
+      var result = await this._serviceClient
+        .GetPastesAsync(emailAddress)
+        .ConfigureAwait(false);
+
+      return result;
+    }
+
+    /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or
     /// resetting unmanaged resources
     /// </summary>
