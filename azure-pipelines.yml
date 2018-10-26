@@ -9,8 +9,6 @@ trigger:
     - release/*
 
 variables:
-  mainProject: '**/src/AtleX.HaveIBeenPwned/AtleX.HaveIBeenPwned.csproj'
-  unitTestProject: '**/src/AtleX.HaveIBeenPwned/AtleX.HaveIBeenPwned.Tests.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -36,10 +34,11 @@ steps:
   displayName: 'Run tests'
   inputs:
     command: test
-    projects: '$(unitTestProject)'
+    projects: '$(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\AtleX.HaveIBeenPwned.Tests.csproj'
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
 
-- script: .\reportgenerator "-reports:$(Build.SourcesDirectory)\**\coverage.cobertura.xml" "-targetdir:results" "-reporttypes:HTMLInline;HTMLChart"
+- script: .\reportgenerator "-reports:$(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\coverage.cobertura.xml" "-targetdir:results" "-reporttypes:HTMLInline;HTMLChart"
+  displayName: 'Create code coverage report'
 
 
 - task: CopyFiles@2
