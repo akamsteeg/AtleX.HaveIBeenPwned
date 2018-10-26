@@ -27,7 +27,7 @@ steps:
     projects: '**/*.sln'
     arguments: '--configuration $(buildConfiguration)'
 
-- script: dotnet tool install dotnet-reportgenerator-globaltool --version 4.0.0
+- script: dotnet tool install dotnet-reportgenerator-globaltool --version 4.0.0 --tool-path .
   displayName: 'Install report generator tool'
 
 - task: DotNetCoreCLI@2
