@@ -14,7 +14,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
     [RunnableInDebugOnlyAttribute]
     public async Task GetBreachesAsync_WithValidInput_DoesNotThrow()
     {
-      var c = new HttpServiceClient(ClientSettings.Default);
+      var c = new HttpServiceClient(new ClientSettings());
 
       var result = await c.GetBreachesAsync("test@example.com");
 
@@ -24,7 +24,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
     [RunnableInDebugOnlyAttribute]
     public async Task GetBreachesAsync_WithValidInputAndVerifiedBreaches_DoesNotThrow()
     {
-      var c = new HttpServiceClient(ClientSettings.Default);
+      var c = new HttpServiceClient(new ClientSettings());
 
       var result = await c.GetBreachesAsync("test@example.com", BreachMode.IncludeUnverified);
 

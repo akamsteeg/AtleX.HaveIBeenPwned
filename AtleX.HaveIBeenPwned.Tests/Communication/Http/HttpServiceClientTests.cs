@@ -18,7 +18,7 @@ namespace AtleX.HaveIBeenPwned.Tests.Communication.Http
     [Fact]
     public void Ctor_WithValueForSettingsParam_DoesNotThrow()
     {
-      new HttpServiceClient(ClientSettings.Default);
+      new HttpServiceClient(new ClientSettings());
     }
   }
 }

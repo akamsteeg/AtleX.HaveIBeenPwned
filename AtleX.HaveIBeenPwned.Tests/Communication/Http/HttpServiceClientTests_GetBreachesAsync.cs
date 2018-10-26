@@ -12,7 +12,7 @@ namespace AtleX.HaveIBeenPwned.Tests.Communication.Http
     [Fact]
     public async Task GetBreachesAsync_WithNullValueForAccount_Throws()
     {
-      var c = new HttpServiceClient(ClientSettings.Default);
+      var c = new HttpServiceClient(new ClientSettings());
 
       await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetBreachesAsync(null));
     }
@@ -20,7 +20,7 @@ namespace AtleX.HaveIBeenPwned.Tests.Communication.Http
     [Fact]
     public async Task GetBreachesAsync_AfterDispose_Throws()
     {
-      var c = new HttpServiceClient(ClientSettings.Default);
+      var c = new HttpServiceClient(new ClientSettings());
       c.Dispose();
 
       await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetBreachesAsync("DUMMY"));

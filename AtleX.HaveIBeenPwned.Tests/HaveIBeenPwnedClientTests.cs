@@ -18,7 +18,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public void Ctor_WithNullValueForServiceClientParam_Throws()
     {
-      Assert.Throws<ArgumentNullException>(() => new HaveIBeenPwnedClient(ClientSettings.Default, null));
+      Assert.Throws<ArgumentNullException>(() => new HaveIBeenPwnedClient(new ClientSettings(), null));
     }
   }
 }
