@@ -1,6 +1,8 @@
 # AtleX.HaveIBeenPwned
 
-AtleX.HaveIBeenPwned is a client library for the [HaveIBeenPwned.com website](https://haveibeenpwned.com/). It 
+AtleX.HaveIBeenPwned is a client library for the [HaveIBeenPwned.com website](https://haveibeenpwned.com/). It supports 
+finding breaches an account was in, which pastes contained the user's email address and to check whether the password
+was in a breach or not.
 
 Supported .NET frameworks:
 * NETSTANDARD 2.0
