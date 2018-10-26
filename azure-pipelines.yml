@@ -27,7 +27,7 @@ steps:
     projects: '**/*.sln'
     arguments: '--configuration $(buildConfiguration)'
 
-- script: dotnet tool install dotnet-reportgenerator-globaltool --tool-path . --version 4.0.0
+- script: dotnet tool install dotnet-reportgenerator-globaltool --version 4.0.0
   displayName: 'Install report generator tool'
 
 - task: DotNetCoreCLI@2
@@ -37,7 +37,7 @@ steps:
     projects: '$(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\AtleX.HaveIBeenPwned.Tests.csproj'
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
 
-- script: .\reportgenerator "-reports:$(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)\results" "-reporttypes:HTMLInline;HTMLChart"
+- script: .\reportgenerator "-reports:$(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\coverage.cobertura.xml" "-targetdir:results" "-reporttypes:HTMLInline;HTMLChart"
   displayName: 'Create code coverage report'
 
 
@@ -52,8 +52,8 @@ steps:
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish code coverage results'
   inputs:
-    summaryFileLocation: $(Build.SourcesDirectory)\results\coverage.cobertura.xml
-    reportDirectory: $(Build.SourcesDirectory)\results
+    summaryFileLocation: $(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\coverage.cobertura.xml
+    reportDirectory: $(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\results
     codecoverageTool: cobertura
 
 - task: PublishBuildArtifacts@1
