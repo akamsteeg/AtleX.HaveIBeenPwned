@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Linq;
+using AtleX.HaveIBeenPwned.Communication.Helpers;
 
 namespace AtleX.HaveIBeenPwned.Communication.Http
 {
@@ -27,10 +28,17 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// </summary>
     private readonly HttpClient _httpClient;
 
+    private static readonly char[] NewlineChars = new[] { '\r', '\n' };
+
     /// <summary>
     /// Gets the base uri of the HaveIBeenPwned.com API
     /// </summary>
-    private const string BaseUri = "https://haveibeenpwned.com/api/v2";
+    private const string ApiBaseUri = "https://haveibeenpwned.com/api/v2";
+
+    /// <summary>
+    /// Gets the base uri of the HaveIBeenPwned.com Pwned PAsswords API
+    /// </summary>
+    private const string PwnedPasswordsBaseUri = "https://api.pwnedpasswords.com/range";
 
     /// <summary>
     /// Initializes a new instance of <see cref="HttpServiceClient"/> with the
@@ -81,15 +89,17 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     {
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
 
-      var uriBuilder = new UriBuilder($"{BaseUri}/breachedaccount/{account}");
+      var uriBuilder = new UriBuilder($"{ApiBaseUri}/breachedaccount/{account}");
 
       if (modes == BreachMode.All || (modes & BreachMode.IncludeUnverified) == BreachMode.IncludeUnverified)
       {
         uriBuilder.Query = "includeUnverified=true";
       }
 
-      var results = await this.GetAsync<IEnumerable<Breach>>(uriBuilder.Uri)
+      var content = await this.GetAsync(uriBuilder.Uri)
         .ConfigureAwait(false);
+
+      var results = JsonConvert.DeserializeObject<IEnumerable<Breach>>(content);
 
       return results;
     }
@@ -108,12 +118,57 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     {
       Throw.ArgumentNull.When(emailAddress.IsNullOrWhiteSpace(), nameof(emailAddress));
 
-      var requestUri = new Uri($"{BaseUri}/pasteaccount/{emailAddress}");
+      var requestUri = new Uri($"{ApiBaseUri}/pasteaccount/{emailAddress}");
 
-      var results = await this.GetAsync<IEnumerable<Paste>>(requestUri)
+      var content = await this.GetAsync(requestUri)
         .ConfigureAwait(false);
 
+      var results = JsonConvert.DeserializeObject<IEnumerable<Paste>>(content);
+
       return results ?? Enumerable.Empty<Paste>();
+    }
+
+    /// <summary>
+    /// Gets whether the specified password is found in a password list
+    /// </summary>
+    /// <param name="password">
+    /// The password to check
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with a <see cref="bool"/>
+    /// indicating whether the password was found or not
+    /// </returns>
+    public async Task<bool> IsPwnedPasswordAsync(string password)
+    {
+      Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
+
+      var sha1HashOfPassword = KAnonimityHelper.GetHashForPassword(password);
+
+      // We need to send the first 5 characters to the service
+      var kAnonimityPart = sha1HashOfPassword.Substring(0, 5);
+      // We receive the remainder of the hash (40 minus the 5 characters sent) back
+      var kAnonimitySuffix = sha1HashOfPassword.Substring(5);
+
+      var requestUri = new Uri($"{PwnedPasswordsBaseUri}/{kAnonimityPart}");
+
+      var content = await this.GetAsync(requestUri)
+        .ConfigureAwait(false);
+
+      var hashes = content.Split(NewlineChars, StringSplitOptions.RemoveEmptyEntries);
+
+      var result = false;
+
+      foreach (var currentKAnonimityHash in hashes)
+      {
+        var currentHashSuffix = currentKAnonimityHash.Substring(0, 35);
+        if (currentHashSuffix == kAnonimitySuffix)
+        {
+          result = true;
+          break;
+        }
+      }
+
+      return result;
     }
 
     /// <summary>
@@ -134,16 +189,13 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// <summary>
     /// Performs a GET request to the specified uri
     /// </summary>
-    /// <typeparam name="T">
-    /// The type of data to get from the service
-    /// </typeparam>
     /// <param name="url">
     /// The uri to request
     /// </param>
     /// <returns>
     /// An awaitable <see cref="Task{TResult}"/>
     /// </returns>
-    private async Task<T> GetAsync<T>(Uri url)
+    private async Task<string> GetAsync(Uri url)
     {
       this.ThrowIfDisposed();
 
@@ -151,16 +203,14 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
         .GetAsync(url)
         .ConfigureAwait(false);
 
-      T result = default;
+      var result = string.Empty;
       try
       {
         if (response.IsSuccessStatusCode)
         {
-          var content = await response.Content
+          result = await response.Content
             .ReadAsStringAsync()
             .ConfigureAwait(false);
-
-          result = JsonConvert.DeserializeObject<T>(content);
         }
         else
         {

@@ -130,6 +130,28 @@ namespace AtleX.HaveIBeenPwned
     }
 
     /// <summary>
+    /// Gets whether the specified password is found in a password list
+    /// </summary>
+    /// <param name="password">
+    /// The password to check
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with a <see cref="bool"/>
+    /// indicating whether the password was found or not
+    /// </returns>
+    public async Task<bool> IsPwnedPasswordAsync(string password)
+    {
+      Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
+      this.ThrowIfDisposed();
+
+      var result = await this._serviceClient
+        .IsPwnedPasswordAsync(password)
+        .ConfigureAwait(false);
+
+      return result;
+    }
+
+    /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or
     /// resetting unmanaged resources
     /// </summary>

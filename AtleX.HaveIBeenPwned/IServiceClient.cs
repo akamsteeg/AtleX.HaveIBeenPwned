@@ -50,5 +50,17 @@ namespace AtleX.HaveIBeenPwned
     /// <see cref="Paste"/> the email address was found in
     /// </returns>
     Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress);
+
+    /// <summary>
+    /// Gets whether the specified password is found in a password list
+    /// </summary>
+    /// <param name="password">
+    /// The password to check
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with a <see cref="bool"/>
+    /// indicating whether the password was found or not
+    /// </returns>
+    Task<bool> IsPwnedPasswordAsync(string password);
   }
 }

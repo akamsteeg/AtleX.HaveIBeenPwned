@@ -40,6 +40,12 @@ namespace AtleX.HaveIBeenPwned.Tests
           return result;
         });
 
+      serviceClient.Setup(sc => sc.IsPwnedPasswordAsync(It.IsAny<string>()))
+        .ReturnsAsync((string password) =>
+        {
+          return true;
+        });
+
       return serviceClient.Object;
     }
   }

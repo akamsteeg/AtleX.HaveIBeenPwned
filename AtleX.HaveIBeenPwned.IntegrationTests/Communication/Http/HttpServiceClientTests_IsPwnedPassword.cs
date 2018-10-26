@@ -8,28 +8,26 @@ using Xunit;
 
 namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
 {
-  public class HttpServiceClientTests_GetPastesAsync
+  public class HttpServiceClientTests_IsPwnedPassword
   {
     [RunnableInDebugOnlyAttribute]
-    public async Task GetPastesAsync_WithValidInput_ReturnsResults()
+    public async Task IsPwnedPassword_WithValidKnownInput_ReturnsTrue()
     {
       var c = new HttpServiceClient(new ClientSettings());
 
-      var result = await c.GetPastesAsync("test@example.com");
+      var result = await c.IsPwnedPasswordAsync("1234");
 
-      Assert.NotNull(result);
-      Assert.NotEmpty(result);
+      Assert.True(result);
     }
 
     [RunnableInDebugOnlyAttribute]
-    public async Task GetPastesAsync_WithUnknownEmail_DoesNotThrow()
+    public async Task IsPwnedPassword_WithValidUnknownInput_ReturnsFalse()
     {
       var c = new HttpServiceClient(new ClientSettings());
 
-      var result = await c.GetPastesAsync("random@example.com");
+      var result = await c.IsPwnedPasswordAsync(Guid.NewGuid().ToString());
 
-      Assert.NotNull(result);
-      Assert.Empty(result);
+      Assert.False(result);
     }
   }
 }
