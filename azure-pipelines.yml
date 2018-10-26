@@ -35,7 +35,7 @@ steps:
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
 
 
-- script: dotnet tool install dotnet-reportgenerator-cli --version 4.0.0 --tool-path .
+- script: dotnet tool install dotnet-reportgenerator-globaltool --version 4.0.0 --tool-path .
   displayName: 'Install report generator tool'
 
 - script: .\reportgenerator "-reports:$(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\coverage.cobertura.xml" "-targetdir:"$(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\report\" "-reporttypes:HTMLInline;HTMLChart"
