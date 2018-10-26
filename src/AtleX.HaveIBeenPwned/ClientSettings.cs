@@ -1,7 +1,5 @@
 ﻿using SwissArmyKnife;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace AtleX.HaveIBeenPwned
 {

@@ -1,5 +1,4 @@
-﻿using AtleX.HaveIBeenPwned.Communication;
-using AtleX.HaveIBeenPwned.Communication.Http;
+﻿using AtleX.HaveIBeenPwned.Communication.Http;
 using AtleX.HaveIBeenPwned.Data;
 using Pitcher;
 using SwissArmyKnife;
