@@ -19,11 +19,11 @@ steps:
     arguments: '--configuration $(build.configuration)'
 
 - task: DotNetCoreCLI@2
-  displayName: 'Build projects'
+  displayName: 'Build solution'
   inputs:
     command: build
     projects: '**/*.sln'
-    arguments: '--configuration $(build.configuration)'
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
   displayName: 'Run tests'
