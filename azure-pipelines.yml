@@ -29,12 +29,18 @@ steps:
     projects: '**/*.sln'
     arguments: '--configuration $(buildConfiguration)'
 
+- script: dotnet tool install dotnet-reportgenerator-globaltool --tool-path . --version 4.0.0
+  displayName: 'Install report generator tool'
+
 - task: DotNetCoreCLI@2
   displayName: 'Run tests'
   inputs:
     command: test
     projects: '$(unitTestProject)'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+
+- script: .\reportgenerator "-reports:$(Build.SourcesDirectory)\**\coverage.cobertura.xml" "-targetdir:results" "-reporttypes:HTMLInline;HTMLChart"
+
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
@@ -43,6 +49,12 @@ steps:
     TargetFolder: '$(build.artifactstagingdirectory)'
     CleanTargetFolder: true
     flattenFolders: true
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    summaryFileLocation: $(Build.SourcesDirectory)\results\coverage.cobertura.xml
+    reportDirectory: $(Build.SourcesDirectory)\results
+    codecoverageTool: cobertura
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: NuGet packages'

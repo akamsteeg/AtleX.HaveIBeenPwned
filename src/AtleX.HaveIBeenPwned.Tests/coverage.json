@@ -1,0 +1,731 @@
+{
+  "AtleX.HaveIBeenPwned.dll": {
+    "D:\\Projects\\AtleX.HaveIBeenPwned\\src\\AtleX.HaveIBeenPwned\\ClientSettings.cs": {
+      "AtleX.HaveIBeenPwned.ClientSettings": {
+        "System.String AtleX.HaveIBeenPwned.ClientSettings::get_ApplicationName()": {
+          "Lines": {
+            "16": 13
+          },
+          "Branches": []
+        },
+        "System.Void AtleX.HaveIBeenPwned.ClientSettings::set_ApplicationName(System.String)": {
+          "Lines": {
+            "17": 0
+          },
+          "Branches": []
+        },
+        "System.TimeSpan AtleX.HaveIBeenPwned.ClientSettings::get_TimeOut()": {
+          "Lines": {
+            "26": 13
+          },
+          "Branches": []
+        },
+        "System.Void AtleX.HaveIBeenPwned.ClientSettings::set_TimeOut(System.TimeSpan)": {
+          "Lines": {
+            "27": 0
+          },
+          "Branches": []
+        },
+        "System.Void AtleX.HaveIBeenPwned.ClientSettings::.ctor()": {
+          "Lines": {
+            "18": 17,
+            "28": 17
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Projects\\AtleX.HaveIBeenPwned\\src\\AtleX.HaveIBeenPwned\\HaveIBeenPwnedClient.cs": {
+      "AtleX.HaveIBeenPwned.HaveIBeenPwnedClient": {
+        "System.Void AtleX.HaveIBeenPwned.HaveIBeenPwnedClient::Dispose(System.Boolean)": {
+          "Lines": {
+            "161": 3,
+            "162": 3,
+            "163": 3,
+            "164": 3,
+            "165": 3,
+            "166": 3
+          },
+          "Branches": [
+            {
+              "Line": 162,
+              "Offset": 4,
+              "EndOffset": 6,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 3
+            },
+            {
+              "Line": 162,
+              "Offset": 4,
+              "EndOffset": 20,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 3
+            }
+          ]
+        },
+        "System.Void AtleX.HaveIBeenPwned.HaveIBeenPwnedClient::.ctor()": {
+          "Lines": {
+            "32": 6,
+            "33": 6,
+            "35": 6
+          },
+          "Branches": []
+        },
+        "System.Void AtleX.HaveIBeenPwned.HaveIBeenPwnedClient::.ctor(AtleX.HaveIBeenPwned.ClientSettings)": {
+          "Lines": {
+            "45": 7,
+            "46": 6,
+            "48": 6
+          },
+          "Branches": []
+        },
+        "System.Void AtleX.HaveIBeenPwned.HaveIBeenPwnedClient::.ctor(AtleX.HaveIBeenPwned.ClientSettings,AtleX.HaveIBeenPwned.IServiceClient)": {
+          "Lines": {
+            "60": 10,
+            "61": 10,
+            "62": 10,
+            "63": 10,
+            "64": 9
+          },
+          "Branches": [
+            {
+              "Line": 62,
+              "Offset": 11,
+              "EndOffset": 13,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 62,
+              "Offset": 11,
+              "EndOffset": 25,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 10
+            },
+            {
+              "Line": 63,
+              "Offset": 33,
+              "EndOffset": 35,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 1
+            },
+            {
+              "Line": 63,
+              "Offset": 33,
+              "EndOffset": 47,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 9
+            }
+          ]
+        }
+      },
+      "AtleX.HaveIBeenPwned.HaveIBeenPwnedClient/<GetBreachesAsync>d__5": {
+        "System.Void AtleX.HaveIBeenPwned.HaveIBeenPwnedClient/<GetBreachesAsync>d__5::MoveNext()": {
+          "Lines": {
+            "77": 3,
+            "78": 3,
+            "79": 3,
+            "81": 1,
+            "82": 1
+          },
+          "Branches": [
+            {
+              "Line": 78,
+              "Offset": 55,
+              "EndOffset": 122,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 3
+            }
+          ]
+        }
+      },
+      "AtleX.HaveIBeenPwned.HaveIBeenPwnedClient/<GetBreachesAsync>d__6": {
+        "System.Void AtleX.HaveIBeenPwned.HaveIBeenPwnedClient/<GetBreachesAsync>d__6::MoveNext()": {
+          "Lines": {
+            "98": 3,
+            "99": 3,
+            "100": 2,
+            "102": 1,
+            "103": 1,
+            "104": 1,
+            "106": 1,
+            "107": 1
+          },
+          "Branches": [
+            {
+              "Line": 102,
+              "Offset": 99,
+              "EndOffset": 166,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "AtleX.HaveIBeenPwned.HaveIBeenPwnedClient/<GetPastesAsync>d__7": {
+        "System.Void AtleX.HaveIBeenPwned.HaveIBeenPwnedClient/<GetPastesAsync>d__7::MoveNext()": {
+          "Lines": {
+            "120": 3,
+            "121": 3,
+            "122": 2,
+            "124": 1,
+            "125": 1,
+            "126": 1,
+            "128": 1,
+            "129": 1
+          },
+          "Branches": [
+            {
+              "Line": 124,
+              "Offset": 93,
+              "EndOffset": 160,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "AtleX.HaveIBeenPwned.HaveIBeenPwnedClient/<IsPwnedPasswordAsync>d__8": {
+        "System.Void AtleX.HaveIBeenPwned.HaveIBeenPwnedClient/<IsPwnedPasswordAsync>d__8::MoveNext()": {
+          "Lines": {
+            "142": 3,
+            "143": 3,
+            "144": 2,
+            "146": 1,
+            "147": 1,
+            "148": 1,
+            "150": 1,
+            "151": 1
+          },
+          "Branches": [
+            {
+              "Line": 146,
+              "Offset": 93,
+              "EndOffset": 160,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        }
+      }
+    },
+    "D:\\Projects\\AtleX.HaveIBeenPwned\\src\\AtleX.HaveIBeenPwned\\Data\\Breach.cs": {
+      "AtleX.HaveIBeenPwned.Data.Breach": {
+        "System.String AtleX.HaveIBeenPwned.Data.Breach::get_Name()": {
+          "Lines": {
+            "16": 0
+          },
+          "Branches": []
+        },
+        "System.String AtleX.HaveIBeenPwned.Data.Breach::get_Title()": {
+          "Lines": {
+            "21": 0
+          },
+          "Branches": []
+        },
+        "System.DateTime AtleX.HaveIBeenPwned.Data.Breach::get_BreachDate()": {
+          "Lines": {
+            "26": 0
+          },
+          "Branches": []
+        },
+        "System.DateTime AtleX.HaveIBeenPwned.Data.Breach::get_AddedDate()": {
+          "Lines": {
+            "31": 0
+          },
+          "Branches": []
+        },
+        "System.DateTime AtleX.HaveIBeenPwned.Data.Breach::get_ModifiedDate()": {
+          "Lines": {
+            "36": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 AtleX.HaveIBeenPwned.Data.Breach::get_PwnCount()": {
+          "Lines": {
+            "41": 0
+          },
+          "Branches": []
+        },
+        "System.String AtleX.HaveIBeenPwned.Data.Breach::get_Description()": {
+          "Lines": {
+            "46": 0
+          },
+          "Branches": []
+        },
+        "System.Collections.Generic.IEnumerable`1<System.String> AtleX.HaveIBeenPwned.Data.Breach::get_DataClasses()": {
+          "Lines": {
+            "51": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean AtleX.HaveIBeenPwned.Data.Breach::get_IsVerified()": {
+          "Lines": {
+            "56": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean AtleX.HaveIBeenPwned.Data.Breach::get_IsFabricated()": {
+          "Lines": {
+            "61": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean AtleX.HaveIBeenPwned.Data.Breach::get_IsSensitive()": {
+          "Lines": {
+            "66": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean AtleX.HaveIBeenPwned.Data.Breach::get_IsRetired()": {
+          "Lines": {
+            "71": 0
+          },
+          "Branches": []
+        },
+        "System.Boolean AtleX.HaveIBeenPwned.Data.Breach::get_IsSpamList()": {
+          "Lines": {
+            "76": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Projects\\AtleX.HaveIBeenPwned\\src\\AtleX.HaveIBeenPwned\\Data\\Paste.cs": {
+      "AtleX.HaveIBeenPwned.Data.Paste": {
+        "System.String AtleX.HaveIBeenPwned.Data.Paste::get_Source()": {
+          "Lines": {
+            "15": 0
+          },
+          "Branches": []
+        },
+        "System.String AtleX.HaveIBeenPwned.Data.Paste::get_Id()": {
+          "Lines": {
+            "20": 0
+          },
+          "Branches": []
+        },
+        "System.String AtleX.HaveIBeenPwned.Data.Paste::get_Title()": {
+          "Lines": {
+            "25": 0
+          },
+          "Branches": []
+        },
+        "System.Nullable`1<System.DateTime> AtleX.HaveIBeenPwned.Data.Paste::get_Date()": {
+          "Lines": {
+            "30": 0
+          },
+          "Branches": []
+        },
+        "System.Int32 AtleX.HaveIBeenPwned.Data.Paste::get_EmailCount()": {
+          "Lines": {
+            "35": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Projects\\AtleX.HaveIBeenPwned\\src\\AtleX.HaveIBeenPwned\\Communication\\HaveIBeenPwnedClientException.cs": {
+      "AtleX.HaveIBeenPwned.Communication.HaveIBeenPwnedClientException": {
+        "System.Void AtleX.HaveIBeenPwned.Communication.HaveIBeenPwnedClientException::.ctor()": {
+          "Lines": {
+            "15": 0,
+            "16": 0,
+            "18": 0
+          },
+          "Branches": []
+        },
+        "System.Void AtleX.HaveIBeenPwned.Communication.HaveIBeenPwnedClientException::.ctor(System.String)": {
+          "Lines": {
+            "28": 3,
+            "29": 3,
+            "31": 3
+          },
+          "Branches": []
+        },
+        "System.Void AtleX.HaveIBeenPwned.Communication.HaveIBeenPwnedClientException::.ctor(System.String,System.Exception)": {
+          "Lines": {
+            "44": 0,
+            "45": 0,
+            "47": 0
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Projects\\AtleX.HaveIBeenPwned\\src\\AtleX.HaveIBeenPwned\\Communication\\RateLimitExceededException.cs": {
+      "AtleX.HaveIBeenPwned.Communication.RateLimitExceededException": {
+        "System.Int32 AtleX.HaveIBeenPwned.Communication.RateLimitExceededException::get_RetryAfter()": {
+          "Lines": {
+            "16": 0
+          },
+          "Branches": []
+        },
+        "System.Void AtleX.HaveIBeenPwned.Communication.RateLimitExceededException::.ctor(System.Int32)": {
+          "Lines": {
+            "27": 3,
+            "28": 3,
+            "29": 3,
+            "31": 1,
+            "32": 1
+          },
+          "Branches": []
+        }
+      }
+    },
+    "D:\\Projects\\AtleX.HaveIBeenPwned\\src\\AtleX.HaveIBeenPwned\\Communication\\Http\\HttpServiceClient.cs": {
+      "AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient": {
+        "System.Void AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient::Dispose(System.Boolean)": {
+          "Lines": {
+            "182": 6,
+            "183": 6,
+            "184": 6,
+            "185": 6,
+            "186": 6,
+            "187": 6
+          },
+          "Branches": [
+            {
+              "Line": 183,
+              "Offset": 4,
+              "EndOffset": 6,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 6
+            },
+            {
+              "Line": 183,
+              "Offset": 4,
+              "EndOffset": 20,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 6
+            }
+          ]
+        },
+        "System.Void AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient::HandleErrorResponse(System.Net.Http.HttpResponseMessage)": {
+          "Lines": {
+            "235": 0,
+            "236": 0,
+            "239": 0,
+            "240": 0,
+            "241": 0,
+            "244": 0,
+            "245": 0,
+            "248": 0,
+            "249": 0,
+            "252": 0
+          },
+          "Branches": [
+            {
+              "Line": 236,
+              "Offset": 14,
+              "EndOffset": 18,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 0
+            },
+            {
+              "Line": 236,
+              "Offset": 24,
+              "EndOffset": 28,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 0
+            },
+            {
+              "Line": 240,
+              "Offset": 54,
+              "EndOffset": 56,
+              "Path": 0,
+              "Ordinal": 4,
+              "Hits": 0
+            },
+            {
+              "Line": 240,
+              "Offset": 54,
+              "EndOffset": 68,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 0
+            },
+            {
+              "Line": 236,
+              "Offset": 14,
+              "EndOffset": 101,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 0
+            },
+            {
+              "Line": 236,
+              "Offset": 24,
+              "EndOffset": 104,
+              "Path": 0,
+              "Ordinal": 2,
+              "Hits": 0
+            }
+          ]
+        },
+        "System.Net.Http.HttpClient AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient::CreateHttpClient(AtleX.HaveIBeenPwned.ClientSettings)": {
+          "Lines": {
+            "264": 13,
+            "265": 13,
+            "266": 12,
+            "267": 13,
+            "268": 13,
+            "270": 11,
+            "271": 11
+          },
+          "Branches": []
+        },
+        "System.Void AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient::.ctor(AtleX.HaveIBeenPwned.ClientSettings)": {
+          "Lines": {
+            "50": 15,
+            "51": 15,
+            "52": 15,
+            "54": 13,
+            "55": 11
+          },
+          "Branches": [
+            {
+              "Line": 52,
+              "Offset": 11,
+              "EndOffset": 13,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 2
+            },
+            {
+              "Line": 52,
+              "Offset": 11,
+              "EndOffset": 25,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 13
+            }
+          ]
+        },
+        "System.Void AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient::.cctor()": {
+          "Lines": {
+            "31": 0
+          },
+          "Branches": []
+        }
+      },
+      "AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient/<GetBreachesAsync>d__6": {
+        "System.Void AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient/<GetBreachesAsync>d__6::MoveNext()": {
+          "Lines": {
+            "68": 2,
+            "69": 2,
+            "70": 2,
+            "72": 0,
+            "73": 0
+          },
+          "Branches": [
+            {
+              "Line": 69,
+              "Offset": 55,
+              "EndOffset": 122,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 2
+            }
+          ]
+        }
+      },
+      "AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient/<GetBreachesAsync>d__7": {
+        "System.Void AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient/<GetBreachesAsync>d__7::MoveNext()": {
+          "Lines": {
+            "89": 2,
+            "90": 2,
+            "92": 1,
+            "94": 1,
+            "95": 0,
+            "96": 0,
+            "97": 0,
+            "99": 1,
+            "100": 1,
+            "102": 0,
+            "104": 0,
+            "105": 0
+          },
+          "Branches": [
+            {
+              "Line": 94,
+              "Offset": 74,
+              "EndOffset": 76,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            },
+            {
+              "Line": 94,
+              "Offset": 92,
+              "EndOffset": 113,
+              "Path": 1,
+              "Ordinal": 3,
+              "Hits": 1
+            },
+            {
+              "Line": 99,
+              "Offset": 158,
+              "EndOffset": 228,
+              "Path": 1,
+              "Ordinal": 5,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient/<GetPastesAsync>d__8": {
+        "System.Void AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient/<GetPastesAsync>d__8::MoveNext()": {
+          "Lines": {
+            "118": 2,
+            "119": 2,
+            "121": 1,
+            "123": 1,
+            "124": 1,
+            "126": 0,
+            "128": 0,
+            "129": 0
+          },
+          "Branches": [
+            {
+              "Line": 123,
+              "Offset": 106,
+              "EndOffset": 176,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient/<IsPwnedPasswordAsync>d__9": {
+        "System.Void AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient/<IsPwnedPasswordAsync>d__9::MoveNext()": {
+          "Lines": {
+            "142": 2,
+            "143": 2,
+            "145": 1,
+            "148": 1,
+            "150": 1,
+            "152": 1,
+            "154": 1,
+            "155": 1,
+            "157": 0,
+            "159": 0,
+            "161": 0,
+            "162": 0,
+            "163": 0,
+            "164": 0,
+            "165": 0,
+            "166": 0,
+            "167": 0,
+            "169": 0,
+            "171": 0,
+            "172": 0
+          },
+          "Branches": [
+            {
+              "Line": 154,
+              "Offset": 160,
+              "EndOffset": 230,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 1
+            }
+          ]
+        }
+      },
+      "AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient/<GetAsync>d__11": {
+        "System.Void AtleX.HaveIBeenPwned.Communication.Http.HttpServiceClient/<GetAsync>d__11::MoveNext()": {
+          "Lines": {
+            "199": 3,
+            "200": 3,
+            "202": 0,
+            "203": 0,
+            "204": 0,
+            "206": 0,
+            "208": 0,
+            "209": 0,
+            "210": 0,
+            "211": 0,
+            "212": 0,
+            "213": 0,
+            "214": 0,
+            "216": 0,
+            "217": 0,
+            "218": 0,
+            "219": 0,
+            "220": 0,
+            "221": 0,
+            "222": 0,
+            "225": 0,
+            "226": 0
+          },
+          "Branches": [
+            {
+              "Line": 199,
+              "Offset": 14,
+              "EndOffset": 25,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 3
+            }
+          ]
+        }
+      }
+    },
+    "D:\\Projects\\AtleX.HaveIBeenPwned\\src\\AtleX.HaveIBeenPwned\\Communication\\Helpers\\KAnonimityHelper.cs": {
+      "AtleX.HaveIBeenPwned.Communication.Helpers.KAnonimityHelper": {
+        "System.String AtleX.HaveIBeenPwned.Communication.Helpers.KAnonimityHelper::GetHashForPassword(System.String)": {
+          "Lines": {
+            "23": 1,
+            "24": 1,
+            "26": 1,
+            "27": 1,
+            "28": 1,
+            "30": 1,
+            "32": 1,
+            "33": 43,
+            "34": 20,
+            "35": 20,
+            "36": 20,
+            "38": 1,
+            "40": 1,
+            "42": 1
+          },
+          "Branches": [
+            {
+              "Line": 33,
+              "Offset": 100,
+              "EndOffset": 60,
+              "Path": 1,
+              "Ordinal": 1,
+              "Hits": 20
+            },
+            {
+              "Line": 33,
+              "Offset": 100,
+              "EndOffset": 102,
+              "Path": 0,
+              "Ordinal": 0,
+              "Hits": 1
+            }
+          ]
+        }
+      }
+    }
+  }
+}
