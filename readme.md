@@ -13,7 +13,7 @@ AtleX.HaveIBeenPwned is available [as NuGet package](https://www.nuget.org/packa
 install-package AtleX.HaveIBeenPwned
 ```
 
-# Example
+# Examples
 
 ```csharp
 
@@ -32,6 +32,16 @@ var pastes = await client.GetPastesAsync("test@example.com");
 // Verify whether is password is in Pwned Passwords or not
 var client = new HaveIBeenPwnedClient();
 var isPwned = await client.IsPwnedPassword("1234");
+
+// Override the timeout
+var settings = new ClientSettings()
+{
+	TimeOut = TimeSpan.FromSeconds(30); // Use a 30 seconds timeout
+};
+var client = new HaveIBeenPwnedClient(settings);
+
+// Override client (mock for unit testing for example):
+var client = new HaveIBeenPwnedClient(new ClientSettings(), new MockServiceClient());
 ```
 
 # License
