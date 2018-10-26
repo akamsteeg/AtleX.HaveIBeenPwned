@@ -16,20 +16,20 @@ variables:
 
 steps:
 - task: DotNetCoreCLI@2
-  DisplayName: 'Restore packages'
+  displayName: 'Restore packages'
   inputs:
     command: restore
     projects: '**/*.csproj'
 
 - task: DotNetCoreCLI@2
-  DisplayName: 'Build projects'
+  displayName: 'Build projects'
   inputs:
     command: build
     projects: '**/*.csproj'
     arguments: '--configuration $(build.configuration) 
 
 - task: DotNetCoreCLI@2
-  DisplayName: 'Run tests'
+  displayName: 'Run tests'
   inputs:
     command: test
     projects: '**/*.Tests.csproj'
