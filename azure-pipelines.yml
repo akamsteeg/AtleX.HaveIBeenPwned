@@ -27,15 +27,16 @@ steps:
     projects: '**/*.sln'
     arguments: '--configuration $(buildConfiguration)'
 
-- script: dotnet tool install dotnet-reportgenerator-globaltool --version 4.0.0 --tool-path .
-  displayName: 'Install report generator tool'
-
 - task: DotNetCoreCLI@2
   displayName: 'Run tests'
   inputs:
     command: test
     projects: '$(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\AtleX.HaveIBeenPwned.Tests.csproj'
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+
+
+- script: dotnet tool install dotnet-reportgenerator-cli --version 4.0.0 --tool-path .
+  displayName: 'Install report generator tool'
 
 - script: .\reportgenerator "-reports:$(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\coverage.cobertura.xml" "-targetdir:$(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\report\" "-reporttypes:HTMLInline;HTMLChart"
   displayName: 'Create code coverage report'
