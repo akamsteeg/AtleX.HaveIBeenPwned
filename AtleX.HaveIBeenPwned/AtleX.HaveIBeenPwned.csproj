@@ -25,6 +25,10 @@
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <PackageTags>haveibeenpwned breach password</PackageTags>
     <PackageReleaseNotes>
+1.0.0
+- [Feature] Added support for getting the breaches for an account
+- [Feature] Added support for getting the pastes for an email address
+- [Feature] Added support for checking a password against the Pwned Passwords API
     </PackageReleaseNotes>
   </PropertyGroup>
 
