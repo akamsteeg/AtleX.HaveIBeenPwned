@@ -5,8 +5,8 @@ trigger:
   batch: true
 
 variables:
-  mainProject: 'src/AtleX.HaveIBeenPwned/AtleX.HaveIBeenPwned.csproj'
-  unitTestProject: 'src/AtleX.HaveIBeenPwned/AtleX.HaveIBeenPwned.Tests.csproj'
+  mainProject: '**/src/AtleX.HaveIBeenPwned/AtleX.HaveIBeenPwned.csproj'
+  unitTestProject: '**/src/AtleX.HaveIBeenPwned/AtleX.HaveIBeenPwned.Tests.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
