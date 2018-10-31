@@ -1,8 +1,5 @@
 pool:
   vmImage: 'VS2017-Win2016'
-  
-trigger:
-  batch: true
 
 variables:
   buildPlatform: 'Any CPU'
