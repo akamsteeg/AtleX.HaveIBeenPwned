@@ -14,9 +14,9 @@
     <Copyright>© Alex Kamsteeg</Copyright>
     <PackageLicenseUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned/blob/master/LICENSE</PackageLicenseUrl>
 
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
 
     <RepositoryUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -25,6 +25,8 @@
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <PackageTags>haveibeenpwned breach password</PackageTags>
     <PackageReleaseNotes>
+1.1.0
+- [Fix] Marked built-in exceptions as serializable (fixes #1)
 1.0.0
 - [Feature] Added support for getting the breaches for an account
 - [Feature] Added support for getting the pastes for an email address
