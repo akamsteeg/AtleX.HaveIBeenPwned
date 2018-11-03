@@ -1,10 +1,12 @@
 ﻿using Pitcher;
+using System;
 
 namespace AtleX.HaveIBeenPwned.Communication
 {
   /// <summary>
   /// Represents a <see cref="HaveIBeenPwnedClientException"/> for exceeding the rate limit
   /// </summary>
+  [Serializable]
   public sealed class RateLimitExceededException
     : HaveIBeenPwnedClientException
   {
