@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AtleX.HaveIBeenPwned.Data
 {
@@ -7,6 +8,7 @@ namespace AtleX.HaveIBeenPwned.Data
   /// Represents a breach from a paste
   /// </summary>
   [DebuggerDisplay("{Title}")]
+  [ExcludeFromCodeCoverage]
   public sealed class Paste
   {
     /// <summary>

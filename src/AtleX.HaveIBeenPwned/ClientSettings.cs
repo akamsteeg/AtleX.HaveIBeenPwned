@@ -1,11 +1,13 @@
 ﻿using SwissArmyKnife;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AtleX.HaveIBeenPwned
 {
   /// <summary>
   /// Represents the settings for an <see cref="IServiceClient"/>
   /// </summary>
+  [ExcludeFromCodeCoverage]
   public class ClientSettings
   {
     /// <summary>

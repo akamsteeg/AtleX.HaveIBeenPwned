@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace AtleX.HaveIBeenPwned.Data
 {
@@ -8,6 +9,7 @@ namespace AtleX.HaveIBeenPwned.Data
   /// Represents a single breach in the system
   /// </summary>
   [DebuggerDisplay("{Name}")]
+  [ExcludeFromCodeCoverage]
   public sealed class Breach
   {
     /// <summary>
