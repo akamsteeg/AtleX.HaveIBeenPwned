@@ -1,8 +1,6 @@
 ﻿using AtleX.HaveIBeenPwned.Communication;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests.Communication
@@ -25,6 +23,15 @@ namespace AtleX.HaveIBeenPwned.Tests.Communication
     public void Ctor_WithMoreThanZeroValueForRetryAfterParam_DoesNotThrow()
     {
       var e = new RateLimitExceededException(1);
+    }
+
+    [Fact]
+    public void RetryAfter_Equals_CtorRetryAfterParameter()
+    {
+      const int testValue = 100;
+      var e = new RateLimitExceededException(testValue);
+
+      Assert.Equal(testValue, e.RetryAfter);
     }
 
     [Fact]
