@@ -10,7 +10,7 @@
     <Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
     <Company />
     <PackageProjectUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned</PackageProjectUrl>
-    <Description>AtleXHaveIBeenPwned is a fully async .NET Standard client library for HaveIBeenPwned.com.</Description>
+    <Description>AtleX.HaveIBeenPwned is a fully async .NET Standard client library for HaveIBeenPwned.com.</Description>
     <Copyright>© Alex Kamsteeg</Copyright>
     <PackageLicenseUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned/blob/master/LICENSE</PackageLicenseUrl>
 
