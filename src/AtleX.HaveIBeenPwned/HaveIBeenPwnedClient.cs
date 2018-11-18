@@ -4,6 +4,7 @@ using Pitcher;
 using SwissArmyKnife;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace AtleX.HaveIBeenPwned
@@ -42,7 +43,7 @@ namespace AtleX.HaveIBeenPwned
     /// The <see cref="ClientSettings"/> to use
     /// </param>
     public HaveIBeenPwnedClient(ClientSettings clientSettings)
-      : this(clientSettings, new HttpServiceClient(clientSettings))
+      : this(clientSettings, CreateDefaultServiceClient(clientSettings))
     {
 
     }
@@ -163,6 +164,23 @@ namespace AtleX.HaveIBeenPwned
       {
         this._serviceClient.Dispose();
       }
+    }
+
+    /// <summary>
+    /// Create the default <see cref="IServiceClient"/> to use
+    /// </summary>
+    /// <param name="clientSettings">
+    /// The <see cref="ClientSettings"/> to use
+    /// </param>
+    /// <returns>
+    /// A new <see cref="IServiceClient"/>
+    /// </returns>
+    private static IServiceClient CreateDefaultServiceClient(ClientSettings clientSettings)
+    {
+      var httpClient = new HttpClient();
+      var result = new HttpServiceClient(clientSettings, httpClient);
+
+      return result;
     }
   }
 }

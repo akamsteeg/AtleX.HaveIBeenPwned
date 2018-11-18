@@ -1,8 +1,7 @@
 ﻿using AtleX.HaveIBeenPwned.Communication.Http;
 using AtleX.HaveIBeenPwned.IntegrationTests.XUnit;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -13,21 +12,25 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
     [RunnableInDebugOnlyAttribute]
     public async Task IsPwnedPassword_WithValidKnownInput_ReturnsTrue()
     {
-      var c = new HttpServiceClient(new ClientSettings());
+      using (var httpClient = new HttpClient())
+      using (var c = new HttpServiceClient(new ClientSettings(), httpClient))
+      {
+        var result = await c.IsPwnedPasswordAsync("1234");
 
-      var result = await c.IsPwnedPasswordAsync("1234");
-
-      Assert.True(result);
+        Assert.True(result);
+      }
     }
 
     [RunnableInDebugOnlyAttribute]
     public async Task IsPwnedPassword_WithValidUnknownInput_ReturnsFalse()
     {
-      var c = new HttpServiceClient(new ClientSettings());
+      using (var httpClient = new HttpClient())
+      using (var c = new HttpServiceClient(new ClientSettings(), httpClient))
+      {
+        var result = await c.IsPwnedPasswordAsync(Guid.NewGuid().ToString());
 
-      var result = await c.IsPwnedPasswordAsync(Guid.NewGuid().ToString());
-
-      Assert.False(result);
+        Assert.False(result);
+      }
     }
   }
 }

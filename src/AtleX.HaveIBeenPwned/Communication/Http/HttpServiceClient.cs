@@ -28,6 +28,9 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// </summary>
     private readonly HttpClient _httpClient;
 
+    /// <summary>
+    /// Gets the collection of characters that indicate a newline
+    /// </summary>
     private static readonly char[] NewlineChars = new[] { '\r', '\n' };
 
     /// <summary>
@@ -42,16 +45,21 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
 
     /// <summary>
     /// Initializes a new instance of <see cref="HttpServiceClient"/> with the
-    /// specified <see cref="ClientSettings"/>
+    /// specified <see cref="ClientSettings"/> and <see cref="HttpClient"/>
     /// </summary>
     /// <param name="settings">
     /// The <see cref="ClientSettings"/> to use
     /// </param>
-    public HttpServiceClient(ClientSettings settings)
+    /// <param name="client">
+    /// The <see cref="HttpClient"/> to use when communicating with the
+    /// HaveIBeenPwned API
+    /// </param>
+    public HttpServiceClient(ClientSettings settings, HttpClient client)
     {
       this._clientSettings = settings ?? throw new ArgumentNullException(nameof(settings));
+      _ = client ?? throw new ArgumentNullException(nameof(client));
 
-      this._httpClient = CreateHttpClient(settings);
+      this._httpClient = ConfigureHttpClient(client, settings);
     }
 
     /// <summary>
@@ -252,22 +260,25 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     }
 
     /// <summary>
-    /// Create a new <see cref="HttpClient"/> with the specified <see cref="ClientSettings"/>
+    /// Configure the <see cref="HttpClient"/> with the specified <see cref="ClientSettings"/>
     /// </summary>
+    /// <param name="client">
+    /// The <see cref="HttpClient"/> to setup
+    /// </param>
     /// <param name="settings">
     /// The <see cref="ClientSettings"/>
     /// </param>
     /// <returns>
-    /// A new <see cref="HttpClient"/>
+    /// The configured <see cref="HttpClient"/>
     /// </returns>
-    private static HttpClient CreateHttpClient(ClientSettings settings)
+    private static HttpClient ConfigureHttpClient(HttpClient client, ClientSettings settings)
     {
-      var result = new HttpClient();
-      result.DefaultRequestHeaders.Add("Accept", "application/json");
-      result.DefaultRequestHeaders.Add("User-Agent", settings.ApplicationName);
-      result.Timeout = settings.TimeOut;
+      client.DefaultRequestHeaders.Clear();
+      client.DefaultRequestHeaders.Add("Accept", "application/json");
+      client.DefaultRequestHeaders.Add("User-Agent", settings.ApplicationName);
+      client.Timeout = settings.TimeOut;
 
-      return result;
+      return client;
     }
   }
 }
