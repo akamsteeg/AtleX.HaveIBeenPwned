@@ -74,6 +74,8 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// </returns>
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account)
     {
+      Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
+
       var result = await this.GetBreachesAsync(account, BreachMode.None)
         .ConfigureAwait(false);
 
