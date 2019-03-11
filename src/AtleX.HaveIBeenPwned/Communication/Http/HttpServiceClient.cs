@@ -1,14 +1,15 @@
-﻿using AtleX.HaveIBeenPwned.Data;
+﻿using AtleX.HaveIBeenPwned.Communication.Helpers;
+using AtleX.HaveIBeenPwned.Data;
+using Newtonsoft.Json;
 using Pitcher;
 using SwissArmyKnife;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+using System.IO;
 using System.Linq;
-using AtleX.HaveIBeenPwned.Communication.Helpers;
+using System.Net.Http;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace AtleX.HaveIBeenPwned.Communication.Http
 {
@@ -76,6 +77,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account)
     {
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
+      this.ThrowIfDisposed();
 
       var result = await this.GetBreachesAsync(account, BreachMode.None, CancellationToken.None)
         .ConfigureAwait(false);
@@ -99,7 +101,8 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, CancellationToken cancellationToken)
     {
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
-     
+      this.ThrowIfDisposed();
+
       var result = await this.GetBreachesAsync(account, BreachMode.None, cancellationToken)
         .ConfigureAwait(false);
 
@@ -121,6 +124,9 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// </returns>
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes)
     {
+      Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
+      this.ThrowIfDisposed();
+
       var result = await this.GetBreachesAsync(account, modes, CancellationToken.None)
         .ConfigureAwait(false);
 
@@ -146,6 +152,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes, CancellationToken cancellationToken)
     {
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
+      this.ThrowIfDisposed();
 
       var uriBuilder = new UriBuilder($"{ApiBaseUri}/breachedaccount/{account}");
 
@@ -154,10 +161,8 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
         uriBuilder.Query = "includeUnverified=true";
       }
 
-      var content = await this.GetAsync(uriBuilder.Uri, cancellationToken)
+      var results = await this.GetAsync<IEnumerable<Breach>>(uriBuilder.Uri, cancellationToken)
         .ConfigureAwait(false);
-
-      var results = JsonConvert.DeserializeObject<IEnumerable<Breach>>(content);
 
       return results;
     }
@@ -175,6 +180,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress)
     {
       Throw.ArgumentNull.When(emailAddress.IsNullOrWhiteSpace(), nameof(emailAddress));
+      this.ThrowIfDisposed();
 
       var result = await this.GetPastesAsync(emailAddress, CancellationToken.None)
         .ConfigureAwait(false);
@@ -198,13 +204,12 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress, CancellationToken cancellationToken)
     {
       Throw.ArgumentNull.When(emailAddress.IsNullOrWhiteSpace(), nameof(emailAddress));
+      this.ThrowIfDisposed();
 
       var requestUri = new Uri($"{ApiBaseUri}/pasteaccount/{emailAddress}");
 
-      var content = await this.GetAsync(requestUri, cancellationToken)
+      var results = await this.GetAsync<IEnumerable<Paste>>(requestUri, cancellationToken)
         .ConfigureAwait(false);
-
-      var results = JsonConvert.DeserializeObject<IEnumerable<Paste>>(content);
 
       return results ?? Enumerable.Empty<Paste>();
     }
@@ -222,6 +227,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     public async Task<bool> IsPwnedPasswordAsync(string password)
     {
       Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
+      this.ThrowIfDisposed();
 
       var result = await this.IsPwnedPasswordAsync(password, CancellationToken.None)
         .ConfigureAwait(false);
@@ -245,6 +251,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     public async Task<bool> IsPwnedPasswordAsync(string password, CancellationToken cancellationToken)
     {
       Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
+      this.ThrowIfDisposed();
 
       var sha1HashOfPassword = KAnonimityHelper.GetHashForPassword(password);
 
@@ -255,23 +262,26 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
 
       var requestUri = new Uri($"{PwnedPasswordsBaseUri}/{kAnonimityPart}");
 
-      var content = await this.GetAsync(requestUri, cancellationToken)
-        .ConfigureAwait(false);
-
-      var hashes = content.Split(NewlineChars, StringSplitOptions.RemoveEmptyEntries);
-
-      var result = false;
-
-      foreach (var currentKAnonimityHash in hashes)
+      using (var data = await this.GetAsync(requestUri, cancellationToken).ConfigureAwait(false))
+      using (var streamReader = new StreamReader(data))
       {
-        if (currentKAnonimityHash.StartsWith(kAnonimitySuffix))
-        {
-          result = true;
-          break;
-        }
-      }
+        var result = false;
 
-      return result;
+        while (!streamReader.EndOfStream && !result)
+        {
+          var currentLine = await streamReader
+            .ReadLineAsync()
+            .ConfigureAwait(false);
+
+          if (currentLine.StartsWith(kAnonimitySuffix))
+          {
+            result = true;
+            break;
+          }
+        }
+
+        return result;
+      }
     }
 
     /// <summary>
@@ -292,6 +302,9 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// <summary>
     /// Performs a GET request to the specified uri
     /// </summary>
+    /// <typeparam name="T">
+    /// The type to deserialize the JSON content of the request to
+    /// </typeparam>
     /// <param name="url">
     /// The uri to request
     /// </param>
@@ -299,35 +312,62 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// The <see cref="CancellationToken"/> for this operation
     /// </param>
     /// <returns>
-    /// An awaitable <see cref="Task{TResult}"/>
+    /// An awaitable <see cref="Task{TResult}"/> of the specified type
     /// </returns>
-    private async Task<string> GetAsync(Uri url, CancellationToken cancellationToken)
+    private async Task<T> GetAsync<T>(Uri url, CancellationToken cancellationToken)
     {
-      this.ThrowIfDisposed();
-
-      var response = await this._httpClient
-        .GetAsync(url, cancellationToken)
-        .ConfigureAwait(false);
-
-      var result = string.Empty;
-      try
+      using (var data = await this.GetAsync(url, cancellationToken).ConfigureAwait(false))
+      using (var streamReader = new StreamReader(data))
+      using (var jsonReader = new JsonTextReader(streamReader))
       {
-        if (response.IsSuccessStatusCode)
+        var jsonSerializer = new JsonSerializer();
+        var result = jsonSerializer.Deserialize<T>(jsonReader);
+
+        return result;
+      }
+    }
+
+    /// <summary>
+    /// Performs a GET request to the specified uri
+    /// </summary>
+    /// <param name="url">
+    /// The uri to request
+    /// </param>
+    /// <param name="cancellationToken">
+    /// The <see cref="CancellationToken"/> for this operation
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> of <see cref="Stream"/>
+    /// </returns>
+    private async Task<Stream> GetAsync(Uri url, CancellationToken cancellationToken)
+    {
+      var result = new MemoryStream();
+
+      using (var response = await this._httpClient
+        .GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
+        .ConfigureAwait(false))
+      {
+        try
         {
-          result = await response.Content
-            .ReadAsStringAsync()
-            .ConfigureAwait(false);
+          if (response.IsSuccessStatusCode)
+          {
+            await response
+              .Content
+              .CopyToAsync(result)
+              .ConfigureAwait(false);
+          }
+          else
+          {
+            HandleErrorResponse(response);
+          }
         }
-        else
+        catch (Exception e)
         {
-          HandleErrorResponse(response);
+          throw new HaveIBeenPwnedClientException("An error occured", e);
         }
       }
-      catch (Exception e)
-      {
-        throw new HaveIBeenPwnedClientException("An error occured", e);
-      }
 
+      result.Reset();
       return result;
     }
 
