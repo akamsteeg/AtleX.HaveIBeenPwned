@@ -25,7 +25,7 @@ steps:
   inputs:
     command: test
     projects: '$(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\AtleX.HaveIBeenPwned.Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="[xunit*]*"'
 
 
 - script: dotnet tool install dotnet-reportgenerator-globaltool --version 4.0.0 --tool-path .
