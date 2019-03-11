@@ -28,6 +28,7 @@
       2.0.0
       - [Feature] Added support for cancellation tokens (#4)
       - [Feature] Add injecting a HttpClient in the HttpServiceClient (#2)
+      - [Breaking] Changed base interface name from IServiceClient to IHaveIBeenPwnedClient (#5)
       - Various performance optimizations and reliability improvements
       1.1.0
       - [Fix] Marked built-in exceptions as serializable (fixes #1)
