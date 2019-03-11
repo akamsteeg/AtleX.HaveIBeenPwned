@@ -7,7 +7,7 @@ using GenFu;
 namespace AtleX.HaveIBeenPwned.Benchmarks.Mocks
 {
   public class IServiceClientMock
-    : IServiceClient
+    : IHaveIBeenPwnedClient
   {
     private static readonly IEnumerable<Breach> breaches = A.ListOf<Breach>(30);
 

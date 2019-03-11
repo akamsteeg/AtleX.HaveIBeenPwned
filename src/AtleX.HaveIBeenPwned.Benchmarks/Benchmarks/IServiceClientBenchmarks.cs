@@ -5,7 +5,7 @@ namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks
 {
   public abstract class IServiceClientBenchmarks
   {
-    protected IServiceClient _client;
+    protected IHaveIBeenPwnedClient _client;
 
     [Benchmark]
     public async Task GetBreachesAsync()

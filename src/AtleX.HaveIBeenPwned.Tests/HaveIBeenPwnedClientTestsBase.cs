@@ -10,9 +10,9 @@ namespace AtleX.HaveIBeenPwned.Tests
 {
   public abstract class HaveIBeenPwnedClientTestsBase
   {
-    protected static IServiceClient CreateServiceClient()
+    protected static IHaveIBeenPwnedClient CreateServiceClient()
     {
-      var serviceClient = new Mock<IServiceClient>();
+      var serviceClient = new Mock<IHaveIBeenPwnedClient>();
 
       serviceClient
         .Setup(sc => sc.GetBreachesAsync(It.IsAny<string>()))

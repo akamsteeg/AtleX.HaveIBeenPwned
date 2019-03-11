@@ -9,7 +9,7 @@ namespace AtleX.HaveIBeenPwned
   /// <summary>
   /// Represents a client for the HaveIBeenPwned service
   /// </summary>
-  public interface IServiceClient
+  public interface IHaveIBeenPwnedClient
     : IDisposable
   {
     /// <summary>

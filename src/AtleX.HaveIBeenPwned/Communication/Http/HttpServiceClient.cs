@@ -13,11 +13,11 @@ using System.Threading;
 namespace AtleX.HaveIBeenPwned.Communication.Http
 {
   /// <summary>
-  /// Represents an <see cref="IServiceClient"/> that communicates via HTTPS with
+  /// Represents an <see cref="IHaveIBeenPwnedClient"/> that communicates via HTTPS with
   /// the HaveIBeenPwned.com API
   /// </summary>
   public sealed class HttpServiceClient
-    : Disposable, IServiceClient
+    : Disposable, IHaveIBeenPwnedClient
   {
     /// <summary>
     /// Gets the <see cref="ClientSettings"/> to use
