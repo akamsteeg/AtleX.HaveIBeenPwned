@@ -28,5 +28,10 @@ namespace AtleX.HaveIBeenPwned
       get;
       set;
     } = 10.Seconds();
+
+    /// <summary>
+    /// Gets the default <see cref="ClientSettings"/>
+    /// </summary>
+    public static ClientSettings Default => new ClientSettings();
   }
 }

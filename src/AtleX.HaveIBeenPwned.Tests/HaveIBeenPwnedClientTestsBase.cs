@@ -4,6 +4,7 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace AtleX.HaveIBeenPwned.Tests
 {
@@ -42,6 +43,11 @@ namespace AtleX.HaveIBeenPwned.Tests
 
       serviceClient.Setup(sc => sc.IsPwnedPasswordAsync(It.IsAny<string>()))
         .ReturnsAsync((string password) =>
+        {
+          return true;
+        });
+      serviceClient.Setup(sc => sc.IsPwnedPasswordAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+        .ReturnsAsync((string password, CancellationToken cancellationToken) =>
         {
           return true;
         });

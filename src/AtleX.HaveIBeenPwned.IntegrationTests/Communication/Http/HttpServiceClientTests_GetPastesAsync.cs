@@ -1,9 +1,6 @@
 ﻿using AtleX.HaveIBeenPwned.Communication.Http;
-using AtleX.HaveIBeenPwned.IntegrationTests.XUnit;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -11,7 +8,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
 {
   public class HttpServiceClientTests_GetPastesAsync
   {
-    [RunnableInDebugOnlyAttribute]
+    [Fact]
     public async Task GetPastesAsync_WithValidInput_ReturnsResults()
     {
       using (var httpClient = new HttpClient())
@@ -24,13 +21,41 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
       }
     }
 
-    [RunnableInDebugOnlyAttribute]
+    [Fact]
     public async Task GetPastesAsync_WithUnknownEmail_DoesNotThrow()
     {
       using (var httpClient = new HttpClient())
       using (var c = new HttpServiceClient(new ClientSettings(), httpClient))
       {
         var result = await c.GetPastesAsync("random@example.com");
+
+        Assert.NotNull(result);
+        Assert.Empty(result);
+      }
+    }
+
+    [Fact]
+    public async Task GetPastesAsync_WithValidInputAndCancellationToken_ReturnsResults()
+    {
+      using (var cancellationTokenSource = new CancellationTokenSource())
+      using (var httpClient = new HttpClient())
+      using (var c = new HttpServiceClient(new ClientSettings(), httpClient))
+      {
+        var result = await c.GetPastesAsync("test@example.com", cancellationTokenSource.Token);
+
+        Assert.NotNull(result);
+        Assert.NotEmpty(result);
+      }
+    }
+
+    [Fact]
+    public async Task GetPastesAsync_WithUnknownEmailAndCancellationToken_DoesNotThrow()
+    {
+      using (var cancellationTokenSource = new CancellationTokenSource())
+      using (var httpClient = new HttpClient())
+      using (var c = new HttpServiceClient(new ClientSettings(), httpClient))
+      {
+        var result = await c.GetPastesAsync("random@example.com", cancellationTokenSource.Token);
 
         Assert.NotNull(result);
         Assert.Empty(result);

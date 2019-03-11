@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Linq;
 using AtleX.HaveIBeenPwned.Communication.Helpers;
+using System.Threading;
 
 namespace AtleX.HaveIBeenPwned.Communication.Http
 {
@@ -76,7 +77,30 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     {
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
 
-      var result = await this.GetBreachesAsync(account, BreachMode.None)
+      var result = await this.GetBreachesAsync(account, BreachMode.None, CancellationToken.None)
+        .ConfigureAwait(false);
+
+      return result;
+    }
+
+    /// <summary>
+    /// Get the breaches for an account
+    /// </summary>
+    /// <param name="account">
+    /// The account to get the breaches for
+    /// </param>
+    /// <param name="cancellationToken">
+    /// The <see cref="CancellationToken"/> for this operation
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
+    /// <see cref="Breach"/> the account was found in
+    /// </returns>
+    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, CancellationToken cancellationToken)
+    {
+      Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
+     
+      var result = await this.GetBreachesAsync(account, BreachMode.None, cancellationToken)
         .ConfigureAwait(false);
 
       return result;
@@ -97,6 +121,30 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// </returns>
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes)
     {
+      var result = await this.GetBreachesAsync(account, modes, CancellationToken.None)
+        .ConfigureAwait(false);
+
+      return result;
+    }
+
+    /// <summary>
+    /// Get the breaches for an account
+    /// </summary>
+    /// <param name="account">
+    /// The account to get the breaches for
+    /// </param>
+    /// <param name="modes">
+    /// The <see cref="BreachMode"/> flags to specify extra breaches to get
+    /// </param>
+    /// <param name="cancellationToken">
+    /// The <see cref="CancellationToken"/> for this operation
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
+    /// <see cref="Breach"/> the account was found in
+    /// </returns>
+    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes, CancellationToken cancellationToken)
+    {
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
 
       var uriBuilder = new UriBuilder($"{ApiBaseUri}/breachedaccount/{account}");
@@ -106,7 +154,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
         uriBuilder.Query = "includeUnverified=true";
       }
 
-      var content = await this.GetAsync(uriBuilder.Uri)
+      var content = await this.GetAsync(uriBuilder.Uri, cancellationToken)
         .ConfigureAwait(false);
 
       var results = JsonConvert.DeserializeObject<IEnumerable<Breach>>(content);
@@ -128,9 +176,32 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     {
       Throw.ArgumentNull.When(emailAddress.IsNullOrWhiteSpace(), nameof(emailAddress));
 
+      var result = await this.GetPastesAsync(emailAddress, CancellationToken.None)
+        .ConfigureAwait(false);
+
+      return result;
+    }
+
+    /// <summary>
+    /// Get the pastes for an email address
+    /// </summary>
+    /// <param name="emailAddress">
+    /// The email address to get the pastes for
+    /// </param>
+    /// <param name="cancellationToken">
+    /// The <see cref="CancellationToken"/> for this operation
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
+    /// <see cref="Paste"/> the email address was found in
+    /// </returns>
+    public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress, CancellationToken cancellationToken)
+    {
+      Throw.ArgumentNull.When(emailAddress.IsNullOrWhiteSpace(), nameof(emailAddress));
+
       var requestUri = new Uri($"{ApiBaseUri}/pasteaccount/{emailAddress}");
 
-      var content = await this.GetAsync(requestUri)
+      var content = await this.GetAsync(requestUri, cancellationToken)
         .ConfigureAwait(false);
 
       var results = JsonConvert.DeserializeObject<IEnumerable<Paste>>(content);
@@ -152,6 +223,29 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     {
       Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
 
+      var result = await this.IsPwnedPasswordAsync(password, CancellationToken.None)
+        .ConfigureAwait(false);
+
+      return result;
+    }
+
+    /// <summary>
+    /// Gets whether the specified password is found in a password list
+    /// </summary>
+    /// <param name="password">
+    /// The password to check
+    /// </param>
+    /// <param name="cancellationToken">
+    /// The <see cref="CancellationToken"/> for this operation
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with a <see cref="bool"/>
+    /// indicating whether the password was found or not
+    /// </returns>
+    public async Task<bool> IsPwnedPasswordAsync(string password, CancellationToken cancellationToken)
+    {
+      Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
+
       var sha1HashOfPassword = KAnonimityHelper.GetHashForPassword(password);
 
       // We need to send the first 5 characters to the service
@@ -161,7 +255,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
 
       var requestUri = new Uri($"{PwnedPasswordsBaseUri}/{kAnonimityPart}");
 
-      var content = await this.GetAsync(requestUri)
+      var content = await this.GetAsync(requestUri, cancellationToken)
         .ConfigureAwait(false);
 
       var hashes = content.Split(NewlineChars, StringSplitOptions.RemoveEmptyEntries);
@@ -170,8 +264,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
 
       foreach (var currentKAnonimityHash in hashes)
       {
-        var currentHashSuffix = currentKAnonimityHash.Substring(0, 35);
-        if (currentHashSuffix == kAnonimitySuffix)
+        if (currentKAnonimityHash.StartsWith(kAnonimitySuffix))
         {
           result = true;
           break;
@@ -202,15 +295,18 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// <param name="url">
     /// The uri to request
     /// </param>
+    /// <param name="cancellationToken">
+    /// The <see cref="CancellationToken"/> for this operation
+    /// </param>
     /// <returns>
     /// An awaitable <see cref="Task{TResult}"/>
     /// </returns>
-    private async Task<string> GetAsync(Uri url)
+    private async Task<string> GetAsync(Uri url, CancellationToken cancellationToken)
     {
       this.ThrowIfDisposed();
 
       var response = await this._httpClient
-        .GetAsync(url)
+        .GetAsync(url, cancellationToken)
         .ConfigureAwait(false);
 
       var result = string.Empty;
