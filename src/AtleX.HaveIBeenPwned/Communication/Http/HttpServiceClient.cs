@@ -333,11 +333,11 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     {
       var result = new MemoryStream();
 
-      using (var response = await this._httpClient
+      try
+      {
+        using (var response = await this._httpClient
         .GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
         .ConfigureAwait(false))
-      {
-        try
         {
           if (response.IsSuccessStatusCode)
           {
@@ -351,10 +351,10 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
             HandleErrorResponse(response);
           }
         }
-        catch (Exception e)
-        {
-          throw new HaveIBeenPwnedClientException("An error occured", e);
-        }
+      }
+      catch (Exception e) when (!(e is HaveIBeenPwnedClientException))
+      {
+        throw new HaveIBeenPwnedClientException("An error occured", e);
       }
 
       result.Reset();
