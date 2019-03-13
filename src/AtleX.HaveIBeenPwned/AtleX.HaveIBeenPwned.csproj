@@ -14,9 +14,9 @@
     <Copyright>© Alex Kamsteeg</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     
-    <Version>2.0.0</Version>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
+    <Version>2.1.0</Version>
+    <AssemblyVersion>2.1.0.0</AssemblyVersion>
+    <FileVersion>2.1.0.0</FileVersion>
 
     <RepositoryUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -25,6 +25,11 @@
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     <PackageTags>haveibeenpwned breach password</PackageTags>
     <PackageReleaseNotes>
+      2.1.0
+      - [Fix] An injected HttpClient is no longer disposed by the HttpServiceClient (#6)
+      - [Fix] The initial HTTP requests is no longer performed outside of error-handling code in HttpServiceClient (#7)
+      - [Feature] When using the HttpServiceClient directly, it's no longer necessary to inject a HttpClient
+      - [Feature] General code cleanup
       2.0.0
       - [Feature] Added support for cancellation tokens (#4)
       - [Feature] Add injecting a HttpClient in the HttpServiceClient (#2)
