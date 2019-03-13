@@ -17,11 +17,6 @@ namespace AtleX.HaveIBeenPwned
     : Disposable, IHaveIBeenPwnedClient
   {
     /// <summary>
-    /// Gets the <see cref="ClientSettings"/> to use
-    /// </summary>
-    private readonly ClientSettings _clientSettings;
-
-    /// <summary>
     /// Gets the <see cref="IHaveIBeenPwnedClient"/> to use
     /// </summary>
     private readonly IHaveIBeenPwnedClient _serviceClient;
@@ -59,7 +54,7 @@ namespace AtleX.HaveIBeenPwned
     /// </param>
     public HaveIBeenPwnedClient(ClientSettings clientSettings, IHaveIBeenPwnedClient serviceClient)
     {
-      this._clientSettings = clientSettings ?? throw new ArgumentNullException(nameof(clientSettings));
+      Throw.ArgumentNull.WhenNull(clientSettings, nameof(clientSettings));
       this._serviceClient = serviceClient ?? throw new ArgumentNullException(nameof(serviceClient));
     }
 
