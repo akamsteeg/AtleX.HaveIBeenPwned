@@ -4,7 +4,6 @@ using Pitcher;
 using SwissArmyKnife;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -279,8 +278,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private static IHaveIBeenPwnedClient CreateDefaultServiceClient(ClientSettings clientSettings)
     {
-      var httpClient = new HttpClient();
-      var result = new HttpServiceClient(clientSettings, httpClient);
+      var result = new HttpServiceClient(clientSettings);
 
       return result;
     }

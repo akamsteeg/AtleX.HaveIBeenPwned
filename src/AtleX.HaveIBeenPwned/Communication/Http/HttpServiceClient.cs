@@ -26,6 +26,18 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     private readonly HttpClient _httpClient;
 
     /// <summary>
+    /// Gets whether the <see cref="HttpClient"/> must be disposed or not
+    /// </summary>
+    /// <remarks>
+    /// When we create the <see cref="HttpClient"/> ourselves, it must be
+    /// disposed. When it was injected via the constructor, we must not
+    /// dispose it. After all, the <see cref="HttpClient"/> can be used
+    /// by the callee too and it would be rude and error-prone to dispose
+    /// it in that case.
+    /// </remarks>
+    private readonly bool _enableClientDisposing;
+
+    /// <summary>
     /// Gets the base uri of the HaveIBeenPwned.com API
     /// </summary>
     private const string ApiBaseUri = "https://haveibeenpwned.com/api/v2";
@@ -34,6 +46,19 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// Gets the base uri of the HaveIBeenPwned.com Pwned PAsswords API
     /// </summary>
     private const string PwnedPasswordsBaseUri = "https://api.pwnedpasswords.com/range";
+
+    /// <summary>
+    /// Initializes a new instance of <see cref="HttpServiceClient"/> with the
+    /// specified <see cref="ClientSettings"/> and <see cref="HttpClient"/>
+    /// </summary>
+    /// <param name="settings">
+    /// The <see cref="ClientSettings"/> to use
+    /// </param>
+    public HttpServiceClient(ClientSettings settings)
+      : this(settings, new HttpClient())
+    {
+      this._enableClientDisposing = true;
+    }
 
     /// <summary>
     /// Initializes a new instance of <see cref="HttpServiceClient"/> with the
@@ -52,6 +77,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
       Throw.ArgumentNull.WhenNull(client, nameof(client));
 
       this._httpClient = ConfigureHttpClient(client, settings);
+      this._enableClientDisposing = false;
     }
 
     /// <summary>
@@ -283,7 +309,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// </param>
     protected override void Dispose(bool disposing)
     {
-      if (disposing)
+      if (disposing && this._enableClientDisposing)
       {
         this._httpClient.Dispose();
       }
