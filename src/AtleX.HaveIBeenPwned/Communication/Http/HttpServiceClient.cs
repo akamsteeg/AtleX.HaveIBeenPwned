@@ -21,19 +21,9 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     : Disposable, IHaveIBeenPwnedClient
   {
     /// <summary>
-    /// Gets the <see cref="ClientSettings"/> to use
-    /// </summary>
-    private readonly ClientSettings _clientSettings;
-
-    /// <summary>
     /// Gets the <see cref="HttpClient"/> to use
     /// </summary>
     private readonly HttpClient _httpClient;
-
-    /// <summary>
-    /// Gets the collection of characters that indicate a newline
-    /// </summary>
-    private static readonly char[] NewlineChars = new[] { '\r', '\n' };
 
     /// <summary>
     /// Gets the base uri of the HaveIBeenPwned.com API
@@ -58,8 +48,8 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// </param>
     public HttpServiceClient(ClientSettings settings, HttpClient client)
     {
-      this._clientSettings = settings ?? throw new ArgumentNullException(nameof(settings));
-      _ = client ?? throw new ArgumentNullException(nameof(client));
+      Throw.ArgumentNull.WhenNull(settings, nameof(settings));
+      Throw.ArgumentNull.WhenNull(client, nameof(client));
 
       this._httpClient = ConfigureHttpClient(client, settings);
     }
