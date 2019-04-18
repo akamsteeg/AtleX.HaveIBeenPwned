@@ -6,13 +6,13 @@ using Xunit;
 
 namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
 {
-  public class HttpServiceClientTests_GetBreachesAsync
+  public class HttpHaveIBeenPwnedClientTests_GetBreachesAsync
   {
     [Fact]
     public async Task GetBreachesAsync_WithValidInput_DoesNotThrow()
     {
       using (var httpClient = new HttpClient())
-      using (var c = new HttpServiceClient(HttpClientSettings.Default, httpClient))
+      using (var c = new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, httpClient))
       {
         var result = await c.GetBreachesAsync("test@example.com");
 
@@ -24,7 +24,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
     public async Task GetBreachesAsync_WithValidInputAndVerifiedBreaches_DoesNotThrow()
     {
       using (var httpClient = new HttpClient())
-      using (var c = new HttpServiceClient(HttpClientSettings.Default, httpClient))
+      using (var c = new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, httpClient))
       {
         var result = await c.GetBreachesAsync("test@example.com", BreachMode.IncludeUnverified);
 
@@ -37,7 +37,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
       using (var httpClient = new HttpClient())
-      using (var c = new HttpServiceClient(HttpClientSettings.Default, httpClient))
+      using (var c = new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, httpClient))
       {
         var result = await c.GetBreachesAsync("test@example.com", cancellationTokenSource.Token);
 
@@ -50,7 +50,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
       using (var httpClient = new HttpClient())
-      using (var c = new HttpServiceClient(HttpClientSettings.Default, httpClient))
+      using (var c = new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, httpClient))
       {
         var result = await c.GetBreachesAsync("test@example.com", BreachMode.IncludeUnverified, cancellationTokenSource.Token);
 

@@ -17,7 +17,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
   /// Represents an <see cref="IHaveIBeenPwnedClient"/> that communicates via HTTPS with
   /// the HaveIBeenPwned.com API
   /// </summary>
-  public sealed class HttpServiceClient
+  public sealed class HttpHaveIBeenPwnedClient
     : Disposable, IHaveIBeenPwnedClient
   {
     /// <summary>
@@ -48,30 +48,30 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     private const string PwnedPasswordsBaseUri = "https://api.pwnedpasswords.com/range";
 
     /// <summary>
-    /// Initializes a new instance of <see cref="HttpServiceClient"/> with the
-    /// specified <see cref="HttpClientSettings"/> and <see cref="HttpClient"/>
+    /// Initializes a new instance of <see cref="HttpHaveIBeenPwnedClient"/> with the
+    /// specified <see cref="HttpHaveIBeenPwnedClientSettings"/> and <see cref="HttpClient"/>
     /// </summary>
     /// <param name="settings">
-    /// The <see cref="HttpClientSettings"/> to use
+    /// The <see cref="HttpHaveIBeenPwnedClientSettings"/> to use
     /// </param>
-    public HttpServiceClient(HttpClientSettings settings)
+    public HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings settings)
       : this(settings, new HttpClient())
     {
       this._enableClientDisposing = true;
     }
 
     /// <summary>
-    /// Initializes a new instance of <see cref="HttpServiceClient"/> with the
-    /// specified <see cref="HttpClientSettings"/> and <see cref="HttpClient"/>
+    /// Initializes a new instance of <see cref="HttpHaveIBeenPwnedClient"/> with the
+    /// specified <see cref="HttpHaveIBeenPwnedClientSettings"/> and <see cref="HttpClient"/>
     /// </summary>
     /// <param name="settings">
-    /// The <see cref="HttpClientSettings"/> to use
+    /// The <see cref="HttpHaveIBeenPwnedClientSettings"/> to use
     /// </param>
     /// <param name="client">
     /// The <see cref="HttpClient"/> to use when communicating with the
     /// HaveIBeenPwned API
     /// </param>
-    public HttpServiceClient(HttpClientSettings settings, HttpClient client)
+    public HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings settings, HttpClient client)
     {
       Throw.ArgumentNull.WhenNull(settings, nameof(settings));
       Throw.ArgumentNull.WhenNull(client, nameof(client));
@@ -414,18 +414,18 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     }
 
     /// <summary>
-    /// Configure the <see cref="HttpClient"/> with the specified <see cref="HttpClientSettings"/>
+    /// Configure the <see cref="HttpClient"/> with the specified <see cref="HttpHaveIBeenPwnedClientSettings"/>
     /// </summary>
     /// <param name="client">
     /// The <see cref="HttpClient"/> to setup
     /// </param>
     /// <param name="settings">
-    /// The <see cref="HttpClientSettings"/>
+    /// The <see cref="HttpHaveIBeenPwnedClientSettings"/>
     /// </param>
     /// <returns>
     /// The configured <see cref="HttpClient"/>
     /// </returns>
-    private static HttpClient ConfigureHttpClient(HttpClient client, HttpClientSettings settings)
+    private static HttpClient ConfigureHttpClient(HttpClient client, HttpHaveIBeenPwnedClientSettings settings)
     {
       client.DefaultRequestHeaders.Clear();
       client.DefaultRequestHeaders.Add("Accept", "application/json");

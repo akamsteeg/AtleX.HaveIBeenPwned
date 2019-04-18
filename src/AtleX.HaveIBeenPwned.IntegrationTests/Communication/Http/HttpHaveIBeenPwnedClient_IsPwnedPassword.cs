@@ -7,13 +7,13 @@ using Xunit;
 
 namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
 {
-  public class HttpServiceClientTests_IsPwnedPassword
+  public class HttpHaveIBeenPwnedClientTests_IsPwnedPassword
   {
     [Fact]
     public async Task IsPwnedPassword_WithValidKnownInput_ReturnsTrue()
     {
       using (var httpClient = new HttpClient())
-      using (var c = new HttpServiceClient(HttpClientSettings.Default, httpClient))
+      using (var c = new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, httpClient))
       {
         var result = await c.IsPwnedPasswordAsync("1234");
 
@@ -25,7 +25,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
     public async Task IsPwnedPassword_WithValidUnknownInput_ReturnsFalse()
     {
       using (var httpClient = new HttpClient())
-      using (var c = new HttpServiceClient(HttpClientSettings.Default, httpClient))
+      using (var c = new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, httpClient))
       {
         var result = await c.IsPwnedPasswordAsync(Guid.NewGuid().ToString());
 
@@ -38,7 +38,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
       using (var httpClient = new HttpClient())
-      using (var c = new HttpServiceClient(HttpClientSettings.Default, httpClient))
+      using (var c = new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, httpClient))
       {
         var result = await c.IsPwnedPasswordAsync("1234", cancellationTokenSource.Token);
 
@@ -51,7 +51,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
       using (var httpClient = new HttpClient())
-      using (var c = new HttpServiceClient(HttpClientSettings.Default, httpClient))
+      using (var c = new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, httpClient))
       {
         var result = await c.IsPwnedPasswordAsync(Guid.NewGuid().ToString(), cancellationTokenSource.Token);
 

@@ -5,10 +5,10 @@ using System.Diagnostics.CodeAnalysis;
 namespace AtleX.HaveIBeenPwned.Communication.Http
 {
   /// <summary>
-  /// Represents the settings for an <see cref="HttpServiceClient"/>
+  /// Represents the settings for an <see cref="HttpHaveIBeenPwnedClient"/>
   /// </summary>
   [ExcludeFromCodeCoverage]
-  public class HttpClientSettings
+  public class HttpHaveIBeenPwnedClientSettings
   {
     /// <summary>
     /// Gets or sets the application name (defaults to "AtleX.HaveIBeenPwned")
@@ -30,8 +30,8 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     } = 10.Seconds();
 
     /// <summary>
-    /// Gets the default <see cref="HttpClientSettings"/>
+    /// Gets the default <see cref="HttpHaveIBeenPwnedClientSettings"/>
     /// </summary>
-    public static HttpClientSettings Default => new HttpClientSettings();
+    public static HttpHaveIBeenPwnedClientSettings Default => new HttpHaveIBeenPwnedClientSettings();
   }
 }

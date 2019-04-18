@@ -5,7 +5,7 @@ using System.Net.Http;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks.Communication
 {
-  public class HttpServiceClientBenchmarks
+  public class HttpHaveIBeenPwnedClientBenchmarks
     : IServiceClientBenchmarks
   {
     [GlobalSetup]
@@ -15,9 +15,9 @@ namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks.Communication
 
       var testHttpClient = new HttpClient(mockMessageHandler);
 
-      var httpServiceClient = new HttpServiceClient(HttpClientSettings.Default, testHttpClient);
+      var HttpHaveIBeenPwnedClient = new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, testHttpClient);
 
-      this._client = new HaveIBeenPwnedClient(httpServiceClient);
+      this._client = new HaveIBeenPwnedClient(HttpHaveIBeenPwnedClient);
     }
   }
 }

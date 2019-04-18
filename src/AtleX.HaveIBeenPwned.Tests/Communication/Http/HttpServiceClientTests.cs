@@ -1,21 +1,18 @@
 ﻿using AtleX.HaveIBeenPwned.Communication.Http;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests.Communication.Http
 {
-  public class HttpServiceClientTests
+  public class HttpHaveIBeenPwnedClientTests
   {
     [Fact]
     public void Ctor_WithNullValueForSettingsParam_Throws()
     {
       using (var httpClient = new HttpClient())
       {
-        Assert.Throws<ArgumentNullException>(() => new HttpServiceClient(null, httpClient));
+        Assert.Throws<ArgumentNullException>(() => new HttpHaveIBeenPwnedClient(null, httpClient));
       }
     }
 
@@ -24,7 +21,7 @@ namespace AtleX.HaveIBeenPwned.Tests.Communication.Http
     {
       using (var httpClient = new HttpClient())
       {
-        Assert.Throws<ArgumentNullException>(() => new HttpServiceClient(HttpClientSettings.Default, null));
+        Assert.Throws<ArgumentNullException>(() => new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, null));
       }
     }
 
@@ -33,7 +30,7 @@ namespace AtleX.HaveIBeenPwned.Tests.Communication.Http
     {
       using (var httpClient = new HttpClient())
       {
-        new HttpServiceClient(HttpClientSettings.Default, httpClient);
+        new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, httpClient);
       }
     }
   }

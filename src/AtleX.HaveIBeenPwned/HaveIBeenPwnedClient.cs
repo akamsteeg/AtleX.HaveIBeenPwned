@@ -276,8 +276,8 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private static IHaveIBeenPwnedClient CreateDefaultServiceClient()
     {
-      var clientSettings = HttpClientSettings.Default;
-      var result = new HttpServiceClient(clientSettings);
+      var clientSettings = HttpHaveIBeenPwnedClientSettings.Default;
+      var result = new HttpHaveIBeenPwnedClient(clientSettings);
 
       return result;
     }
