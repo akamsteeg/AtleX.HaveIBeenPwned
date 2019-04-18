@@ -24,7 +24,7 @@ namespace AtleX.HaveIBeenPwned.Tests.Communication.Http
     {
       using (var httpClient = new HttpClient())
       {
-        Assert.Throws<ArgumentNullException>(() => new HttpServiceClient(new ClientSettings(), null));
+        Assert.Throws<ArgumentNullException>(() => new HttpServiceClient(HttpClientSettings.Default, null));
       }
     }
 
@@ -33,7 +33,7 @@ namespace AtleX.HaveIBeenPwned.Tests.Communication.Http
     {
       using (var httpClient = new HttpClient())
       {
-        new HttpServiceClient(new ClientSettings(), httpClient);
+        new HttpServiceClient(HttpClientSettings.Default, httpClient);
       }
     }
   }

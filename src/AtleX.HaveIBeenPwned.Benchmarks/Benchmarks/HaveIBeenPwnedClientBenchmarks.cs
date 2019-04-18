@@ -11,7 +11,7 @@ namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks
     {
       var mockServiceClient = new IServiceClientMock();
 
-      this._client = new HaveIBeenPwnedClient(ClientSettings.Default, mockServiceClient);
+      this._client = new HaveIBeenPwnedClient(mockServiceClient);
     }
   }
 }

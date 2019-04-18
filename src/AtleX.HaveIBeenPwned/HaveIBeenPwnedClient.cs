@@ -33,41 +33,23 @@ namespace AtleX.HaveIBeenPwned
     private readonly bool _enableClientDisposing;
 
     /// <summary>
-    /// Initializes a new instance of <see cref="HaveIBeenPwnedClient"/> with the
-    /// default <see cref="ClientSettings"/>
+    /// Initializes a new instance of <see cref="HaveIBeenPwnedClient"/>
     /// </summary>
     public HaveIBeenPwnedClient()
-      : this(new ClientSettings())
+      : this(CreateDefaultServiceClient())
     {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of <see cref="HaveIBeenPwnedClient"/> with the
-    /// specified <see cref="ClientSettings"/>
-    /// </summary>
-    /// <param name="clientSettings">
-    /// The <see cref="ClientSettings"/> to use
-    /// </param>
-    public HaveIBeenPwnedClient(ClientSettings clientSettings)
-      : this(clientSettings, CreateDefaultServiceClient(clientSettings))
-    {
-
       this._enableClientDisposing = true;
     }
 
     /// <summary>
     /// Initializes a new instance of <see cref="HaveIBeenPwnedClient"/> with the
-    /// specified <see cref="ClientSettings"/> and <see cref="IHaveIBeenPwnedClient"/>
+    /// specified <see cref="IHaveIBeenPwnedClient"/>
     /// </summary>
-    /// <param name="clientSettings">
-    /// The <see cref="ClientSettings"/> to use
-    /// </param>
     /// <param name="serviceClient">
     /// The <see cref="IHaveIBeenPwnedClient"/> to use
     /// </param>
-    public HaveIBeenPwnedClient(ClientSettings clientSettings, IHaveIBeenPwnedClient serviceClient)
+    public HaveIBeenPwnedClient(IHaveIBeenPwnedClient serviceClient)
     {
-      Throw.ArgumentNull.WhenNull(clientSettings, nameof(clientSettings));
       this._serviceClient = serviceClient ?? throw new ArgumentNullException(nameof(serviceClient));
 
       this._enableClientDisposing = false;
@@ -289,14 +271,12 @@ namespace AtleX.HaveIBeenPwned
     /// <summary>
     /// Create the default <see cref="IHaveIBeenPwnedClient"/> to use
     /// </summary>
-    /// <param name="clientSettings">
-    /// The <see cref="ClientSettings"/> to use
-    /// </param>
     /// <returns>
     /// A new <see cref="IHaveIBeenPwnedClient"/>
     /// </returns>
-    private static IHaveIBeenPwnedClient CreateDefaultServiceClient(ClientSettings clientSettings)
+    private static IHaveIBeenPwnedClient CreateDefaultServiceClient()
     {
+      var clientSettings = HttpClientSettings.Default;
       var result = new HttpServiceClient(clientSettings);
 
       return result;

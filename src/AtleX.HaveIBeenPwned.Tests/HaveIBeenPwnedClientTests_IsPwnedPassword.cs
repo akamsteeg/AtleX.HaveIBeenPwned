@@ -46,7 +46,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task IsPwnedPasswordAsync_WithValidValue_DoesNotThrow()
     {
       var ic = CreateServiceClient();
-      var c = new HaveIBeenPwnedClient(new ClientSettings(), ic);
+      var c = new HaveIBeenPwnedClient(ic);
 
       var result = await c.IsPwnedPasswordAsync("DUMMY");
 
@@ -57,7 +57,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task IsPwnedPasswordAsync_CancellationToken_WithValidValue_DoesNotThrow()
     {
       var ic = CreateServiceClient();
-      var c = new HaveIBeenPwnedClient(new ClientSettings(), ic);
+      var c = new HaveIBeenPwnedClient(ic);
 
       var result = await c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None);
 

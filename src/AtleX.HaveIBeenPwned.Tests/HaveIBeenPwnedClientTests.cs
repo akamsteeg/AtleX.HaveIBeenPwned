@@ -19,7 +19,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public void Ctor_WithNullValueForServiceClientParam_Throws()
     {
-      Assert.Throws<ArgumentNullException>(() => new HaveIBeenPwnedClient(new ClientSettings(), null));
+      Assert.Throws<ArgumentNullException>(() => new HaveIBeenPwnedClient(null));
     }
 
     [Fact]
@@ -27,7 +27,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     {
       var disposableFakeClient = new DisposableFakeClient();
 
-      using (var hibpClient = new HaveIBeenPwnedClient(ClientSettings.Default, disposableFakeClient))
+      using (var hibpClient = new HaveIBeenPwnedClient(disposableFakeClient))
       {
         // nop
       }
@@ -42,7 +42,7 @@ namespace AtleX.HaveIBeenPwned.Tests
 
       Assert.False(fakeClient is IDisposable);
 
-      using (var hibpClient = new HaveIBeenPwnedClient(ClientSettings.Default, fakeClient))
+      using (var hibpClient = new HaveIBeenPwnedClient(fakeClient))
       {
         // nop
       }

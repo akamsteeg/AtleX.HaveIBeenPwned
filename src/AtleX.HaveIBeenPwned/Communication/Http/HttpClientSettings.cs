@@ -2,13 +2,13 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace AtleX.HaveIBeenPwned
+namespace AtleX.HaveIBeenPwned.Communication.Http
 {
   /// <summary>
-  /// Represents the settings for an <see cref="IHaveIBeenPwnedClient"/>
+  /// Represents the settings for an <see cref="HttpServiceClient"/>
   /// </summary>
   [ExcludeFromCodeCoverage]
-  public class ClientSettings
+  public class HttpClientSettings
   {
     /// <summary>
     /// Gets or sets the application name (defaults to "AtleX.HaveIBeenPwned")
@@ -30,8 +30,8 @@ namespace AtleX.HaveIBeenPwned
     } = 10.Seconds();
 
     /// <summary>
-    /// Gets the default <see cref="ClientSettings"/>
+    /// Gets the default <see cref="HttpClientSettings"/>
     /// </summary>
-    public static ClientSettings Default => new ClientSettings();
+    public static HttpClientSettings Default => new HttpClientSettings();
   }
 }

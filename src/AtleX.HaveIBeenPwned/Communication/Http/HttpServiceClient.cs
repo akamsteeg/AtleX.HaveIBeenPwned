@@ -49,12 +49,12 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
 
     /// <summary>
     /// Initializes a new instance of <see cref="HttpServiceClient"/> with the
-    /// specified <see cref="ClientSettings"/> and <see cref="HttpClient"/>
+    /// specified <see cref="HttpClientSettings"/> and <see cref="HttpClient"/>
     /// </summary>
     /// <param name="settings">
-    /// The <see cref="ClientSettings"/> to use
+    /// The <see cref="HttpClientSettings"/> to use
     /// </param>
-    public HttpServiceClient(ClientSettings settings)
+    public HttpServiceClient(HttpClientSettings settings)
       : this(settings, new HttpClient())
     {
       this._enableClientDisposing = true;
@@ -62,16 +62,16 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
 
     /// <summary>
     /// Initializes a new instance of <see cref="HttpServiceClient"/> with the
-    /// specified <see cref="ClientSettings"/> and <see cref="HttpClient"/>
+    /// specified <see cref="HttpClientSettings"/> and <see cref="HttpClient"/>
     /// </summary>
     /// <param name="settings">
-    /// The <see cref="ClientSettings"/> to use
+    /// The <see cref="HttpClientSettings"/> to use
     /// </param>
     /// <param name="client">
     /// The <see cref="HttpClient"/> to use when communicating with the
     /// HaveIBeenPwned API
     /// </param>
-    public HttpServiceClient(ClientSettings settings, HttpClient client)
+    public HttpServiceClient(HttpClientSettings settings, HttpClient client)
     {
       Throw.ArgumentNull.WhenNull(settings, nameof(settings));
       Throw.ArgumentNull.WhenNull(client, nameof(client));
@@ -414,18 +414,18 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     }
 
     /// <summary>
-    /// Configure the <see cref="HttpClient"/> with the specified <see cref="ClientSettings"/>
+    /// Configure the <see cref="HttpClient"/> with the specified <see cref="HttpClientSettings"/>
     /// </summary>
     /// <param name="client">
     /// The <see cref="HttpClient"/> to setup
     /// </param>
     /// <param name="settings">
-    /// The <see cref="ClientSettings"/>
+    /// The <see cref="HttpClientSettings"/>
     /// </param>
     /// <returns>
     /// The configured <see cref="HttpClient"/>
     /// </returns>
-    private static HttpClient ConfigureHttpClient(HttpClient client, ClientSettings settings)
+    private static HttpClient ConfigureHttpClient(HttpClient client, HttpClientSettings settings)
     {
       client.DefaultRequestHeaders.Clear();
       client.DefaultRequestHeaders.Add("Accept", "application/json");

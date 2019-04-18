@@ -48,7 +48,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetPastesAsync_WithValidValue_DoesNotThrow()
     {
       var ic = CreateServiceClient();
-      var c = new HaveIBeenPwnedClient(new ClientSettings(), ic);
+      var c = new HaveIBeenPwnedClient(ic);
 
       var result = await c.GetPastesAsync("DUMMY");
 
@@ -59,7 +59,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetPastesAsync_CancellationToken_WithValidValue_DoesNotThrow()
     {
       var ic = CreateServiceClient();
-      var c = new HaveIBeenPwnedClient(new ClientSettings(), ic);
+      var c = new HaveIBeenPwnedClient(ic);
 
       var result = await c.GetPastesAsync("DUMMY", CancellationToken.None);
 

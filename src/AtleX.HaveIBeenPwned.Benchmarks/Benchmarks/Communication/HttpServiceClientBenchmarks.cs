@@ -15,9 +15,9 @@ namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks.Communication
 
       var testHttpClient = new HttpClient(mockMessageHandler);
 
-      var httpServiceClient = new HttpServiceClient(ClientSettings.Default, testHttpClient);
+      var httpServiceClient = new HttpServiceClient(HttpClientSettings.Default, testHttpClient);
 
-      this._client = new HaveIBeenPwnedClient(ClientSettings.Default, httpServiceClient);
+      this._client = new HaveIBeenPwnedClient(httpServiceClient);
     }
   }
 }
