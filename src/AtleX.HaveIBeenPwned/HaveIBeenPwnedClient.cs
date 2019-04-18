@@ -21,6 +21,18 @@ namespace AtleX.HaveIBeenPwned
     private readonly IHaveIBeenPwnedClient _serviceClient;
 
     /// <summary>
+    /// Gets whether the <see cref="IHaveIBeenPwnedClient"/> must be disposed or not
+    /// </summary>
+    /// <remarks>
+    /// When we create the <see cref="IHaveIBeenPwnedClient"/> ourselves, it must
+    /// be disposed. When it was injected via the constructor, we must not
+    /// dispose it. After all, the <see cref="IHaveIBeenPwnedClient"/> can be
+    /// used by the callee too and it would be rude and error-prone to dispose it
+    /// in that case.
+    /// </remarks>
+    private readonly bool _enableClientDisposing;
+
+    /// <summary>
     /// Initializes a new instance of <see cref="HaveIBeenPwnedClient"/> with the
     /// default <see cref="ClientSettings"/>
     /// </summary>
@@ -39,6 +51,8 @@ namespace AtleX.HaveIBeenPwned
     public HaveIBeenPwnedClient(ClientSettings clientSettings)
       : this(clientSettings, CreateDefaultServiceClient(clientSettings))
     {
+
+      this._enableClientDisposing = true;
     }
 
     /// <summary>
@@ -55,6 +69,8 @@ namespace AtleX.HaveIBeenPwned
     {
       Throw.ArgumentNull.WhenNull(clientSettings, nameof(clientSettings));
       this._serviceClient = serviceClient ?? throw new ArgumentNullException(nameof(serviceClient));
+
+      this._enableClientDisposing = false;
     }
 
     /// <summary>
@@ -263,7 +279,7 @@ namespace AtleX.HaveIBeenPwned
     {
       if (disposing)
       {
-        if (this._serviceClient is IDisposable disposableServiceClient)
+        if (this._enableClientDisposing && this._serviceClient is IDisposable disposableServiceClient)
         {
           disposableServiceClient.Dispose();
         }

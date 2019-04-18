@@ -1,5 +1,6 @@
 using AtleX.HaveIBeenPwned.Communication;
 using AtleX.HaveIBeenPwned.Data;
+using AtleX.HaveIBeenPwned.Tests.Mocks;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,32 @@ namespace AtleX.HaveIBeenPwned.Tests
     public void Ctor_WithNullValueForServiceClientParam_Throws()
     {
       Assert.Throws<ArgumentNullException>(() => new HaveIBeenPwnedClient(new ClientSettings(), null));
+    }
+
+    [Fact]
+    public void Dispose_DoesNotDisposeInjectedDisposableClient()
+    {
+      var disposableFakeClient = new DisposableFakeClient();
+
+      using (var hibpClient = new HaveIBeenPwnedClient(ClientSettings.Default, disposableFakeClient))
+      {
+        // nop
+      }
+
+      Assert.False(disposableFakeClient.IsDisposed);
+    }
+
+    [Fact]
+    public void Dispose_WithNonDisposableInjectedClient_DoesNotThrow()
+    {
+      var fakeClient = new Mock<IHaveIBeenPwnedClient>().Object;
+
+      Assert.False(fakeClient is IDisposable);
+
+      using (var hibpClient = new HaveIBeenPwnedClient(ClientSettings.Default, fakeClient))
+      {
+        // nop
+      }
     }
   }
 }
