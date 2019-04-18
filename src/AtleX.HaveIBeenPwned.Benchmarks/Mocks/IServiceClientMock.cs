@@ -13,11 +13,6 @@ namespace AtleX.HaveIBeenPwned.Benchmarks.Mocks
 
     private static readonly IEnumerable<Paste> pastes = A.ListOf<Paste>(30);
 
-    public void Dispose()
-    {
-      // NOP
-    }
-
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account)
     {
       return breaches;

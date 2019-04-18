@@ -263,7 +263,10 @@ namespace AtleX.HaveIBeenPwned
     {
       if (disposing)
       {
-        this._serviceClient.Dispose();
+        if (this._serviceClient is IDisposable disposableServiceClient)
+        {
+          disposableServiceClient.Dispose();
+        }
       }
     }
 
