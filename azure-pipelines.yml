@@ -24,7 +24,7 @@ steps:
   displayName: 'Run tests'
   inputs:
     command: test
-    projects: '$(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\AtleX.HaveIBeenPwned.Tests.csproj'
+    projects: '$(Build.SourcesDirectory)\src\**\*.Tests.csproj'
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="[xunit*]*%2c[AtleX*.Tests]*"'
 
 
