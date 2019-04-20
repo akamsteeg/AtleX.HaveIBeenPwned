@@ -25,7 +25,7 @@ steps:
   inputs:
     command: test
     projects: '$(Build.SourcesDirectory)\src\AtleX.HaveIBeenPwned.Tests\AtleX.HaveIBeenPwned.Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="[xunit*]*" /p:Exclude="[AtleX.*.Tests]"'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="[xunit*]*%2c[AtleX*.Tests]*"'
 
 
 - task: PublishCodeCoverageResults@1
