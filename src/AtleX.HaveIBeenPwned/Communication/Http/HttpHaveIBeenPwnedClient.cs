@@ -95,7 +95,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
       this.ThrowIfDisposed();
 
-      var result = await this.GetBreachesAsync(account, BreachMode.None, CancellationToken.None)
+      var result = await this.GetBreachesInternalAsync(account, BreachMode.None, CancellationToken.None)
         .ConfigureAwait(false);
 
       return result;
@@ -119,7 +119,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
       this.ThrowIfDisposed();
 
-      var result = await this.GetBreachesAsync(account, BreachMode.None, cancellationToken)
+      var result = await this.GetBreachesInternalAsync(account, BreachMode.None, cancellationToken)
         .ConfigureAwait(false);
 
       return result;
@@ -143,7 +143,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
       this.ThrowIfDisposed();
 
-      var result = await this.GetBreachesAsync(account, modes, CancellationToken.None)
+      var result = await this.GetBreachesInternalAsync(account, modes, CancellationToken.None)
         .ConfigureAwait(false);
 
       return result;
@@ -170,17 +170,10 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
       this.ThrowIfDisposed();
 
-      var uriBuilder = new UriBuilder($"{ApiBaseUri}/breachedaccount/{account}");
-
-      if (modes == BreachMode.All || (modes & BreachMode.IncludeUnverified) == BreachMode.IncludeUnverified)
-      {
-        uriBuilder.Query = "includeUnverified=true";
-      }
-
-      var results = await this.GetAsync<IEnumerable<Breach>>(uriBuilder.Uri, cancellationToken)
+      var result = await this.GetBreachesInternalAsync(account, modes, cancellationToken)
         .ConfigureAwait(false);
 
-      return results;
+      return result;
     }
 
     /// <summary>
@@ -198,7 +191,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
       Throw.ArgumentNull.When(emailAddress.IsNullOrWhiteSpace(), nameof(emailAddress));
       this.ThrowIfDisposed();
 
-      var result = await this.GetPastesAsync(emailAddress, CancellationToken.None)
+      var result = await this.GetPastesInternalAsync(emailAddress, CancellationToken.None)
         .ConfigureAwait(false);
 
       return result;
@@ -222,12 +215,10 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
       Throw.ArgumentNull.When(emailAddress.IsNullOrWhiteSpace(), nameof(emailAddress));
       this.ThrowIfDisposed();
 
-      var requestUri = new Uri($"{ApiBaseUri}/pasteaccount/{emailAddress}");
-
-      var results = await this.GetAsync<IEnumerable<Paste>>(requestUri, cancellationToken)
+      var result = await this.GetPastesInternalAsync(emailAddress, cancellationToken)
         .ConfigureAwait(false);
 
-      return results ?? Enumerable.Empty<Paste>();
+      return result;
     }
 
     /// <summary>
@@ -245,7 +236,7 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
       Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
       this.ThrowIfDisposed();
 
-      var result = await this.IsPwnedPasswordAsync(password, CancellationToken.None)
+      var result = await this.IsPwnedPasswordInternalAsync(password, CancellationToken.None)
         .ConfigureAwait(false);
 
       return result;
@@ -265,6 +256,102 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
     /// indicating whether the password was found or not
     /// </returns>
     public async Task<bool> IsPwnedPasswordAsync(string password, CancellationToken cancellationToken)
+    {
+      Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
+      this.ThrowIfDisposed();
+
+      var result = await this.IsPwnedPasswordInternalAsync(password, cancellationToken)
+        .ConfigureAwait(false);
+
+      return result;
+    }
+
+    /// <summary>
+    /// Performs application-defined tasks associated with freeing, releasing, or
+    /// resetting unmanaged resources
+    /// </summary>
+    /// <param name="disposing">
+    /// True when disposing, false when finalizing
+    /// </param>
+    protected override void Dispose(bool disposing)
+    {
+      if (disposing && this._enableClientDisposing)
+      {
+        this._httpClient.Dispose();
+      }
+    }
+
+    /// <summary>
+    /// Get the breaches for an account
+    /// </summary>
+    /// <param name="account">
+    /// The account to get the breaches for
+    /// </param>
+    /// <param name="modes">
+    /// The <see cref="BreachMode"/> flags to specify extra breaches to get
+    /// </param>
+    /// <param name="cancellationToken">
+    /// The <see cref="CancellationToken"/> for this operation
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
+    /// <see cref="Breach"/> the account was found in
+    /// </returns>
+    private async Task<IEnumerable<Breach>> GetBreachesInternalAsync(string account, BreachMode modes, CancellationToken cancellationToken)
+    {
+      var uriBuilder = new UriBuilder($"{ApiBaseUri}/breachedaccount/{account}");
+
+      if (modes == BreachMode.All || (modes & BreachMode.IncludeUnverified) == BreachMode.IncludeUnverified)
+      {
+        uriBuilder.Query = "includeUnverified=true";
+      }
+
+      var results = await this.GetAsync<IEnumerable<Breach>>(uriBuilder.Uri, cancellationToken)
+        .ConfigureAwait(false);
+
+      return results;
+    }
+
+    /// <summary>
+    /// Get the pastes for an email address
+    /// </summary>
+    /// <param name="emailAddress">
+    /// The email address to get the pastes for
+    /// </param>
+    /// <param name="cancellationToken">
+    /// The <see cref="CancellationToken"/> for this operation
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
+    /// <see cref="Paste"/> the email address was found in
+    /// </returns>
+    private async Task<IEnumerable<Paste>> GetPastesInternalAsync(string emailAddress, CancellationToken cancellationToken)
+    {
+      Throw.ArgumentNull.When(emailAddress.IsNullOrWhiteSpace(), nameof(emailAddress));
+      this.ThrowIfDisposed();
+
+      var requestUri = new Uri($"{ApiBaseUri}/pasteaccount/{emailAddress}");
+
+      var results = await this.GetAsync<IEnumerable<Paste>>(requestUri, cancellationToken)
+        .ConfigureAwait(false);
+
+      return results ?? Enumerable.Empty<Paste>();
+    }
+
+    /// <summary>
+    /// Gets whether the specified password is found in a password list
+    /// </summary>
+    /// <param name="password">
+    /// The password to check
+    /// </param>
+    /// <param name="cancellationToken">
+    /// The <see cref="CancellationToken"/> for this operation
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with a <see cref="bool"/>
+    /// indicating whether the password was found or not
+    /// </returns>
+    private async Task<bool> IsPwnedPasswordInternalAsync(string password, CancellationToken cancellationToken)
     {
       Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
       this.ThrowIfDisposed();
@@ -297,21 +384,6 @@ namespace AtleX.HaveIBeenPwned.Communication.Http
         }
 
         return result;
-      }
-    }
-
-    /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or
-    /// resetting unmanaged resources
-    /// </summary>
-    /// <param name="disposing">
-    /// True when disposing, false when finalizing
-    /// </param>
-    protected override void Dispose(bool disposing)
-    {
-      if (disposing && this._enableClientDisposing)
-      {
-        this._httpClient.Dispose();
       }
     }
 
