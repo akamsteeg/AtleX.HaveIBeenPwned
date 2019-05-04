@@ -6,7 +6,7 @@ using System.Net.Http;
 namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks.Communication
 {
   public class HttpHaveIBeenPwnedClientBenchmarks
-    : IServiceClientBenchmarks
+    : IHaveIBeenPwnedClientBenchmarks
   {
     [GlobalSetup]
     public void GlobalSetup()

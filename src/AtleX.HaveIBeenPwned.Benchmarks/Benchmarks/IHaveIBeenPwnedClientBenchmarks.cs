@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks
 {
-  public abstract class IServiceClientBenchmarks
+  public abstract class IHaveIBeenPwnedClientBenchmarks
   {
     protected IHaveIBeenPwnedClient _client;
 

@@ -4,12 +4,12 @@ using BenchmarkDotNet.Attributes;
 namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks
 {
   public class HaveIBeenPwnedClientBenchmarks
-    : IServiceClientBenchmarks
+    : IHaveIBeenPwnedClientBenchmarks
   {
     [GlobalSetup]
     public void GlobalSetup()
     {
-      var mockServiceClient = new IServiceClientMock();
+      var mockServiceClient = new IHaveIBeenPwnedClientMock();
 
       this._client = new HaveIBeenPwnedClient(mockServiceClient);
     }
