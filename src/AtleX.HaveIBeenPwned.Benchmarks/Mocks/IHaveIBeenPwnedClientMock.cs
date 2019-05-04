@@ -13,44 +13,44 @@ namespace AtleX.HaveIBeenPwned.Benchmarks.Mocks
 
     private static readonly IEnumerable<Paste> pastes = A.ListOf<Paste>(30);
 
-    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account)
+    public Task<IEnumerable<Breach>> GetBreachesAsync(string account)
     {
-      return breaches;
+      return Task.FromResult(breaches);
     }
 
-    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes)
+    public Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes)
     {
-      return breaches;
+      return Task.FromResult(breaches);
     }
 
-    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, CancellationToken cancellationToken)
+    public Task<IEnumerable<Breach>> GetBreachesAsync(string account, CancellationToken cancellationToken)
     {
-      return breaches;
+      return Task.FromResult(breaches);
     }
 
-    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes, CancellationToken cancellationToken)
+    public Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes, CancellationToken cancellationToken)
     {
-      return breaches;
+      return Task.FromResult(breaches);
     }
 
-    public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress)
+    public Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress)
     {
-      return pastes;
+      return Task.FromResult(pastes);
     }
 
-    public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress, CancellationToken cancellationToken)
+    public Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress, CancellationToken cancellationToken)
     {
-      return pastes;
+      return Task.FromResult(pastes);
     }
 
-    public async Task<bool> IsPwnedPasswordAsync(string password)
+    public Task<bool> IsPwnedPasswordAsync(string password)
     {
-      return await Task.FromResult(true);
+      return Task.FromResult(true);
     }
 
-    public async Task<bool> IsPwnedPasswordAsync(string password, CancellationToken cancellationToken)
+    public Task<bool> IsPwnedPasswordAsync(string password, CancellationToken cancellationToken)
     {
-      return await Task.FromResult(true);
+      return Task.FromResult(true);
     }
   }
 }
