@@ -42,7 +42,7 @@ steps:
     CleanTargetFolder: true
     flattenFolders: true
     
-    - task: CopyFiles@2
+- task: CopyFiles@2
   displayName: 'Copy NuGet symbols package to: $(build.artifactstagingdirectory)'
   inputs:
     Contents: '**/*.snupkg'
