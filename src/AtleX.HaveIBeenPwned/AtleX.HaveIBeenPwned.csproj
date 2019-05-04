@@ -24,6 +24,12 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageReleaseNotes>
+      3.0.0:
+      - [Feature] Moved from SourceLink with embedded PDB to a .snupkg on NuGet.org for debugging (#8)
+      - [Breaking] Removed the ClientSettings from the HaveIBeenPwnedClient (#12)
+      - [Breaking] Removed IDisposable from IHaveIBeenPwnedClient (#10)
+      - [Breaking] Renamed HttpServiceClient to HttpHaveIBeenPwnedClient (#13)
+      - [Fix] HaveIBeenPwnedClient no longer disposes an injected IHaveIBeenPwnedClient (#11)
       2.1.0
       - [Fix] An injected HttpClient is no longer disposed by the HttpServiceClient (#6)
       - [Fix] The initial HTTP requests is no longer performed outside of error-handling code in HttpServiceClient (#7)
