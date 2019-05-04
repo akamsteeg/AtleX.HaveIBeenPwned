@@ -35,9 +35,17 @@ steps:
     codecoverageTool: cobertura
 
 - task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  displayName: 'Copy NuGet package to: $(build.artifactstagingdirectory)'
   inputs:
     Contents: '**/*.nupkg'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+    CleanTargetFolder: true
+    flattenFolders: true
+    
+    - task: CopyFiles@2
+  displayName: 'Copy NuGet symbols package to: $(build.artifactstagingdirectory)'
+  inputs:
+    Contents: '**/*.snupkg'
     TargetFolder: '$(build.artifactstagingdirectory)'
     CleanTargetFolder: true
     flattenFolders: true
