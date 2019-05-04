@@ -13,6 +13,7 @@
     <Description>AtleX.HaveIBeenPwned is a fully async .NET Standard client library for HaveIBeenPwned.com.</Description>
     <Copyright>© Alex Kamsteeg</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>haveibeenpwned breach password</PackageTags>
     
     <Version>2.1.0</Version>
     <AssemblyVersion>2.1.0.0</AssemblyVersion>
@@ -22,8 +23,8 @@
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryType>Git</RepositoryType>
 
-    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
-    <PackageTags>haveibeenpwned breach password</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageReleaseNotes>
       2.1.0
       - [Fix] An injected HttpClient is no longer disposed by the HttpServiceClient (#6)
