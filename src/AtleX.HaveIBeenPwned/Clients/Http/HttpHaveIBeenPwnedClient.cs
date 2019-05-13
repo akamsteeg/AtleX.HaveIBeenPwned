@@ -94,7 +94,7 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
       this.ThrowIfDisposed();
 
-      var result = await this.GetBreachesInternalAsync(account, BreachMode.None, CancellationToken.None)
+      var result = await this.GetBreachesInternalAsync(account, BreachMode.Default, CancellationToken.None)
         .ConfigureAwait(false);
 
       return result;
@@ -118,7 +118,7 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
       this.ThrowIfDisposed();
 
-      var result = await this.GetBreachesInternalAsync(account, BreachMode.None, cancellationToken)
+      var result = await this.GetBreachesInternalAsync(account, BreachMode.Default, cancellationToken)
         .ConfigureAwait(false);
 
       return result;

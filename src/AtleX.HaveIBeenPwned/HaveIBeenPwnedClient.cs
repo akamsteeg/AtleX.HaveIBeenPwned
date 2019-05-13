@@ -68,7 +68,7 @@ namespace AtleX.HaveIBeenPwned
     {
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
 
-      var result = await this._serviceClient.GetBreachesAsync(account, BreachMode.None)
+      var result = await this._serviceClient.GetBreachesAsync(account, BreachMode.Default)
         .ConfigureAwait(false);
 
       return result;
@@ -91,7 +91,7 @@ namespace AtleX.HaveIBeenPwned
     {
       Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
 
-      var result = await this._serviceClient.GetBreachesAsync(account, BreachMode.None, cancellationToken)
+      var result = await this._serviceClient.GetBreachesAsync(account, BreachMode.Default, cancellationToken)
         .ConfigureAwait(false);
 
       return result;

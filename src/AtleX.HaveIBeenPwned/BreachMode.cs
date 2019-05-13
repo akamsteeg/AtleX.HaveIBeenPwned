@@ -9,9 +9,9 @@ namespace AtleX.HaveIBeenPwned
   public enum BreachMode
   {
     /// <summary>
-    /// No extra breaches
+    /// The default, verified, breaches
     /// </summary>
-    None,
+    Default,
 
     /// <summary>
     /// Include unverified breaches
