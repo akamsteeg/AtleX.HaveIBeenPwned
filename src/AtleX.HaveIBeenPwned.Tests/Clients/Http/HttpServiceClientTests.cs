@@ -1,9 +1,9 @@
-﻿using AtleX.HaveIBeenPwned.Communication.Http;
+﻿using AtleX.HaveIBeenPwned.Clients.Http;
 using System;
 using System.Net.Http;
 using Xunit;
 
-namespace AtleX.HaveIBeenPwned.Tests.Communication.Http
+namespace AtleX.HaveIBeenPwned.Tests.Clients.Http
 {
   public class HttpHaveIBeenPwnedClientTests
   {

@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
-namespace AtleX.HaveIBeenPwned.Data
+namespace AtleX.HaveIBeenPwned
 {
   /// <summary>
   /// Represents a breach from a paste

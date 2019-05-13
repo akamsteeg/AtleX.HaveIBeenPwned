@@ -1,11 +1,8 @@
-﻿using AtleX.HaveIBeenPwned.Communication;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
 using Xunit;
 
-namespace AtleX.HaveIBeenPwned.Tests.Communication
+namespace AtleX.HaveIBeenPwned.Tests
 {
   public class HaveIBeenPwnedClientExceptionTests
   {

@@ -1,9 +1,6 @@
-﻿using AtleX.HaveIBeenPwned.Communication;
-using AtleX.HaveIBeenPwned.Data;
-using Moq;
+﻿using Moq;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 
 namespace AtleX.HaveIBeenPwned.Tests

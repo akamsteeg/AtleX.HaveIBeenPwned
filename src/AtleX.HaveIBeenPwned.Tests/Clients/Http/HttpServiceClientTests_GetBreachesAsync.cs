@@ -1,4 +1,4 @@
-﻿using AtleX.HaveIBeenPwned.Communication.Http;
+﻿using AtleX.HaveIBeenPwned.Clients.Http;
 using AtleX.HaveIBeenPwned.Tests.Mocks;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AtleX.HaveIBeenPwned.Tests.Communication.Http
+namespace AtleX.HaveIBeenPwned.Tests.Clients.Http
 {
   public class HttpHaveIBeenPwnedClientTests_GetBreachesAsync
   {

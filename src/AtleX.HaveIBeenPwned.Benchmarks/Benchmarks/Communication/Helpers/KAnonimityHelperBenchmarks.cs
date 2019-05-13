@@ -1,4 +1,4 @@
-﻿using AtleX.HaveIBeenPwned.Communication.Helpers;
+﻿using AtleX.HaveIBeenPwned.Clients.Helpers;
 using BenchmarkDotNet.Attributes;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks.Communication.Helpers

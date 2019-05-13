@@ -1,5 +1,5 @@
 ﻿using AtleX.HaveIBeenPwned.Benchmarks.Mocks;
-using AtleX.HaveIBeenPwned.Communication.Http;
+using AtleX.HaveIBeenPwned.Clients.Http;
 using BenchmarkDotNet.Attributes;
 using System.Net.Http;
 

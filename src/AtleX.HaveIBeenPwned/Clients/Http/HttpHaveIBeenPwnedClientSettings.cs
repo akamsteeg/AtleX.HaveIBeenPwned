@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace AtleX.HaveIBeenPwned.Communication.Http
+namespace AtleX.HaveIBeenPwned.Clients.Http
 {
   /// <summary>
   /// Represents the settings for an <see cref="HttpHaveIBeenPwnedClient"/>

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using AtleX.HaveIBeenPwned.Data;
 using GenFu;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks.Mocks

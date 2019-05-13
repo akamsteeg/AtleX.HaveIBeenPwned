@@ -1,10 +1,10 @@
-﻿using AtleX.HaveIBeenPwned.Communication.Http;
+﻿using AtleX.HaveIBeenPwned.Clients.Http;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AtleX.HaveIBeenPwned.IntegrationTests.Communication.Http
+namespace AtleX.HaveIBeenPwned.IntegrationTests.Clients.Http
 {
   public class HttpHaveIBeenPwnedClientTests_GetPastesAsync
   {

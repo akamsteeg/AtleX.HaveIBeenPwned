@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AtleX.HaveIBeenPwned.Communication
+namespace AtleX.HaveIBeenPwned
 {
   /// <summary>
   /// Represents an <see cref="Exception"/> that occured in an <see cref="IHaveIBeenPwnedClient"/>

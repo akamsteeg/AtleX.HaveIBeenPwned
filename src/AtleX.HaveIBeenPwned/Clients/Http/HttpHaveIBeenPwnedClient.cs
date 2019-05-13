@@ -1,5 +1,4 @@
-﻿using AtleX.HaveIBeenPwned.Communication.Helpers;
-using AtleX.HaveIBeenPwned.Data;
+﻿using AtleX.HaveIBeenPwned.Clients.Helpers;
 using Newtonsoft.Json;
 using Pitcher;
 using SwissArmyKnife;
@@ -11,7 +10,7 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AtleX.HaveIBeenPwned.Communication.Http
+namespace AtleX.HaveIBeenPwned.Clients.Http
 {
   /// <summary>
   /// Represents an <see cref="IHaveIBeenPwnedClient"/> that communicates via HTTPS with
