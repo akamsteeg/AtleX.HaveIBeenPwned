@@ -29,6 +29,8 @@
       - [Breaking] Removed the ClientSettings from the HaveIBeenPwnedClient (#12)
       - [Breaking] Removed IDisposable from IHaveIBeenPwnedClient (#10)
       - [Breaking] Renamed HttpServiceClient to HttpHaveIBeenPwnedClient (#13)
+      - [Breaking] Reorganised classes and namespaces (#16)
+      - [Breaking] Renamed BreachMode.None to BreachMode.Default (#15)
       - [Fix] HaveIBeenPwnedClient no longer disposes an injected IHaveIBeenPwnedClient (#11)
       2.1.0
       - [Fix] An injected HttpClient is no longer disposed by the HttpServiceClient (#6)
