@@ -81,5 +81,24 @@ namespace AtleX.HaveIBeenPwned.Tests
 
       Assert.NotNull(result);
     }
+
+
+    [Fact]
+    public async Task GetBreachesAsync_BreachModeAndCancellationToken_WithValidValues_DoesNotThrow()
+    {
+      var ic = CreateServiceClient();
+      var c = new HaveIBeenPwnedClient(ic);
+
+      await c.GetBreachesAsync("DUMMY", BreachMode.Default, CancellationToken.None);
+    }
+
+    [Fact]
+    public async Task GetBreachesAsync_BreachMode_WithValidValues_DoesNotThrow()
+    {
+      var ic = CreateServiceClient();
+      var c = new HaveIBeenPwnedClient(ic);
+
+      await c.GetBreachesAsync("DUMMY", BreachMode.Default);
+    }
   }
 }
