@@ -19,6 +19,22 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
+    public async Task GetBreachesAsync_BreachMode_WithNullValueForAccount_Throws()
+    {
+      var c = new HaveIBeenPwnedClient();
+
+      await Assert.ThrowsAsync<ArgumentNullException>(async () => await c.GetBreachesAsync(null, BreachMode.Default));
+    }
+
+    [Fact]
+    public async Task GetBreachesAsync_BreachModeAndCancellationToken_WithNullValueForAccount_Throws()
+    {
+      var c = new HaveIBeenPwnedClient();
+
+      await Assert.ThrowsAsync<ArgumentNullException>(async () => await c.GetBreachesAsync(null, BreachMode.Default, CancellationToken.None));
+    }
+
+    [Fact]
     public async Task GetBreachesAsync_CancellationToken_WithNullValueForAccount_Throws()
     {
       var c = new HaveIBeenPwnedClient();
