@@ -2,6 +2,7 @@
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Running;
 using BenchmarkDotNet.Toolchains.CsProj;
+using BenchmarkDotNet.Toolchains.InProcess.Emit;
 using System.Reflection;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks
@@ -22,7 +23,9 @@ namespace AtleX.HaveIBeenPwned.Benchmarks
 
       config.Add(
         Job.ShortRun.With(CsProjCoreToolchain.NetCoreApp22).AsBaseline(),
-        Job.ShortRun.With(CsProjCoreToolchain.NetCoreApp30)
+        Job.ShortRun.With(CsProjCoreToolchain.NetCoreApp30),
+        Job.ShortRun.With(InProcessEmitToolchain.Instance)
+
         );
 
       return config;

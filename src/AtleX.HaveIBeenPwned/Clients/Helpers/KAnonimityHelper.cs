@@ -11,6 +11,19 @@ namespace AtleX.HaveIBeenPwned.Clients.Helpers
   public static class KAnonimityHelper
   {
     /// <summary>
+    /// Gets the length of the KAnonimity part
+    /// to send to the HaveIBeenPwned API
+    /// </summary>
+    private const int KAnonimityPartLength = 5;
+
+    /// <summary>
+    /// Gets the length of the remainder of the
+    /// hash that serves as the suffix of the
+    /// KAnonimity system
+    /// </summary>
+    private const int KAnonimitySuffixLength = 35;
+
+    /// <summary>
     /// Gets SHA1 hash for the specified password
     /// </summary>
     /// <param name="password">
@@ -19,7 +32,7 @@ namespace AtleX.HaveIBeenPwned.Clients.Helpers
     /// <returns>
     /// The SHA1 hash of the specified password
     /// </returns>
-    public static string GetHashForPassword(string password)
+    public static (string kAnonimityPart, string kAnonimitySuffix) GetKAnonimityPartsForPassword(string password)
     {
       Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
 
@@ -35,7 +48,10 @@ namespace AtleX.HaveIBeenPwned.Clients.Helpers
           kAnonimityHashPart.Append(currentByte.ToString("X2"));
         }
 
-        var result = kAnonimityHashPart.ToString();
+        var result = (
+          kAnonimityHashPart.ToString(0, KAnonimityPartLength),
+          kAnonimityHashPart.ToString(KAnonimityPartLength, KAnonimitySuffixLength)
+          );
 
         return result;
       }

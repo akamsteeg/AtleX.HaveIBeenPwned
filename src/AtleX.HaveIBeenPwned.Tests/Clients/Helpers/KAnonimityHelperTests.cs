@@ -7,18 +7,23 @@ namespace AtleX.HaveIBeenPwned.Tests.Clients.Helpers
   public class KAnonimityHelperTests
   {
     [Fact]
-    public void GetHashForPassword_WithEmptyPassword_Throws()
+    public void GetKAnonimityPartsForPassword_WithEmptyPassword_Throws()
     {
-      Assert.Throws<ArgumentNullException>(() => KAnonimityHelper.GetHashForPassword(""));
+      Assert.Throws<ArgumentNullException>(() => KAnonimityHelper.GetKAnonimityPartsForPassword(""));
     }
 
     [Fact]
-    public void GetHashForPassword_WithPassword_GeneratesValidHash()
+    public void GetKAnonimityPartsForPassword_WithPassword_GeneratesValidKAnonimityParts()
     {
-      var hash = KAnonimityHelper.GetHashForPassword("DUMMY");
+      var (kAnonimityPart, kAnonimitySuffix) = KAnonimityHelper.GetKAnonimityPartsForPassword("DUMMY");
 
-      Assert.NotNull(hash);
-      Assert.Equal(40, hash.Length);
+      Assert.NotNull(kAnonimityPart);
+      Assert.Equal(5, kAnonimityPart.Length);
+      Assert.Equal("9600B", kAnonimityPart);
+
+      Assert.NotNull(kAnonimitySuffix);
+      Assert.Equal(35, kAnonimitySuffix.Length);
+      Assert.Equal("5F6438B9ED6A23BBEF20A8C2B0C53A39449", kAnonimitySuffix);
     }
   }
 }

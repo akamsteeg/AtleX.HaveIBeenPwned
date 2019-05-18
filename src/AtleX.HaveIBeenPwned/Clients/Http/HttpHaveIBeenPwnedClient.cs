@@ -355,12 +355,7 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
       Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
       this.ThrowIfDisposed();
 
-      var sha1HashOfPassword = KAnonimityHelper.GetHashForPassword(password);
-
-      // We need to send the first 5 characters to the service
-      var kAnonimityPart = sha1HashOfPassword.Substring(0, 5);
-      // We receive the remainder of the hash (40 minus the 5 characters sent) back
-      var kAnonimitySuffix = sha1HashOfPassword.Substring(5);
+      var (kAnonimityPart, kAnonimitySuffix) = KAnonimityHelper.GetKAnonimityPartsForPassword(password);
 
       var requestUri = new Uri($"{PwnedPasswordsBaseUri}/{kAnonimityPart}");
 
