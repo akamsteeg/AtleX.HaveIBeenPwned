@@ -3,12 +3,12 @@ using SwissArmyKnife;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AtleX.HaveIBeenPwned.Clients.Helpers
+namespace AtleX.HaveIBeenPwned.Clients.Http.Helpers
 {
   /// <summary>
   /// Represents a helper for K-Anonimity functionality
   /// </summary>
-  public static class KAnonimityHelper
+  internal static class KAnonimityHelper
   {
     /// <summary>
     /// Gets the length of the KAnonimity part

@@ -3,7 +3,7 @@ using AtleX.HaveIBeenPwned.Clients.Http;
 using BenchmarkDotNet.Attributes;
 using System.Net.Http;
 
-namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks.Communication
+namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks.Clients.Http
 {
   public class HttpHaveIBeenPwnedClientBenchmarks
     : IHaveIBeenPwnedClientBenchmarks

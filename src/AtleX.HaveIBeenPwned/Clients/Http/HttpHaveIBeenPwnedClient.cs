@@ -1,4 +1,4 @@
-﻿using AtleX.HaveIBeenPwned.Clients.Helpers;
+﻿using AtleX.HaveIBeenPwned.Clients.Http.Helpers;
 using Newtonsoft.Json;
 using Pitcher;
 using SwissArmyKnife;

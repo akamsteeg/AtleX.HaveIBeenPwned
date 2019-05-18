@@ -1,7 +1,7 @@
-﻿using AtleX.HaveIBeenPwned.Clients.Helpers;
+﻿using AtleX.HaveIBeenPwned.Clients.Http.Helpers;
 using BenchmarkDotNet.Attributes;
 
-namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks.Communication.Helpers
+namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks.Clients.Http.Helpers
 {
   public class KAnonimityHelperBenchmarks
   {
