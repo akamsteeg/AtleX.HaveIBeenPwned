@@ -1,5 +1,4 @@
 ﻿using Pitcher;
-using SwissArmyKnife;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -34,7 +33,7 @@ namespace AtleX.HaveIBeenPwned.Clients.Http.Helpers
     /// </returns>
     public static (string kAnonimityPart, string kAnonimitySuffix) GetKAnonimityPartsForPassword(string password)
     {
-      Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
+      Throw.ArgumentNull.WhenNull(password, nameof(password));
 
       using (var sha1 = new SHA1Managed())
       {
