@@ -4,12 +4,19 @@ AtleX.HaveIBeenPwned is a client library for the [HaveIBeenPwned.com website](ht
 finding breaches an account was in, which pastes contained the user's email address and to check whether the password
 was in a breach or not.
 
-Supported .NET frameworks:
-* NETSTANDARD 2.0
+[![Build status](https://interastra.visualstudio.com/OSS%20-%20CI/_apis/build/status/AtleX.HaveIBeenPwned%20CI?branchName=master)](https://dev.azure.com/interastra/OSS%20-%20CI/_build?definitionId=11&_a=summary) [![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/interastra/OSS%20-%20CI/11.svg?maxAge=3600)](https://dev.azure.com/interastra/OSS%20-%20CI/_build?definitionId=11&_a=summary) 
+
+
+# Platform support
+
+| .NET Framework     |     .NET Core      |
+|:------------------:|:------------------:|
+| :heavy_check_mark: | :heavy_check_mark: |
+
 
 # Installation
 
-AtleX.HaveIBeenPwned is available [as NuGet package](https://www.nuget.org/packages/AtleX.HaveIBeenPwned/):
+AtleX.HaveIBeenPwned is available as NuGet package: [![NuGet](https://img.shields.io/nuget/v/AtleX.HaveIBeenPwned.svg?maxAge=3600)](https://www.nuget.org/packages/AtleX.HaveIBeenPwned/)
 
 ```
 install-package AtleX.HaveIBeenPwned
@@ -40,21 +47,23 @@ using (var client = new HaveIBeenPwnedClient())
 // Verify whether is password is in Pwned Passwords or not
 using (var client = new HaveIBeenPwnedClient())
 {
-  var isPwned = await client.IsPwnedPassword("1234");
+  var isPwned = await client.IsPwnedPasswordAsync("1234");
 }
 
 // Override the timeout
-var settings = new ClientSettings()
+var settings = new HttpHaveIBeenPwnedClientSettings()
 {
 	TimeOut = TimeSpan.FromSeconds(30); // Use a 30 seconds timeout
 };
-using (var client = new HaveIBeenPwnedClient(settings))
+
+using (var httpHibpClient = new HttpHaveIBeenPwnedClientSettings(settings))
+using (var client = new c(httpHibpClient))
 {
   // Do something
 }
 
 // Override client (mock for unit testing for example):
-using (var client = new HaveIBeenPwnedClient(new ClientSettings(), new MockServiceClient()))
+using (var client = new HaveIBeenPwnedClient(new MockServiceClient()))
 {
   // Do something
 }
