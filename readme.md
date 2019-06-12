@@ -57,7 +57,7 @@ var settings = new HttpHaveIBeenPwnedClientSettings()
 };
 
 using (var httpHibpClient = new HttpHaveIBeenPwnedClientSettings(settings))
-using (var client = new c(httpHibpClient))
+using (var client = new HaveIBeenPwnedClient(httpHibpClient))
 {
   // Do something
 }
