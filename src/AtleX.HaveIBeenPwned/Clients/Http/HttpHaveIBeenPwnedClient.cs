@@ -366,6 +366,8 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
 
         while (!streamReader.EndOfStream && !result)
         {
+          cancellationToken.ThrowIfCancellationRequested();
+
           var currentLine = await streamReader
             .ReadLineAsync()
             .ConfigureAwait(false);
