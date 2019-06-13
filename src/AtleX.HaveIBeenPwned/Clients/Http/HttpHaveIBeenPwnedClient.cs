@@ -308,7 +308,7 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
       var results = await this.GetAsync<IEnumerable<Breach>>(uriBuilder.Uri, cancellationToken)
         .ConfigureAwait(false);
 
-      return results;
+      return results ?? Enumerable.Empty<Breach>();
     }
 
     /// <summary>
