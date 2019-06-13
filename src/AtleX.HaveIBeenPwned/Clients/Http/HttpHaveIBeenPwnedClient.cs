@@ -439,6 +439,8 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
               .Content
               .CopyToAsync(result)
               .ConfigureAwait(false);
+
+            result.Reset();
           }
           else
           {
@@ -451,7 +453,6 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
         throw new HaveIBeenPwnedClientException("An error occured", e);
       }
 
-      result.Reset();
       return result;
     }
 
