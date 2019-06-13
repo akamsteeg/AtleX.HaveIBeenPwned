@@ -425,7 +425,7 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
     /// </returns>
     private async Task<Stream> GetAsync(Uri url, CancellationToken cancellationToken)
     {
-      var result = new MemoryStream();
+      var result = Stream.Null;
 
       try
       {
@@ -435,6 +435,8 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
         {
           if (response.IsSuccessStatusCode)
           {
+            result = new MemoryStream();
+
             await response
               .Content
               .CopyToAsync(result)
