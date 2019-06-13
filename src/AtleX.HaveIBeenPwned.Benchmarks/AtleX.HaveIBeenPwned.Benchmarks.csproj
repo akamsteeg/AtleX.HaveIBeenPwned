@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp2.2</TargetFrameworks>
+    <TargetFrameworks>netcoreapp2.2;net472</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,6 +12,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AtleX.HaveIBeenPwned\AtleX.HaveIBeenPwned.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
 
 </Project>

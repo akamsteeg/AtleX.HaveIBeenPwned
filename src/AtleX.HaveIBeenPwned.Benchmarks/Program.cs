@@ -24,7 +24,7 @@ namespace AtleX.HaveIBeenPwned.Benchmarks
       config.Add(
         Job.ShortRun.With(CsProjCoreToolchain.NetCoreApp22).AsBaseline(),
         Job.ShortRun.With(CsProjCoreToolchain.NetCoreApp30),
-        Job.ShortRun.With(InProcessEmitToolchain.Instance)
+        Job.ShortRun.With(CsProjClassicNetToolchain.Net472)
 
         );
 
