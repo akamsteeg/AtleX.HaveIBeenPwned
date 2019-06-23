@@ -400,6 +400,9 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
     /// </returns>
     private async Task<T> GetAsync<T>(Uri url, CancellationToken cancellationToken)
     {
+      Throw.ArgumentNull.WhenNull(url, nameof(url));
+      this.ThrowIfDisposed();
+
       using (var data = await this.GetAsync(url, cancellationToken).ConfigureAwait(false))
       using (var streamReader = new StreamReader(data))
       using (var jsonReader = new JsonTextReader(streamReader))
@@ -425,6 +428,9 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
     /// </returns>
     private async Task<Stream> GetAsync(Uri url, CancellationToken cancellationToken)
     {
+      Throw.ArgumentNull.WhenNull(url, nameof(url));
+      this.ThrowIfDisposed();
+
       var result = Stream.Null;
 
       try
@@ -466,6 +472,8 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
     /// </param>
     private static void HandleErrorResponse(HttpResponseMessage response)
     {
+      Throw.ArgumentNull.WhenNull(response, nameof(response));
+
       switch ((int)response.StatusCode)
       {
         case 429: // Rate limit exceeded
@@ -498,6 +506,9 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
     /// </returns>
     private static HttpClient ConfigureHttpClient(HttpClient client, HttpHaveIBeenPwnedClientSettings settings)
     {
+      Throw.ArgumentNull.WhenNull(client, nameof(client));
+      Throw.ArgumentNull.WhenNull(settings, nameof(settings));
+
       client.DefaultRequestHeaders.Clear();
       client.DefaultRequestHeaders.Add("Accept", "application/json");
       client.DefaultRequestHeaders.Add("User-Agent", settings.ApplicationName);
