@@ -1,0 +1,20 @@
+# Defines a job that builds a package
+
+parameters:
+  name: '(Unknown)'  
+  vmImage: ''
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  publishBuildArtifacts: 'false' # true to publish the build artifacts; false otherwise
+
+jobs:
+- job: ${{ parameters.name }}
+  pool: 
+    vmImage: ${{ parameters.vmImage }}
+  steps:
+  - script:
+    - template: 'build-package.steps.yml'
+    - parameters:
+        buildPlatform: 'Any CPU'
+        buildConfiguration: 'Release'
+        publishBuildArtifacts: ${{ parameters.publishBuildArtifacts }}
