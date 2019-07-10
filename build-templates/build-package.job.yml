@@ -13,7 +13,7 @@ jobs:
     vmImage: ${{ parameters.vmImage }}
   steps:
   - script:
-    - template: 'build-package.steps.yml'
+    - template: build-package.steps.yml
     - parameters:
         buildPlatform: 'Any CPU'
         buildConfiguration: 'Release'
