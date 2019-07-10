@@ -27,14 +27,14 @@ steps:
     arguments: '--configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="[xunit*]*%2c[AtleX*.Tests]*"'
 
 - task: PublishCodeCoverageResults@1
-  condition:  ${{ if eq(parameters.publishBuildArtifacts, 'true') }}
+  condition:  ${{ eq(parameters.publishBuildArtifacts, 'true') }}
   displayName: 'Publish code coverage results'
   inputs:
     summaryFileLocation: $(Build.SourcesDirectory)/src/**/coverage.cobertura.xml
     codecoverageTool: cobertura
 
 - task: CopyFiles@2
-  condition:  ${{ if eq(parameters.publishBuildArtifacts, 'true') }}
+  condition:  ${{ eq(parameters.publishBuildArtifacts, 'true') }}
   displayName: 'Copy NuGet package to: $(build.artifactstagingdirectory)'
   inputs:
     Contents: '**/*.nupkg'
@@ -42,7 +42,7 @@ steps:
     flattenFolders: true
     
 - task: CopyFiles@2
-  condition:  ${{ if eq(parameters.publishBuildArtifacts, 'true') }}
+  condition:  ${{ eq(parameters.publishBuildArtifacts, 'true') }}
   displayName: 'Copy NuGet symbols package to: $(build.artifactstagingdirectory)'
   inputs:
     Contents: '**/*.snupkg'
@@ -50,7 +50,7 @@ steps:
     flattenFolders: true
 
 - task: PublishBuildArtifacts@1
-  condition:  ${{ if eq(parameters.publishBuildArtifacts, 'true') }}
+  condition:  ${{ eq(parameters.publishBuildArtifacts, 'true') }}
   displayName: 'Publish Artifact: NuGet packages'
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
