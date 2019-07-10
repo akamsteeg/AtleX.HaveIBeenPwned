@@ -3,7 +3,6 @@
 parameters:
   name: '(Unknown)'  
   vmImage: ''
-  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   publishBuildArtifacts: 'false' # true to publish the build artifacts; false otherwise
 
@@ -14,6 +13,5 @@ jobs:
   steps:
     - template: build-package.steps.yml
       parameters:
-        buildPlatform: 'Any CPU'
-        buildConfiguration: 'Release'
+        buildConfiguration: ${{ parameters.buildConfiguration }}
         publishBuildArtifacts: ${{ parameters.publishBuildArtifacts }}

@@ -1,7 +1,6 @@
 # Build a package and optionally publish it
 
 parameters:
-  buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
   publishBuildArtifacts: 'false' # true to publish the build artifacts; false otherwise
 
@@ -11,21 +10,21 @@ steps:
   inputs:
     command: restore
     projects: '**/*.csproj'
-    arguments: '--configuration $(build.configuration)'
+    arguments: '--configuration ${{ parameters.buildConfiguration }}
 
 - task: DotNetCoreCLI@2
   displayName: 'Build solution'
   inputs:
     command: build
     projects: '**/*.sln'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration ${{ parameters.buildConfiguration }}
 
 - task: DotNetCoreCLI@2
   displayName: 'Run tests'
   inputs:
     command: test
     projects: '$(Build.SourcesDirectory)/src/**/*.Tests.csproj'
-    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="[xunit*]*%2c[AtleX*.Tests]*"'
+    arguments: '--configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="[xunit*]*%2c[AtleX*.Tests]*"'
 
 - ${{ if eq(parameters.publishBuildArtifacts, 'true') }}:
   - task: PublishCodeCoverageResults@1
