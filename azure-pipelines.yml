@@ -1,16 +1,21 @@
 jobs:
 - template: build-templates/build-package.job.yml
   parameters:
-    name: Linux
-    vmImage: 'ubuntu-16.04'
-
-- template: build-templates/build-package.job.yml
-  parameters:
-    name: macOS
-    vmImage: 'macOS-10.14'
-
-- template: build-templates/build-package.job.yml
-  parameters:
     name: Windows
     vmImage: 'windows-2019'
     publishBuildArtifacts: 'true'
+    publishCodeCoverage: 'true'
+    
+- template: build-templates/build-package.job.yml
+  parameters:
+    name: Linux
+    vmImage: 'ubuntu-16.04'
+    publishBuildArtifacts: 'false'
+    publishCodeCoverage: 'false'
+
+- template: build-templates/build-package.job.yml
+  parameters:
+    name: MacOS
+    vmImage: 'macOS-10.14'
+    publishBuildArtifacts: 'false'
+    publishCodeCoverage: 'false'

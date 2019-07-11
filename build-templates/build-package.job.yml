@@ -1,17 +1,24 @@
-# Defines a job that builds a package
+# Defines a job that builds a solution with optionally 
 
 parameters:
   name: '(Unknown)'  
   vmImage: ''
   buildConfiguration: 'Release'
-  publishBuildArtifacts: 'false' # true to publish the build artifacts; false otherwise
+  publishCodeCoverage: 'false'
+  publishBuildArtifacts: 'false'
 
 jobs:
 - job: ${{ parameters.name }}
   pool: 
     vmImage: ${{ parameters.vmImage }}
   steps:
-    - template: build-package.steps.yml
+    - template: build-solution.steps.yml
       parameters:
         buildConfiguration: ${{ parameters.buildConfiguration }}
-        publishBuildArtifacts: ${{ parameters.publishBuildArtifacts }}
+    - template: run-xunit-unit-tests.steps.yml
+      parameters:
+        buildConfiguration: ${{ parameters.buildConfiguration }}
+        pathToUnitTestProject: '$(Build.SourcesDirectory)/src/**/*.Tests.csproj'
+        publishCodeCoverage: ${{ parameters.publishCodeCoverage }}
+    - ${{ if eq(parameters.publishBuildArtifacts, 'true') }}:
+      - template: publish-nuget-package-artifacts.steps.yml
