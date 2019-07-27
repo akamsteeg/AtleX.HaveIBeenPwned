@@ -15,7 +15,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>haveibeenpwned breach password</PackageTags>
     
-    <Version>3.0.1</Version>
+    <Version>4.0.0-beta1</Version>
 
     <RepositoryUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -24,6 +24,11 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageReleaseNotes>
+      4.0.0:
+      - [Breaking] Changed the HaveIBeenPwned.com API to V3. An API key is now mandatory for retrieving pastes and breaches (#27)
+      - [Breaking] Changed BreachMode.IncludeUnverified to BreachMode.ExcludeUnverified because the V3 API now returns unverifed breaches by default (#27)
+      - [Breaking] Fold HaveIBeenPwnedClient and HttpHaveIBeenPwnedClient into one (#26)
+      - [Breaking] Change RetryAfter property of RateLimitException from int to TimeSpan (#24)
       3.0.1:
       - [Fix] HttpHaveIBeenPwnedClient.GetAsync(Uri, CancellationToken) no longer resets the output stream when no data was loaded (#20)
       - [Fix] HttpHaveIBeenPwnedClient.GetAsync(Uri, CancellationToken) no longer creates a new MemoryStream when no data was loaded (#21)
