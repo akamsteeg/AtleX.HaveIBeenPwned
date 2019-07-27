@@ -333,7 +333,7 @@ namespace AtleX.HaveIBeenPwned
     {
       var uri = new Uri($"{ApiBaseUri}/breaches");
 
-      var result = await this.GetAuthenticatedAsync<IEnumerable<SiteBreach>>(uri, cancellationToken)
+      var result = await this.GetAsync<IEnumerable<SiteBreach>>(uri, cancellationToken)
         .ConfigureAwait(false);
 
       return result;
