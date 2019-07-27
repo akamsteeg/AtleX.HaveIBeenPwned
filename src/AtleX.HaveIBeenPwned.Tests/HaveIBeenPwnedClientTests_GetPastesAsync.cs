@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AtleX.HaveIBeenPwned.Tests.Mocks;
+using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -13,57 +13,71 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetPastesAsync_WithNullValueForEmailAddress_Throws()
     {
-      var c = new HaveIBeenPwnedClient();
-
-      await Assert.ThrowsAsync<ArgumentNullException>(async () => await c.GetPastesAsync(null));
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      {
+        await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetPastesAsync(null));
+      }
     }
 
     [Fact]
     public async Task GetPastesAsync_CancellationToken_WithNullValueForEmailAddress_Throws()
     {
-      var c = new HaveIBeenPwnedClient();
-
-      await Assert.ThrowsAsync<ArgumentNullException>(async () => await c.GetPastesAsync(null, CancellationToken.None));
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      {
+        await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetPastesAsync(null, CancellationToken.None));
+      }
     }
 
     [Fact]
-    public async Task GetPastesAsync_CallAfterDispose_Throws()
+    public async Task GetPastesAsync_AfterDispose_Throws()
     {
-      var c = new HaveIBeenPwnedClient();
-      c.Dispose();
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      {
+        var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+        c.Dispose();
 
-      await Assert.ThrowsAsync<ObjectDisposedException>(async () => await c.GetPastesAsync("DUMMY"));
+        await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetPastesAsync("DUMMY"));
+      }
     }
 
     [Fact]
-    public async Task GetPastesAsync_CancellationToken_CallAfterDispose_Throws()
+    public async Task GetPastesAsync_CancellationToken_AfterDispose_Throws()
     {
-      var c = new HaveIBeenPwnedClient();
-      c.Dispose();
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      {
+        var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+        c.Dispose();
 
-      await Assert.ThrowsAsync<ObjectDisposedException>(async () => await c.GetPastesAsync("DUMMY", CancellationToken.None));
+        await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));
+      }
     }
 
     [Fact]
-    public async Task GetPastesAsync_WithValidValue_DoesNotThrow()
+    public async Task GetPastesAsync_WithValidInput_Succeeds()
     {
-      var ic = CreateServiceClient();
-      var c = new HaveIBeenPwnedClient(ic);
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      {
+        var result = await c.GetPastesAsync("test@example.com");
 
-      var result = await c.GetPastesAsync("DUMMY");
-
-      Assert.NotNull(result);
+        Assert.NotNull(result);
+        Assert.NotEmpty(result);
+      }
     }
 
     [Fact]
-    public async Task GetPastesAsync_CancellationToken_WithValidValue_DoesNotThrow()
+    public async Task GetPastesAsync_CancellationToken_WithValidInput_Succeeds()
     {
-      var ic = CreateServiceClient();
-      var c = new HaveIBeenPwnedClient(ic);
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      {
+        var result = await c.GetPastesAsync("test@example.com", CancellationToken.None);
 
-      var result = await c.GetPastesAsync("DUMMY", CancellationToken.None);
-
-      Assert.NotNull(result);
+        Assert.NotNull(result);
+        Assert.NotEmpty(result);
+      }
     }
   }
 }

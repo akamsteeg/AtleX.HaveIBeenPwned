@@ -1,5 +1,6 @@
 ﻿using AtleX.HaveIBeenPwned.Benchmarks.Mocks;
 using BenchmarkDotNet.Attributes;
+using System.Net.Http;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks
 {
@@ -9,9 +10,11 @@ namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks
     [GlobalSetup]
     public void GlobalSetup()
     {
-      var mockServiceClient = new IHaveIBeenPwnedClientMock();
+      var mockMessageHandler = new MockHttpMessageHandler();
 
-      this._client = new HaveIBeenPwnedClient(mockServiceClient);
+      var testHttpClient = new HttpClient(mockMessageHandler);
+
+      this._client = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, testHttpClient);
     }
   }
 }

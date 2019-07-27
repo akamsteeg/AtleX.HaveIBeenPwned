@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AtleX.HaveIBeenPwned.Tests.Mocks;
+using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -11,57 +13,69 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task IsPwnedPasswordAsync_WithNullValueForPassword_Throws()
     {
-      var c = new HaveIBeenPwnedClient();
-
-      await Assert.ThrowsAsync<ArgumentNullException>(async () => await c.IsPwnedPasswordAsync(null));
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      {
+        await Assert.ThrowsAsync<ArgumentNullException>(() => c.IsPwnedPasswordAsync(null));
+      }
     }
 
     [Fact]
     public async Task IsPwnedPasswordAsync_CancellationToken_WithNullValueForPassword_Throws()
     {
-      var c = new HaveIBeenPwnedClient();
-
-      await Assert.ThrowsAsync<ArgumentNullException>(async () => await c.IsPwnedPasswordAsync(null, CancellationToken.None));
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      {
+        await Assert.ThrowsAsync<ArgumentNullException>(() => c.IsPwnedPasswordAsync(null, CancellationToken.None));
+      }
     }
 
     [Fact]
-    public async Task IsPwnedPasswordAsync_CallAfterDispose_Throws()
+    public async Task IsPwnedPasswordAsync_AfterDispose_Throws()
     {
-      var c = new HaveIBeenPwnedClient();
-      c.Dispose();
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      {
+        var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+        c.Dispose();
 
-      await Assert.ThrowsAsync<ObjectDisposedException>(async () => await c.IsPwnedPasswordAsync("DUMMY"));
+        await Assert.ThrowsAsync<ObjectDisposedException>(() => c.IsPwnedPasswordAsync("DUMMY"));
+      }
     }
 
     [Fact]
-    public async Task IsPwnedPasswordAsync_CancellationToken_CallAfterDispose_Throws()
+    public async Task IsPwnedPasswordAsync_CancellationToken_AfterDispose_Throws()
     {
-      var c = new HaveIBeenPwnedClient();
-      c.Dispose();
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      {
+        var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+        c.Dispose();
 
-      await Assert.ThrowsAsync<ObjectDisposedException>(async () => await c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None));
+        await Assert.ThrowsAsync<ObjectDisposedException>(() => c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None));
+      }
     }
 
     [Fact]
-    public async Task IsPwnedPasswordAsync_WithValidValue_DoesNotThrow()
+    public async Task IsPwnedPasswordAsync_WithValidInput_Succeeds()
     {
-      var ic = CreateServiceClient();
-      var c = new HaveIBeenPwnedClient(ic);
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      {
+        var result = await c.IsPwnedPasswordAsync("P@ssw0rd");
 
-      var result = await c.IsPwnedPasswordAsync("DUMMY");
-
-      Assert.True(result);
+        Assert.True(result);
+      }
     }
 
     [Fact]
-    public async Task IsPwnedPasswordAsync_CancellationToken_WithValidValue_DoesNotThrow()
+    public async Task IsPwnedPasswordAsync_CancellationToken_WithValidInput_Succeeds()
     {
-      var ic = CreateServiceClient();
-      var c = new HaveIBeenPwnedClient(ic);
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      {
+        var result = await c.IsPwnedPasswordAsync("P@ssw0rd", CancellationToken.None);
 
-      var result = await c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None);
-
-      Assert.True(result);
+        Assert.True(result);
+      }
     }
   }
 }

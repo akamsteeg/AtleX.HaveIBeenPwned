@@ -2,13 +2,13 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace AtleX.HaveIBeenPwned.Clients.Http
+namespace AtleX.HaveIBeenPwned
 {
   /// <summary>
-  /// Represents the settings for an <see cref="HttpHaveIBeenPwnedClient"/>
+  /// Represents the settings for an <see cref="HaveIBeenPwnedClient"/>
   /// </summary>
   [ExcludeFromCodeCoverage]
-  public class HttpHaveIBeenPwnedClientSettings
+  public class HaveIBeenPwnedClientSettings
   {
     /// <summary>
     /// Gets or sets the application name (defaults to "AtleX.HaveIBeenPwned")
@@ -17,7 +17,7 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
     {
       get;
       set;
-    } = "AtleX.HaveIBeenPwned";
+    } = "AtleX.HaveIBeenPwned/4.0.0";
 
     /// <summary>
     /// Gets or sets the <see cref="TimeSpan"/> as timeout when communicating
@@ -30,8 +30,8 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
     } = 10.Seconds();
 
     /// <summary>
-    /// Gets the default <see cref="HttpHaveIBeenPwnedClientSettings"/>
+    /// Gets the default <see cref="HaveIBeenPwnedClientSettings"/>
     /// </summary>
-    public static HttpHaveIBeenPwnedClientSettings Default => new HttpHaveIBeenPwnedClientSettings();
+    public static HaveIBeenPwnedClientSettings Default => new HaveIBeenPwnedClientSettings();
   }
 }

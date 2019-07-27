@@ -1,7 +1,7 @@
 ﻿using Pitcher;
 using System;
 
-namespace AtleX.HaveIBeenPwned.Clients.Http
+namespace AtleX.HaveIBeenPwned
 {
   /// <summary>
   /// Represents a <see cref="HaveIBeenPwnedClientException"/> for exceeding the rate limit

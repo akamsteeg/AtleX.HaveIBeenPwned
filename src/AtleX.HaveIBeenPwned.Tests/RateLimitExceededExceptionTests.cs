@@ -1,9 +1,9 @@
-﻿using AtleX.HaveIBeenPwned.Clients.Http;
+﻿using AtleX.HaveIBeenPwned;
 using System;
 using System.Linq;
 using Xunit;
 
-namespace AtleX.HaveIBeenPwned.Tests.Clients.Http
+namespace AtleX.HaveIBeenPwned.Tests
 {
   public class RateLimitExceededExceptionTests
   {
