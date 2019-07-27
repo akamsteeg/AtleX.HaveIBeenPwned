@@ -14,7 +14,10 @@ namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks
 
       var testHttpClient = new HttpClient(mockMessageHandler);
 
-      this._client = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, testHttpClient);
+      var settings = HaveIBeenPwnedClientSettings.Default;
+      settings.ApiKey = "DUMMYKEY";
+
+      this._client = new HaveIBeenPwnedClient(settings, testHttpClient);
     }
   }
 }
