@@ -478,8 +478,8 @@ namespace AtleX.HaveIBeenPwned
       {
         case 429: // Rate limit exceeded
           {
-            var retryAfter = response.Headers.RetryAfter.Delta?.Seconds;
-            throw new RateLimitExceededException(retryAfter.Value);
+            var retryAfter = response.Headers.RetryAfter.Delta.Value;
+            throw new RateLimitExceededException(retryAfter);
           }
         case 404: // Not found
           {

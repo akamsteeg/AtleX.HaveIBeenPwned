@@ -13,7 +13,7 @@ namespace AtleX.HaveIBeenPwned
     /// <summary>
     /// Gets the number of seconds to wait before retrying
     /// </summary>
-    public int RetryAfter
+    public TimeSpan RetryAfter
     {
       get;
     }
@@ -25,10 +25,10 @@ namespace AtleX.HaveIBeenPwned
     /// <param name="retryAfter">
     /// The specified number of seconds to retry after
     /// </param>
-    public RateLimitExceededException(int retryAfter)
+    public RateLimitExceededException(TimeSpan retryAfter)
       : base("Rate limit exceeded")
     {
-      Throw.ArgumentOutOfRange.When(retryAfter <= 0, nameof(retryAfter));
+      Throw.ArgumentOutOfRange.When(retryAfter.TotalSeconds <= 0, nameof(retryAfter));
 
       this.RetryAfter = retryAfter;
     }

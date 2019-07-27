@@ -1,4 +1,5 @@
 ﻿using AtleX.HaveIBeenPwned;
+using SwissArmyKnife;
 using System;
 using System.Linq;
 using Xunit;
@@ -10,25 +11,25 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public void Ctor_WithZeroValueForRetryAfterParam_Throws()
     {
-      Assert.Throws<ArgumentOutOfRangeException>(() => new RateLimitExceededException(0));
+      Assert.Throws<ArgumentOutOfRangeException>(() => new RateLimitExceededException(0.Seconds()));
     }
 
     [Fact]
     public void Ctor_WithLessThanZeroValueForRetryAfterParam_Throws()
     {
-      Assert.Throws<ArgumentOutOfRangeException>(() => new RateLimitExceededException(-1));
+      Assert.Throws<ArgumentOutOfRangeException>(() => new RateLimitExceededException(-1.Seconds()));
     }
 
     [Fact]
     public void Ctor_WithMoreThanZeroValueForRetryAfterParam_DoesNotThrow()
     {
-      var e = new RateLimitExceededException(1);
+      var e = new RateLimitExceededException(1.Seconds());
     }
 
     [Fact]
     public void RetryAfter_Equals_CtorRetryAfterParameter()
     {
-      const int testValue = 100;
+      var testValue = 100.Seconds();
       var e = new RateLimitExceededException(testValue);
 
       Assert.Equal(testValue, e.RetryAfter);
