@@ -1,18 +1,17 @@
-﻿using AtleX.HaveIBeenPwned.Clients.Http;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AtleX.HaveIBeenPwned.IntegrationTests.Clients.Http
+namespace AtleX.HaveIBeenPwned.IntegrationTests
 {
-  public class HttpHaveIBeenPwnedClientTests_GetPastesAsync
+  public class HaveIBeenPwnedClientTests_GetPastesAsync
   {
     [Fact]
     public async Task GetPastesAsync_WithValidInput_ReturnsResults()
     {
       using (var httpClient = new HttpClient())
-      using (var c = new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
       {
         var result = await c.GetPastesAsync("test@example.com");
 
@@ -25,7 +24,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Clients.Http
     public async Task GetPastesAsync_WithUnknownEmail_DoesNotThrow()
     {
       using (var httpClient = new HttpClient())
-      using (var c = new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
       {
         var result = await c.GetPastesAsync("random@example.com");
 
@@ -39,7 +38,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Clients.Http
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
       using (var httpClient = new HttpClient())
-      using (var c = new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
       {
         var result = await c.GetPastesAsync("test@example.com", cancellationTokenSource.Token);
 
@@ -53,7 +52,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests.Clients.Http
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
       using (var httpClient = new HttpClient())
-      using (var c = new HttpHaveIBeenPwnedClient(HttpHaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
       {
         var result = await c.GetPastesAsync("random@example.com", cancellationTokenSource.Token);
 

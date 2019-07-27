@@ -8,6 +8,12 @@ namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks
     protected IHaveIBeenPwnedClient _client;
 
     [Benchmark]
+    public async Task GetAllBreachesAsync()
+    {
+      var result = await this._client.GetAllBreachesAsync();
+    }
+
+    [Benchmark]
     public async Task GetBreachesAsync()
     {
       var result = await this._client.GetBreachesAsync("benchmark");

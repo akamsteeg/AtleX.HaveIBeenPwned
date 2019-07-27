@@ -10,6 +10,27 @@ namespace AtleX.HaveIBeenPwned
   public interface IHaveIBeenPwnedClient
   {
     /// <summary>
+    /// Get all site breaches in the system
+    /// </summary>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
+    /// <see cref="SiteBreach"/> in the system
+    /// </returns>
+    Task<IEnumerable<SiteBreach>> GetAllBreachesAsync();
+
+    /// <summary>
+    /// Get all site breaches in the system
+    /// </summary>
+    /// <param name="cancellationToken">
+    /// The <see cref="CancellationToken"/> for this operation
+    /// </param>
+    /// <returns>
+    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
+    /// <see cref="SiteBreach"/> in the system
+    /// </returns>
+    Task<IEnumerable<SiteBreach>> GetAllBreachesAsync(CancellationToken cancellationToken);
+
+    /// <summary>
     /// Get the breaches for an account
     /// </summary>
     /// <param name="account">

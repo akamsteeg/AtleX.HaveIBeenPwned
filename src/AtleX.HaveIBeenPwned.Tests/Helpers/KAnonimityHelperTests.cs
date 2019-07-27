@@ -1,8 +1,8 @@
-﻿using AtleX.HaveIBeenPwned.Clients.Http.Helpers;
+﻿using AtleX.HaveIBeenPwned.Helpers;
 using System;
 using Xunit;
 
-namespace AtleX.HaveIBeenPwned.Tests.Clients.Http.Helpers
+namespace AtleX.HaveIBeenPwned.Tests.Helpers
 {
   public class KAnonimityHelperTests
   {

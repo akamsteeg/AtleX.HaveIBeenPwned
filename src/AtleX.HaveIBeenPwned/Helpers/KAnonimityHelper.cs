@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace AtleX.HaveIBeenPwned.Clients.Http.Helpers
+namespace AtleX.HaveIBeenPwned.Helpers
 {
   /// <summary>
   /// Represents a helper for K-Anonimity functionality

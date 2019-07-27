@@ -2,13 +2,13 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace AtleX.HaveIBeenPwned.Clients.Http
+namespace AtleX.HaveIBeenPwned
 {
   /// <summary>
-  /// Represents the settings for an <see cref="HttpHaveIBeenPwnedClient"/>
+  /// Represents the settings for an <see cref="HaveIBeenPwnedClient"/>
   /// </summary>
   [ExcludeFromCodeCoverage]
-  public class HttpHaveIBeenPwnedClientSettings
+  public class HaveIBeenPwnedClientSettings
   {
     /// <summary>
     /// Gets or sets the application name (defaults to "AtleX.HaveIBeenPwned")
@@ -30,8 +30,17 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
     } = 10.Seconds();
 
     /// <summary>
-    /// Gets the default <see cref="HttpHaveIBeenPwnedClientSettings"/>
+    /// Gets or sets the API key used to authenticate when checking breaches or pastes
     /// </summary>
-    public static HttpHaveIBeenPwnedClientSettings Default => new HttpHaveIBeenPwnedClientSettings();
+    public string ApiKey
+    {
+      get;
+      set;
+    }
+
+    /// <summary>
+    /// Gets the default <see cref="HaveIBeenPwnedClientSettings"/>
+    /// </summary>
+    public static HaveIBeenPwnedClientSettings Default => new HaveIBeenPwnedClientSettings();
   }
 }

@@ -1,55 +1,22 @@
-﻿using Moq;
+﻿using SwissArmyKnife;
 using System;
-using System.Collections.Generic;
-using System.Threading;
 
 namespace AtleX.HaveIBeenPwned.Tests
 {
   public abstract class HaveIBeenPwnedClientTestsBase
   {
-    protected static IHaveIBeenPwnedClient CreateServiceClient()
+    public HaveIBeenPwnedClientSettings ClientSettings
     {
-      var serviceClient = new Mock<IHaveIBeenPwnedClient>();
+      get;
+    }
 
-      serviceClient
-        .Setup(sc => sc.GetBreachesAsync(It.IsAny<string>()))
-        .ReturnsAsync((string account) =>
-        {
-          var result = new List<Breach>()
-          {
-            new Breach()
-            {
-              AddedDate = DateTime.Now,
-              BreachDate = DateTime.Now,
-              DataClasses = new [] { "password" },
-              Description = "FAKE",
-              IsFabricated = false,
-              IsRetired = false,
-              IsSensitive = false,
-              IsSpamList = false,
-              IsVerified = true,
-              ModifiedDate = DateTime.Now,
-              Name = "FAKE",
-              PwnCount = 1337,
-              Title = "FAKE"
-            },
-          };
+    public HaveIBeenPwnedClientTestsBase()
+    {
+      var settings = HaveIBeenPwnedClientSettings.Default;
 
-          return result;
-        });
+      settings.ApiKey = "DUMMYKEY";
 
-      serviceClient.Setup(sc => sc.IsPwnedPasswordAsync(It.IsAny<string>()))
-        .ReturnsAsync((string password) =>
-        {
-          return true;
-        });
-      serviceClient.Setup(sc => sc.IsPwnedPasswordAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
-        .ReturnsAsync((string password, CancellationToken cancellationToken) =>
-        {
-          return true;
-        });
-
-      return serviceClient.Object;
+      this.ClientSettings = settings;
     }
   }
 }

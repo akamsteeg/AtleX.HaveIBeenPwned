@@ -1,7 +1,7 @@
 ﻿using Pitcher;
 using System;
 
-namespace AtleX.HaveIBeenPwned.Clients.Http
+namespace AtleX.HaveIBeenPwned
 {
   /// <summary>
   /// Represents a <see cref="HaveIBeenPwnedClientException"/> for exceeding the rate limit
@@ -13,7 +13,7 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
     /// <summary>
     /// Gets the number of seconds to wait before retrying
     /// </summary>
-    public int RetryAfter
+    public TimeSpan RetryAfter
     {
       get;
     }
@@ -25,10 +25,10 @@ namespace AtleX.HaveIBeenPwned.Clients.Http
     /// <param name="retryAfter">
     /// The specified number of seconds to retry after
     /// </param>
-    public RateLimitExceededException(int retryAfter)
-      : base("Rate limit exceeded")
+    public RateLimitExceededException(TimeSpan retryAfter)
+      : base($"Rate limit exceeded, retry after {retryAfter.TotalSeconds} seconds")
     {
-      Throw.ArgumentOutOfRange.When(retryAfter <= 0, nameof(retryAfter));
+      Throw.ArgumentOutOfRange.When(retryAfter.TotalSeconds <= 0, nameof(retryAfter));
 
       this.RetryAfter = retryAfter;
     }

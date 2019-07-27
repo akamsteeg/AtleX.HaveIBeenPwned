@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using AtleX.HaveIBeenPwned.Tests.Mocks;
+using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -13,92 +13,73 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetBreachesAsync_WithNullValueForAccount_Throws()
     {
-      var c = new HaveIBeenPwnedClient();
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      {
+        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-      await Assert.ThrowsAsync<ArgumentNullException>(async () => await c.GetBreachesAsync(null));
-    }
-
-    [Fact]
-    public async Task GetBreachesAsync_BreachMode_WithNullValueForAccount_Throws()
-    {
-      var c = new HaveIBeenPwnedClient();
-
-      await Assert.ThrowsAsync<ArgumentNullException>(async () => await c.GetBreachesAsync(null, BreachMode.Default));
-    }
-
-    [Fact]
-    public async Task GetBreachesAsync_BreachModeAndCancellationToken_WithNullValueForAccount_Throws()
-    {
-      var c = new HaveIBeenPwnedClient();
-
-      await Assert.ThrowsAsync<ArgumentNullException>(async () => await c.GetBreachesAsync(null, BreachMode.Default, CancellationToken.None));
+        await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetBreachesAsync(null));
+      }
     }
 
     [Fact]
     public async Task GetBreachesAsync_CancellationToken_WithNullValueForAccount_Throws()
     {
-      var c = new HaveIBeenPwnedClient();
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      {
+        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-      await Assert.ThrowsAsync<ArgumentNullException>(async () => await c.GetBreachesAsync(null, CancellationToken.None));
+        await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetBreachesAsync(null, CancellationToken.None));
+      }
     }
 
     [Fact]
-    public async Task GetBreachesAsync_CallAfterDispose_Throws()
+    public async Task GetBreachesAsync_AfterDispose_Throws()
     {
-      var c = new HaveIBeenPwnedClient();
-      c.Dispose();
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      {
+        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+        c.Dispose();
 
-      await Assert.ThrowsAsync<ObjectDisposedException>(async () => await c.GetBreachesAsync("DUMMY"));
+        await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetBreachesAsync("DUMMY"));
+      }
     }
 
     [Fact]
-    public async Task GetBreachesAsync_CancellationToken_CallAfterDispose_Throws()
+    public async Task GetBreachesAsync_CancellationToken_AfterDispose_Throws()
     {
-      var c = new HaveIBeenPwnedClient();
-      c.Dispose();
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      {
+        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+        c.Dispose();
 
-      await Assert.ThrowsAsync<ObjectDisposedException>(async () => await c.GetBreachesAsync("DUMMY", CancellationToken.None));
+        await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetBreachesAsync("DUMMY", CancellationToken.None));
+      }
     }
 
     [Fact]
-    public async Task GetBreachesAsync_WithValidValue_DoesNotThrow()
+    public async Task GetBreachesAsync_WithValidInput_Succeeds()
     {
-      var ic = CreateServiceClient();
-      var c = new HaveIBeenPwnedClient(ic);
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+      {
+        var result = await c.GetBreachesAsync("test@example.com");
 
-      var result = await c.GetBreachesAsync("DUMMY");
-
-      Assert.NotNull(result);
+        Assert.NotNull(result);
+        Assert.NotEmpty(result);
+      }
     }
 
     [Fact]
-    public async Task GetBreachesAsync_CancellationToken_WithValidValue_DoesNotThrow()
+    public async Task GetBreachesAsync_CancellationToken_WithValidInput_Succeeds()
     {
-      var ic = CreateServiceClient();
-      var c = new HaveIBeenPwnedClient(ic);
+      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+      {
+        var result = await c.GetBreachesAsync("test@example.com", CancellationToken.None);
 
-      var result = await c.GetBreachesAsync("DUMMY", CancellationToken.None);
-
-      Assert.NotNull(result);
-    }
-
-
-    [Fact]
-    public async Task GetBreachesAsync_BreachModeAndCancellationToken_WithValidValues_DoesNotThrow()
-    {
-      var ic = CreateServiceClient();
-      var c = new HaveIBeenPwnedClient(ic);
-
-      await c.GetBreachesAsync("DUMMY", BreachMode.Default, CancellationToken.None);
-    }
-
-    [Fact]
-    public async Task GetBreachesAsync_BreachMode_WithValidValues_DoesNotThrow()
-    {
-      var ic = CreateServiceClient();
-      var c = new HaveIBeenPwnedClient(ic);
-
-      await c.GetBreachesAsync("DUMMY", BreachMode.Default);
+        Assert.NotNull(result);
+        Assert.NotEmpty(result);
+      }
     }
   }
 }

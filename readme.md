@@ -26,47 +26,34 @@ install-package AtleX.HaveIBeenPwned
 
 ```csharp
 
-// Get the breaches for an account
-using (var client = new HaveIBeenPwnedClient())
+// Create the client
+var settings = new HaveIBeenPwnedClientSettings()
 {
-  var breaches = await client.GetBreachesAsync("test@example.com");
-}
-
-// Get breaches for an account, including unverified breaches
-using (var client = new HaveIBeenPwnedClient())
-{
-  var breaches = await client.GetBreachesAsync("test@example.com", BreachMode.IncludeUnverified);
-}
-
-// Get pastes for an email address
-using (var client = new HaveIBeenPwnedClient())
-{
-  var pastes = await client.GetPastesAsync("test@example.com");
-}
-
-// Verify whether is password is in Pwned Passwords or not
-using (var client = new HaveIBeenPwnedClient())
-{
-  var isPwned = await client.IsPwnedPasswordAsync("1234");
-}
-
-// Override the timeout
-var settings = new HttpHaveIBeenPwnedClientSettings()
-{
+  ApiKey = "APIKEY", // Get one from https://haveibeenpwned.com/API/Key. Not necessary for only checking pwned passwords
+  ApplicationName = "TheNameOfYourApplication"
 	TimeOut = TimeSpan.FromSeconds(30); // Use a 30 seconds timeout
 };
-
-using (var httpHibpClient = new HttpHaveIBeenPwnedClientSettings(settings))
-using (var client = new HaveIBeenPwnedClient(httpHibpClient))
+using (var client = new HaveIBeenPwnedClient(settings))
 {
   // Do something
 }
 
-// Override client (mock for unit testing for example):
-using (var client = new HaveIBeenPwnedClient(new MockServiceClient()))
-{
-  // Do something
-}
+// Get all breaches in the system with their details
+var breaches = await client.GetAllBreachesAsync();
+
+// Get the breaches for an account. This returns a collection of breaches with their 
+// name. Use the response from GetAllBreachesAsync() to find the corresponding details 
+// by name
+var breaches = await client.GetBreachesAsync("test@example.com");
+
+// Get breaches for an account, excluding unverified breaches
+var breaches = await client.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified);
+
+// Get pastes for an email address
+var pastes = await client.GetPastesAsync("test@example.com");
+
+// Verify whether is password is in Pwned Passwords or not
+var isPwned = await client.IsPwnedPasswordAsync("1234");
 ```
 
 # License
