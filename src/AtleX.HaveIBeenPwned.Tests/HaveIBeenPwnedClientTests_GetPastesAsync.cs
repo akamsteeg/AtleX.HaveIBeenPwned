@@ -14,7 +14,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetPastesAsync_WithNullValueForEmailAddress_Throws()
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetPastesAsync(null));
       }
@@ -24,7 +24,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetPastesAsync_CancellationToken_WithNullValueForEmailAddress_Throws()
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetPastesAsync(null, CancellationToken.None));
       }
@@ -35,7 +35,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
       {
-        var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
         c.Dispose();
 
         await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetPastesAsync("DUMMY"));
@@ -47,7 +47,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
       {
-        var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
         c.Dispose();
 
         await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));
@@ -58,7 +58,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetPastesAsync_WithValidInput_Succeeds()
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.GetPastesAsync("test@example.com");
 
@@ -71,7 +71,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetPastesAsync_CancellationToken_WithValidInput_Succeeds()
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.GetPastesAsync("test@example.com", CancellationToken.None);
 

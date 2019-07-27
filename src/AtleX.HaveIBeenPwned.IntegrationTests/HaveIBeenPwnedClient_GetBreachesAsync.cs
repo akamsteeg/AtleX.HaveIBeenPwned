@@ -20,12 +20,12 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
     }
 
     [Fact]
-    public async Task GetBreachesAsync_WithValidInputAndVerifiedBreaches_DoesNotThrow()
+    public async Task GetBreachesAsync_WithValidInputAndExludeUnVerifiedBreaches_DoesNotThrow()
     {
       using (var httpClient = new HttpClient())
       using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
       {
-        var result = await c.GetBreachesAsync("test@example.com", BreachMode.IncludeUnverified);
+        var result = await c.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified);
 
         Assert.NotNull(result);
       }
@@ -45,13 +45,13 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
     }
 
     [Fact]
-    public async Task GetBreachesAsync_WithValidInputAndVerifiedBreachesAndCancellationToken_DoesNotThrow()
+    public async Task GetBreachesAsync_WithValidInputAndExludeUnVerifiedBreachesAndCancellationToken_DoesNotThrow()
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
       using (var httpClient = new HttpClient())
       using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
       {
-        var result = await c.GetBreachesAsync("test@example.com", BreachMode.IncludeUnverified, cancellationTokenSource.Token);
+        var result = await c.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified, cancellationTokenSource.Token);
 
         Assert.NotNull(result);
       }

@@ -17,7 +17,7 @@ namespace AtleX.HaveIBeenPwned
     {
       get;
       set;
-    } = "AtleX.HaveIBeenPwned/4.0.0";
+    } = "AtleX.HaveIBeenPwned";
 
     /// <summary>
     /// Gets or sets the <see cref="TimeSpan"/> as timeout when communicating
@@ -28,6 +28,15 @@ namespace AtleX.HaveIBeenPwned
       get;
       set;
     } = 10.Seconds();
+
+    /// <summary>
+    /// Gets or sets the API key used to authenticate when checking breaches or pastes
+    /// </summary>
+    public string ApiKey
+    {
+      get;
+      set;
+    }
 
     /// <summary>
     /// Gets the default <see cref="HaveIBeenPwnedClientSettings"/>

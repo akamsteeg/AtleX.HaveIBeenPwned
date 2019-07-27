@@ -1,8 +1,6 @@
 ﻿using AtleX.HaveIBeenPwned.Tests.Mocks;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -17,7 +15,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
       {
-        var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
         await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetBreachesAsync(null));
       }
@@ -28,7 +26,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
       {
-        var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
         await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetBreachesAsync(null, CancellationToken.None));
       }
@@ -39,7 +37,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
       {
-        var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
         c.Dispose();
 
         await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetBreachesAsync("DUMMY"));
@@ -51,7 +49,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
       {
-        var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
         c.Dispose();
 
         await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetBreachesAsync("DUMMY", CancellationToken.None));
@@ -62,7 +60,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetBreachesAsync_WithValidInput_Succeeds()
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.GetBreachesAsync("test@example.com");
 
@@ -75,7 +73,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetBreachesAsync_CancellationToken_WithValidInput_Succeeds()
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.GetBreachesAsync("test@example.com", CancellationToken.None);
 

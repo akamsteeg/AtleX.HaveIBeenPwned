@@ -14,7 +14,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task IsPwnedPasswordAsync_WithNullValueForPassword_Throws()
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<ArgumentNullException>(() => c.IsPwnedPasswordAsync(null));
       }
@@ -24,7 +24,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task IsPwnedPasswordAsync_CancellationToken_WithNullValueForPassword_Throws()
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<ArgumentNullException>(() => c.IsPwnedPasswordAsync(null, CancellationToken.None));
       }
@@ -35,7 +35,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
       {
-        var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
         c.Dispose();
 
         await Assert.ThrowsAsync<ObjectDisposedException>(() => c.IsPwnedPasswordAsync("DUMMY"));
@@ -47,7 +47,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
       {
-        var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
         c.Dispose();
 
         await Assert.ThrowsAsync<ObjectDisposedException>(() => c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None));
@@ -58,7 +58,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task IsPwnedPasswordAsync_WithValidInput_Succeeds()
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.IsPwnedPasswordAsync("P@ssw0rd");
 
@@ -70,7 +70,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task IsPwnedPasswordAsync_CancellationToken_WithValidInput_Succeeds()
     {
       using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.IsPwnedPasswordAsync("P@ssw0rd", CancellationToken.None);
 

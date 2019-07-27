@@ -9,18 +9,18 @@ namespace AtleX.HaveIBeenPwned
   public enum BreachMode
   {
     /// <summary>
-    /// The default, verified, breaches
+    /// The default, verified and unverified, breaches
     /// </summary>
     Default,
 
     /// <summary>
-    /// Include unverified breaches
+    /// Exclude unverified breaches
     /// </summary>
-    IncludeUnverified = 1,
+    ExcludeUnverified = 1,
 
     /// <summary>
     /// Include all breaches
     /// </summary>
-    All = IncludeUnverified
+    All = Default
   }
 }
