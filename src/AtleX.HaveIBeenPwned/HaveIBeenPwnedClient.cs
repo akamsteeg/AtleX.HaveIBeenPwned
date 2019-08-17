@@ -607,6 +607,10 @@ namespace AtleX.HaveIBeenPwned
           {
             return; // Do nothing
           }
+        case 401:
+          {
+            throw new InvalidApiKeyException();
+          }
         default:
           {
             throw new HaveIBeenPwnedClientException($"An error occured ({(int)response.StatusCode} {response.ReasonPhrase})");

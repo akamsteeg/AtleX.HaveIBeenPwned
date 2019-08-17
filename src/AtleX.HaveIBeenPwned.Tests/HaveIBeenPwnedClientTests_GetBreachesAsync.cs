@@ -85,7 +85,7 @@ namespace AtleX.HaveIBeenPwned.Tests
       {
         var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-        await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetBreachesAsync("DUMMY"));
+        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY"));
       }
     }
 
@@ -96,7 +96,7 @@ namespace AtleX.HaveIBeenPwned.Tests
       {
         var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-        await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All));
+        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All));
       }
     }
 
@@ -122,7 +122,7 @@ namespace AtleX.HaveIBeenPwned.Tests
       {
         var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-        await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetBreachesAsync("DUMMY", CancellationToken.None));
+        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", CancellationToken.None));
       }
     }
 
@@ -133,7 +133,7 @@ namespace AtleX.HaveIBeenPwned.Tests
       {
         var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-        await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All, CancellationToken.None));
+        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All, CancellationToken.None));
       }
     }
 

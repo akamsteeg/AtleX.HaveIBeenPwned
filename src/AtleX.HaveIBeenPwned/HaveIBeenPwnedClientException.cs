@@ -44,7 +44,6 @@ namespace AtleX.HaveIBeenPwned
     public HaveIBeenPwnedClientException(string message, Exception innerException)
       : base(message, innerException)
     {
-
     }
   }
 }
