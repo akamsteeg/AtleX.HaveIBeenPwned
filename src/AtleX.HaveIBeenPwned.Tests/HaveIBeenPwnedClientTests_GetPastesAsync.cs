@@ -13,7 +13,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetPastesAsync_WithNullValueForEmailAddress_Throws()
     {
-      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetPastesAsync(null));
@@ -23,7 +23,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetPastesAsync_CancellationToken_WithNullValueForEmailAddress_Throws()
     {
-      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetPastesAsync(null, CancellationToken.None));
@@ -33,7 +33,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetPastesAsync_AfterDispose_Throws()
     {
-      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       {
         var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
         c.Dispose();
@@ -45,7 +45,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetPastesAsync_CancellationToken_AfterDispose_Throws()
     {
-      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       {
         var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
         c.Dispose();
@@ -55,9 +55,31 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
+    public async Task GetPastesAsync_RateLimitExceeded_ThrowsRateLimitExceededException()
+    {
+      using (var cancellationTokenSource = new CancellationTokenSource())
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.TooManyRequests)))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+      {
+        await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetPastesAsync("DUMMY"));
+      }
+    }
+
+    [Fact]
+    public async Task GetPastesAsync_WithCancellationToken_RateLimitExceeded_ThrowsRateLimitExceededException()
+    {
+      using (var cancellationTokenSource = new CancellationTokenSource())
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.TooManyRequests)))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+      {
+        await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));
+      }
+    }
+
+    [Fact]
     public async Task GetPastesAsync_WithValidInput_Succeeds()
     {
-      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.GetPastesAsync("test@example.com");
@@ -70,7 +92,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetPastesAsync_CancellationToken_WithValidInput_Succeeds()
     {
-      using (var httpClient = new HttpClient(HttpMessageHandlerMockFactory.Create()))
+      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.GetPastesAsync("test@example.com", CancellationToken.None);
