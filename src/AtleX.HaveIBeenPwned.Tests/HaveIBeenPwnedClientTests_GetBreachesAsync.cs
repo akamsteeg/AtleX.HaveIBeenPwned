@@ -90,7 +90,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public async Task GetBreachesAsync_BreachMode_WithInvalidApiKey_Throws()
+    public async Task GetBreachesAsync_BreachModeAll_WithInvalidApiKey_Throws()
     {
       using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.Unauthorized)))
       {
@@ -127,7 +127,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public async Task GetBreachesAsync_BreachModeCancellationToken_WithInvalidApiKey_Throws()
+    public async Task GetBreachesAsync_BreachModeAllCancellationToken_WithInvalidApiKey_Throws()
     {
       using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.Unauthorized)))
       {
@@ -153,7 +153,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public async Task GetBreachesAsync_BreachMode_WithoutApiKey_Throws()
+    public async Task GetBreachesAsync_BreachModeAll_WithoutApiKey_Throws()
     {
       var settings = new HaveIBeenPwnedClientSettings()
       {
@@ -168,7 +168,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public async Task GetBreachesAsync_BreachModeCancellationToken_WithoutApiKey_Throws()
+    public async Task GetBreachesAsync_BreachModeAllCancellationToken_WithoutApiKey_Throws()
     {
       var settings = new HaveIBeenPwnedClientSettings()
       {
@@ -196,7 +196,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public async Task GetBreachesAsync_BreachMode_WithValidInput_Succeeds()
+    public async Task GetBreachesAsync_BreachModeAll_WithValidInput_Succeeds()
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
