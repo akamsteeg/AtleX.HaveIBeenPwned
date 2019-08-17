@@ -108,7 +108,7 @@ namespace AtleX.HaveIBeenPwned.Tests
       {
         var result = await c.IsPwnedPasswordAsync("UNKNOWN");
 
-        Assert.True(result);
+        Assert.False(result);
       }
     }
 
@@ -120,7 +120,7 @@ namespace AtleX.HaveIBeenPwned.Tests
       {
         var result = await c.IsPwnedPasswordAsync("UNKNOWN", CancellationToken.None);
 
-        Assert.True(result);
+        Assert.False(result);
       }
     }
   }
