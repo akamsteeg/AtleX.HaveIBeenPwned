@@ -77,7 +77,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public async Task IsPwnedPasswordAsync_WithValidInput_Succeeds()
+    public async Task IsPwnedPasswordAsync_KnownInput_Succeeds()
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
@@ -89,12 +89,36 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public async Task IsPwnedPasswordAsync_CancellationToken_WithValidInput_Succeeds()
+    public async Task IsPwnedPasswordAsync_CancellationToken_KnownInput_Succeeds()
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.IsPwnedPasswordAsync("P@ssw0rd", CancellationToken.None);
+
+        Assert.True(result);
+      }
+    }
+    
+    [Fact]
+    public async Task IsPwnedPasswordAsync_UnknownInputSucceeds()
+    {
+      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+      {
+        var result = await c.IsPwnedPasswordAsync("UNKNOWN");
+
+        Assert.True(result);
+      }
+    }
+
+    [Fact]
+    public async Task IsPwnedPasswordAsync_CancellationToken_UnknownInputSucceeds()
+    {
+      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+      {
+        var result = await c.IsPwnedPasswordAsync("UNKNOWN", CancellationToken.None);
 
         Assert.True(result);
       }
