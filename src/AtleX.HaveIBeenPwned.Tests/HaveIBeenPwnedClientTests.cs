@@ -1,5 +1,7 @@
+using AtleX.HaveIBeenPwned.Tests.Mocks;
 using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests
@@ -30,6 +32,31 @@ namespace AtleX.HaveIBeenPwned.Tests
       using (var httpClient = new HttpClient())
       {
         new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+      }
+    }
+
+    [Fact]
+    public void Ctor_WithoutValueForSettingsParamAndHttpClient_DoesNotThrow()
+    {
+      var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default);
+    }
+
+    [Fact]
+    public void Dispose_DoesNotThrow()
+    {
+      var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default);
+      
+      c.Dispose();
+    }
+
+    [Fact]
+    public async Task Dispose_WhenCreatedWithHttpClient_DoesNotDisposeHttpClient()
+    {
+      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
+      {
+        var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient);
+
+        await Assert.ThrowsAsync<InvalidOperationException>(() => httpClient.GetAsync("/")); // Not an ObjectDisposedException
       }
     }
   }

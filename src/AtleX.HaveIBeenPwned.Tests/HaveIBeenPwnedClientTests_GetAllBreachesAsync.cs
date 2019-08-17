@@ -71,17 +71,6 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public async Task GetAllBreachesAsync_WithCancellationToken_RateLimitExceeded_ThrowsRateLimitExceededException()
-    {
-      using (var cancellationTokenSource = new CancellationTokenSource())
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.TooManyRequests)))
-      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-      {
-        await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetAllBreachesAsync(CancellationToken.None));
-      }
-    }
-
-    [Fact]
     public async Task GetAllBreachesAsync_CancellationToken_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
       using (var cancellationTokenSource = new CancellationTokenSource())

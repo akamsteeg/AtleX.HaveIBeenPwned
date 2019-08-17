@@ -196,12 +196,38 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
+    public async Task GetBreachesAsync_BreachMode_WithValidInput_Succeeds()
+    {
+      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+      {
+        var result = await c.GetBreachesAsync("test@example.com", BreachMode.All);
+
+        Assert.NotNull(result);
+        Assert.NotEmpty(result);
+      }
+    }
+
+    [Fact]
     public async Task GetBreachesAsync_CancellationToken_WithValidInput_Succeeds()
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.GetBreachesAsync("test@example.com", CancellationToken.None);
+
+        Assert.NotNull(result);
+        Assert.NotEmpty(result);
+      }
+    }
+
+    [Fact]
+    public async Task GetBreachesAsync_BreachModeCancellationToken_WithValidInput_Succeeds()
+    {
+      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+      {
+        var result = await c.GetBreachesAsync("test@example.com", BreachMode.All, CancellationToken.None);
 
         Assert.NotNull(result);
         Assert.NotEmpty(result);
