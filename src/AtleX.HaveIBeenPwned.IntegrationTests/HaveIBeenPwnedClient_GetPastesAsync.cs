@@ -48,6 +48,38 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
     }
 
     [Fact]
+    public async Task GetPastesAsync_WithInvalidApiKey_ThrowsInvalidApiKeyException()
+    {
+      var settings = new HaveIBeenPwnedClientSettings()
+      {
+        ApiKey = "DUMMYAPIKEY",
+      };
+
+      using (var cancellationTokenSource = new CancellationTokenSource())
+      using (var httpClient = new HttpClient())
+      using (var c = new HaveIBeenPwnedClient(settings, httpClient))
+      {
+        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("test@example.com"));
+      }
+    }
+
+    [Fact]
+    public async Task GetPastesAsync_WithCancellationTokenAndInvalidApiKey_ThrowsInvalidApiKeyException()
+    {
+      var settings = new HaveIBeenPwnedClientSettings()
+      {
+        ApiKey = "DUMMYAPIKEY",
+      };
+
+      using (var cancellationTokenSource = new CancellationTokenSource())
+      using (var httpClient = new HttpClient())
+      using (var c = new HaveIBeenPwnedClient(settings, httpClient))
+      {
+        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("test@example.com", cancellationTokenSource.Token));
+      }
+    }
+
+    [Fact]
     public async Task GetPastesAsync_WithUnknownEmailAndCancellationToken_DoesNotThrow()
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
