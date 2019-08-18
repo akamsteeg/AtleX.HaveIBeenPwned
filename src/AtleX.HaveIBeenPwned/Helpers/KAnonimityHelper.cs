@@ -33,7 +33,7 @@ namespace AtleX.HaveIBeenPwned.Helpers
     /// </returns>
     public static (string kAnonimityPart, string kAnonimitySuffix) GetKAnonimityPartsForPassword(string password)
     {
-      Throw.ArgumentNull.WhenNull(password, nameof(password));
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
 
       using (var sha1 = new SHA1Managed())
       {

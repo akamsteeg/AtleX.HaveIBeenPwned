@@ -130,7 +130,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account)
     {
-      Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
       this.ThrowIfDisposed();
 
       var result = await this.GetBreachesInternalAsync(account, BreachMode.Default, CancellationToken.None)
@@ -154,7 +154,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, CancellationToken cancellationToken)
     {
-      Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
       this.ThrowIfDisposed();
 
       var result = await this.GetBreachesInternalAsync(account, BreachMode.Default, cancellationToken)
@@ -178,7 +178,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes)
     {
-      Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
       this.ThrowIfDisposed();
 
       var result = await this.GetBreachesInternalAsync(account, modes, CancellationToken.None)
@@ -205,7 +205,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes, CancellationToken cancellationToken)
     {
-      Throw.ArgumentNull.When(account.IsNullOrWhiteSpace(), nameof(account));
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
       this.ThrowIfDisposed();
 
       var result = await this.GetBreachesInternalAsync(account, modes, cancellationToken)
@@ -226,7 +226,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress)
     {
-      Throw.ArgumentNull.When(emailAddress.IsNullOrWhiteSpace(), nameof(emailAddress));
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
       this.ThrowIfDisposed();
 
       var result = await this.GetPastesInternalAsync(emailAddress, CancellationToken.None)
@@ -250,7 +250,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress, CancellationToken cancellationToken)
     {
-      Throw.ArgumentNull.When(emailAddress.IsNullOrWhiteSpace(), nameof(emailAddress));
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
       this.ThrowIfDisposed();
 
       var result = await this.GetPastesInternalAsync(emailAddress, cancellationToken)
@@ -271,7 +271,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     public async Task<bool> IsPwnedPasswordAsync(string password)
     {
-      Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
       this.ThrowIfDisposed();
 
       var result = await this.IsPwnedPasswordInternalAsync(password, CancellationToken.None)
@@ -295,7 +295,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     public async Task<bool> IsPwnedPasswordAsync(string password, CancellationToken cancellationToken)
     {
-      Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
       this.ThrowIfDisposed();
 
       var result = await this.IsPwnedPasswordInternalAsync(password, cancellationToken)
@@ -357,6 +357,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<IEnumerable<Breach>> GetBreachesInternalAsync(string account, BreachMode modes, CancellationToken cancellationToken)
     {
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
       var uriBuilder = new UriBuilder($"{ApiBaseUri}/breachedaccount/{account}");
 
       if (modes.HasFlag(BreachMode.ExcludeUnverified))
@@ -385,7 +386,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<IEnumerable<Paste>> GetPastesInternalAsync(string emailAddress, CancellationToken cancellationToken)
     {
-      Throw.ArgumentNull.When(emailAddress.IsNullOrWhiteSpace(), nameof(emailAddress));
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
       this.ThrowIfDisposed();
 
       var requestUri = new Uri($"{ApiBaseUri}/pasteaccount/{emailAddress}");
@@ -411,7 +412,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<bool> IsPwnedPasswordInternalAsync(string password, CancellationToken cancellationToken)
     {
-      Throw.ArgumentNull.When(password.IsNullOrWhiteSpace(), nameof(password));
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
       this.ThrowIfDisposed();
 
       var (kAnonimityPart, kAnonimitySuffix) = KAnonimityHelper.GetKAnonimityPartsForPassword(password);
