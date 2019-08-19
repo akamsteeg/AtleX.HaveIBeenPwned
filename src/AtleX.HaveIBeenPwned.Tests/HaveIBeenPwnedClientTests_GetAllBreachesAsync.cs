@@ -1,5 +1,6 @@
 ﻿using AtleX.HaveIBeenPwned.Tests.Mocks;
 using System;
+using System.Collections;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace AtleX.HaveIBeenPwned.Tests
         var result = await c.GetAllBreachesAsync();
 
         Assert.NotNull(result);
+        Assert.NotEmpty(result);
       }
     }
 
@@ -32,6 +34,7 @@ namespace AtleX.HaveIBeenPwned.Tests
         var result = await c.GetAllBreachesAsync(cancellationTokenSource.Token);
 
         Assert.NotNull(result);
+        Assert.NotEmpty(result);
       }
     }
 
