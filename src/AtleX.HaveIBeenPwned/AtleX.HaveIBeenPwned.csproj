@@ -2,10 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>8.0</LangVersion>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <DocumentationFile>docs\AtleX.HaveIBeenPwned.xml</DocumentationFile>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+    <Nullable>enable</Nullable>
     
     <Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
     <Company />
@@ -66,7 +67,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="Pitcher" Version="2.0.0" />
+    <PackageReference Include="Pitcher" Version="2.1.0" />
     <PackageReference Include="SwissArmyKnife" Version="1.4.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta2-19367-01" PrivateAssets="All" />
   </ItemGroup>

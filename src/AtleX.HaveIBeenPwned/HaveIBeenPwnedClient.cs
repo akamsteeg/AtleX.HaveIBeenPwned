@@ -357,7 +357,6 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<IEnumerable<Breach>> GetBreachesInternalAsync(string account, BreachMode modes, CancellationToken cancellationToken)
     {
-      Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
       var uriBuilder = new UriBuilder($"{ApiBaseUri}/breachedaccount/{account}");
 
       if (modes.HasFlag(BreachMode.ExcludeUnverified))
@@ -386,7 +385,6 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<IEnumerable<Paste>> GetPastesInternalAsync(string emailAddress, CancellationToken cancellationToken)
     {
-      Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
       this.ThrowIfDisposed();
 
       var requestUri = new Uri($"{ApiBaseUri}/pasteaccount/{emailAddress}");
@@ -412,36 +410,34 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<bool> IsPwnedPasswordInternalAsync(string password, CancellationToken cancellationToken)
     {
-      Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
       this.ThrowIfDisposed();
 
       var (kAnonimityPart, kAnonimitySuffix) = KAnonimityHelper.GetKAnonimityPartsForPassword(password);
 
       var requestUri = new Uri($"{PwnedPasswordsBaseUri}/{kAnonimityPart}");
 
-      using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri))
-      using (var data = await this.GetAsync(requestMessage, cancellationToken).ConfigureAwait(false))
-      using (var streamReader = new StreamReader(data))
+      using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+      using var data = await this.GetAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+      using var streamReader = new StreamReader(data);
+
+      var result = false;
+
+      while (!streamReader.EndOfStream && !result)
       {
-        var result = false;
+        cancellationToken.ThrowIfCancellationRequested();
 
-        while (!streamReader.EndOfStream && !result)
+        var currentLine = await streamReader
+          .ReadLineAsync()
+          .ConfigureAwait(false);
+
+        if (currentLine.StartsWith(kAnonimitySuffix))
         {
-          cancellationToken.ThrowIfCancellationRequested();
-
-          var currentLine = await streamReader
-            .ReadLineAsync()
-            .ConfigureAwait(false);
-
-          if (currentLine.StartsWith(kAnonimitySuffix))
-          {
-            result = true;
-            break;
-          }
+          result = true;
+          break;
         }
-
-        return result;
       }
+
+      return result;
     }
 
     /// <summary>
@@ -461,19 +457,17 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<T> GetAuthenticatedAsync<T>(Uri url, CancellationToken cancellationToken)
     {
-      Throw.ArgumentNull.WhenNull(url, nameof(url));
       if (this._clientSettings.ApiKey.IsNullOrWhiteSpace()) { throw new InvalidOperationException("The specified API key is invalid");  }
       this.ThrowIfDisposed();
 
-      using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, url))
-      {
-        requestMessage.Headers.Add("hibp-api-key", this._clientSettings.ApiKey);
+      using var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
 
-        var result = await this.GetAsync<T>(requestMessage, cancellationToken)
-          .ConfigureAwait(false);
+      requestMessage.Headers.Add("hibp-api-key", this._clientSettings.ApiKey);
 
-        return result;
-      }
+      var result = await this.GetAsync<T>(requestMessage, cancellationToken)
+        .ConfigureAwait(false);
+
+      return result;
     }
 
     /// <summary>
@@ -493,16 +487,14 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<T> GetAsync<T>(Uri url, CancellationToken cancellationToken)
     {
-      Throw.ArgumentNull.WhenNull(url, nameof(url));
       this.ThrowIfDisposed();
 
-      using (var requestMessage = new HttpRequestMessage(HttpMethod.Get, url))
-      {
-        var result = await this.GetAsync<T>(requestMessage, cancellationToken)
-          .ConfigureAwait(false);
+      using var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
 
-        return result;
-      }
+      var result = await this.GetAsync<T>(requestMessage, cancellationToken)
+        .ConfigureAwait(false);
+
+      return result;
     }
 
     /// <summary>
@@ -522,18 +514,16 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<T> GetAsync<T>(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
     {
-      Throw.ArgumentNull.WhenNull(requestMessage, nameof(requestMessage));
       this.ThrowIfDisposed();
 
-      using (var data = await this.GetAsync(requestMessage, cancellationToken).ConfigureAwait(false))
-      using (var streamReader = new StreamReader(data))
-      using (var jsonReader = new JsonTextReader(streamReader))
-      {
-        var jsonSerializer = new JsonSerializer();
-        var result = jsonSerializer.Deserialize<T>(jsonReader);
+      using var data = await this.GetAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+      using var streamReader = new StreamReader(data);
+      using var jsonReader = new JsonTextReader(streamReader);
 
-        return result;
-      }
+      var jsonSerializer = new JsonSerializer();
+      var result = jsonSerializer.Deserialize<T>(jsonReader);
+
+      return result;
     }
 
     /// <summary>
@@ -550,7 +540,6 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<Stream> GetAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
     {
-      Throw.ArgumentNull.WhenNull(requestMessage, nameof(requestMessage));
       if (requestMessage.Method != HttpMethod.Get) { throw new InvalidOperationException($"Request method '{requestMessage.Method}' not supported"); }
       this.ThrowIfDisposed();
 
@@ -558,25 +547,24 @@ namespace AtleX.HaveIBeenPwned
 
       try
       {
-        using (var response = await this._httpClient
-        .SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
-        .ConfigureAwait(false))
+        using var response = await this._httpClient
+          .SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
+          .ConfigureAwait(false);
+
+        if (response.IsSuccessStatusCode)
         {
-          if (response.IsSuccessStatusCode)
-          {
-            result = new MemoryStream();
+          result = new MemoryStream();
 
-            await response
-              .Content
-              .CopyToAsync(result)
-              .ConfigureAwait(false);
+          await response
+            .Content
+            .CopyToAsync(result)
+            .ConfigureAwait(false);
 
-            result.Reset();
-          }
-          else
-          {
-            HandleErrorResponse(response);
-          }
+          result.Reset();
+        }
+        else
+        {
+          HandleErrorResponse(response);
         }
       }
       catch (Exception e) when (!(e is HaveIBeenPwnedClientException))
@@ -595,13 +583,12 @@ namespace AtleX.HaveIBeenPwned
     /// </param>
     private static void HandleErrorResponse(HttpResponseMessage response)
     {
-      Throw.ArgumentNull.WhenNull(response, nameof(response));
-
       switch ((int)response.StatusCode)
       {
         case 429: // Rate limit exceeded
           {
-            var retryAfter = response.Headers.RetryAfter.Delta.Value;
+            // If we don't get a retry-after value from the HaveIBeenPwnedService, we revert to their specified default of 1500 ms.
+            var retryAfter = response.Headers.RetryAfter.Delta ?? 1500.MilliSeconds();
             throw new RateLimitExceededException(retryAfter);
           }
         case 404: // Not found
@@ -633,10 +620,8 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private static HttpClient ConfigureHttpClient(HttpClient client, HaveIBeenPwnedClientSettings settings)
     {
-      Throw.ArgumentNull.WhenNull(client, nameof(client));
-      Throw.ArgumentNull.WhenNull(settings, nameof(settings));
-
       client.DefaultRequestHeaders.Clear();
+
       client.DefaultRequestHeaders.Add("Accept", "application/json");
       client.DefaultRequestHeaders.Add("User-Agent", settings.ApplicationName);
       client.Timeout = settings.TimeOut;

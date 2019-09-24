@@ -60,7 +60,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetBreachesAsync_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.TooManyRequests)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetBreachesAsync("DUMMY"));
@@ -71,7 +71,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetBreachesAsync_WithCancellationToken_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.TooManyRequests)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetBreachesAsync("DUMMY", CancellationToken.None));
@@ -81,7 +81,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetBreachesAsync_WithInvalidApiKey_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.Unauthorized)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       {
         var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
@@ -92,7 +92,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetBreachesAsync_BreachModeAll_WithInvalidApiKey_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.Unauthorized)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       {
         var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
@@ -103,7 +103,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetBreachesAsync_CancellationToken_WithoutApiKey_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.Unauthorized)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", CancellationToken.None));
@@ -113,7 +113,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetBreachesAsync_CancellationToken_WithInvalidApiKey_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.Unauthorized)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       {
         var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
@@ -124,7 +124,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetBreachesAsync_BreachModeAllCancellationToken_WithInvalidApiKey_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.Unauthorized)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       {
         var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
@@ -135,7 +135,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetBreachesAsync_WithoutApiKey_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.Unauthorized)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY"));
@@ -145,7 +145,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetBreachesAsync_BreachModeAll_WithoutApiKey_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.Unauthorized)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All));
@@ -155,7 +155,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetBreachesAsync_BreachModeAllCancellationToken_WithoutApiKey_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.Unauthorized)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync < InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All, CancellationToken.None));

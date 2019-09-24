@@ -15,12 +15,12 @@ namespace AtleX.HaveIBeenPwned
     /// <summary>
     /// Gets or sets the name of the breach
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the title of the breach
     /// </summary>
-    public string Title { get; set; }
+    public string Title { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the date of the breach
@@ -45,12 +45,12 @@ namespace AtleX.HaveIBeenPwned
     /// <summary>
     /// Gets or sets the description of the breach
     /// </summary>
-    public string Description { get; set; }
+    public string Description { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the types of data included in the breach
     /// </summary>
-    public IEnumerable<string> DataClasses { get; set; }
+    public IEnumerable<string> DataClasses { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets whether the breach is verified or not

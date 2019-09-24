@@ -33,7 +33,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetPastesAsync_WithInvalidApiKey_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.Unauthorized)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("DUMMY"));
@@ -43,7 +43,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetPastesAsync_CancellationToken_WithInvalidApiKey_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.Unauthorized)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));
@@ -78,7 +78,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetPastesAsync_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.TooManyRequests)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetPastesAsync("DUMMY"));
@@ -89,7 +89,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetPastesAsync_WithCancellationToken_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.TooManyRequests)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));

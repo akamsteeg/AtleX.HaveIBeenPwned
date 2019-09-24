@@ -33,27 +33,24 @@ namespace AtleX.HaveIBeenPwned.Helpers
     /// </returns>
     public static (string kAnonimityPart, string kAnonimitySuffix) GetKAnonimityPartsForPassword(string password)
     {
-      Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
+      using var sha1 = new SHA1Managed();
 
-      using (var sha1 = new SHA1Managed())
+      var passwordRaw = Encoding.UTF8.GetBytes(password);
+
+      var hash = sha1.ComputeHash(passwordRaw);
+
+      var kAnonimityHashPart = new StringBuilder(40); // SHA1 hash is 40 characters long
+      foreach (var currentByte in hash)
       {
-        var passwordRaw = Encoding.UTF8.GetBytes(password);
-
-        var hash = sha1.ComputeHash(passwordRaw);
-
-        var kAnonimityHashPart = new StringBuilder(40); // SHA1 hash is 40 characters long
-        foreach (var currentByte in hash)
-        {
-          kAnonimityHashPart.Append(currentByte.ToString("X2"));
-        }
-
-        var result = (
-          kAnonimityHashPart.ToString(0, KAnonimityPartLength),
-          kAnonimityHashPart.ToString(KAnonimityPartLength, KAnonimitySuffixLength)
-          );
-
-        return result;
+        kAnonimityHashPart.Append(currentByte.ToString("X2"));
       }
+
+      var result = (
+        kAnonimityHashPart.ToString(0, KAnonimityPartLength),
+        kAnonimityHashPart.ToString(KAnonimityPartLength, KAnonimitySuffixLength)
+        );
+
+      return result;
     }
   }
 }

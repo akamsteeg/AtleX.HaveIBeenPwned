@@ -8,21 +8,21 @@ namespace AtleX.HaveIBeenPwned.Tests.Mocks
   internal sealed class MockErroringHttpMessageHandler
     : HttpMessageHandler
   {
-    private readonly HttpStatusCode _desiredResultStatusCode;
+    private readonly int _desiredResultStatusCode;
 
-    public MockErroringHttpMessageHandler(HttpStatusCode desiredResultStatusCode)
+    public MockErroringHttpMessageHandler(int desiredResultStatusCode)
     {
       this._desiredResultStatusCode = desiredResultStatusCode;
     }
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-      var result = new HttpResponseMessage(this._desiredResultStatusCode);
+      var result = new HttpResponseMessage((HttpStatusCode)this._desiredResultStatusCode);
 
       // Add custom headers per statuscode if necessary
-      switch (this._desiredResultStatusCode)
+      switch ((int)this._desiredResultStatusCode)
       {
-        case HttpStatusCode.TooManyRequests:
+        case 429: // Too many requests
           {
             result.Headers.Add("retry-after", "1500");
             break;

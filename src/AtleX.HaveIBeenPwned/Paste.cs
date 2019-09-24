@@ -14,17 +14,17 @@ namespace AtleX.HaveIBeenPwned
     /// <summary>
     /// Gets or sets the source of the paste
     /// </summary>
-    public string Source { get; set; }
+    public string Source { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the Id of the paste
     /// </summary>
-    public string Id { get; set; }
+    public string Id { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the title of the paste
     /// </summary>
-    public string Title { get; set; }
+    public string Title { get; set; } = default!;
 
     /// <summary>
     /// Gets or sets the <see cref="DateTime"/> the paste was posted
@@ -34,6 +34,6 @@ namespace AtleX.HaveIBeenPwned
     /// <summary>
     /// Gets or sets the number of accounts in the paste
     /// </summary>
-    public int EmailCount { get; set; }
+    public int EmailCount { get; set; } = default!;
   }
 }

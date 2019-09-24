@@ -7,12 +7,6 @@ namespace AtleX.HaveIBeenPwned.Tests.Helpers
   public class KAnonimityHelperTests
   {
     [Fact]
-    public void GetKAnonimityPartsForPassword_WithEmptyPassword_Throws()
-    {
-      Assert.Throws<ArgumentNullException>(() => KAnonimityHelper.GetKAnonimityPartsForPassword(""));
-    }
-
-    [Fact]
     public void GetKAnonimityPartsForPassword_WithPassword_GeneratesValidKAnonimityParts()
     {
       var (kAnonimityPart, kAnonimitySuffix) = KAnonimityHelper.GetKAnonimityPartsForPassword("DUMMY");

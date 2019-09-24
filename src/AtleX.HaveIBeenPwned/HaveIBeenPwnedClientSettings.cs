@@ -32,7 +32,7 @@ namespace AtleX.HaveIBeenPwned
     /// <summary>
     /// Gets or sets the API key used to authenticate when checking breaches or pastes
     /// </summary>
-    public string ApiKey
+    public string? ApiKey
     {
       get;
       set;

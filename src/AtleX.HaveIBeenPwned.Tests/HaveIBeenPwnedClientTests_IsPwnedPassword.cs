@@ -58,7 +58,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task IsPwnedPasswordAsync_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.TooManyRequests)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<RateLimitExceededException>(() => c.IsPwnedPasswordAsync("DUMMY"));
@@ -69,7 +69,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task IsPwnedPasswordAsync_WithCancellationToken_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.TooManyRequests)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<RateLimitExceededException>(() => c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None));
@@ -103,7 +103,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task IsPwnedPasswordAsync_UnknownInputSucceeds()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.NotFound)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.IsPwnedPasswordAsync("UNKNOWN");
@@ -115,7 +115,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task IsPwnedPasswordAsync_CancellationToken_UnknownInputSucceeds()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.NotFound)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.IsPwnedPasswordAsync("UNKNOWN", CancellationToken.None);

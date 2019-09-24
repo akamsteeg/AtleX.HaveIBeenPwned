@@ -66,7 +66,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetAllBreachesAsync_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.TooManyRequests)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetAllBreachesAsync());
@@ -77,7 +77,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetAllBreachesAsync_CancellationToken_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(System.Net.HttpStatusCode.TooManyRequests)))
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetAllBreachesAsync(CancellationToken.None));

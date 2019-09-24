@@ -13,6 +13,6 @@ namespace AtleX.HaveIBeenPwned
     /// <summary>
     /// Gets or sets the name of the breach
     /// </summary>
-    public string Name { get; set; }
+    public string Name { get; set; } = default!;
   }
 }
