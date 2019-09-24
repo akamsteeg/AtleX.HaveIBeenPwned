@@ -41,6 +41,22 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
+    public async Task GetPastesAsync_WithhoutApiKey_Throws()
+    {
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
+      {
+
+        var settings = this.ClientSettings;
+        settings.ApiKey = string.Empty;
+
+        using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+        {
+          await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("DUMMY"));
+        }
+      }
+    }
+
+    [Fact]
     public async Task GetPastesAsync_CancellationToken_WithInvalidApiKey_Throws()
     {
       using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))

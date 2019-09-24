@@ -83,9 +83,13 @@ namespace AtleX.HaveIBeenPwned.Tests
     {
       using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       {
-        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+        var settings = this.ClientSettings;
+        settings.ApiKey = string.Empty;
 
-        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY"));
+        using (var c = new HaveIBeenPwnedClient(settings, httpClient))
+        {
+          await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY"));
+        }
       }
     }
 
@@ -94,9 +98,10 @@ namespace AtleX.HaveIBeenPwned.Tests
     {
       using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       {
-        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
-
-        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All));
+        using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+        {
+          await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All));
+        }
       }
     }
 
@@ -136,9 +141,15 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetBreachesAsync_WithoutApiKey_Throws()
     {
       using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
-      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
-        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY"));
+
+        var settings = this.ClientSettings;
+        settings.ApiKey = string.Empty;
+
+        using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+        {
+          await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY"));
+        }
       }
     }
 
@@ -146,9 +157,14 @@ namespace AtleX.HaveIBeenPwned.Tests
     public async Task GetBreachesAsync_BreachModeAll_WithoutApiKey_Throws()
     {
       using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
-      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
-        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All));
+        var settings = this.ClientSettings;
+        settings.ApiKey = string.Empty;
+
+        using (var c = new HaveIBeenPwnedClient(settings, httpClient))
+        {
+          await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All));
+        }
       }
     }
 

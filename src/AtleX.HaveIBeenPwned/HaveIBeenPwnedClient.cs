@@ -457,7 +457,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<T> GetAuthenticatedAsync<T>(Uri url, CancellationToken cancellationToken)
     {
-      if (this._clientSettings.ApiKey.IsNullOrWhiteSpace()) { throw new InvalidOperationException("The specified API key is invalid");  }
+      if (this._clientSettings.ApiKey.IsNullOrWhiteSpace()) { throw new InvalidApiKeyException(); }
       this.ThrowIfDisposed();
 
       using var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
