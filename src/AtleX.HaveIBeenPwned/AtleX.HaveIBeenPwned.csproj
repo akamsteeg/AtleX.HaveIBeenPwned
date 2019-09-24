@@ -8,6 +8,9 @@
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <Nullable>enable</Nullable>
     
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>AtleX.HaveIBeenPwned.snk</AssemblyOriginatorKeyFile>
+    
     <Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
     <Company />
     <PackageProjectUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned</PackageProjectUrl>
