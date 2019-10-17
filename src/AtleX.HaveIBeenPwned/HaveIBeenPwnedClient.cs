@@ -456,6 +456,7 @@ namespace AtleX.HaveIBeenPwned
     /// An awaitable <see cref="Task{TResult}"/> of the specified type
     /// </returns>
     private async Task<T> GetAuthenticatedAsync<T>(Uri url, CancellationToken cancellationToken)
+      where T: notnull
     {
       if (this._clientSettings.ApiKey.IsNullOrWhiteSpace()) { throw new InvalidApiKeyException(); }
       this.ThrowIfDisposed();
@@ -486,6 +487,7 @@ namespace AtleX.HaveIBeenPwned
     /// An awaitable <see cref="Task{TResult}"/> of the specified type
     /// </returns>
     private async Task<T> GetAsync<T>(Uri url, CancellationToken cancellationToken)
+      where T: notnull
     {
       this.ThrowIfDisposed();
 
@@ -513,6 +515,7 @@ namespace AtleX.HaveIBeenPwned
     /// An awaitable <see cref="Task{TResult}"/> of the specified type
     /// </returns>
     private async Task<T> GetAsync<T>(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+      where T: notnull
     {
       this.ThrowIfDisposed();
 
