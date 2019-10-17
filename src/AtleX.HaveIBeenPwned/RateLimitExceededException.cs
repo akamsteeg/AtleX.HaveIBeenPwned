@@ -20,10 +20,10 @@ namespace AtleX.HaveIBeenPwned
 
     /// <summary>
     /// Initializes a new instance of <see cref="RateLimitExceededException"/>
-    /// with the specified number of seconds to retry after
+    /// with the <see cref="TimeSpan"/> to wait before retrying
     /// </summary>
     /// <param name="retryAfter">
-    /// The specified number of seconds to retry after
+    /// The <see cref="TimeSpan"/> to wait before retrying
     /// </param>
     public RateLimitExceededException(TimeSpan retryAfter)
       : base($"Rate limit exceeded, retry after {retryAfter.TotalSeconds} seconds")
