@@ -21,8 +21,9 @@ namespace AtleX.HaveIBeenPwned.Benchmarks
       config.Add(BenchmarkDotNet.Diagnosers.MemoryDiagnoser.Default);
 
       config.Add(
-        Job.Default.With(CsProjCoreToolchain.NetCoreApp22).AsBaseline(),
-        Job.Default.With(CsProjCoreToolchain.NetCoreApp30)
+        Job.ShortRun.With(CsProjCoreToolchain.NetCoreApp21).AsBaseline(),
+        Job.ShortRun.With(CsProjCoreToolchain.NetCoreApp30),
+        Job.ShortRun.With(CsProjClassicNetToolchain.Net472)
         );
 
       return config;
