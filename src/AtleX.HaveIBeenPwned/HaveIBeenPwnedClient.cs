@@ -422,20 +422,11 @@ namespace AtleX.HaveIBeenPwned
 
       var result = false;
 
-      while (!streamReader.EndOfStream && !result)
-      {
-        cancellationToken.ThrowIfCancellationRequested();
+      var allData = await streamReader
+        .ReadToEndAsync()
+        .ConfigureAwait(false);
 
-        var currentLine = await streamReader
-          .ReadLineAsync()
-          .ConfigureAwait(false);
-
-        if (currentLine.StartsWith(kAnonimitySuffix))
-        {
-          result = true;
-          break;
-        }
-      }
+      result = allData.Contains(kAnonimitySuffix);
 
       return result;
     }
@@ -456,7 +447,7 @@ namespace AtleX.HaveIBeenPwned
     /// An awaitable <see cref="Task{TResult}"/> of the specified type
     /// </returns>
     private async Task<T> GetAuthenticatedAsync<T>(Uri url, CancellationToken cancellationToken)
-      where T: notnull
+      where T : notnull
     {
       if (this._clientSettings.ApiKey.IsNullOrWhiteSpace()) { throw new InvalidApiKeyException(); }
       this.ThrowIfDisposed();
@@ -487,7 +478,7 @@ namespace AtleX.HaveIBeenPwned
     /// An awaitable <see cref="Task{TResult}"/> of the specified type
     /// </returns>
     private async Task<T> GetAsync<T>(Uri url, CancellationToken cancellationToken)
-      where T: notnull
+      where T : notnull
     {
       this.ThrowIfDisposed();
 
@@ -515,7 +506,7 @@ namespace AtleX.HaveIBeenPwned
     /// An awaitable <see cref="Task{TResult}"/> of the specified type
     /// </returns>
     private async Task<T> GetAsync<T>(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
-      where T: notnull
+      where T : notnull
     {
       this.ThrowIfDisposed();
 
