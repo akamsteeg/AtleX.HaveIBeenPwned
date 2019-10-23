@@ -9,21 +9,21 @@ namespace AtleX.HaveIBeenPwned.Tests
   public class RateLimitExceededExceptionTests
   {
     [Fact]
-    public void Ctor_WithZeroValueForRetryAfterParam_Throws()
-    {
-      Assert.Throws<ArgumentOutOfRangeException>(() => new RateLimitExceededException(0.Seconds()));
-    }
-
-    [Fact]
     public void Ctor_WithLessThanZeroValueForRetryAfterParam_Throws()
     {
       Assert.Throws<ArgumentOutOfRangeException>(() => new RateLimitExceededException(-1.Seconds()));
     }
 
     [Fact]
+    public void Ctor_WithLessThanZeroValueForRetryAfterParam_DoesNotThrow()
+    {
+      new RateLimitExceededException(0.Seconds());
+    }
+
+    [Fact]
     public void Ctor_WithMoreThanZeroValueForRetryAfterParam_DoesNotThrow()
     {
-      var e = new RateLimitExceededException(1.Seconds());
+      new RateLimitExceededException(1.Seconds());
     }
 
     [Fact]

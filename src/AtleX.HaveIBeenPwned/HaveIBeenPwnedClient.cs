@@ -417,8 +417,8 @@ namespace AtleX.HaveIBeenPwned
       var requestUri = new Uri($"{PwnedPasswordsBaseUri}/{kAnonimityPart}");
 
       using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-      using var data = await this.GetAsync(requestMessage, cancellationToken).ConfigureAwait(false);
-      using var streamReader = new StreamReader(data);
+      using var response = await this.GetResponseDataAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+      using var streamReader = new StreamReader(response);
 
       var result = false;
 
@@ -510,8 +510,8 @@ namespace AtleX.HaveIBeenPwned
     {
       this.ThrowIfDisposed();
 
-      using var data = await this.GetAsync(requestMessage, cancellationToken).ConfigureAwait(false);
-      using var streamReader = new StreamReader(data);
+      using var responseData = await this.GetResponseDataAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+      using var streamReader = new StreamReader(responseData);
       using var jsonReader = new JsonTextReader(streamReader);
 
       var jsonSerializer = new JsonSerializer();
@@ -532,45 +532,35 @@ namespace AtleX.HaveIBeenPwned
     /// <returns>
     /// An awaitable <see cref="Task{TResult}"/> of <see cref="Stream"/>
     /// </returns>
-    private async Task<Stream> GetAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+    private async Task<Stream> GetResponseDataAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
     {
       if (requestMessage.Method != HttpMethod.Get) { throw new InvalidOperationException($"Request method '{requestMessage.Method}' not supported"); }
       this.ThrowIfDisposed();
 
-      var result = Stream.Null;
+      var response = await this._httpClient
+         .SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
+         .ConfigureAwait(false);
 
-      try
+      Stream result;
+
+      if (response.IsSuccessStatusCode)
       {
-        using var response = await this._httpClient
-          .SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
+        result = await response.Content
+          .ReadAsStreamAsync()
           .ConfigureAwait(false);
-
-        if (response.IsSuccessStatusCode)
-        {
-          result = new MemoryStream();
-
-          await response
-            .Content
-            .CopyToAsync(result)
-            .ConfigureAwait(false);
-
-          result.Reset();
-        }
-        else
-        {
-          HandleErrorResponse(response);
-        }
       }
-      catch (Exception e) when (!(e is HaveIBeenPwnedClientException))
+      else
       {
-        throw new HaveIBeenPwnedClientException("An error occured", e);
+        HandleErrorResponse(response);
+
+        result = Stream.Null;
       }
 
       return result;
     }
 
     /// <summary>
-    /// Handle the error response from the specified <see cref="HttpResponseMessage"/>
+    /// Handle the error response from the specified <see cref="HttpResponseMessage"/>/>
     /// </summary>
     /// <param name="response">
     /// The <see cref="HttpResponseMessage"/> to handle the errors for

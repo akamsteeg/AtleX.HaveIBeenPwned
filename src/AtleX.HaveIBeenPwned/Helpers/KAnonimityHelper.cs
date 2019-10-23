@@ -42,7 +42,7 @@ namespace AtleX.HaveIBeenPwned.Helpers
       var kAnonimityHashPart = new StringBuilder(40); // SHA1 hash is 40 characters long
       foreach (var currentByte in hash)
       {
-        kAnonimityHashPart.Append(currentByte.ToString("X2"));
+        kAnonimityHashPart.AppendFormat("{0:X2}", currentByte);
       }
 
       var result = (
