@@ -1,5 +1,4 @@
 ﻿using AtleX.HaveIBeenPwned.Helpers;
-using Newtonsoft.Json;
 using Pitcher;
 using SwissArmyKnife;
 using System;
@@ -8,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -518,11 +518,8 @@ namespace AtleX.HaveIBeenPwned
 
       using var response = await this.GetResponseDataAsync(requestMessage, cancellationToken).ConfigureAwait(false);
       using var content = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-      using var streamReader = new StreamReader(content);
-      using var jsonReader = new JsonTextReader(streamReader);
 
-      var jsonSerializer = new JsonSerializer();
-      var result = jsonSerializer.Deserialize<T>(jsonReader);
+      var result = await JsonSerializer.DeserializeAsync<T>(content).ConfigureAwait(false);
 
       return result;
     }
