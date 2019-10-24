@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -412,21 +413,26 @@ namespace AtleX.HaveIBeenPwned
     {
       this.ThrowIfDisposed();
 
+      var result = false;
+
       var (kAnonimityPart, kAnonimitySuffix) = KAnonimityHelper.GetKAnonimityPartsForPassword(password);
 
       var requestUri = new Uri($"{PwnedPasswordsBaseUri}/{kAnonimityPart}");
 
       using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
       using var response = await this.GetResponseDataAsync(requestMessage, cancellationToken).ConfigureAwait(false);
-      using var streamReader = new StreamReader(response);
 
-      var result = false;
+      if (response.StatusCode != HttpStatusCode.NotFound)
+      {
+        using var content = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+        using var streamReader = new StreamReader(content);
 
-      var allData = await streamReader
-        .ReadToEndAsync()
-        .ConfigureAwait(false);
+        var allData = await streamReader
+          .ReadToEndAsync()
+          .ConfigureAwait(false);
 
-      result = allData.Contains(kAnonimitySuffix);
+        result = allData.Contains(kAnonimitySuffix);
+      }
 
       return result;
     }
@@ -510,8 +516,9 @@ namespace AtleX.HaveIBeenPwned
     {
       this.ThrowIfDisposed();
 
-      using var responseData = await this.GetResponseDataAsync(requestMessage, cancellationToken).ConfigureAwait(false);
-      using var streamReader = new StreamReader(responseData);
+      using var response = await this.GetResponseDataAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+      using var content = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+      using var streamReader = new StreamReader(content);
       using var jsonReader = new JsonTextReader(streamReader);
 
       var jsonSerializer = new JsonSerializer();
@@ -530,30 +537,20 @@ namespace AtleX.HaveIBeenPwned
     /// The <see cref="CancellationToken"/> for this operation
     /// </param>
     /// <returns>
-    /// An awaitable <see cref="Task{TResult}"/> of <see cref="Stream"/>
+    /// An awaitable <see cref="Task{TResult}"/> of <see cref="HttpResponseMessage"/>
     /// </returns>
-    private async Task<Stream> GetResponseDataAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+    private async Task<HttpResponseMessage> GetResponseDataAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
     {
       if (requestMessage.Method != HttpMethod.Get) { throw new InvalidOperationException($"Request method '{requestMessage.Method}' not supported"); }
       this.ThrowIfDisposed();
 
-      var response = await this._httpClient
+      var result = await this._httpClient
          .SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
          .ConfigureAwait(false);
 
-      Stream result;
-
-      if (response.IsSuccessStatusCode)
+      if (!result.IsSuccessStatusCode)
       {
-        result = await response.Content
-          .ReadAsStreamAsync()
-          .ConfigureAwait(false);
-      }
-      else
-      {
-        HandleErrorResponse(response);
-
-        result = Stream.Null;
+        HandleErrorResponse(result);
       }
 
       return result;
