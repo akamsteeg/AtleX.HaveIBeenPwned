@@ -61,7 +61,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public void Objects_ImplementsIHaveIBeenPwnedBreachesClient()
+    public void Object_ImplementsIHaveIBeenPwnedBreachesClient()
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       {
@@ -72,7 +72,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public void Objects_ImplementsIHaveIBeenPwnedPasswordClient()
+    public void Object_ImplementsIHaveIBeenPwnedPasswordClient()
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       {
@@ -83,7 +83,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public void Objects_ImplementsIHaveIBeenPwnedPastesClient()
+    public void Object_ImplementsIHaveIBeenPwnedPastesClient()
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       {
@@ -94,7 +94,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public void Objects_IHaveIBeenPwnedClient()
+    public void Object_ImplementsIHaveIBeenPwnedClient()
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       {
