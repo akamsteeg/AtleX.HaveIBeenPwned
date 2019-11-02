@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -601,9 +602,8 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private static HttpClient ConfigureHttpClient(HttpClient client, HaveIBeenPwnedClientSettings settings)
     {
-      client.DefaultRequestHeaders.Clear();
-
-      client.DefaultRequestHeaders.Add("Accept", "application/json");
+      var acceptJsonHeader = new MediaTypeWithQualityHeaderValue("application/json");
+      client.DefaultRequestHeaders.Accept.Add(acceptJsonHeader);
       client.DefaultRequestHeaders.Add("User-Agent", settings.ApplicationName);
 
       return client;

@@ -62,6 +62,26 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
+    public void Ctor_OverridesUserAgentOfHttpClient()
+    {
+      using (var httpClient = new HttpClient())
+      using (var client = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+      {
+        Assert.Equal(this.ClientSettings.ApplicationName, httpClient.DefaultRequestHeaders.UserAgent.ToString());
+      }
+    }
+
+    [Fact]
+    public void Ctor_AppendsAplicationJsonMediaTypeToAcceptHeader()
+    {
+      using (var httpClient = new HttpClient())
+      using (var client = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+      {
+        Assert.Contains("application/json", httpClient.DefaultRequestHeaders.Accept.ToString());
+      }
+    }
+
+    [Fact]
     public void Dispose_DoesNotThrow()
     {
       var c = new HaveIBeenPwnedClient(this.ClientSettings);
