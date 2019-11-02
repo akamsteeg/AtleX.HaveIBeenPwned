@@ -70,7 +70,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public async Task Dispose_WhenCreatedWithHttpClient_DoesNotDisposeHttpClient()
+    public async Task Dispose_WhenCreatedWithHttpClient_DoesNotDisposeInjectedHttpClient()
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       {
