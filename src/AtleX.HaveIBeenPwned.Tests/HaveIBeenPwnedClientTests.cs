@@ -30,8 +30,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public void Ctor_WithValueForSettingsParam_DoesNotThrow()
     {
-      using (var httpClient = new HttpClient())
-      using (new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+      using (new HaveIBeenPwnedClient(this.ClientSettings))
       {
         
       }
@@ -39,6 +38,17 @@ namespace AtleX.HaveIBeenPwned.Tests
 
     [Fact]
     public void Ctor_WithNullValueForApplicationNameInSettingsParam_ThrowsArgumentNullException()
+    {
+      var s = new HaveIBeenPwnedClientSettings()
+      {
+        ApplicationName = null,
+      };
+
+      Assert.Throws<ArgumentNullException>(() => new HaveIBeenPwnedClient(s));
+    }
+
+    [Fact]
+    public void Ctor_WithNullValueForApplicationNameInSettingsParamAndValidHttpClient_ThrowsArgumentNullException()
     {
       using (var httpClient = new HttpClient())
       {
@@ -49,13 +59,6 @@ namespace AtleX.HaveIBeenPwned.Tests
 
         Assert.Throws<ArgumentNullException>(() => new HaveIBeenPwnedClient(s, httpClient));
       }
-    }
-
-    [Fact]
-    public void Ctor_WithoutValueForSettingsParamAndHttpClient_DoesNotThrow()
-    {
-      using (var c = new HaveIBeenPwnedClient(this.ClientSettings))
-      { };
     }
 
     [Fact]
