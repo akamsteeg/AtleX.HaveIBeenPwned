@@ -41,7 +41,7 @@ namespace AtleX.HaveIBeenPwned
     /// <summary>
     /// Gets the default <see cref="HaveIBeenPwnedClientSettings"/>
     /// </summary>
-    [Obsolete("Instantiate HaveIBeenPwnedClientSettings and provide values for the required properties")]
-    public static HaveIBeenPwnedClientSettings Default => new HaveIBeenPwnedClientSettings();
+    [Obsolete("Instantiate HaveIBeenPwnedClientSettings and provide values for the required properties", error: true)]
+    public static HaveIBeenPwnedClientSettings Default => throw new NotImplementedException("HaveIBeenPwnedClientSettings.Default is obsolete and must no longer be used");
   }
 }
