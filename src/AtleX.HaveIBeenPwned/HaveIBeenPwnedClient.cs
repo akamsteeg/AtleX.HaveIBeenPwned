@@ -79,6 +79,9 @@ namespace AtleX.HaveIBeenPwned
     public HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings settings, HttpClient client)
     {
       Throw.ArgumentNull.WhenNull(settings, nameof(settings));
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(settings.ApplicationName,
+        nameof(settings.ApplicationName),
+        $"{nameof(HaveIBeenPwnedClientSettings)}.{nameof(settings.ApplicationName)} cannot be null or empty");
       Throw.ArgumentNull.WhenNull(client, nameof(client));
 
       this._clientSettings = settings;

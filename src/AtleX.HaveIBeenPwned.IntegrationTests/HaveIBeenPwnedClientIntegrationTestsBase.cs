@@ -1,18 +1,18 @@
-﻿namespace AtleX.HaveIBeenPwned.Tests
+﻿namespace AtleX.HaveIBeenPwned.IntegrationTests
 {
-  public abstract class HaveIBeenPwnedClientTestsBase
+  public abstract class HaveIBeenPwnedClientIntegrationTestsBase
   {
     public HaveIBeenPwnedClientSettings ClientSettings
     {
       get;
     }
 
-    public HaveIBeenPwnedClientTestsBase()
+    public HaveIBeenPwnedClientIntegrationTestsBase()
     {
       var settings = new HaveIBeenPwnedClientSettings()
       {
         ApiKey = "DUMMYKEY",
-        ApplicationName = "Unit.Tests",
+        ApplicationName = "AtleX.HaveIBeenPwned.IntegrationTests",
       };
 
       this.ClientSettings = settings;

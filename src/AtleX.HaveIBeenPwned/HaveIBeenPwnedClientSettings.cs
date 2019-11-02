@@ -11,13 +11,13 @@ namespace AtleX.HaveIBeenPwned
   public class HaveIBeenPwnedClientSettings
   {
     /// <summary>
-    /// Gets or sets the application name (defaults to "AtleX.HaveIBeenPwned")
+    /// Gets or sets the application name
     /// </summary>
     public string ApplicationName
     {
       get;
       set;
-    } = "AtleX.HaveIBeenPwned";
+    } = default!;
 
     /// <summary>
     /// Gets or sets the <see cref="TimeSpan"/> as timeout when communicating
@@ -41,6 +41,7 @@ namespace AtleX.HaveIBeenPwned
     /// <summary>
     /// Gets the default <see cref="HaveIBeenPwnedClientSettings"/>
     /// </summary>
+    [Obsolete("Instantiate HaveIBeenPwnedClientSettings and provide values for the required properties")]
     public static HaveIBeenPwnedClientSettings Default => new HaveIBeenPwnedClientSettings();
   }
 }

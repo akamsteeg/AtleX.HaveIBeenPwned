@@ -1,11 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFrameworks>netcoreapp2.1;netcoreapp3.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
     
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AtleX.HaveIBeenPwned.Tests.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp30'">
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,4 +33,6 @@
   <ItemGroup>
     <ProjectReference Include="..\AtleX.HaveIBeenPwned\AtleX.HaveIBeenPwned.csproj" />
   </ItemGroup>
+  
+  
 </Project>

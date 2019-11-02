@@ -6,12 +6,13 @@ using Xunit;
 namespace AtleX.HaveIBeenPwned.IntegrationTests
 {
   public class HaveIBeenPwnedClientTests_GetPastesAsync
+    : HaveIBeenPwnedClientIntegrationTestsBase
   {
     [Fact]
     public async Task GetPastesAsync_WithValidInput_ReturnsResults()
     {
       using (var httpClient = new HttpClient())
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.GetPastesAsync("test@example.com");
 
@@ -24,7 +25,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
     public async Task GetPastesAsync_WithUnknownEmail_DoesNotThrow()
     {
       using (var httpClient = new HttpClient())
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.GetPastesAsync("random@example.com");
 
@@ -38,7 +39,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
       using (var httpClient = new HttpClient())
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.GetPastesAsync("test@example.com", cancellationTokenSource.Token);
 
@@ -84,7 +85,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
       using (var httpClient = new HttpClient())
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.GetPastesAsync("random@example.com", cancellationTokenSource.Token);
 

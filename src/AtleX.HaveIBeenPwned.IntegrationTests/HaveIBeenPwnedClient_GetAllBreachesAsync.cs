@@ -6,12 +6,13 @@ using Xunit;
 namespace AtleX.HaveIBeenPwned.IntegrationTests
 {
   public class HaveIBeenPwnedClientTests_GetAllBreachesAsync
+    : HaveIBeenPwnedClientIntegrationTestsBase
   {
     [Fact]
     public async Task GetAllBreachesAsync_DoesNotThrow()
     {
       using (var httpClient = new HttpClient())
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.GetAllBreachesAsync();
 
@@ -24,7 +25,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
       using (var httpClient = new HttpClient())
-      using (var c = new HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings.Default, httpClient))
+      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         var result = await c.GetAllBreachesAsync(cancellationTokenSource.Token);
 
