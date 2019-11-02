@@ -23,11 +23,12 @@ namespace AtleX.HaveIBeenPwned
     /// Gets or sets the <see cref="TimeSpan"/> as timeout when communicating
     /// with the HaveIBeenPwned.com service (defaults to 10 seconds)
     /// </summary>
+    [Obsolete("The timeout must now be configured on the HTTP client itself")]
     public TimeSpan TimeOut
     {
       get;
       set;
-    } = 10.Seconds();
+    }
 
     /// <summary>
     /// Gets or sets the API key used to authenticate when checking breaches or pastes

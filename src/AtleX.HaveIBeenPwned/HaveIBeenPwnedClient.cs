@@ -605,7 +605,6 @@ namespace AtleX.HaveIBeenPwned
 
       client.DefaultRequestHeaders.Add("Accept", "application/json");
       client.DefaultRequestHeaders.Add("User-Agent", settings.ApplicationName);
-      client.Timeout = settings.TimeOut;
 
       return client;
     }
