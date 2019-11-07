@@ -61,9 +61,8 @@ namespace AtleX.HaveIBeenPwned
     /// The <see cref="HaveIBeenPwnedClientSettings"/> to use
     /// </param>
     public HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings settings)
-      : this(settings, new HttpClient())
+      : this(settings, new HttpClient(), mustDisposeClient: true)
     {
-      this._enableClientDisposing = true;
     }
 
     /// <summary>
@@ -78,6 +77,26 @@ namespace AtleX.HaveIBeenPwned
     /// HaveIBeenPwned API
     /// </param>
     public HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings settings, HttpClient client)
+      : this(settings, client, mustDisposeClient:false)
+    {      
+    }
+
+    /// <summary>
+    /// Initializes a new instance of <see cref="HaveIBeenPwnedClient"/> with
+    /// the specified <see cref="HaveIBeenPwnedClientSettings"/> and <see cref="HttpClient"/>
+    /// </summary>
+    /// <param name="settings">
+    /// The <see cref="HaveIBeenPwnedClientSettings"/> to use
+    /// </param>
+    /// <param name="client">
+    /// The <see cref="HttpClient"/> to use when communicating with the
+    /// HaveIBeenPwned API
+    /// </param>
+    /// <param name="mustDisposeClient">
+    /// True when the <see cref="HttpClient"/> was created by this <see
+    /// cref="HaveIBeenPwned"/> and must be disposed; false otherwise
+    /// </param>
+    private HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings settings, HttpClient client, bool mustDisposeClient)
     {
       Throw.ArgumentNull.WhenNull(settings, nameof(settings));
       Throw.ArgumentNull.WhenNullOrWhiteSpace(settings.ApplicationName,
@@ -87,7 +106,7 @@ namespace AtleX.HaveIBeenPwned
 
       this._clientSettings = settings;
       this._httpClient = ConfigureHttpClient(client, settings);
-      this._enableClientDisposing = false;
+      this._enableClientDisposing = mustDisposeClient;
     }
 
     /// <summary>
