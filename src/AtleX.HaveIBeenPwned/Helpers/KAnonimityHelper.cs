@@ -1,4 +1,4 @@
-﻿using Pitcher;
+﻿using System;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -20,20 +20,21 @@ namespace AtleX.HaveIBeenPwned.Helpers
     /// hash that serves as the suffix of the
     /// KAnonimity system
     /// </summary>
-    private const int KAnonimitySuffixLength = 35;
+    private const int KAnonimityRemainderLength = 35;
 
     /// <summary>
-    /// Gets SHA1 hash for the specified password
+    /// Gets SHA1 KAnonomity part and remainder for the specified password
     /// </summary>
     /// <param name="password">
     /// The password to get the SHA1 hash from
     /// </param>
     /// <returns>
-    /// The SHA1 hash of the specified password
+    /// A <see cref="Tuple{T1, T2}"/> with the KAnonimity part of the password
+    /// and the KAnonimity remainder
     /// </returns>
-    public static (string kAnonimityPart, string kAnonimitySuffix) GetKAnonimityPartsForPassword(string password)
+    public static (string kAnonimityPart, string kAnonimityRemainder) GetKAnonimityPartsForPassword(string password)
     {
-      using var sha1 = new SHA1Managed();
+      using var sha1 = SHA1Managed.Create();
 
       var passwordRaw = Encoding.UTF8.GetBytes(password);
 
@@ -47,7 +48,7 @@ namespace AtleX.HaveIBeenPwned.Helpers
 
       var result = (
         kAnonimityHashPart.ToString(0, KAnonimityPartLength),
-        kAnonimityHashPart.ToString(KAnonimityPartLength, KAnonimitySuffixLength)
+        kAnonimityHashPart.ToString(KAnonimityPartLength, KAnonimityRemainderLength)
         );
 
       return result;
