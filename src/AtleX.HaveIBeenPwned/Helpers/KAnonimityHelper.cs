@@ -30,16 +30,12 @@ namespace AtleX.HaveIBeenPwned.Helpers
     /// The password to get the SHA1 hash from
     /// </param>
     /// <returns>
-    /// A <see cref="Tuple{T1, T2}"/> with the KAnonimity part of the password
+    /// A <see cref="ValueTuple{T1, T2}"/> with the KAnonimity part of the password
     /// and the KAnonimity remainder
     /// </returns>
     public static (string kAnonimityPart, string kAnonimityRemainder) GetKAnonimityPartsForPassword(string password)
     {
-      using var sha1 = SHA1Managed.Create();
-
-      var passwordRaw = Encoding.UTF8.GetBytes(password);
-
-      var hash = sha1.ComputeHash(passwordRaw);
+      var hash = GetSHA1HashForPassword(password);
 
       var kAnonimityHashPart = new StringBuilder(40); // SHA1 hash is 40 characters long
       foreach (var currentByte in hash)
@@ -51,6 +47,26 @@ namespace AtleX.HaveIBeenPwned.Helpers
         kAnonimityHashPart.ToString(0, KAnonimityPartLength),
         kAnonimityHashPart.ToString(KAnonimityPartLength, KAnonimityRemainderLength)
         );
+
+      return result;
+    }
+
+    /// <summary>
+    /// Gets the array of <see cref="byte"/> with the full SHA1 hash of the
+    /// specified <see cref="string"/>
+    /// </summary>
+    /// <param name="dataToHash">
+    /// The <see cref="string"/> to get the SHA1 hash from
+    /// </param>
+    /// <returns>
+    /// The SHA1 hash of the specified <see cref="string"/>
+    /// </returns>
+    private static byte[] GetSHA1HashForPassword(string dataToHash)
+    {
+      using var sha1 = SHA1Managed.Create();
+
+      var passwordRaw = Encoding.UTF8.GetBytes(dataToHash);
+      var result = sha1.ComputeHash(passwordRaw);
 
       return result;
     }
