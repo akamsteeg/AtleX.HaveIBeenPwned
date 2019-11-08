@@ -438,7 +438,7 @@ namespace AtleX.HaveIBeenPwned
 
       var result = false;
 
-      var (kAnonimityPart, kAnonimitySuffix) = KAnonimityHelper.GetKAnonimityPartsForPassword(password);
+      var (kAnonimityPart, kAnonimityRemainder) = KAnonimityHelper.GetKAnonimityPartsForPassword(password);
 
       var requestUri = new Uri($"{PwnedPasswordsBaseUri}/{kAnonimityPart}");
 
@@ -454,7 +454,7 @@ namespace AtleX.HaveIBeenPwned
           .ReadToEndAsync()
           .ConfigureAwait(false);
 
-        result = allData.Contains(kAnonimitySuffix);
+        result = allData.Contains(kAnonimityRemainder);
       }
 
       return result;
