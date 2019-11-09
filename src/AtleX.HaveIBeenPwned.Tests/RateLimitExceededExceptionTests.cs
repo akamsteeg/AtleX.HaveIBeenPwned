@@ -15,7 +15,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public void Ctor_WithLessThanZeroValueForRetryAfterParam_DoesNotThrow()
+    public void Ctor_WithExactlyZeroAsValueForRetryAfterParam_DoesNotThrow()
     {
       new RateLimitExceededException(0.Seconds());
     }

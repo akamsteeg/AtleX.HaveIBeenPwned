@@ -28,7 +28,7 @@ namespace AtleX.HaveIBeenPwned
     public RateLimitExceededException(TimeSpan retryAfter)
       : base($"Rate limit exceeded, retry after {retryAfter.TotalSeconds} seconds")
     {
-      Throw.ArgumentOutOfRange.When(retryAfter.TotalSeconds < 0d, nameof(retryAfter));
+      Throw.ArgumentOutOfRange.WhenLessThan(retryAfter.TotalSeconds, 0d, nameof(retryAfter));
 
       this.RetryAfter = retryAfter;
     }
