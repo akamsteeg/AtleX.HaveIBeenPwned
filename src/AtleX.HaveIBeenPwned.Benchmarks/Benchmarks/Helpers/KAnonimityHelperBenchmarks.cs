@@ -8,9 +8,11 @@ namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks.Helpers
     private const string Password = "-&HxcB_dH+M@BZAXHCt7eJv.)eJ&,#x}*6TRTvFzrz#KH.k+fgXXHJ%?]ioQbuAz";
 
     [Benchmark]
-    public void GetKAnonimityPartsForPassword()
+    public (string, string) GetKAnonimityPartsForPassword()
     {
-      var (kAnonimityPart, kAnonimitySuffix) = KAnonimityHelper.GetKAnonimityPartsForPassword(Password);
+      var result = KAnonimityHelper.GetKAnonimityPartsForPassword(Password);
+
+      return result;
     }
   }
 }
