@@ -9,7 +9,7 @@ was in a breach or not.
 
 # Platform support
 
-| .NET Framework     |     .NET Core      |
+| .NET (4.6.1+)      |  .NET Core (2.0+)  |
 |:------------------:|:------------------:|
 | :heavy_check_mark: | :heavy_check_mark: |
 
@@ -29,31 +29,28 @@ install-package AtleX.HaveIBeenPwned
 // Create the client
 var settings = new HaveIBeenPwnedClientSettings()
 {
-  ApiKey = "APIKEY", // Get one from https://haveibeenpwned.com/API/Key. Not necessary for only checking pwned passwords
-  ApplicationName = "TheNameOfYourApplication"
-	TimeOut = TimeSpan.FromSeconds(30); // Use a 30 seconds timeout
+    ApiKey = "APIKEY", // Get one from https://haveibeenpwned.com/API/Key. Not necessary for only checking pwned passwords
+    ApplicationName = "TheNameOfYourApplication",
 };
 using (var client = new HaveIBeenPwnedClient(settings))
 {
-  // Do something
+    // Get all breaches in the system with their details
+    var breaches = await client.GetAllBreachesAsync();
+
+    // Get the breaches for an account. This returns a collection of breaches with their 
+    // name. Use the response from GetAllBreachesAsync() to find the corresponding details 
+    // by name
+    var breaches = await client.GetBreachesAsync("test@example.com");
+
+    // Get breaches for an account, excluding unverified breaches
+    var breaches = await client.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified);
+
+    // Get pastes for an email address
+    var pastes = await client.GetPastesAsync("test@example.com");
+
+    // Verify whether is password is in Pwned Passwords or not
+    var isPwned = await client.IsPwnedPasswordAsync("1234");
 }
-
-// Get all breaches in the system with their details
-var breaches = await client.GetAllBreachesAsync();
-
-// Get the breaches for an account. This returns a collection of breaches with their 
-// name. Use the response from GetAllBreachesAsync() to find the corresponding details 
-// by name
-var breaches = await client.GetBreachesAsync("test@example.com");
-
-// Get breaches for an account, excluding unverified breaches
-var breaches = await client.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified);
-
-// Get pastes for an email address
-var pastes = await client.GetPastesAsync("test@example.com");
-
-// Verify whether is password is in Pwned Passwords or not
-var isPwned = await client.IsPwnedPasswordAsync("1234");
 ```
 
 # License
