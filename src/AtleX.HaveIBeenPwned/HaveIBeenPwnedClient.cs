@@ -94,7 +94,7 @@ namespace AtleX.HaveIBeenPwned
     /// </param>
     /// <param name="mustDisposeClient">
     /// True when the <see cref="HttpClient"/> was created by this <see
-    /// cref="HaveIBeenPwned"/> and must be disposed; false otherwise
+    /// cref="HaveIBeenPwnedClient"/> and must be disposed; false otherwise
     /// </param>
     private HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings settings, HttpClient client, bool mustDisposeClient)
     {
@@ -107,6 +107,8 @@ namespace AtleX.HaveIBeenPwned
       this._clientSettings = settings;
       this._httpClient = ConfigureHttpClient(client, settings);
       this._enableClientDisposing = mustDisposeClient;
+
+      /ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
     }
 
     /// <summary>
