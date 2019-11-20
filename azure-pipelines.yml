@@ -6,12 +6,12 @@ jobs:
     publishBuildArtifacts: 'true'
     publishCodeCoverage: 'true'
     
-- template: build-templates/build-package.job.yml
-  parameters:
-    name: Linux
-    vmImage: 'ubuntu-16.04'
-    publishBuildArtifacts: 'false'
-    publishCodeCoverage: 'false'
+#- template: build-templates/build-package.job.yml
+#  parameters:
+#    name: Linux
+#    vmImage: 'ubuntu-16.04'
+#    publishBuildArtifacts: 'false'
+#    publishCodeCoverage: 'false'
 
 #- template: build-templates/build-package.job.yml
 #  parameters:
