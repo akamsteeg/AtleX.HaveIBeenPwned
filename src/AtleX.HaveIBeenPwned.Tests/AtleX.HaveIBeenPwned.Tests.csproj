@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.1;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks>net461;net472;netcoreapp2.1;netcoreapp3.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
     
     <SignAssembly>true</SignAssembly>
@@ -33,6 +33,8 @@
   <ItemGroup>
     <ProjectReference Include="..\AtleX.HaveIBeenPwned\AtleX.HaveIBeenPwned.csproj" />
   </ItemGroup>
-  
-  
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461' OR '$(TargetFramework)' == 'net472'">
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
 </Project>
