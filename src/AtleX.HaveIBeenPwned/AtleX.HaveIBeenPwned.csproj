@@ -9,7 +9,6 @@
     <Nullable>enable</Nullable>
     
     <SignAssembly>true</SignAssembly>
-    <PublicSign>True</PublicSign>
     <AssemblyOriginatorKeyFile>AtleX.HaveIBeenPwned.snk</AssemblyOriginatorKeyFile>
     
     <Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
