@@ -108,7 +108,7 @@ namespace AtleX.HaveIBeenPwned
       this._httpClient = ConfigureHttpClient(client, settings);
       this._enableClientDisposing = mustDisposeClient;
 
-      /ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+      ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
     }
 
     /// <summary>
