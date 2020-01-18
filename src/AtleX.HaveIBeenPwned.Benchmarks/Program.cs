@@ -22,7 +22,7 @@ namespace AtleX.HaveIBeenPwned.Benchmarks
 
       config.Add(
         Job.ShortRun.With(CsProjCoreToolchain.NetCoreApp21).AsBaseline(),
-        Job.ShortRun.With(CsProjCoreToolchain.NetCoreApp30),
+        Job.ShortRun.With(CsProjCoreToolchain.NetCoreApp31),
         Job.ShortRun.With(CsProjClassicNetToolchain.Net472)
         );
 
