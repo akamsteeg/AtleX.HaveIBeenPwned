@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.12.0" />
-    <PackageReference Include="GenFu" Version="1.6.0 />
+    <PackageReference Include="GenFu" Version="1.6.0" />
   </ItemGroup>
 
   <ItemGroup>
