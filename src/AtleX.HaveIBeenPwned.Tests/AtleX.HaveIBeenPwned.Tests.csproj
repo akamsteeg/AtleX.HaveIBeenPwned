@@ -1,14 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net461;net472;netcoreapp3.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">net461;net472;netcoreapp3.0</TargetFrameworks>
+    <TargetFramework Condition="'$(OS)' != 'Windows_NT'">netcoreapp3.0</TargetFramework>
     <IsPackable>false</IsPackable>
     
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AtleX.HaveIBeenPwned.Tests.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp31'">
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp30'">
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
