@@ -32,6 +32,8 @@
       - [Feature] Performance optimizations (#36)
       - [Feature] Replace NewtonSoft.Json with System.Text.Json (#25)
       - [Feature] Add C#8 Nullable Reference Types support (#31)
+      - [Feature] Calling ToString() on Breach now returns the value of the Name property instead of the type name (#41)
+      - [Feature] Calling ToString() on Paste now returns the value of the Title property instead of the type name (#41)
       - [Breaking] Mark HaveIBeenPwnedClientSettings.TimeOut as obsolete (#37)
       - [Breaking] Throw InvalidApiKeyException instead of InvalidOperationException when no API key is supplied (#34)
       - [Breaking] HaveIBeenPwnedClientSettings.ApplicationName should default to an empty string and an exception must be thrown when it's not set (#30)
