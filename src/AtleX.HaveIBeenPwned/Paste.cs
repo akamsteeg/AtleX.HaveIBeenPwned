@@ -35,5 +35,16 @@ namespace AtleX.HaveIBeenPwned
     /// Gets or sets the number of accounts in the paste
     /// </summary>
     public int EmailCount { get; set; } = default!;
+
+    /// <summary>
+    /// Returns a string that represents the current object
+    /// </summary>
+    /// <returns>
+    /// A string that represents the current object
+    /// </returns>
+    public override string ToString()
+    {
+      return this.Title;
+    }
   }
 }
