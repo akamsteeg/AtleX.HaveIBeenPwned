@@ -1,17 +1,17 @@
 jobs:
-- template: build-templates/build-package.job.yml
-  parameters:
-    name: Windows
-    vmImage: 'windows-latest'
-    publishBuildArtifacts: 'true'
-    publishCodeCoverage: 'true'
+#- template: build-templates/build-package.job.yml
+#  parameters:
+#    name: Windows
+#    vmImage: 'windows-latest'
+#    publishBuildArtifacts: 'true'
+#    publishCodeCoverage: 'true'
     
 - template: build-templates/build-package.job.yml
   parameters:
     name: Linux
     vmImage: 'ubuntu-latest'
-    publishBuildArtifacts: 'false'
-    publishCodeCoverage: 'false'
+    publishBuildArtifacts: 'true'
+    publishCodeCoverage: 'true'
 
 #- template: build-templates/build-package.job.yml
 #  parameters:
