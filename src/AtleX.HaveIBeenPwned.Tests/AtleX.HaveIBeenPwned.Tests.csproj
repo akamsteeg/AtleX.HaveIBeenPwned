@@ -35,7 +35,7 @@
     <ProjectReference Include="..\AtleX.HaveIBeenPwned\AtleX.HaveIBeenPwned.csproj" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461' OR '$(TargetFramework)' == 'net472'">
+  <!--<ItemGroup Condition="'$(TargetFramework)' == 'net461' OR '$(TargetFramework)' == 'net472'">
     <Reference Include="System.Net.Http" />
-  </ItemGroup>
+  </ItemGroup>-->
 </Project>
