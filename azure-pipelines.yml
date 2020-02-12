@@ -1,10 +1,10 @@
 jobs:
-#- template: build-templates/build-package.job.yml
-#  parameters:
-#    name: Windows
-#    vmImage: 'windows-latest'
-#    publishBuildArtifacts: 'true'
-#    publishCodeCoverage: 'true'
+- template: build-templates/build-package.job.yml
+  parameters:
+    name: Windows
+    vmImage: 'windows-latest'
+    publishBuildArtifacts: 'true'
+    publishCodeCoverage: 'true'
     
 - template: build-templates/build-package.job.yml
   parameters:
