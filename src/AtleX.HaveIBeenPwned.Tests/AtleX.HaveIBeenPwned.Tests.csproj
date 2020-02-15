@@ -7,6 +7,8 @@
     
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AtleX.HaveIBeenPwned.Tests.snk</AssemblyOriginatorKeyFile>
+
+    <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp30'">
