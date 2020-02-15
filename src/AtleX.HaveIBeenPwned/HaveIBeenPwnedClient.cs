@@ -111,13 +111,7 @@ namespace AtleX.HaveIBeenPwned
       ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
     }
 
-    /// <summary>
-    /// Get all site breaches in the system
-    /// </summary>
-    /// <returns>
-    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
-    /// <see cref="SiteBreach"/> in the system
-    /// </returns>
+    /// <inheritdoc />
     public async Task<IEnumerable<SiteBreach>> GetAllBreachesAsync()
     {
       var result = await this.GetAllBreachesInternalAsync(CancellationToken.None)
@@ -126,16 +120,7 @@ namespace AtleX.HaveIBeenPwned
       return result;
     }
 
-    /// <summary>
-    /// Get all site breaches in the system
-    /// </summary>
-    /// <param name="cancellationToken">
-    /// The <see cref="CancellationToken"/> for this operation
-    /// </param>
-    /// <returns>
-    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
-    /// <see cref="SiteBreach"/> in the system
-    /// </returns>
+    /// <inheritdoc />
     public async Task<IEnumerable<SiteBreach>> GetAllBreachesAsync(CancellationToken cancellationToken)
     {
       var result = await this.GetAllBreachesInternalAsync(cancellationToken)
@@ -144,16 +129,7 @@ namespace AtleX.HaveIBeenPwned
       return result;
     }
 
-    /// <summary>
-    /// Get the breaches for an account
-    /// </summary>
-    /// <param name="account">
-    /// The account to get the breaches for
-    /// </param>
-    /// <returns>
-    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
-    /// <see cref="Breach"/> the account was found in
-    /// </returns>
+    /// <inheritdoc />
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account)
     {
       Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
@@ -165,19 +141,7 @@ namespace AtleX.HaveIBeenPwned
       return result;
     }
 
-    /// <summary>
-    /// Get the breaches for an account
-    /// </summary>
-    /// <param name="account">
-    /// The account to get the breaches for
-    /// </param>
-    /// <param name="cancellationToken">
-    /// The <see cref="CancellationToken"/> for this operation
-    /// </param>
-    /// <returns>
-    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
-    /// <see cref="Breach"/> the account was found in
-    /// </returns>
+    /// <inheritdoc />
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, CancellationToken cancellationToken)
     {
       Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
@@ -189,19 +153,7 @@ namespace AtleX.HaveIBeenPwned
       return result;
     }
 
-    /// <summary>
-    /// Get the breaches for an account
-    /// </summary>
-    /// <param name="account">
-    /// The account to get the breaches for
-    /// </param>
-    /// <param name="modes">
-    /// The <see cref="BreachMode"/> flags to specify extra breaches to get
-    /// </param>
-    /// <returns>
-    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
-    /// <see cref="Breach"/> the account was found in
-    /// </returns>
+    /// <inheritdoc />
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes)
     {
       Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
@@ -213,22 +165,7 @@ namespace AtleX.HaveIBeenPwned
       return result;
     }
 
-    /// <summary>
-    /// Get the breaches for an account
-    /// </summary>
-    /// <param name="account">
-    /// The account to get the breaches for
-    /// </param>
-    /// <param name="modes">
-    /// The <see cref="BreachMode"/> flags to specify extra breaches to get
-    /// </param>
-    /// <param name="cancellationToken">
-    /// The <see cref="CancellationToken"/> for this operation
-    /// </param>
-    /// <returns>
-    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
-    /// <see cref="Breach"/> the account was found in
-    /// </returns>
+    /// <inheritdoc />
     public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes, CancellationToken cancellationToken)
     {
       Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
@@ -240,16 +177,7 @@ namespace AtleX.HaveIBeenPwned
       return result;
     }
 
-    /// <summary>
-    /// Get the pastes for an email address
-    /// </summary>
-    /// <param name="emailAddress">
-    /// The email address to get the pastes for
-    /// </param>
-    /// <returns>
-    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
-    /// <see cref="Paste"/> the email address was found in
-    /// </returns>
+    /// <inheritdoc />
     public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress)
     {
       Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
@@ -261,19 +189,7 @@ namespace AtleX.HaveIBeenPwned
       return result;
     }
 
-    /// <summary>
-    /// Get the pastes for an email address
-    /// </summary>
-    /// <param name="emailAddress">
-    /// The email address to get the pastes for
-    /// </param>
-    /// <param name="cancellationToken">
-    /// The <see cref="CancellationToken"/> for this operation
-    /// </param>
-    /// <returns>
-    /// An awaitable <see cref="Task{TResult}"/> with the collection of every
-    /// <see cref="Paste"/> the email address was found in
-    /// </returns>
+    /// <inheritdoc />
     public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress, CancellationToken cancellationToken)
     {
       Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
@@ -285,16 +201,7 @@ namespace AtleX.HaveIBeenPwned
       return result;
     }
 
-    /// <summary>
-    /// Gets whether the specified password is found in a password list
-    /// </summary>
-    /// <param name="password">
-    /// The password to check
-    /// </param>
-    /// <returns>
-    /// An awaitable <see cref="Task{TResult}"/> with a <see cref="bool"/>
-    /// indicating whether the password was found or not
-    /// </returns>
+    /// <inheritdoc />
     public async Task<bool> IsPwnedPasswordAsync(string password)
     {
       Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
@@ -306,19 +213,7 @@ namespace AtleX.HaveIBeenPwned
       return result;
     }
 
-    /// <summary>
-    /// Gets whether the specified password is found in a password list
-    /// </summary>
-    /// <param name="password">
-    /// The password to check
-    /// </param>
-    /// <param name="cancellationToken">
-    /// The <see cref="CancellationToken"/> for this operation
-    /// </param>
-    /// <returns>
-    /// An awaitable <see cref="Task{TResult}"/> with a <see cref="bool"/>
-    /// indicating whether the password was found or not
-    /// </returns>
+    /// <inheritdoc />
     public async Task<bool> IsPwnedPasswordAsync(string password, CancellationToken cancellationToken)
     {
       Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
@@ -330,13 +225,7 @@ namespace AtleX.HaveIBeenPwned
       return result;
     }
 
-    /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or
-    /// resetting unmanaged resources
-    /// </summary>
-    /// <param name="disposing">
-    /// True when disposing, false when finalizing
-    /// </param>
+    /// <inheritdoc />
     protected override void Dispose(bool disposing)
     {
       if (disposing && this._enableClientDisposing)
