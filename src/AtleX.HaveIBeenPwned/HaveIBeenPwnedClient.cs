@@ -272,14 +272,23 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<IEnumerable<Breach>> GetBreachesInternalAsync(string account, BreachMode modes, CancellationToken cancellationToken)
     {
-      var uriBuilder = new UriBuilder($"{ApiBaseUri}/breachedaccount/{account}");
+      var requestUri = default(Uri);
+
+      var baseUri = $"{ApiBaseUri}/breachedaccount/{account}";
 
       if (modes.HasFlag(BreachMode.ExcludeUnverified))
       {
+        var uriBuilder = new UriBuilder(baseUri);
         uriBuilder.Query = "includeUnverified=false";
+
+        requestUri = uriBuilder.Uri;
+      }
+      else
+      {
+        requestUri = new Uri(baseUri);
       }
 
-      var results = await this.GetAuthenticatedAsync<IEnumerable<Breach>>(uriBuilder.Uri, cancellationToken)
+      var results = await this.GetAuthenticatedAsync<IEnumerable<Breach>>(requestUri, cancellationToken)
         .ConfigureAwait(false);
 
       return results ?? Enumerable.Empty<Breach>();
