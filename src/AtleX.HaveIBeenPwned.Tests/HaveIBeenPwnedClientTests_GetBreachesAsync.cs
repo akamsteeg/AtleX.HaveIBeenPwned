@@ -93,14 +93,16 @@ namespace AtleX.HaveIBeenPwned.Tests
       }
     }
 
-    [Fact]
-    public async Task GetBreachesAsync_BreachModeAll_WithInvalidApiKey_Throws()
+    [Theory]
+    [InlineData(BreachMode.All)]
+    [InlineData(BreachMode.ExcludeUnverified)]
+    public async Task GetBreachesAsync_BreachMode_WithInvalidApiKey_Throws(BreachMode breachMode)
     {
       using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       {
         using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
         {
-          await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All));
+          await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", breachMode));
         }
       }
     }
@@ -126,14 +128,16 @@ namespace AtleX.HaveIBeenPwned.Tests
       }
     }
 
-    [Fact]
-    public async Task GetBreachesAsync_BreachModeAllCancellationToken_WithInvalidApiKey_Throws()
+    [Theory]
+    [InlineData(BreachMode.All)]
+    [InlineData(BreachMode.ExcludeUnverified)]
+    public async Task GetBreachesAsync_BreachModeCancellationToken_WithInvalidApiKey_Throws(BreachMode breachMode)
     {
       using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       {
         var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All, CancellationToken.None));
+        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", breachMode, CancellationToken.None));
       }
     }
 
@@ -153,8 +157,10 @@ namespace AtleX.HaveIBeenPwned.Tests
       }
     }
 
-    [Fact]
-    public async Task GetBreachesAsync_BreachModeAll_WithoutApiKey_Throws()
+    [Theory]
+    [InlineData(BreachMode.All)]
+    [InlineData(BreachMode.ExcludeUnverified)]
+    public async Task GetBreachesAsync_BreachMode_WithoutApiKey_Throws(BreachMode breachMode)
     {
       using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       {
@@ -163,18 +169,20 @@ namespace AtleX.HaveIBeenPwned.Tests
 
         using (var c = new HaveIBeenPwnedClient(settings, httpClient))
         {
-          await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All));
+          await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", breachMode));
         }
       }
     }
 
-    [Fact]
-    public async Task GetBreachesAsync_BreachModeAllCancellationToken_WithoutApiKey_Throws()
+    [Theory]
+    [InlineData(BreachMode.All)]
+    [InlineData(BreachMode.ExcludeUnverified)]
+    public async Task GetBreachesAsync_BreachModeCancellationToken_WithoutApiKey_Throws(BreachMode breachMode)
     {
       using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
-        await Assert.ThrowsAsync < InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", BreachMode.All, CancellationToken.None));
+        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachesAsync("DUMMY", breachMode, CancellationToken.None));
       }
     }
 
@@ -191,13 +199,15 @@ namespace AtleX.HaveIBeenPwned.Tests
       }
     }
 
-    [Fact]
-    public async Task GetBreachesAsync_BreachModeAll_WithValidInput_Succeeds()
+    [Theory]
+    [InlineData(BreachMode.All)]
+    [InlineData(BreachMode.ExcludeUnverified)]
+    public async Task GetBreachesAsync_BreachMode_WithValidInput_Succeeds(BreachMode breachMode)
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
-        var result = await c.GetBreachesAsync("test@example.com", BreachMode.All);
+        var result = await c.GetBreachesAsync("test@example.com", breachMode);
 
         Assert.NotNull(result);
         Assert.NotEmpty(result);
@@ -217,13 +227,15 @@ namespace AtleX.HaveIBeenPwned.Tests
       }
     }
 
-    [Fact]
-    public async Task GetBreachesAsync_BreachModeCancellationToken_WithValidInput_Succeeds()
+    [Theory]
+    [InlineData(BreachMode.All)]
+    [InlineData(BreachMode.ExcludeUnverified)]
+    public async Task GetBreachesAsync_BreachModeCancellationToken_WithValidInput_Succeeds(BreachMode breachMode)
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
-        var result = await c.GetBreachesAsync("test@example.com", BreachMode.All, CancellationToken.None);
+        var result = await c.GetBreachesAsync("test@example.com", breachMode, CancellationToken.None);
 
         Assert.NotNull(result);
         Assert.NotEmpty(result);
