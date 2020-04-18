@@ -278,8 +278,10 @@ namespace AtleX.HaveIBeenPwned
 
       if (modes.HasFlag(BreachMode.ExcludeUnverified))
       {
-        var uriBuilder = new UriBuilder(baseUri);
-        uriBuilder.Query = "includeUnverified=false";
+        var uriBuilder = new UriBuilder(baseUri)
+        {
+          Query = "includeUnverified=false"
+        };
 
         requestUri = uriBuilder.Uri;
       }
