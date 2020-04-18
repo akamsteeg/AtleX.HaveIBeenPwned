@@ -4,8 +4,8 @@
     <OutputType>Exe</OutputType>
     <TargetFrameworks>netstandard2.0;netcoreapp3.1</TargetFrameworks>
     
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>AtleX.HaveIBeenPwned.Benchmarks.snk</AssemblyOriginatorKeyFile>
+    <!--<SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>AtleX.HaveIBeenPwned.Benchmarks.snk</AssemblyOriginatorKeyFile>-->
   </PropertyGroup>
 
   <ItemGroup>
