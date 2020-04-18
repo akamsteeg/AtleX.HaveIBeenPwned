@@ -18,12 +18,13 @@ namespace AtleX.HaveIBeenPwned.Benchmarks
     {
       var config = ManualConfig.Create(DefaultConfig.Instance);
 
-      config.Add(BenchmarkDotNet.Diagnosers.MemoryDiagnoser.Default);
+      config.AddDiagnoser(BenchmarkDotNet.Diagnosers.MemoryDiagnoser.Default);
 
-      config.Add(
-        Job.ShortRun.With(CsProjCoreToolchain.NetCoreApp21).AsBaseline(),
-        Job.ShortRun.With(CsProjCoreToolchain.NetCoreApp31),
-        Job.ShortRun.With(CsProjClassicNetToolchain.Net472)
+      config.AddJob(
+        Job.ShortRun.WithToolchain(CsProjCoreToolchain.NetCoreApp31).AsBaseline(),
+        Job.ShortRun.WithToolchain(CsProjCoreToolchain.NetCoreApp21),
+        Job.ShortRun.WithToolchain(CsProjClassicNetToolchain.Net472),
+        Job.ShortRun.WithToolchain(CsProjClassicNetToolchain.Net461)
         );
 
       return config;
