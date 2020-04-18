@@ -4,11 +4,6 @@
     <TargetFrameworks Condition="'$(OS)' == 'Windows_NT'">net461;net472;netcoreapp3.1</TargetFrameworks>
     <TargetFramework Condition="'$(OS)' != 'Windows_NT'">netcoreapp3.1</TargetFramework>
     <IsPackable>false</IsPackable>
-    
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>AtleX.HaveIBeenPwned.Tests.snk</AssemblyOriginatorKeyFile>
-
-    <AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp30'">
