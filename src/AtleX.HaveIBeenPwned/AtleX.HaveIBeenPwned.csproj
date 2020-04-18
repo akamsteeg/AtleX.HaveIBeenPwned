@@ -8,7 +8,7 @@
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
     <Nullable>enable</Nullable>
     
-    <SignAssembly>true</SignAssembly>
+    <!--<SignAssembly>true</SignAssembly>-->
     <AssemblyOriginatorKeyFile>AtleX.HaveIBeenPwned.snk</AssemblyOriginatorKeyFile>
     
     <Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
@@ -28,8 +28,10 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageReleaseNotes>
+      * Warning* The final version of v5.0.0 will probably be strong named (#32)
+      
       5.0.0:
-      - [Feature] Performance optimizations (#36)
+      - [Feature] Performance optimizations (#36, #44)
       - [Feature] Replace NewtonSoft.Json with System.Text.Json (#25)
       - [Feature] Add C#8 Nullable Reference Types support (#31)
       - [Feature] Calling ToString() on Breach now returns the value of the Name property instead of the type name (#41)
