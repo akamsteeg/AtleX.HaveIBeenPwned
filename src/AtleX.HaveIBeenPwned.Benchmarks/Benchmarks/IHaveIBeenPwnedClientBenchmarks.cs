@@ -20,9 +20,11 @@ namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks
     }
 
     [Benchmark]
-    public async Task GetBreachesAsync_BreachMode()
+    [Arguments(BreachMode.All)]
+    [Arguments(BreachMode.ExcludeUnverified)]
+    public async Task GetBreachesAsync_BreachMode(BreachMode breachMode)
     {
-      var result = await this._client.GetBreachesAsync("benchmark", BreachMode.All);
+      var result = await this._client.GetBreachesAsync("benchmark", breachMode);
     }
 
     [Benchmark]
