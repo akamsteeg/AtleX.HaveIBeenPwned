@@ -21,10 +21,10 @@ namespace AtleX.HaveIBeenPwned.Benchmarks
       config.AddDiagnoser(BenchmarkDotNet.Diagnosers.MemoryDiagnoser.Default);
 
       config.AddJob(
-        Job.ShortRun.WithToolchain(CsProjCoreToolchain.NetCoreApp31).AsBaseline(),
-        Job.ShortRun.WithToolchain(CsProjCoreToolchain.NetCoreApp21),
-        Job.ShortRun.WithToolchain(CsProjClassicNetToolchain.Net472),
-        Job.ShortRun.WithToolchain(CsProjClassicNetToolchain.Net461)
+        Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp31).AsBaseline(),
+        Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp21),
+        Job.Default.WithToolchain(CsProjClassicNetToolchain.Net472),
+        Job.Default.WithToolchain(CsProjClassicNetToolchain.Net461)
         );
 
       return config;
