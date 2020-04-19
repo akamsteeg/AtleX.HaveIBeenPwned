@@ -20,5 +20,17 @@ namespace AtleX.HaveIBeenPwned.Tests.Helpers
       Assert.Equal(35, kAnonimityRemainder.Length);
       Assert.Equal(expectedKAnonimityRemainder, kAnonimityRemainder);
     }
+
+    [Fact]
+    public void GetKAnonimityPartsForPassword_WithEmptyPassword_ThrowsArgumentNullException()
+    {
+      Assert.Throws<ArgumentNullException>(() => KAnonimityHelper.GetKAnonimityPartsForPassword(string.Empty));
+    }
+
+    [Fact]
+    public void GetKAnonimityPartsForPassword_WithNullPassword_ThrowsArgumentNullException()
+    {
+      Assert.Throws<ArgumentNullException>(() => KAnonimityHelper.GetKAnonimityPartsForPassword(null));
+    }
   }
 }

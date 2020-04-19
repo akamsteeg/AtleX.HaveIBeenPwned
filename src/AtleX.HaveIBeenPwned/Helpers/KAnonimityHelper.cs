@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pitcher;
+using System;
 using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
@@ -35,6 +36,8 @@ namespace AtleX.HaveIBeenPwned.Helpers
     /// </returns>
     public static (string kAnonimityPart, string kAnonimityRemainder) GetKAnonimityPartsForPassword(string password)
     {
+      Throw.ArgumentNull.WhenNullOrEmpty(password, nameof(password));
+
       var hash = GetSHA1HashForPassword(password);
 
       var kAnonimityHashPart = new StringBuilder(40); // SHA1 hash is 40 characters long
