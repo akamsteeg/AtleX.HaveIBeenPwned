@@ -187,6 +187,42 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
+    public async Task GetBreachesAsync_WithImATeapot_Throws()
+    {
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418)))
+      {
+        using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+        {
+          await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetBreachesAsync("DUMMY"));
+        }
+      }
+    }
+
+    [Fact]
+    public async Task GetBreachesAsync_CancellationToken_WithImATeapot_Throws()
+    {
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418)))
+      {
+        using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+        {
+          await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetBreachesAsync("DUMMY", CancellationToken.None));
+        }
+      }
+    }
+
+    [Fact]
+    public async Task GetBreachesAsync_BreachModeCancellationToken_WithImATeapot_Throws()
+    {
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418)))
+      {
+        using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+        {
+          await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetBreachesAsync("DUMMY", BreachMode.Default, CancellationToken.None));
+        }
+      }
+    }
+
+    [Fact]
     public async Task GetBreachesAsync_WithValidInput_Succeeds()
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))

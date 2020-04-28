@@ -12,7 +12,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     : HaveIBeenPwnedClientTestsBase
   {
     [Fact]
-    public async Task GetAllBreachesAsync_DoesNotThrow()
+    public async Task GetAllBreachesAsync_WithValidInput_Succeeds()
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
@@ -25,7 +25,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
-    public async Task GetAllBreachesAsync_WithCancellationToken_DoesNotThrow()
+    public async Task GetAllBreachesAsync_CancellationToken_WithValidInput_Succeeds()
     {
       using (var cancellationTokenSource = new CancellationTokenSource())
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
@@ -81,6 +81,30 @@ namespace AtleX.HaveIBeenPwned.Tests
       using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
       {
         await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetAllBreachesAsync(CancellationToken.None));
+      }
+    }
+
+    [Fact]
+    public async Task GetAllBreachesAsync_WithImATeapot_Throws()
+    {
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418)))
+      {
+        using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+        {
+          await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetAllBreachesAsync());
+        }
+      }
+    }
+
+    [Fact]
+    public async Task GetAllBreachesAsync_CancellationToken_WithImATeapot_Throws()
+    {
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418)))
+      {
+        using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+        {
+          await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetAllBreachesAsync(CancellationToken.None));
+        }
       }
     }
   }

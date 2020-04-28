@@ -77,6 +77,30 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
+    public async Task IsPwnedPasswordAsync_WithImATeapot_Throws()
+    {
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418)))
+      {
+        using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+        {
+          await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.IsPwnedPasswordAsync("DUMMY"));
+        }
+      }
+    }
+
+    [Fact]
+    public async Task IsPwnedPasswordAsync_CancellationToken_WithImATeapot_Throws()
+    {
+      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418)))
+      {
+        using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
+        {
+          await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None));
+        }
+      }
+    }
+
+    [Fact]
     public async Task IsPwnedPasswordAsync_KnownInput_Succeeds()
     {
       using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
