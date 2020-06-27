@@ -80,9 +80,9 @@ namespace AtleX.HaveIBeenPwned
     /// <returns>
     /// A string that represents the current object
     /// </returns>
-    public override string? ToString()
+    public override string ToString()
     {
-      return this.Name;
+      return this.Name ?? string.Empty;
     }
   }
 }

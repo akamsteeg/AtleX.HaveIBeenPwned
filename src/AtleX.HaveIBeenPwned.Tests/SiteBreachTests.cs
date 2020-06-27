@@ -5,6 +5,19 @@ namespace AtleX.HaveIBeenPwned.Tests
   public class SiteBreachTests
   {
     [Fact]
+    public void ToString_ReturnsValueOfNameProperty()
+    {
+      const string title = "BREACH_TITLE";
+
+      var p = new SiteBreach()
+      {
+        Title = title,
+      };
+
+      Assert.Equal(title, p.Title);
+    }
+
+    [Fact]
     public void Equals_WithNullObject_ReturnsFalse()
     {
       var p = new SiteBreach();
