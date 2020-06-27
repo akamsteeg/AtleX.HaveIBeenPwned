@@ -12,7 +12,7 @@ steps:
   inputs:
     command: test
     projects: '${{ parameters.pathToUnitTestProject }}'
-    arguments: '--configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="${{ parameters.excludeFromCodeCoverage }}"'
+    arguments: '--configuration ${{ parameters.buildConfiguration }} /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:Exclude="${{ parameters.excludeFromCodeCoverage }}"' /p:UseSourceLink=true /p:IncludeTestAssembly
 
 - ${{ if eq(parameters.publishCodeCoverage, 'true') }}:
   - task: PublishCodeCoverageResults@1
