@@ -20,7 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>haveibeenpwned breach password</PackageTags>
     
-    <Version>5.0.0-beta2</Version>
+    <Version>5.0.0-beta3</Version>
 
     <RepositoryUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -29,18 +29,19 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageReleaseNotes>
-      * Warning* The final version of v5.0.0 will probably be strong named (#32)
-      
       5.0.0:
+      - [Feature] Enabled deterministic builds (43)
+      - [Feature] Implement IEquatable&lt;T&gt; on Paste, Breach and SiteBreach (#46)
       - [Feature] Performance optimizations (#36, #44)
       - [Feature] Replace NewtonSoft.Json with System.Text.Json (#25)
       - [Feature] Add C#8 Nullable Reference Types support (#31)
       - [Feature] Calling ToString() on Breach now returns the value of the Name property instead of the type name (#41)
       - [Feature] Calling ToString() on Paste now returns the value of the Title property instead of the type name (#41)
+      - [Feature] Calling ToString() on SiteBreach now returns the value of the Name property instead of the type name (#41)
       - [Breaking] Mark HaveIBeenPwnedClientSettings.TimeOut as obsolete (#37)
       - [Breaking] Throw InvalidApiKeyException instead of InvalidOperationException when no API key is supplied (#34)
       - [Breaking] HaveIBeenPwnedClientSettings.ApplicationName should default to an empty string and an exception must be thrown when it's not set (#30)
-      - [Fix] Error: The request was aborted: Could not create SSL/TLS secure channel (#39)
+      - [Breaking] AtleX.HaveIBeenPwned is now strong named (#32)
       4.1.0:
       - [Feature] Introduce specialized API interfaces for specific functionality (#33)
       - [Feature] Throw custom exception when an invalid or expired API key is used (#28)
