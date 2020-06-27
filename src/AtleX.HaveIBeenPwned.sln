@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2048
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtleX.HaveIBeenPwned", "AtleX.HaveIBeenPwned\AtleX.HaveIBeenPwned.csproj", "{6C223A27-A0EF-4AA2-940A-E354F69503C6}"
 EndProject
@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtleX.HaveIBeenPwned.Tests"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtleX.HaveIBeenPwned.IntegrationTests", "AtleX.HaveIBeenPwned.IntegrationTests\AtleX.HaveIBeenPwned.IntegrationTests.csproj", "{ABCCA5E7-01DC-491C-BAD4-31ED0C8CEBB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtleX.HaveIBeenPwned.Benchmarks", "AtleX.HaveIBeenPwned.Benchmarks\AtleX.HaveIBeenPwned.Benchmarks.csproj", "{8D818A95-C16B-432F-B138-FC228267E6AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtleX.HaveIBeenPwned.Benchmarks", "AtleX.HaveIBeenPwned.Benchmarks\AtleX.HaveIBeenPwned.Benchmarks.csproj", "{8D818A95-C16B-432F-B138-FC228267E6AF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
