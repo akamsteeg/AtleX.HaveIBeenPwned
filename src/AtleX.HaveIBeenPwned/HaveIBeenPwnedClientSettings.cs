@@ -1,5 +1,4 @@
-﻿using SwissArmyKnife;
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace AtleX.HaveIBeenPwned
@@ -13,11 +12,11 @@ namespace AtleX.HaveIBeenPwned
     /// <summary>
     /// Gets or sets the application name
     /// </summary>
-    public string ApplicationName
+    public string? ApplicationName
     {
       get;
       set;
-    } = default!;
+    }
 
     /// <summary>
     /// Gets or sets the <see cref="TimeSpan"/> as timeout when communicating
