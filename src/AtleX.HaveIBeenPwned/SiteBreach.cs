@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AtleX.HaveIBeenPwned.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -11,16 +12,17 @@ namespace AtleX.HaveIBeenPwned
   [DebuggerDisplay("{Name}")]
   [ExcludeFromCodeCoverage]
   public sealed class SiteBreach
+    : IEquatable<SiteBreach>
   {
     /// <summary>
     /// Gets or sets the name of the breach
     /// </summary>
-    public string Name { get; set; } = default!;
+    public string? Name { get; set; }
 
     /// <summary>
     /// Gets or sets the title of the breach
     /// </summary>
-    public string Title { get; set; } = default!;
+    public string? Title { get; set; }
 
     /// <summary>
     /// Gets or sets the date of the breach
@@ -45,12 +47,12 @@ namespace AtleX.HaveIBeenPwned
     /// <summary>
     /// Gets or sets the description of the breach
     /// </summary>
-    public string Description { get; set; } = default!;
+    public string? Description { get; set; }
 
     /// <summary>
     /// Gets or sets the types of data included in the breach
     /// </summary>
-    public IEnumerable<string> DataClasses { get; set; } = default!;
+    public IEnumerable<string>? DataClasses { get; set; }
 
     /// <summary>
     /// Gets or sets whether the breach is verified or not
@@ -76,5 +78,61 @@ namespace AtleX.HaveIBeenPwned
     /// Gets or sets whether the breach is from a spam list or not
     /// </summary>
     public bool IsSpamList { get; set; }
+
+    /// <summary>
+    /// Determines whether the specified object is equal to the current object
+    /// </summary>
+    /// <param name="obj">
+    /// The object to compare with the current object
+    /// </param>
+    /// <returns>
+    /// True if the specified object is equal to the current object; false otherwise
+    /// </returns>
+    public override bool Equals(object obj)
+    {
+      var result = false;
+
+      if (!(obj is null) && obj is SiteBreach other)
+      {
+        result = this.Equals(other);
+      }
+
+      return result;
+    }
+
+    /// <summary>
+    /// Indicates whether the current object is equal to another object of the
+    /// same type
+    /// </summary>
+    /// <param name="other">
+    /// An object to compare with this object
+    /// </param>
+    /// <returns>
+    /// True if the current object is equal to the other parameter; false otherwise
+    /// </returns>
+    public bool Equals(SiteBreach other)
+    {
+      var result = false;
+
+      if (!(other is null))
+      {
+        result = (this.GetHashCode() == other.GetHashCode());
+      }
+
+      return result;
+    }
+
+    /// <summary>
+    /// Serves as the default hash function
+    /// </summary>
+    /// <returns>
+    /// A hash code for the current object
+    /// </returns>
+    public override int GetHashCode()
+    {
+      var result = HashCodeHelper.GetHashCode(this.Name ?? string.Empty);
+
+      return result;
+    }
   }
 }

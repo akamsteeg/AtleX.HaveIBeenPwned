@@ -2,25 +2,12 @@
 
 namespace AtleX.HaveIBeenPwned.Tests
 {
-  public class PasteTests
+  public class SiteBreachTests
   {
-    [Fact]
-    public void ToString_ReturnsValueOfNameProperty()
-    {
-      const string title = "PASTE_TITLE";
-
-      var p = new Paste()
-      {
-        Title = title,
-      };
-
-      Assert.Equal(title, p.Title);
-    }
-
     [Fact]
     public void Equals_WithNullObject_ReturnsFalse()
     {
-      var p = new Paste();
+      var p = new SiteBreach();
 
       Assert.False(p.Equals((object)null));
     }
@@ -28,7 +15,7 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public void Equals_WithWrongTypeObject_ReturnsFalse()
     {
-      var p = new Paste();
+      var p = new SiteBreach();
 
       Assert.False(p.Equals(string.Empty));
     }
@@ -36,14 +23,14 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public void Equals_WithSameTypeObjectButDifferentValues_ReturnsFalse()
     {
-      var p = new Paste()
+      var p = new SiteBreach()
       {
-        Id = "FIRST",
+        Name = "FIRST",
       };
 
-      var other = new Paste()
+      var other = new SiteBreach()
       {
-        Id = "SECOND",
+        Name = "SECOND",
       };
 
       Assert.False(p.Equals((object)other));
@@ -52,14 +39,14 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public void Equals_WithSameTypeObjectAndSameValues_ReturnsTrue()
     {
-      var p = new Paste()
+      var p = new SiteBreach()
       {
-        Id = "VALUE",
+        Name = "VALUE",
       };
 
-      var other = new Paste()
+      var other = new SiteBreach()
       {
-        Id = "VALUE",
+        Name = "VALUE",
       };
 
       Assert.True(p.Equals((object)other));
@@ -68,14 +55,14 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public void Equals_WithSameTypeButDifferentValues_ReturnsFalse()
     {
-      var p = new Paste()
+      var p = new SiteBreach()
       {
-        Id = "FIRST",
+        Name = "FIRST",
       };
 
-      var other = new Paste()
+      var other = new SiteBreach()
       {
-        Id = "SECOND",
+        Name = "SECOND",
       };
 
       Assert.False(p.Equals(other));
@@ -84,14 +71,14 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public void Equals_WithSameTypeAndSameValues_ReturnsTrue()
     {
-      var p = new Paste()
+      var p = new SiteBreach()
       {
-        Id = "VALUE",
+        Name = "VALUE",
       };
 
-      var other = new Paste()
+      var other = new SiteBreach()
       {
-        Id = "VALUE",
+        Name = "VALUE",
       };
 
       Assert.True(p.Equals(other));
@@ -100,14 +87,14 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public void GetHashCode_ReturnsDifferentHashCodesForDifferentValues()
     {
-      var p = new Paste()
+      var p = new SiteBreach()
       {
-        Id = "FIRST",
+        Name = "FIRST",
       };
 
-      var other = new Paste()
+      var other = new SiteBreach()
       {
-        Id = "SECOND",
+        Name = "SECOND",
       };
 
       Assert.NotEqual(p.GetHashCode(), other.GetHashCode());
@@ -116,14 +103,14 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public void GetHashCode_ReturnsSameHashCodesForSameValues()
     {
-      var p = new Paste()
+      var p = new SiteBreach()
       {
-        Id = "VALUE",
+        Name = "VALUE",
       };
 
-      var other = new Paste()
+      var other = new SiteBreach()
       {
-        Id = "VALUE",
+        Name = "VALUE",
       };
 
       Assert.Equal(p.GetHashCode(), other.GetHashCode());
