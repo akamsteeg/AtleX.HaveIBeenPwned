@@ -4,7 +4,6 @@ using SwissArmyKnife;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -291,7 +290,7 @@ namespace AtleX.HaveIBeenPwned
       var results = await this.GetAuthenticatedAsync<IEnumerable<Breach>>(requestUri, cancellationToken)
         .ConfigureAwait(false);
 
-      return results ?? Enumerable.Empty<Breach>();
+      return results;
     }
 
     /// <summary>
@@ -316,7 +315,7 @@ namespace AtleX.HaveIBeenPwned
       var results = await this.GetAuthenticatedAsync<IEnumerable<Paste>>(requestUri, cancellationToken)
         .ConfigureAwait(false);
 
-      return results ?? Enumerable.Empty<Paste>();
+      return results;
     }
 
     /// <summary>
@@ -345,16 +344,11 @@ namespace AtleX.HaveIBeenPwned
       using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
       using var response = await this.GetResponseDataAsync(requestMessage, cancellationToken).ConfigureAwait(false);
 
-      if (response.StatusCode != HttpStatusCode.NotFound)
+      if (response.StatusCode == HttpStatusCode.OK)
       {
-        using var content = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
-        using var streamReader = new StreamReader(content);
+        var content = await response.Content.ReadAsStringAsync();
 
-        var allData = await streamReader
-          .ReadToEndAsync()
-          .ConfigureAwait(false);
-
-        result = allData.Contains(kAnonimityRemainder);
+        result = content.Contains(kAnonimityRemainder);
       }
 
       return result;
