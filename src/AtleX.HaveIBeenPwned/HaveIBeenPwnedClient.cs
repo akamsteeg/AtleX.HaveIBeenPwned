@@ -109,118 +109,54 @@ namespace AtleX.HaveIBeenPwned
     }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<SiteBreach>> GetAllBreachesAsync()
-    {
-      var result = await this.GetAllBreachesInternalAsync(CancellationToken.None)
+    public async Task<IEnumerable<SiteBreach>> GetAllBreachesAsync() =>
+      await this.GetAllBreachesInternalAsync(CancellationToken.None)
         .ConfigureAwait(false);
-
-      return result;
-    }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<SiteBreach>> GetAllBreachesAsync(CancellationToken cancellationToken)
-    {
-      var result = await this.GetAllBreachesInternalAsync(cancellationToken)
+    public async Task<IEnumerable<SiteBreach>> GetAllBreachesAsync(CancellationToken cancellationToken) =>
+      await this.GetAllBreachesInternalAsync(cancellationToken)
         .ConfigureAwait(false);
-
-      return result;
-    }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account)
-    {
-      Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
-      this.ThrowIfDisposed();
-
-      var result = await this.GetBreachesInternalAsync(account, BreachMode.Default, CancellationToken.None)
+    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account) =>
+      await this.GetBreachesInternalAsync(account, BreachMode.Default, CancellationToken.None)
         .ConfigureAwait(false);
-
-      return result;
-    }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, CancellationToken cancellationToken)
-    {
-      Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
-      this.ThrowIfDisposed();
-
-      var result = await this.GetBreachesInternalAsync(account, BreachMode.Default, cancellationToken)
+    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, CancellationToken cancellationToken) =>
+      await this.GetBreachesInternalAsync(account, BreachMode.Default, cancellationToken)
         .ConfigureAwait(false);
-
-      return result;
-    }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes)
-    {
-      Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
-      this.ThrowIfDisposed();
-
-      var result = await this.GetBreachesInternalAsync(account, modes, CancellationToken.None)
+    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes) =>
+      await this.GetBreachesInternalAsync(account, modes, CancellationToken.None)
         .ConfigureAwait(false);
-
-      return result;
-    }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes, CancellationToken cancellationToken)
-    {
-      Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
-      this.ThrowIfDisposed();
-
-      var result = await this.GetBreachesInternalAsync(account, modes, cancellationToken)
+    public async Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes, CancellationToken cancellationToken) =>
+      await this.GetBreachesInternalAsync(account, modes, cancellationToken)
         .ConfigureAwait(false);
-
-      return result;
-    }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress)
-    {
-      Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
-      this.ThrowIfDisposed();
-
-      var result = await this.GetPastesInternalAsync(emailAddress, CancellationToken.None)
+    public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress) =>
+      await this.GetPastesInternalAsync(emailAddress, CancellationToken.None)
         .ConfigureAwait(false);
-
-      return result;
-    }
 
     /// <inheritdoc />
-    public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress, CancellationToken cancellationToken)
-    {
-      Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
-      this.ThrowIfDisposed();
-
-      var result = await this.GetPastesInternalAsync(emailAddress, cancellationToken)
+    public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress, CancellationToken cancellationToken) =>
+      await this.GetPastesInternalAsync(emailAddress, cancellationToken)
         .ConfigureAwait(false);
-
-      return result;
-    }
 
     /// <inheritdoc />
-    public async Task<bool> IsPwnedPasswordAsync(string password)
-    {
-      Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
-      this.ThrowIfDisposed();
-
-      var result = await this.IsPwnedPasswordInternalAsync(password, CancellationToken.None)
+    public async Task<bool> IsPwnedPasswordAsync(string password) =>
+      await this.IsPwnedPasswordInternalAsync(password, CancellationToken.None)
         .ConfigureAwait(false);
-
-      return result;
-    }
 
     /// <inheritdoc />
-    public async Task<bool> IsPwnedPasswordAsync(string password, CancellationToken cancellationToken)
-    {
-      Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
-      this.ThrowIfDisposed();
-
-      var result = await this.IsPwnedPasswordInternalAsync(password, cancellationToken)
+    public async Task<bool> IsPwnedPasswordAsync(string password, CancellationToken cancellationToken) =>
+      await this.IsPwnedPasswordInternalAsync(password, cancellationToken)
         .ConfigureAwait(false);
-
-      return result;
-    }
 
     /// <inheritdoc />
     protected override void Dispose(bool disposing)
@@ -243,6 +179,8 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<IEnumerable<SiteBreach>> GetAllBreachesInternalAsync(CancellationToken cancellationToken)
     {
+      this.ThrowIfDisposed();
+
       var uri = new Uri($"{ApiBaseUri}/breaches");
 
       var result = await this.GetAsync<IEnumerable<SiteBreach>>(uri, cancellationToken)
@@ -269,6 +207,9 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<IEnumerable<Breach>> GetBreachesInternalAsync(string account, BreachMode modes, CancellationToken cancellationToken)
     {
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
+      this.ThrowIfDisposed();
+
       var requestUri = default(Uri);
 
       var baseUri = $"{ApiBaseUri}/breachedaccount/{account}";
@@ -308,6 +249,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<IEnumerable<Paste>> GetPastesInternalAsync(string emailAddress, CancellationToken cancellationToken)
     {
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
       this.ThrowIfDisposed();
 
       var requestUri = new Uri($"{ApiBaseUri}/pasteaccount/{emailAddress}");
@@ -333,6 +275,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     private async Task<bool> IsPwnedPasswordInternalAsync(string password, CancellationToken cancellationToken)
     {
+      Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
       this.ThrowIfDisposed();
 
       var result = false;
