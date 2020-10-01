@@ -209,7 +209,7 @@ namespace AtleX.HaveIBeenPwned
       Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
       this.ThrowIfDisposed();
 
-      var requestUri = default(Uri);
+      Uri? requestUri;
 
       var baseUri = $"{ApiBaseUri}/breachedaccount/{account}";
 
