@@ -380,6 +380,11 @@ namespace AtleX.HaveIBeenPwned
 
       var result = await JsonSerializer.DeserializeAsync<T>(content).ConfigureAwait(false);
 
+      if (result is null)
+      {
+        throw new InvalidOperationException($"Response could not be parsed to {nameof(T)}");
+      }
+
       return result;
     }
 
