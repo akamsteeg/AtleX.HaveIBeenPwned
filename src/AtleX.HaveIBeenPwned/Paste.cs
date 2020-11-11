@@ -51,7 +51,7 @@ namespace AtleX.HaveIBeenPwned
     {
       var result = false;
 
-      if (!(obj is null) && obj is Paste other)
+      if (obj is not null && obj is Paste other)
       {
         result = this.Equals(other);
       }
@@ -73,7 +73,7 @@ namespace AtleX.HaveIBeenPwned
     {
       var result = false;
 
-      if (!(other is null))
+      if (other is not null)
       {
         result = (this.GetHashCode() == other.GetHashCode());
       }
