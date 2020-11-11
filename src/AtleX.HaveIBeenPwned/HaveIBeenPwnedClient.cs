@@ -314,7 +314,8 @@ namespace AtleX.HaveIBeenPwned
     private async Task<T> GetAuthenticatedAsync<T>(Uri url, CancellationToken cancellationToken)
       where T : notnull
     {
-      if (this._clientSettings.ApiKey.IsNullOrWhiteSpace()) { throw new InvalidApiKeyException(); }
+      Throw<InvalidApiKeyException>.When(this._clientSettings.ApiKey.IsNullOrWhiteSpace());
+
       this.ThrowIfDisposed();
 
       using var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
