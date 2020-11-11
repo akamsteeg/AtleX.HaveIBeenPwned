@@ -29,12 +29,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     public override bool Equals(object obj)
     {
-      var result = false;
-
-      if (obj is not null && obj is Breach other)
-      {
-        result = this.Equals(other);
-      }
+      var result = EqualityHelper.Equals(this, obj);
 
       return result;
     }
@@ -51,12 +46,7 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     public bool Equals(Breach other)
     {
-      var result = false;
-
-      if (other is not null)
-      {
-        result = (this.GetHashCode() == other.GetHashCode());
-      }
+      var result = EqualityHelper.Equals(this, other);
 
       return result;
     }
