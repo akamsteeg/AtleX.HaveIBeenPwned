@@ -27,7 +27,7 @@ namespace AtleX.HaveIBeenPwned.Helpers
     {
       var result = false;
 
-      if (other is not null && other is T otherT)
+      if (other is not null and T otherT)
       {
         result = Equals(current, otherT);
       }
@@ -54,12 +54,7 @@ namespace AtleX.HaveIBeenPwned.Helpers
     public static bool Equals<T>(T current, T other)
       where T: notnull
     {
-      var result = false;
-
-      if (other is not null)
-      {
-        result = (current.GetHashCode() == other.GetHashCode());
-      }
+      var result = (other is not null && current.GetHashCode() == other.GetHashCode());
 
       return result;
     }
