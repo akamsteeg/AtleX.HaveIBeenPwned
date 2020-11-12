@@ -25,12 +25,7 @@ namespace AtleX.HaveIBeenPwned.Helpers
     public static bool Equals<T>(T current, object other)
       where T : notnull
     {
-      var result = false;
-
-      if (other is not null and T otherT)
-      {
-        result = Equals(current, otherT);
-      }
+      var result = (other is not null and T otherT && current.GetHashCode() == otherT.GetHashCode());
 
       return result;
     }
