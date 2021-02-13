@@ -1,4 +1,5 @@
 ﻿using AtleX.HaveIBeenPwned.Helpers;
+using SwissArmyKnife.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
