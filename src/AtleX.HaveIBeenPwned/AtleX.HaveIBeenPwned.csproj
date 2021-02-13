@@ -20,7 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>haveibeenpwned breach password</PackageTags>
     
-    <Version>5.0.1</Version>
+    <Version>5.0.2</Version>
 
     <RepositoryUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -32,8 +32,11 @@
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     
     <PackageReleaseNotes>
+      5.0.2:
+      - [Fix] In RateLimitExceededException, only construct the message when it's needed (#49)
+      - [Fix] Standardize IEquatable&lt;T&gt; implementations (#52)
       5.0.1:
-      - [Feature] Drastically reduced memory usage in HaveIBeenPwnedClient.IsPwnedPasswordAsync() (#47)
+      - [Fix] Drastically reduced memory usage in HaveIBeenPwnedClient.IsPwnedPasswordAsync() (#47)
       5.0.0:
       - [Feature] Enabled deterministic builds (43)
       - [Feature] Implement IEquatable&lt;T&gt; on Paste, Breach and SiteBreach (#46)
