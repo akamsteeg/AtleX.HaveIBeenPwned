@@ -284,7 +284,7 @@ namespace AtleX.HaveIBeenPwned
       var requestUri = new Uri($"{PwnedPasswordsBaseUri}/{kAnonimityPart}");
 
       using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
-      using var response = await this.GetResponseDataAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+      using var response = await this.ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
 
       if (response.StatusCode == HttpStatusCode.OK)
       {
@@ -376,7 +376,7 @@ namespace AtleX.HaveIBeenPwned
     {
       this.ThrowIfDisposed();
 
-      using var response = await this.GetResponseDataAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+      using var response = await this.ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
       using var content = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
 
       var result = await JsonSerializer.DeserializeAsync<T>(content).ConfigureAwait(false);
@@ -401,7 +401,7 @@ namespace AtleX.HaveIBeenPwned
     /// <returns>
     /// An awaitable <see cref="Task{TResult}"/> of <see cref="HttpResponseMessage"/>
     /// </returns>
-    private async Task<HttpResponseMessage> GetResponseDataAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+    private async Task<HttpResponseMessage> ExecuteRequestAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
     {
       if (requestMessage.Method != HttpMethod.Get) { throw new InvalidOperationException($"Request method '{requestMessage.Method}' not supported"); }
       this.ThrowIfDisposed();
