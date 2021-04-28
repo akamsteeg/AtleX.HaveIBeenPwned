@@ -12,6 +12,8 @@ jobs:
   pool: 
     vmImage: ${{ parameters.vmImage }}
   steps:
+    - checkout: self
+      fetchDepth: 1
     - template: build-solution.steps.yml
       parameters:
         buildConfiguration: ${{ parameters.buildConfiguration }}
