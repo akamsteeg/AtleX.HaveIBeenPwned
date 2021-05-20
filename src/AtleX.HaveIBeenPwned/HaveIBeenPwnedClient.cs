@@ -42,16 +42,6 @@ namespace AtleX.HaveIBeenPwned
     private readonly bool _enableClientDisposing;
 
     /// <summary>
-    /// Gets the base uri of the HaveIBeenPwned.com API
-    /// </summary>
-    private const string ApiBaseUri = "https://haveibeenpwned.com/api/v3";
-
-    /// <summary>
-    /// Gets the base uri of the HaveIBeenPwned.com Pwned PAsswords API
-    /// </summary>
-    private const string PwnedPasswordsBaseUri = "https://api.pwnedpasswords.com/range";
-
-    /// <summary>
     /// Initializes a new instance of <see cref="HaveIBeenPwnedClient"/> with the
     /// specified <see cref="HaveIBeenPwnedClientSettings"/> and <see cref="HttpClient"/>
     /// </summary>
@@ -180,7 +170,7 @@ namespace AtleX.HaveIBeenPwned
     {
       this.ThrowIfDisposed();
 
-      var uri = new Uri($"{ApiBaseUri}/breaches");
+      var uri = UriFactory.GetAllBreachesUri();
 
       var result = await this.GetAsync<IEnumerable<SiteBreach>>(uri, cancellationToken)
         .ConfigureAwait(false);
@@ -209,25 +199,9 @@ namespace AtleX.HaveIBeenPwned
       Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
       this.ThrowIfDisposed();
 
-      Uri? requestUri;
+      var uri = UriFactory.GetBreachesForAccountUri(account, modes);
 
-      var baseUri = $"{ApiBaseUri}/breachedaccount/{account}";
-
-      if (modes.HasFlag(BreachMode.ExcludeUnverified))
-      {
-        var uriBuilder = new UriBuilder(baseUri)
-        {
-          Query = "includeUnverified=false"
-        };
-
-        requestUri = uriBuilder.Uri;
-      }
-      else
-      {
-        requestUri = new Uri(baseUri);
-      }
-
-      var results = await this.GetAuthenticatedAsync<IEnumerable<Breach>>(requestUri, cancellationToken)
+      var results = await this.GetAuthenticatedAsync<IEnumerable<Breach>>(uri, cancellationToken)
         .ConfigureAwait(false);
 
       return results;
@@ -251,7 +225,7 @@ namespace AtleX.HaveIBeenPwned
       Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
       this.ThrowIfDisposed();
 
-      var requestUri = new Uri($"{ApiBaseUri}/pasteaccount/{emailAddress}");
+      var requestUri = UriFactory.GetPasteAccountUri(emailAddress);
 
       var results = await this.GetAuthenticatedAsync<IEnumerable<Paste>>(requestUri, cancellationToken)
         .ConfigureAwait(false);
@@ -281,7 +255,7 @@ namespace AtleX.HaveIBeenPwned
 
       var (kAnonimityPart, kAnonimityRemainder) = KAnonimityHelper.GetKAnonimityPartsForPassword(password);
 
-      var requestUri = new Uri($"{PwnedPasswordsBaseUri}/{kAnonimityPart}");
+      var requestUri = UriFactory.GetPwnedPasswordUri(kAnonimityPart);
 
       using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
       using var response = await this.ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
