@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Pitcher;
+using System;
 
 namespace AtleX.HaveIBeenPwned
 {
@@ -52,6 +53,8 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     public static Uri GetBreachesForAccountUri(string account, BreachMode modes)
     {
+      Throw.ArgumentNull.WhenNullOrEmpty(account, nameof(account));
+
       Uri? result;
 
       var baseUri = $"{BreachedAccountBaseUri}/{account}";
@@ -85,6 +88,8 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     public static Uri GetPasteAccountUri(string emailAddress)
     {
+      Throw.ArgumentNull.WhenNullOrEmpty(emailAddress, nameof(emailAddress));
+
       var result = new Uri($"{PasteAccountBaseUri}/{emailAddress}");
 
       return result;
@@ -102,6 +107,8 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     public static Uri GetPwnedPasswordUri(string kAnonimitySuffixPart)
     {
+      Throw.ArgumentNull.WhenNullOrEmpty(kAnonimitySuffixPart, nameof(kAnonimitySuffixPart));
+
       var result = new Uri($"{PwnedPasswordsBaseUri}/{kAnonimitySuffixPart}");
 
       return result;

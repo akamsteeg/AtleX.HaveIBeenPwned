@@ -15,6 +15,14 @@ namespace AtleX.HaveIBeenPwned.Tests
       Assert.Equal(expected, actual);
     }
 
+    [Theory]
+    [InlineData((string)null)]
+    [InlineData("")]
+    public void GetBreachesForAccountUri_WithNullOrEmptyAccount_ThrowsArgumentNullException(string account)
+    {
+      Assert.ThrowsAny<ArgumentNullException>(() => UriFactory.GetBreachesForAccountUri(account, BreachMode.Default));
+    }
+
     [Fact]
     public void GetBreachesForAccountUri_WithBreachModeDefault_ReturnsCorrectUri()
     {
@@ -38,6 +46,14 @@ namespace AtleX.HaveIBeenPwned.Tests
       Assert.Contains(expectedQueryStringPart, result.Query);
     }
 
+    [Theory]
+    [InlineData((string)null)]
+    [InlineData("")]
+    public void GetPasteAccountUri_WithNullOrEmptyAccount_ThrowsArgumentNullException(string account)
+    {
+      Assert.ThrowsAny<ArgumentNullException>(() => UriFactory.GetPasteAccountUri(account));
+    }
+
     [Fact]
     public void GetPasteAccountUri_ReturnsCorrectUri()
     {
@@ -50,8 +66,16 @@ namespace AtleX.HaveIBeenPwned.Tests
       Assert.Equal(expected, actual);
     }
 
+    [Theory]
+    [InlineData((string)null)]
+    [InlineData("")]
+    public void GetPwnedPasswordUri_WithNullOrEmptSuffix_ThrowsArgumentNullException(string suffix)
+    {
+      Assert.ThrowsAny<ArgumentNullException>(() => UriFactory.GetPwnedPasswordUri(suffix));
+    }
+
     [Fact]
-    public void GetPwnedPasswordUri_ReturnsCorrectUri()
+    public void GetPwnedPasswordUri_WithCorrectSuffix_ReturnsCorrectUri()
     {
       const string kAnonimitySuffix = "TESTSUFFIS";
 
