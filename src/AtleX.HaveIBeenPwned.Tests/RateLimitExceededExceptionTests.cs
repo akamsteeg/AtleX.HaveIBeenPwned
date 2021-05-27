@@ -1,5 +1,4 @@
-﻿using AtleX.HaveIBeenPwned;
-using SwissArmyKnife;
+﻿using SwissArmyKnife;
 using System;
 using System.Linq;
 using Xunit;
@@ -36,6 +35,15 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
+    public void Message_ContainsCorrectText()
+    {
+      var testValue = 100.Seconds();
+      var e = new RateLimitExceededException(testValue);
+
+      Assert.Equal($"Rate limit exceeded, retry after {testValue.TotalSeconds} seconds", e.Message);
+    }
+
+    [Fact]
     public void Is_Serializable()
     {
       var attributes = typeof(RateLimitExceededException).GetCustomAttributes(inherit: false);
@@ -43,6 +51,14 @@ namespace AtleX.HaveIBeenPwned.Tests
       var hasSerializableAttribute = attributes.Any(a => a.GetType() == typeof(SerializableAttribute));
 
       Assert.True(hasSerializableAttribute);
+    }
+
+    [Fact]
+    public void Is_HaveIBeenPwnedClientException()
+    {
+      var e = new RateLimitExceededException(1.Seconds());
+
+      Assert.IsAssignableFrom<HaveIBeenPwnedClientException>(e);
     }
   }
 }
