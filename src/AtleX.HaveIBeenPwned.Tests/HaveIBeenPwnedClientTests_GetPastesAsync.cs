@@ -13,153 +13,134 @@ namespace AtleX.HaveIBeenPwned.Tests
     [Fact]
     public async Task GetPastesAsync_WithNullValueForEmailAddress_Throws()
     {
-      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
-      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-      {
-        await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetPastesAsync(null));
-      }
+      using var httpClient = new HttpClient(new MockHttpMessageHandler());
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetPastesAsync(null));
     }
 
     [Fact]
     public async Task GetPastesAsync_CancellationToken_WithNullValueForEmailAddress_Throws()
     {
-      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
-      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-      {
-        await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetPastesAsync(null, CancellationToken.None));
-      }
+      using var httpClient = new HttpClient(new MockHttpMessageHandler());
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetPastesAsync(null, CancellationToken.None));
     }
 
     [Fact]
     public async Task GetPastesAsync_WithInvalidApiKey_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
-      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-      {
-        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("DUMMY"));
-      }
+      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401));
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("DUMMY"));
     }
 
     [Fact]
     public async Task GetPastesAsync_WithhoutApiKey_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
-      {
+      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401));
 
-        var settings = this.ClientSettings;
-        settings.ApiKey = string.Empty;
+      var settings = this.ClientSettings;
+      settings.ApiKey = string.Empty;
 
-        using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-        {
-          await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("DUMMY"));
-        }
-      }
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("DUMMY"));
     }
 
     [Fact]
     public async Task GetPastesAsync_CancellationToken_WithInvalidApiKey_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401)))
-      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-      {
-        await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));
-      }
+      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401));
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+      
+      await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));
     }
 
     [Fact]
     public async Task GetPastesAsync_AfterDispose_Throws()
     {
-      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
-      {
-        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
-        c.Dispose();
+      using var httpClient = new HttpClient(new MockHttpMessageHandler());
 
-        await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetPastesAsync("DUMMY"));
-      }
+      var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+      c.Dispose();
+
+      await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetPastesAsync("DUMMY"));
     }
 
     [Fact]
     public async Task GetPastesAsync_CancellationToken_AfterDispose_Throws()
     {
-      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
-      {
-        var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
-        c.Dispose();
+      using var httpClient = new HttpClient(new MockHttpMessageHandler());
 
-        await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));
-      }
+      var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+      c.Dispose();
+
+      await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));
     }
 
     [Fact]
     public async Task GetPastesAsync_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
-      using (var cancellationTokenSource = new CancellationTokenSource())
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429)))
-      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-      {
-        await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetPastesAsync("DUMMY"));
-      }
+      using var cancellationTokenSource = new CancellationTokenSource();
+      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429));
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetPastesAsync("DUMMY"));
     }
 
     [Fact]
     public async Task GetPastesAsync_WithCancellationToken_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
-      using (var cancellationTokenSource = new CancellationTokenSource())
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429)))
-      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-      {
-        await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));
-      }
+      using var cancellationTokenSource = new CancellationTokenSource();
+      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429));
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));
     }
 
     [Fact]
     public async Task GetPastesAsync_WithImATeapot_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418)))
-      {
-        using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-        {
-          await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetPastesAsync("DUMMY"));
-        }
-      }
+      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418));
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetPastesAsync("DUMMY"));
     }
 
     [Fact]
     public async Task GetPastesAsync_CancellationToken_WithImATeapot_Throws()
     {
-      using (var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418)))
-      {
-        using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-        {
-          await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));
-        }
-      }
+      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418));
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));
     }
 
     [Fact]
     public async Task GetPastesAsync_WithValidInput_Succeeds()
     {
-      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
-      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-      {
-        var result = await c.GetPastesAsync("test@example.com");
+      using var httpClient = new HttpClient(new MockHttpMessageHandler());
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-        Assert.NotNull(result);
-        Assert.NotEmpty(result);
-      }
+      var result = await c.GetPastesAsync("test@example.com");
+
+      Assert.NotNull(result);
+      Assert.NotEmpty(result);
     }
 
     [Fact]
     public async Task GetPastesAsync_CancellationToken_WithValidInput_Succeeds()
     {
-      using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
-      using (var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-      {
-        var result = await c.GetPastesAsync("test@example.com", CancellationToken.None);
+      using var httpClient = new HttpClient(new MockHttpMessageHandler());
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-        Assert.NotNull(result);
-        Assert.NotEmpty(result);
-      }
+      var result = await c.GetPastesAsync("test@example.com", CancellationToken.None);
+
+      Assert.NotNull(result);
+      Assert.NotEmpty(result);
     }
   }
 }

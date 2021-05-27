@@ -9,7 +9,7 @@ namespace AtleX.HaveIBeenPwned.Tests.Mocks
   {
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-      string response = string.Empty;
+      var response = string.Empty;
 
       if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/breaches"))
       {
