@@ -172,7 +172,9 @@ namespace AtleX.HaveIBeenPwned
 
       var uri = UriFactory.GetAllBreachesUri();
 
-      var result = await this.GetAsync<IEnumerable<SiteBreach>>(uri, cancellationToken)
+      using var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
+
+      var result = await this.GetAsync<IEnumerable<SiteBreach>>(requestMessage, cancellationToken)
         .ConfigureAwait(false);
 
       return result;
@@ -301,35 +303,6 @@ namespace AtleX.HaveIBeenPwned
 
       return result;
     }
-
-    /// <summary>
-    /// Performs a GET request to the specified uri
-    /// </summary>
-    /// <typeparam name="T">
-    /// The type to deserialize the JSON content of the request to
-    /// </typeparam>
-    /// <param name="url">
-    /// The uri to request
-    /// </param>
-    /// <param name="cancellationToken">
-    /// The <see cref="CancellationToken"/> for this operation
-    /// </param>
-    /// <returns>
-    /// An awaitable <see cref="Task{TResult}"/> of the specified type
-    /// </returns>
-    private async Task<T> GetAsync<T>(Uri url, CancellationToken cancellationToken)
-      where T : notnull
-    {
-      this.ThrowIfDisposed();
-
-      using var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
-
-      var result = await this.GetAsync<T>(requestMessage, cancellationToken)
-        .ConfigureAwait(false);
-
-      return result;
-    }
-
     /// <summary>
     /// Performs a GET request to the specified uri
     /// </summary>
