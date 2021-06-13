@@ -21,7 +21,8 @@ namespace AtleX.HaveIBeenPwned
     /// <summary>
     /// Gets a message that describes the current exception
     /// </summary>
-    public override string Message => $"Rate limit exceeded, retry after {this.RetryAfter.TotalSeconds} seconds";
+    public override string Message
+      => $"Rate limit exceeded, retry after {this.RetryAfter.TotalSeconds} seconds"; // PERF We create the message here instead of in the constructor to avoid the overhead of string formatting in the case the exception is handled in code.
 
     /// <summary>
     /// Initializes a new instance of <see cref="RateLimitExceededException"/>
