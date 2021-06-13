@@ -3,6 +3,10 @@ using System;
 
 namespace AtleX.HaveIBeenPwned
 {
+  /// <summary>
+  /// Represents a factory to create a <see cref="Uri"/> for all actions of the
+  /// HaveIBeenPwned API
+  /// </summary>
   internal static class UriFactory
   {
     /// <summary>
