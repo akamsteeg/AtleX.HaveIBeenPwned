@@ -20,7 +20,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageTags>haveibeenpwned breach password</PackageTags>
     
-    <Version>5.0.2</Version>
+    <Version>5.0.3</Version>
 
     <RepositoryUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned.git</RepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -32,6 +32,8 @@
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
     
     <PackageReleaseNotes>
+      5.0.3:
+      - Internal refactoring, build improvements and code simplification
       5.0.2:
       - [Fix] In RateLimitExceededException, only construct the message when it's needed (#49)
       - [Fix] Standardize IEquatable&lt;T&gt; implementations (#52)
