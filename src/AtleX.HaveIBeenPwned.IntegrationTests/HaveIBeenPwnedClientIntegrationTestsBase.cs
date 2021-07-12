@@ -2,20 +2,15 @@
 {
   public abstract class HaveIBeenPwnedClientIntegrationTestsBase
   {
-    public HaveIBeenPwnedClientSettings ClientSettings
+    protected static HaveIBeenPwnedClientSettings CreateSettings()
     {
-      get;
-    }
-
-    public HaveIBeenPwnedClientIntegrationTestsBase()
-    {
-      var settings = new HaveIBeenPwnedClientSettings()
+      var result = new HaveIBeenPwnedClientSettings()
       {
         ApiKey = "DUMMYKEY",
         ApplicationName = "AtleX.HaveIBeenPwned.IntegrationTests",
       };
 
-      this.ClientSettings = settings;
+      return result;
     }
   }
 }

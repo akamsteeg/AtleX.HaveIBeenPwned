@@ -9,50 +9,41 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
   public class HaveIBeenPwnedClientTests_IsPwnedPassword
     : HaveIBeenPwnedClientIntegrationTestsBase
   {
-    [Fact]
-    public async Task IsPwnedPassword_WithValidKnownInput_ReturnsTrue()
+    [Theory]
+    [InlineData("1234", true, true)]
+    [InlineData("1234", true, false)]
+    [InlineData("{04766D96-39B7-4A26-8E49-046362AB3BCB}", false, false)]
+    [InlineData("{04766D96-39B7-4A26-8E49-046362AB3BCB}", false, true)]
+    public async Task IsPwnedPassword_WithValidKnownInput_ReturnsTrue(string password, bool isExpected, bool requestPadding)
     {
+      var settings = CreateSettings();
+      settings.RequestPaddingForPwnedPasswordResponses = requestPadding;
+
       using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+      using var c = new HaveIBeenPwnedClient(settings, httpClient);
 
-      var result = await c.IsPwnedPasswordAsync("1234");
+      var result = await c.IsPwnedPasswordAsync(password);
 
-      Assert.True(result);
+      Assert.Equal(isExpected, result);
     }
 
-    [Fact]
-    public async Task IsPwnedPassword_WithValidUnknownInput_ReturnsFalse()
+    [Theory]
+    [InlineData("1234", true, true)]
+    [InlineData("1234", true, false)]
+    [InlineData("{04766D96-39B7-4A26-8E49-046362AB3BCB}", false, false)]
+    [InlineData("{04766D96-39B7-4A26-8E49-046362AB3BCB}", false, true)]
+    public async Task IsPwnedPassword_WithValidKnownInputAndCancellationToken_ReturnsTrue(string password, bool isExpected, bool requestPadding)
     {
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+      var settings = CreateSettings();
+      settings.RequestPaddingForPwnedPasswordResponses = requestPadding;
 
-      var result = await c.IsPwnedPasswordAsync(Guid.NewGuid().ToString());
-
-      Assert.False(result);
-    }
-
-    [Fact]
-    public async Task IsPwnedPassword_WithValidKnownInputAndCancellationToken__ReturnsTrue()
-    {
       using var cancellationTokenSource = new CancellationTokenSource();
       using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+      using var c = new HaveIBeenPwnedClient(settings, httpClient);
 
-      var result = await c.IsPwnedPasswordAsync("1234", cancellationTokenSource.Token);
+      var result = await c.IsPwnedPasswordAsync(password, cancellationTokenSource.Token);
 
-      Assert.True(result);
-    }
-
-    [Fact]
-    public async Task IsPwnedPassword_WithValidUnknownInputAndCancellationToken__ReturnsFalse()
-    {
-      using var cancellationTokenSource = new CancellationTokenSource();
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
-
-      var result = await c.IsPwnedPasswordAsync(Guid.NewGuid().ToString(), cancellationTokenSource.Token);
-
-      Assert.False(result);
+      Assert.Equal(isExpected, result);
     }
   }
 }

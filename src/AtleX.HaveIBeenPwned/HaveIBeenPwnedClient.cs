@@ -260,6 +260,12 @@ namespace AtleX.HaveIBeenPwned
       var requestUri = UriFactory.GetPwnedPasswordUri(kAnonimityPart);
 
       using var requestMessage = new HttpRequestMessage(HttpMethod.Get, requestUri);
+
+      if (this._clientSettings.RequestPaddingForPwnedPasswordResponses)
+      {
+        requestMessage.Headers.Add("Add-Padding", "true");
+      }
+
       using var response = await this.ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
 
       if (response.StatusCode == HttpStatusCode.OK)

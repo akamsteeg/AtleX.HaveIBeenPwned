@@ -12,7 +12,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
     public async Task GetBreachesAsync_WithValidInput_DoesNotThrow()
     {
       using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
       var result = await c.GetBreachesAsync("test@example.com");
 
@@ -23,7 +23,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
     public async Task GetBreachesAsync_WithValidInputAndExludeUnVerifiedBreaches_DoesNotThrow()
     {
       using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
       var result = await c.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified);
 
@@ -35,7 +35,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
     {
       using var cancellationTokenSource = new CancellationTokenSource();
       using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
       var result = await c.GetBreachesAsync("test@example.com", cancellationTokenSource.Token);
 
@@ -47,7 +47,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
     {
       using var cancellationTokenSource = new CancellationTokenSource();
       using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
       var result = await c.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified, cancellationTokenSource.Token);
 

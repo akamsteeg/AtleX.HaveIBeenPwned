@@ -12,7 +12,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
     public async Task GetAllBreachesAsync_DoesNotThrow()
     {
       using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
       var result = await c.GetAllBreachesAsync();
 
@@ -24,7 +24,7 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests
     {
       using var cancellationTokenSource = new CancellationTokenSource();
       using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
       var result = await c.GetAllBreachesAsync(cancellationTokenSource.Token);
 
