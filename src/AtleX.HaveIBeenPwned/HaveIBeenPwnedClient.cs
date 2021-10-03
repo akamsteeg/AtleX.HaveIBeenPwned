@@ -270,7 +270,9 @@ namespace AtleX.HaveIBeenPwned
 
       if (response.StatusCode == HttpStatusCode.OK)
       {
-        var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+        var content = await response.Content
+          .ReadAsStringAsync()
+          .ConfigureAwait(false);
 
         result = content.Contains(kAnonimityRemainder);
       }
