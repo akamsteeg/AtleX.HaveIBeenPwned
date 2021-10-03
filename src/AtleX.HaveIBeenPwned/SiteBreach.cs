@@ -89,12 +89,7 @@ namespace AtleX.HaveIBeenPwned
     /// <returns>
     /// True if the specified object is equal to the current object; false otherwise
     /// </returns>
-    public override bool Equals(object obj)
-    {
-      var result = EqualityHelper.Equals(this, obj);
-
-      return result;
-    }
+    public override bool Equals(object obj) => EqualityHelper.Equals(this, obj);
 
     /// <summary>
     /// Indicates whether the current object is equal to another object of the
@@ -106,12 +101,7 @@ namespace AtleX.HaveIBeenPwned
     /// <returns>
     /// True if the current object is equal to the other parameter; false otherwise
     /// </returns>
-    public bool Equals(SiteBreach other)
-    {
-      var result = EqualityHelper.Equals(this, other);
-
-      return result;
-    }
+    public bool Equals(SiteBreach other) => EqualityHelper.Equals(this, other);
 
     /// <summary>
     /// Serves as the default hash function
@@ -119,12 +109,7 @@ namespace AtleX.HaveIBeenPwned
     /// <returns>
     /// A hash code for the current object
     /// </returns>
-    public override int GetHashCode()
-    {
-      var result = HashCodeHelper.GetHashCode(this.Name ?? string.Empty);
-
-      return result;
-    }
+    public override int GetHashCode() => HashCodeHelper.GetHashCode(this.Name ?? string.Empty);
 
     /// <summary>
     /// Returns a string that represents the current object
@@ -132,11 +117,6 @@ namespace AtleX.HaveIBeenPwned
     /// <returns>
     /// A string that represents the current object
     /// </returns>
-    public override string ToString()
-    {
-      var result = this.Name ?? string.Empty;
-
-      return result;
-    }
+    public override string ToString() => this.Name ?? string.Empty;
   }
 }
