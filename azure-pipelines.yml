@@ -2,14 +2,14 @@ jobs:
 - template: build-templates/build-package.job.yml
   parameters:
     name: Windows
-    vmImage: 'windows-latest'
+    vmImage: 'windows-2022'
     publishBuildArtifacts: 'true'
     publishCodeCoverage: 'true'
     
 - template: build-templates/build-package.job.yml
   parameters:
     name: Linux
-    vmImage: 'ubuntu-latest'
+    vmImage: 'ubuntu-2022'
     publishBuildArtifacts: 'true'
     publishCodeCoverage: 'true'
 
