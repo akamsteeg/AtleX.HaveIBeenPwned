@@ -1,26 +1,25 @@
 ﻿using System;
 
-namespace AtleX.HaveIBeenPwned
+namespace AtleX.HaveIBeenPwned;
+
+/// <summary>
+/// Represents the breach mode
+/// </summary>
+[Flags]
+public enum BreachMode
 {
   /// <summary>
-  /// Represents the breach mode
+  /// The default, verified and unverified, breaches
   /// </summary>
-  [Flags]
-  public enum BreachMode
-  {
-    /// <summary>
-    /// The default, verified and unverified, breaches
-    /// </summary>
-    Default,
+  Default,
 
-    /// <summary>
-    /// Exclude unverified breaches
-    /// </summary>
-    ExcludeUnverified = 1,
+  /// <summary>
+  /// Exclude unverified breaches
+  /// </summary>
+  ExcludeUnverified = 1,
 
-    /// <summary>
-    /// Include all breaches
-    /// </summary>
-    All = Default
-  }
+  /// <summary>
+  /// Include all breaches
+  /// </summary>
+  All = Default
 }

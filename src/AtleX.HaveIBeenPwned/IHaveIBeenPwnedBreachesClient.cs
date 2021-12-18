@@ -2,8 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AtleX.HaveIBeenPwned
-{
+namespace AtleX.HaveIBeenPwned;
   /// <summary>
   /// Represents a client for the breaches functionality of the HaveIBeenPwned service
   /// </summary>
@@ -90,4 +89,3 @@ namespace AtleX.HaveIBeenPwned
     /// </returns>
     Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes, CancellationToken cancellationToken);
   }
-}

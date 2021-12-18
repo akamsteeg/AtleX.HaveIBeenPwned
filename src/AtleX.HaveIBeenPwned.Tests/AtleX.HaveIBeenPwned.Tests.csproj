@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks Condition="'$(OS)' == 'Windows_NT' And '$(TF_BUILD)' != 'true'">netcoreapp3.1;net48;net461</TargetFrameworks>
-    <TargetFramework Condition="'$(OS)' != 'Windows_NT' Or '$(TF_BUILD)' == 'true'">netcoreapp3.1</TargetFramework>
-    <LangVersion>9.0</LangVersion>
+    <TargetFrameworks Condition="'$(OS)' == 'Windows_NT' And '$(TF_BUILD)' != 'true'">net60;netcoreapp3.1;net48</TargetFrameworks>
+    <TargetFramework Condition="'$(OS)' != 'Windows_NT' Or '$(TF_BUILD)' == 'true'">net60;netcoreapp3.1</TargetFramework>
+    <LangVersion>10.0</LangVersion>
     <IsPackable>false</IsPackable>
 
     <SignAssembly>true</SignAssembly>
@@ -12,8 +12,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp31'">
-    <Nullable>enable</Nullable>
-    
+    <Nullable>enable</Nullable>    
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +24,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
