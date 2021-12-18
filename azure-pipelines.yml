@@ -9,7 +9,7 @@ jobs:
 - template: build-templates/build-package.job.yml
   parameters:
     name: Linux
-    vmImage: 'ubuntu-2022'
+    vmImage: 'ubuntu-latest'
     publishBuildArtifacts: 'true'
     publishCodeCoverage: 'true'
 
