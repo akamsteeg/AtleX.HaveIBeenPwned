@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<!-- Dev machine-->
-		<TargetFrameworks Condition="'$(OS)' == 'Windows_NT'  And '$(TF_BUILD)' == 'false'">net60;netcoreapp3.1;net48</TargetFrameworks>
+		<TargetFrameworks Condition="'$(OS)' == 'Windows_NT' And '$(TF_BUILD)' != 'true'">net60;netcoreapp3.1;net48</TargetFrameworks>
 		<!-- CI/CD build - Windows agent-->
-		<TargetFrameworks Condition="'$(OS)' == 'Windows_NT'  And '$(TF_BUILD)' == 'true'">net60;netcoreapp3.1</TargetFrameworks>
+		<TargetFrameworks Condition="'$(OS)' == 'Windows_NT' And '$(TF_BUILD)' == 'true'">net60;netcoreapp3.1</TargetFrameworks>
 		<!-- Ci/CD build - Linux/MacOS -->
 		<TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">net60;netcoreapp3.1</TargetFrameworks>
 		<LangVersion>10.0</LangVersion>
