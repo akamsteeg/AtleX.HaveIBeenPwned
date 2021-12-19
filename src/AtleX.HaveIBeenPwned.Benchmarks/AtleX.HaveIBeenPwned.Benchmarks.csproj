@@ -1,20 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.1</TargetFrameworks>
-    
-    <SignAssembly>true</SignAssembly>
-    <DelaySign>false</DelaySign>
-    <AssemblyOriginatorKeyFile>AtleX.HaveIBeenPwned.Benchmarks.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFrameworks>netstandard2.0;netcoreapp3.1</TargetFrameworks>
 
-  <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
-    <PackageReference Include="GenFu" Version="1.6.0" />
-  </ItemGroup>
+		<SignAssembly>true</SignAssembly>
+		<DelaySign>false</DelaySign>
+		<AssemblyOriginatorKeyFile>AtleX.HaveIBeenPwned.Benchmarks.snk</AssemblyOriginatorKeyFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\AtleX.HaveIBeenPwned\AtleX.HaveIBeenPwned.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
+		<PackageReference Include="GenFu" Version="1.6.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AtleX.HaveIBeenPwned\AtleX.HaveIBeenPwned.csproj" />
+	</ItemGroup>
 </Project>
