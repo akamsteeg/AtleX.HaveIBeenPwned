@@ -12,6 +12,10 @@
 		<DelaySign>false</DelaySign>
 		<AssemblyOriginatorKeyFile>AtleX.HaveIBeenPwned.snk</AssemblyOriginatorKeyFile>
 
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<AnalysisMode>Recommended</AnalysisMode>
+		<AnalysisLevel>latest</AnalysisLevel>
+
 		<Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
 		<Company />
 		<PackageProjectUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned</PackageProjectUrl>
