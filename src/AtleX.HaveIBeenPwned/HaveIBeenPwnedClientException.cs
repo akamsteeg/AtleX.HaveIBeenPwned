@@ -5,7 +5,6 @@ namespace AtleX.HaveIBeenPwned;
 /// <summary>
 /// Represents an <see cref="Exception"/> that occured in an <see cref="IHaveIBeenPwnedClient"/>
 /// </summary>
-[Serializable]
 public class HaveIBeenPwnedClientException
   : Exception
 {
