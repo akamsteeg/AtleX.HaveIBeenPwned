@@ -13,8 +13,10 @@ using System.Threading.Tasks;
 namespace AtleX.HaveIBeenPwned;
 
 /// <summary>
-/// Represents an <see cref="IHaveIBeenPwnedClient"/> that communicates via HTTPS with
-/// the HaveIBeenPwned.com API
+/// <para>Represents an <see cref="IHaveIBeenPwnedClient"/> that communicates via HTTPS with
+/// the HaveIBeenPwned.com API.</para>
+///
+/// <para>This class is thread-safe.</para>
 /// </summary>
 public sealed class HaveIBeenPwnedClient
   : Disposable, IHaveIBeenPwnedClient
@@ -334,7 +336,9 @@ public sealed class HaveIBeenPwnedClient
     using var response = await this.ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
     using var content = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
 
-    var result = await JsonSerializer.DeserializeAsync<T>(content).ConfigureAwait(false);
+    var result = await JsonSerializer
+      .DeserializeAsync<T>(content, cancellationToken: cancellationToken)
+      .ConfigureAwait(false);
 
     if (result is null)
     {
@@ -381,7 +385,9 @@ public sealed class HaveIBeenPwnedClient
   /// </param>
   private static void HandleErrorResponse(HttpResponseMessage response)
   {
-    switch ((int)response.StatusCode)
+    var statusCode = (int)response.StatusCode;
+
+    switch (statusCode)
     {
       case 429: // Rate limit exceeded
         {
@@ -399,7 +405,7 @@ public sealed class HaveIBeenPwnedClient
         }
       default:
         {
-          throw new HaveIBeenPwnedClientException($"An error occured ({(int)response.StatusCode} {response.ReasonPhrase})");
+          throw new HaveIBeenPwnedClientException($"An error occured ({statusCode} {response.ReasonPhrase})");
         }
     }
   }
