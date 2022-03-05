@@ -10,29 +10,9 @@ namespace AtleX.HaveIBeenPwned;
 internal static class UriFactory
 {
   /// <summary>
-  /// Gets the base uri of the HaveIBeenPwned.com API
-  /// </summary>
-  private const string ApiBaseUri = "https://haveibeenpwned.com/api/v3";
-
-  /// <summary>
-  /// Gets the base uri of the HaveIBeenPwned.com Pwned PAsswords API
-  /// </summary>
-  private const string PwnedPasswordsBaseUri = "https://api.pwnedpasswords.com/range";
-
-  /// <summary>
-  /// Gets the base uri of the breachedaccount endpoint
-  /// </summary>
-  private const string BreachedAccountBaseUri = ApiBaseUri + "/breachedaccount";
-
-  /// <summary>
-  /// Gets the base uri of the pasteaccount endpoint
-  /// </summary>
-  private const string PasteAccountBaseUri = ApiBaseUri + "/pasteaccount";
-
-  /// <summary>
   /// Gets the bas euri of the breaches endpoint
   /// </summary>
-  private static readonly Uri BreachesUri = new(ApiBaseUri + "/breaches");
+  private static readonly Uri BreachesUri = new(Constants.BreachesUri);
 
   /// <summary>
   /// Gets the <see cref="Uri"/> to get all breaches available in the system
@@ -61,7 +41,7 @@ internal static class UriFactory
 
     Uri? result;
 
-    var baseUri = $"{BreachedAccountBaseUri}/{account}";
+    var baseUri = $"{Constants.BreachedAccountBaseUri}/{account}";
 
     if (modes.HasFlag(BreachMode.ExcludeUnverified))
     {
@@ -94,7 +74,7 @@ internal static class UriFactory
   {
     Throw.ArgumentNull.WhenNullOrEmpty(emailAddress, nameof(emailAddress));
 
-    var result = new Uri($"{PasteAccountBaseUri}/{emailAddress}");
+    var result = new Uri($"{Constants.PasteAccountBaseUri}/{emailAddress}");
 
     return result;
   }
@@ -113,7 +93,7 @@ internal static class UriFactory
   {
     Throw.ArgumentNull.WhenNullOrEmpty(kAnonimitySuffixPart, nameof(kAnonimitySuffixPart));
 
-    var result = new Uri($"{PwnedPasswordsBaseUri}/{kAnonimitySuffixPart}");
+    var result = new Uri($"{Constants.PwnedPasswordsBaseUri}/{kAnonimitySuffixPart}");
 
     return result;
   }
