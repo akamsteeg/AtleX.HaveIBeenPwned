@@ -17,7 +17,10 @@ namespace AtleX.HaveIBeenPwned.Tests.Mocks
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
-      var result = new HttpResponseMessage((HttpStatusCode)this._desiredResultStatusCode);
+      var result = new HttpResponseMessage((HttpStatusCode)this._desiredResultStatusCode)
+      {
+        RequestMessage = request,
+      };
 
       // Add custom headers per statuscode if necessary
       switch ((int)this._desiredResultStatusCode)

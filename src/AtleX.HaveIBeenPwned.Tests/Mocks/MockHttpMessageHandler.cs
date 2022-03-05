@@ -58,7 +58,8 @@ namespace AtleX.HaveIBeenPwned.Tests.Mocks
 
       var result = new HttpResponseMessage(System.Net.HttpStatusCode.OK)
       {
-        Content = new StringContent(response)
+        Content = new StringContent(response),
+        RequestMessage = request,
       };
 
       return Task.FromResult(result);

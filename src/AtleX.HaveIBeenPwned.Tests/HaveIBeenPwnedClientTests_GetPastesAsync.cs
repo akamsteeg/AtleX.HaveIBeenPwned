@@ -82,6 +82,24 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
+    public async Task GetPastesAsync_NotFound_ThrowsHaveIBeenPwnedClientException()
+    {
+      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetPastesAsync("UNKNOWN"));
+    }
+
+    [Fact]
+    public async Task GetPastesAsync_CancellationToken_NotFound_ThrowsHaveIBeenPwnedClientException()
+    {
+      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetPastesAsync("UNKNOWN", CancellationToken.None));
+    }
+
+    [Fact]
     public async Task GetPastesAsync_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
       using var cancellationTokenSource = new CancellationTokenSource();

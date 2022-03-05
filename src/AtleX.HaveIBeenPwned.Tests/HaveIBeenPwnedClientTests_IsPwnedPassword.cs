@@ -49,7 +49,25 @@ namespace AtleX.HaveIBeenPwned.Tests
 
       await Assert.ThrowsAsync<ObjectDisposedException>(() => c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None));
     }
-    
+
+    [Fact]
+    public async Task IsPwnedPasswordAsync_NotFound_ThrowsHaveIBeenPwnedClientException()
+    {
+      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.IsPwnedPasswordAsync("UNKNOWN"));
+    }
+
+    [Fact]
+    public async Task IsPwnedPasswordAsync_CancellationToken_NotFound_ThrowsHaveIBeenPwnedClientException()
+    {
+      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.IsPwnedPasswordAsync("UNKNOWN", CancellationToken.None));
+    }
+
     [Fact]
     public async Task IsPwnedPasswordAsync_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
@@ -108,28 +126,6 @@ namespace AtleX.HaveIBeenPwned.Tests
       var result = await c.IsPwnedPasswordAsync("P@ssw0rd", CancellationToken.None);
 
       Assert.True(result);
-    }
-    
-    [Fact]
-    public async Task IsPwnedPasswordAsync_UnknownInputSucceeds()
-    {
-      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
-
-      var result = await c.IsPwnedPasswordAsync("UNKNOWN");
-
-      Assert.False(result);
-    }
-
-    [Fact]
-    public async Task IsPwnedPasswordAsync_CancellationToken_UnknownInputSucceeds()
-    {
-      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
-
-      var result = await c.IsPwnedPasswordAsync("UNKNOWN", CancellationToken.None);
-
-      Assert.False(result);
     }
   }
 }

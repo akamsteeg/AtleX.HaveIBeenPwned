@@ -59,6 +59,24 @@ namespace AtleX.HaveIBeenPwned.Tests
     }
 
     [Fact]
+    public async Task GetAllBreachesAsync_NotFound_ThrowsHaveIBeenPwnedClientException()
+    {
+      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetAllBreachesAsync());
+    }
+
+    [Fact]
+    public async Task GetAllBreachesAsync_CancellationToken_NotFound_ThrowsHaveIBeenPwnedClientException()
+    {
+      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
+      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+      await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetAllBreachesAsync(CancellationToken.None));
+    }
+
+    [Fact]
     public async Task GetAllBreachesAsync_RateLimitExceeded_ThrowsRateLimitExceededException()
     {
       using var cancellationTokenSource = new CancellationTokenSource();
