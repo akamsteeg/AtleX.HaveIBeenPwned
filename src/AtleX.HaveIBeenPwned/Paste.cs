@@ -68,7 +68,7 @@ public sealed class Paste
   /// <returns>
   /// A hash code for the current object
   /// </returns>
-  public override int GetHashCode() => HashCodeHelper.GetHashCode(this.Id!, this.Source!);
+  public override int GetHashCode() => HashCodeHelper.GetHashCode(this.Id!);
 
   /// <summary>
   /// Returns a string that represents the current object
