@@ -67,8 +67,9 @@ internal static class KAnonimityHelper
   private static byte[] GetSHA1HashForPassword(string dataToHash)
   {
 #pragma warning disable CA5350 // Do Not Use Weak Cryptographic Algorithms
-    // We know SHA1 is a weak algorithm but that's just hte way K-Anonimity works. And it's not
-    // used as a hashing algorithm that must be cryptographically secure.
+    // We know SHA1 is a weak algorithm but that's just the way K-Anonimity
+    // works. And it's not used as a hashing algorithm that must be
+    // cryptographically secure.
     using var sha1 = SHA1.Create();
 #pragma warning restore CA5350 // Do Not Use Weak Cryptographic Algorithms
 
