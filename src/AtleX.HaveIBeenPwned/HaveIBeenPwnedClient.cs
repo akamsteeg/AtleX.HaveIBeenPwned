@@ -150,7 +150,7 @@ public sealed class HaveIBeenPwnedClient
       .ConfigureAwait(false);
 
   /// <inheritdoc />
-  protected override void Dispose(bool disposing)
+  protected sealed override void Dispose(bool disposing)
   {
     if (disposing && this._enableClientDisposing)
     {
