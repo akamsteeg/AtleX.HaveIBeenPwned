@@ -1,24 +1,33 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace AtleX.HaveIBeenPwned;
+﻿namespace AtleX.HaveIBeenPwned;
 
 /// <summary>
 /// Represents the settings for an <see cref="HaveIBeenPwnedClient"/>
 /// </summary>
-[ExcludeFromCodeCoverage]
 public class HaveIBeenPwnedClientSettings
 {
   /// <summary>
-  /// Gets or sets the application name
+  /// <para>
+  /// Gets or sets the application name. This cannot be null or an empty string.
+  /// </para>
+  /// <para>
+  /// For more information see: <see href="https://haveibeenpwned.com/API/v3#UserAgent"/>
+  /// </para>
   /// </summary>
-  public string? ApplicationName
+  public string ApplicationName
   {
     get;
     set;
-  }
+  } = null!;
 
   /// <summary>
-  /// Gets or sets the API key used to authenticate when checking breaches or pastes
+  /// <para>
+  /// Gets or sets the API key used to authenticate when checking breaches or
+  /// pastes. This can be left null or empty if you only want to check passwords
+  /// or get alle the breaches from the system
+  /// </para>
+  /// <para>
+  /// For more information see: <see href="https://haveibeenpwned.com/API/Key"/>
+  /// </para>
   /// </summary>
   public string? ApiKey
   {
@@ -34,7 +43,7 @@ public class HaveIBeenPwnedClientSettings
   /// The responses are bigger and use additional bandwith
   /// </para>
   /// <para>
-  /// For more information see: https://haveibeenpwned.com/API/v3#PwnedPasswordsPadding
+  /// For more information see: <see href="https://haveibeenpwned.com/API/v3#PwnedPasswordsPadding"/>
   /// </para>
   /// </summary>
   public bool RequestPaddingForPwnedPasswordResponses
