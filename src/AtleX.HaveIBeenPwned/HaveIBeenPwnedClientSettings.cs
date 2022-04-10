@@ -50,5 +50,5 @@ public class HaveIBeenPwnedClientSettings
   {
     get;
     set;
-  }
+  } = true;
 }
