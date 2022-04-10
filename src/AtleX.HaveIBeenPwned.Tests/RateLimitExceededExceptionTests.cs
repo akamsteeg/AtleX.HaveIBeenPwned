@@ -1,6 +1,5 @@
 ﻿using SwissArmyKnife;
 using System;
-using System.Linq;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests;

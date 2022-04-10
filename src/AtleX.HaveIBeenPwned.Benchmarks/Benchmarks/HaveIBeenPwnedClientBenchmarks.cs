@@ -2,25 +2,24 @@
 using BenchmarkDotNet.Attributes;
 using System.Net.Http;
 
-namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks
+namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks;
+
+public class HaveIBeenPwnedClientBenchmarks
+  : IHaveIBeenPwnedClientBenchmarks
 {
-  public class HaveIBeenPwnedClientBenchmarks
-    : IHaveIBeenPwnedClientBenchmarks
+  [GlobalSetup]
+  public void GlobalSetup()
   {
-    [GlobalSetup]
-    public void GlobalSetup()
+    var mockMessageHandler = new MockHttpMessageHandler();
+
+    var testHttpClient = new HttpClient(mockMessageHandler);
+
+    var settings = new HaveIBeenPwnedClientSettings()
     {
-      var mockMessageHandler = new MockHttpMessageHandler();
+      ApiKey = "DUMMYKEY",
+      ApplicationName = "Unit.Tests",
+    };
 
-      var testHttpClient = new HttpClient(mockMessageHandler);
-
-      var settings = new HaveIBeenPwnedClientSettings()
-      {
-        ApiKey = "DUMMYKEY",
-        ApplicationName = "Unit.Tests",
-      };
-
-      this._client = new HaveIBeenPwnedClient(settings, testHttpClient);
-    }
+    this._client = new HaveIBeenPwnedClient(settings, testHttpClient);
   }
 }

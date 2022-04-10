@@ -1,21 +1,20 @@
-﻿namespace AtleX.HaveIBeenPwned.Tests
+﻿namespace AtleX.HaveIBeenPwned.Tests;
+
+public abstract class HaveIBeenPwnedClientTestsBase
 {
-  public abstract class HaveIBeenPwnedClientTestsBase
+  public HaveIBeenPwnedClientSettings ClientSettings
   {
-    public HaveIBeenPwnedClientSettings ClientSettings
-    {
-      get;
-    }
+    get;
+  }
 
-    public HaveIBeenPwnedClientTestsBase()
+  public HaveIBeenPwnedClientTestsBase()
+  {
+    var settings = new HaveIBeenPwnedClientSettings()
     {
-      var settings = new HaveIBeenPwnedClientSettings()
-      {
-        ApiKey = "DUMMYKEY",
-        ApplicationName = "Unit.Tests",
-      };
+      ApiKey = "DUMMYKEY",
+      ApplicationName = "Unit.Tests",
+    };
 
-      this.ClientSettings = settings;
-    }
+    this.ClientSettings = settings;
   }
 }

@@ -1,132 +1,131 @@
 ﻿using Xunit;
 
-namespace AtleX.HaveIBeenPwned.Tests
+namespace AtleX.HaveIBeenPwned.Tests;
+
+public class PasteTests
 {
-  public class PasteTests
+  [Fact]
+  public void ToString_ReturnsValueOfNameProperty()
   {
-    [Fact]
-    public void ToString_ReturnsValueOfNameProperty()
+    const string title = "PASTE_TITLE";
+
+    var p = new Paste()
     {
-      const string title = "PASTE_TITLE";
+      Title = title,
+    };
 
-      var p = new Paste()
-      {
-        Title = title,
-      };
+    Assert.Equal(title, p.Title);
+  }
 
-      Assert.Equal(title, p.Title);
-    }
+  [Fact]
+  public void Equals_WithNullObject_ReturnsFalse()
+  {
+    var p = new Paste();
 
-    [Fact]
-    public void Equals_WithNullObject_ReturnsFalse()
+    Assert.False(p.Equals((object)null));
+  }
+
+  [Fact]
+  public void Equals_WithWrongTypeObject_ReturnsFalse()
+  {
+    var p = new Paste();
+
+    Assert.False(p.Equals(string.Empty));
+  }
+
+  [Fact]
+  public void Equals_WithSameTypeObjectButDifferentValues_ReturnsFalse()
+  {
+    var p = new Paste()
     {
-      var p = new Paste();
+      Id = "FIRST",
+    };
 
-      Assert.False(p.Equals((object)null));
-    }
-
-    [Fact]
-    public void Equals_WithWrongTypeObject_ReturnsFalse()
+    var other = new Paste()
     {
-      var p = new Paste();
+      Id = "SECOND",
+    };
 
-      Assert.False(p.Equals(string.Empty));
-    }
+    Assert.False(p.Equals((object)other));
+  }
 
-    [Fact]
-    public void Equals_WithSameTypeObjectButDifferentValues_ReturnsFalse()
+  [Fact]
+  public void Equals_WithSameTypeObjectAndSameValues_ReturnsTrue()
+  {
+    var p = new Paste()
     {
-      var p = new Paste()
-      {
-        Id = "FIRST",
-      };
+      Id = "VALUE",
+    };
 
-      var other = new Paste()
-      {
-        Id = "SECOND",
-      };
-
-      Assert.False(p.Equals((object)other));
-    }
-
-    [Fact]
-    public void Equals_WithSameTypeObjectAndSameValues_ReturnsTrue()
+    var other = new Paste()
     {
-      var p = new Paste()
-      {
-        Id = "VALUE",
-      };
+      Id = "VALUE",
+    };
 
-      var other = new Paste()
-      {
-        Id = "VALUE",
-      };
+    Assert.True(p.Equals((object)other));
+  }
 
-      Assert.True(p.Equals((object)other));
-    }
-
-    [Fact]
-    public void Equals_WithSameTypeButDifferentValues_ReturnsFalse()
+  [Fact]
+  public void Equals_WithSameTypeButDifferentValues_ReturnsFalse()
+  {
+    var p = new Paste()
     {
-      var p = new Paste()
-      {
-        Id = "FIRST",
-      };
+      Id = "FIRST",
+    };
 
-      var other = new Paste()
-      {
-        Id = "SECOND",
-      };
-
-      Assert.False(p.Equals(other));
-    }
-
-    [Fact]
-    public void Equals_WithSameTypeAndSameValues_ReturnsTrue()
+    var other = new Paste()
     {
-      var p = new Paste()
-      {
-        Id = "VALUE",
-      };
+      Id = "SECOND",
+    };
 
-      var other = new Paste()
-      {
-        Id = "VALUE",
-      };
+    Assert.False(p.Equals(other));
+  }
 
-      Assert.True(p.Equals(other));
-    }
-
-    [Fact]
-    public void GetHashCode_ReturnsDifferentHashCodesForDifferentValues()
+  [Fact]
+  public void Equals_WithSameTypeAndSameValues_ReturnsTrue()
+  {
+    var p = new Paste()
     {
-      var p = new Paste()
-      {
-        Id = "FIRST",
-      };
+      Id = "VALUE",
+    };
 
-      var other = new Paste()
-      {
-        Id = "SECOND",
-      };
-
-      Assert.NotEqual(p.GetHashCode(), other.GetHashCode());
-    }
-
-    [Fact]
-    public void GetHashCode_ReturnsSameHashCodesForSameValues()
+    var other = new Paste()
     {
-      var p = new Paste()
-      {
-        Id = "VALUE",
-      };
+      Id = "VALUE",
+    };
 
-      var other = new Paste()
-      {
-        Id = "VALUE",
-      };
+    Assert.True(p.Equals(other));
+  }
 
-      Assert.Equal(p.GetHashCode(), other.GetHashCode());
-    }
+  [Fact]
+  public void GetHashCode_ReturnsDifferentHashCodesForDifferentValues()
+  {
+    var p = new Paste()
+    {
+      Id = "FIRST",
+    };
+
+    var other = new Paste()
+    {
+      Id = "SECOND",
+    };
+
+    Assert.NotEqual(p.GetHashCode(), other.GetHashCode());
+  }
+
+  [Fact]
+  public void GetHashCode_ReturnsSameHashCodesForSameValues()
+  {
+    var p = new Paste()
+    {
+      Id = "VALUE",
+    };
+
+    var other = new Paste()
+    {
+      Id = "VALUE",
+    };
+
+    Assert.Equal(p.GetHashCode(), other.GetHashCode());
   }
 }

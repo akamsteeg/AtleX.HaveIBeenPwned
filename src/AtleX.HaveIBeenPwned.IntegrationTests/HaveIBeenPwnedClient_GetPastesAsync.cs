@@ -3,89 +3,88 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AtleX.HaveIBeenPwned.IntegrationTests
+namespace AtleX.HaveIBeenPwned.IntegrationTests;
+
+public class HaveIBeenPwnedClientTests_GetPastesAsync
+  : HaveIBeenPwnedClientIntegrationTestsBase
 {
-  public class HaveIBeenPwnedClientTests_GetPastesAsync
-    : HaveIBeenPwnedClientIntegrationTestsBase
+  [Fact]
+  public async Task GetPastesAsync_WithValidInput_ReturnsResults()
   {
-    [Fact]
-    public async Task GetPastesAsync_WithValidInput_ReturnsResults()
+    using var httpClient = new HttpClient();
+    using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
+
+    var result = await c.GetPastesAsync("test@example.com");
+
+    Assert.NotNull(result);
+    Assert.NotEmpty(result);
+  }
+
+  [Fact]
+  public async Task GetPastesAsync_WithUnknownEmail_DoesNotThrow()
+  {
+    using var httpClient = new HttpClient();
+    using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
+
+    var result = await c.GetPastesAsync("random@example.com");
+
+    Assert.NotNull(result);
+    Assert.Empty(result);
+  }
+
+  [Fact]
+  public async Task GetPastesAsync_WithValidInputAndCancellationToken_ReturnsResults()
+  {
+    using var cancellationTokenSource = new CancellationTokenSource();
+    using var httpClient = new HttpClient();
+    using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
+
+    var result = await c.GetPastesAsync("test@example.com", cancellationTokenSource.Token);
+
+    Assert.NotNull(result);
+    Assert.NotEmpty(result);
+  }
+
+  [Fact]
+  public async Task GetPastesAsync_WithInvalidApiKey_ThrowsInvalidApiKeyException()
+  {
+    var settings = new HaveIBeenPwnedClientSettings()
     {
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
+      ApiKey = "DUMMYAPIKEY",
+    };
 
-      var result = await c.GetPastesAsync("test@example.com");
+    using var cancellationTokenSource = new CancellationTokenSource();
+    using var httpClient = new HttpClient();
+    using var c = new HaveIBeenPwnedClient(settings, httpClient);
 
-      Assert.NotNull(result);
-      Assert.NotEmpty(result);
-    }
+    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("test@example.com"));
+  }
 
-    [Fact]
-    public async Task GetPastesAsync_WithUnknownEmail_DoesNotThrow()
+  [Fact]
+  public async Task GetPastesAsync_WithCancellationTokenAndInvalidApiKey_ThrowsInvalidApiKeyException()
+  {
+    var settings = new HaveIBeenPwnedClientSettings()
     {
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
+      ApiKey = "DUMMYAPIKEY",
+    };
 
-      var result = await c.GetPastesAsync("random@example.com");
+    using var cancellationTokenSource = new CancellationTokenSource();
+    using var httpClient = new HttpClient();
+    using var c = new HaveIBeenPwnedClient(settings, httpClient);
 
-      Assert.NotNull(result);
-      Assert.Empty(result);
-    }
+    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("test@example.com", cancellationTokenSource.Token));
+  }
 
-    [Fact]
-    public async Task GetPastesAsync_WithValidInputAndCancellationToken_ReturnsResults()
-    {
-      using var cancellationTokenSource = new CancellationTokenSource();
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
+  [Fact]
+  public async Task GetPastesAsync_WithUnknownEmailAndCancellationToken_DoesNotThrow()
+  {
+    using var cancellationTokenSource = new CancellationTokenSource();
+    using var httpClient = new HttpClient();
+    using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-      var result = await c.GetPastesAsync("test@example.com", cancellationTokenSource.Token);
+    var result = await c.GetPastesAsync("random@example.com", cancellationTokenSource.Token);
 
-      Assert.NotNull(result);
-      Assert.NotEmpty(result);
-    }
-
-    [Fact]
-    public async Task GetPastesAsync_WithInvalidApiKey_ThrowsInvalidApiKeyException()
-    {
-      var settings = new HaveIBeenPwnedClientSettings()
-      {
-        ApiKey = "DUMMYAPIKEY",
-      };
-
-      using var cancellationTokenSource = new CancellationTokenSource();
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(settings, httpClient);
-
-      await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("test@example.com"));
-    }
-
-    [Fact]
-    public async Task GetPastesAsync_WithCancellationTokenAndInvalidApiKey_ThrowsInvalidApiKeyException()
-    {
-      var settings = new HaveIBeenPwnedClientSettings()
-      {
-        ApiKey = "DUMMYAPIKEY",
-      };
-
-      using var cancellationTokenSource = new CancellationTokenSource();
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(settings, httpClient);
-
-      await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("test@example.com", cancellationTokenSource.Token));
-    }
-
-    [Fact]
-    public async Task GetPastesAsync_WithUnknownEmailAndCancellationToken_DoesNotThrow()
-    {
-      using var cancellationTokenSource = new CancellationTokenSource();
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
-
-      var result = await c.GetPastesAsync("random@example.com", cancellationTokenSource.Token);
-
-      Assert.NotNull(result);
-      Assert.Empty(result);
-    }
+    Assert.NotNull(result);
+    Assert.Empty(result);
   }
 }
