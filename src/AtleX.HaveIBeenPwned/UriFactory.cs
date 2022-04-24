@@ -54,7 +54,7 @@ internal static class UriFactory
     }
     else
     {
-      result = new Uri(baseUri);
+      result = new(baseUri);
     }
 
     return result;

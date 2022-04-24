@@ -17,13 +17,13 @@ public class HaveIBeenPwnedClientSettings
   {
     get;
     set;
-  } = null!;
+  } = string.Empty;
 
   /// <summary>
   /// <para>
   /// Gets or sets the API key used to authenticate when checking breaches or
   /// pastes. This can be left null or empty if you only want to check passwords
-  /// or get alle the breaches from the system
+  /// or get all the breaches from the system
   /// </para>
   /// <para>
   /// For more information see: <see href="https://haveibeenpwned.com/API/Key"/>
@@ -37,10 +37,11 @@ public class HaveIBeenPwnedClientSettings
 
   /// <summary>
   ///<para>
-  /// Gets or sets whether to pad the responses for pwned password checks with bogus data for additional security
+  /// Gets or sets whether to pad the responses for pwned password checks with bogus data
+  /// for additional security. Defaults to true. (Recommended)
   ///</para>
   /// <para>
-  /// The responses are bigger and use additional bandwith
+  /// When set to true, the responses are bigger and use additional bandwith
   /// </para>
   /// <para>
   /// For more information see: <see href="https://haveibeenpwned.com/API/v3#PwnedPasswordsPadding"/>
@@ -50,5 +51,5 @@ public class HaveIBeenPwnedClientSettings
   {
     get;
     set;
-  } = true;
+  } = Constants.PaddingForPwnedPasswordsDefaultValue;
 }

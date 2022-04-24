@@ -392,13 +392,14 @@ public sealed class HaveIBeenPwnedClient
       // Rate limit exceeded
       case 429:
         {
-          // If we don't get a retry-after value from the HaveIBeenPwnedService, we revert to their specified default of 1500 ms.
-          var retryAfter = response.Headers.RetryAfter.Delta ?? 1500.MilliSeconds();
+          // If we don't get a retry-after value from the HaveIBeenPwnedService,
+          // we revert to the default value specified in the docs (https://haveibeenpwned.com/API/v3#RateLimiting)
+          var retryAfter = response.Headers.RetryAfter.Delta ?? Constants.DefaultRetryValue.MilliSeconds();
           throw new RateLimitExceededException(retryAfter);
         }
       // Not found
       // This is only valid for breaches for an account. Pastes for an account must return an empty collection when nothing
-      // is available according to the API documentation amd Pwned passwords should never return a 404. So we can only
+      // is available according to the API documentation and Pwned passwords should never return a 404. So we can only
       // ignore 404s for the breaches for an account.
       case 404 when response.RequestMessage.RequestUri.AbsoluteUri.StartsWith(Constants.BreachedAccountBaseUri, StringComparison.OrdinalIgnoreCase):
         {
