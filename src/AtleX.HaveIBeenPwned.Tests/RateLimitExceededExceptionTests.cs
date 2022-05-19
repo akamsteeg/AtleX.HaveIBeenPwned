@@ -6,22 +6,23 @@ namespace AtleX.HaveIBeenPwned.Tests;
 
 public class RateLimitExceededExceptionTests
 {
-  [Fact]
-  public void Ctor_WithLessThanZeroValueForRetryAfterParam_Throws()
+  [Theory]
+  [InlineData(-1)]
+  [InlineData(-1000)]
+  public void Ctor_WithLessThanZeroValueForRetryAfterParam_Throws(int milliseconds)
   {
-    Assert.Throws<ArgumentOutOfRangeException>(() => new RateLimitExceededException(-1.Seconds()));
+    var value = TimeSpan.FromMilliseconds(milliseconds);
+    Assert.Throws<ArgumentOutOfRangeException>(() => new RateLimitExceededException(value));
   }
 
-  [Fact]
-  public void Ctor_WithExactlyZeroAsValueForRetryAfterParam_DoesNotThrow()
+  [Theory]
+  [InlineData(1)]
+  [InlineData(1000)]
+  public void Ctor_WithZeroOrMoreForRetryAfterParam_DoesNotThrow(int milliseconds)
   {
-    new RateLimitExceededException(0.Seconds());
-  }
+    var value = TimeSpan.FromMilliseconds(milliseconds);
 
-  [Fact]
-  public void Ctor_WithMoreThanZeroValueForRetryAfterParam_DoesNotThrow()
-  {
-    new RateLimitExceededException(1.Seconds());
+    new RateLimitExceededException(value);
   }
 
   [Fact]
@@ -39,7 +40,7 @@ public class RateLimitExceededExceptionTests
     var testValue = 100.Seconds();
     var e = new RateLimitExceededException(testValue);
 
-    Assert.Equal($"Rate limit exceeded, retry after {testValue.TotalSeconds} seconds", e.Message);
+    Assert.Equal("Rate limit exceeded", e.Message);
   }
 
   [Fact]
