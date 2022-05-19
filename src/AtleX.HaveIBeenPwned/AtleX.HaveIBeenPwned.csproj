@@ -19,14 +19,20 @@
 		<Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
 		<Company />
 		<PackageProjectUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned</PackageProjectUrl>
-		<Description>AtleX.HaveIBeenPwned is a fully async .NET Standard client library for HaveIBeenPwned.com.</Description>
+		<Description>AtleX.HaveIBeenPwned is a fully async and super fast .NET Standard client library for HaveIBeenPwned.com.</Description>
 		<Copyright>© Alex Kamsteeg</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageTags>haveibeenpwned breach password</PackageTags>
+		<PackageTags>haveibeenpwned breach password hibp security pwned email emailaddress client</PackageTags>
 
-		<Version>5.0.3</Version>
+		<Version>6.0.0</Version>
 
 		<PackageReleaseNotes>
+			6.0.0
+			- [Breaking] Removed SerializeAttribute from exceptions (#50)
+			- [Breaking] Removed obsolete and no longer used settings from HaveIBeenPwnedClientSettings (#60)
+			- [Feature] Add support for padded pwned password checks (#55)
+			- [Feature] Improved IntelliSense documentation (#61)
+			- [Feature] Internal improvements (#56, #57, #58)
 			5.0.3:
 			- Internal refactoring, build improvements and code simplification
 			5.0.2:
