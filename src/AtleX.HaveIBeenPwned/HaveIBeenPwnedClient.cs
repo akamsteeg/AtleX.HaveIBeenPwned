@@ -397,6 +397,11 @@ public sealed class HaveIBeenPwnedClient
           var retryAfter = response.Headers.RetryAfter.Delta ?? Constants.DefaultRetryValue.MilliSeconds();
           throw new RateLimitExceededException(retryAfter);
         }
+      // Unauthorized
+      case 401:
+        {
+          throw new InvalidApiKeyException();
+        }
       // Not found
       // This is only valid for breaches for an account. Pastes for an account must return an empty collection when nothing
       // is available according to the API documentation and Pwned passwords should never return a 404. So we can only
@@ -405,10 +410,10 @@ public sealed class HaveIBeenPwnedClient
         {
           return; // Do nothing
         }
-      // Unauthorized
-      case 401:
+      // Service unavailable
+      case 503:
         {
-          throw new InvalidApiKeyException();
+          throw new HaveIBeenPwnedClientException("The service is currently unavailable");
         }
       default:
         {
