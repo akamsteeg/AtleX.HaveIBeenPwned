@@ -13,6 +13,7 @@ public abstract class HaveIBeenPwnedClientTestsBase
     {
       ApiKey = "DUMMYKEY",
       ApplicationName = "Unit.Tests",
+      RequestPaddingForPwnedPasswordResponses = true,
     };
 
     this.ClientSettings = settings;

@@ -27,4 +27,24 @@ public class HashCodeHelperTests
 
     Assert.Equal(value1, value2);
   }
+
+  [Theory]
+  [InlineData(1, 392)]
+  [InlineData(2.0, 1073742215)]
+  public void GetHashCode_WithSpecifiedInput_ReturnsExpectedOutput<T>(T testValue, int expectedResult)
+  {
+    var hashCode = HashCodeHelper.GetHashCode(testValue);
+
+    Assert.Equal(expectedResult, hashCode);
+  }
+
+  [Theory]
+  [InlineData(1, 2, 9018)]
+  [InlineData(1.0, 2.0, -24108255)]
+  public void GetHashCode_WithMultipleSpecifiedInputs_ReturnsExpectedOutput<T>(T testValue1, T testValue2, int expectedResult)
+  {
+    var hashCode = HashCodeHelper.GetHashCode(testValue1, testValue2);
+
+    Assert.Equal(expectedResult, hashCode);
+  }
 }
