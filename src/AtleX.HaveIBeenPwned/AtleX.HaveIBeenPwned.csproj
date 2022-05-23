@@ -23,6 +23,7 @@
 		<Copyright>© Alex Kamsteeg</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageTags>haveibeenpwned breach password hibp security pwned email emailaddress client</PackageTags>
+		<PackageReadmeFile>packageReadme.md</PackageReadmeFile>
 
 		<Version>6.0.0</Version>
 
@@ -92,6 +93,10 @@
 			- [Feature] Added support for checking a password against the Pwned Passwords API
 		</PackageReleaseNotes>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="packageReadme.md" Pack="true" PackagePath="\"/>
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Pitcher" Version="2.1.1" />

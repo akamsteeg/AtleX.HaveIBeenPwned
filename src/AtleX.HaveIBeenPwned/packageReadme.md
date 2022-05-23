@@ -1,4 +1,4 @@
-# AtleX.HaveIBeenPwned
+﻿# AtleX.HaveIBeenPwned
 
 AtleX.HaveIBeenPwned is a client library for the [HaveIBeenPwned.com website](https://haveibeenpwned.com/). It supports 
 finding breaches an account was in, which pastes contained the user's email address and to check whether a password
@@ -7,23 +7,11 @@ was in a breach or not.
 :warning: For some actions, like getting the pastes and breaches for an account, the [HaveIBeenPwned.com API](https://haveibeenpwned.com/) 
 requires a API key. These API keys are available on the [HaveIBeenPwned.com website](https://haveibeenpwned.com/API/Key).
 
-[![Build status](https://interastra.visualstudio.com/OSS%20-%20CI/_apis/build/status/AtleX.HaveIBeenPwned%20CI?branchName=master)](https://dev.azure.com/interastra/OSS%20-%20CI/_build?definitionId=11&_a=summary) [![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/interastra/OSS%20-%20CI/11.svg?maxAge=3600)](https://dev.azure.com/interastra/OSS%20-%20CI/_build?definitionId=11&_a=summary) 
-
-
 # Platform support
 
 | .NET (4.7.2+)      |  .NET Core (2.0+)  |
 |:------------------:|:------------------:|
 | :heavy_check_mark: | :heavy_check_mark: |
-
-
-# Installation
-
-AtleX.HaveIBeenPwned is available as NuGet package: [![NuGet](https://img.shields.io/nuget/v/AtleX.HaveIBeenPwned.svg?maxAge=3600)](https://www.nuget.org/packages/AtleX.HaveIBeenPwned/)
-
-```
-install-package AtleX.HaveIBeenPwned
-```
 
 # Examples
 
@@ -57,7 +45,3 @@ using (var client = new HaveIBeenPwnedClient(settings))
 ```
 
 All async methods have overrides with `CancellationToken` support.
-
-# License
-
-AtleX.HaveIBeenPwned uses the MIT license, see the LICENSE file.
