@@ -14,7 +14,6 @@ public class HaveIBeenPwnedClientException
   public HaveIBeenPwnedClientException()
     : base()
   {
-
   }
 
   /// <summary>
@@ -27,7 +26,6 @@ public class HaveIBeenPwnedClientException
   public HaveIBeenPwnedClientException(string message)
     : base(message)
   {
-
   }
 
   /// <summary>

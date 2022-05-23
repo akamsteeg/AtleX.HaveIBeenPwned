@@ -87,7 +87,7 @@ internal static class UriFactory
   /// The prefix of the KAnonimity hashes
   /// </param>
   /// <returns>
-  /// The <see cref="Uri"/> to get the KAnonimy suffixes 
+  /// The <see cref="Uri"/> to get the KAnonimy suffixes
   /// </returns>
   public static Uri GetPwnedPasswordUri(string kAnonimitySuffixPart)
   {
