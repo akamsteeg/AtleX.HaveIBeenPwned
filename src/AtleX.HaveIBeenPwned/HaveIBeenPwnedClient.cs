@@ -406,7 +406,7 @@ public sealed class HaveIBeenPwnedClient
       // This is only valid for breaches for an account. Pastes for an account must return an empty collection when nothing
       // is available according to the API documentation and Pwned passwords should never return a 404. So we can only
       // ignore 404s for the breaches for an account.
-      case 404 when response.RequestMessage.RequestUri.AbsoluteUri.StartsWith(Constants.BreachedAccountBaseUri, StringComparison.OrdinalIgnoreCase):
+      case 404 when response.RequestMessage.RequestUri.AbsoluteUri.StartsWith(Constants.Uris.BreachedAccountBaseUri, StringComparison.OrdinalIgnoreCase):
         {
           return; // Do nothing
         }

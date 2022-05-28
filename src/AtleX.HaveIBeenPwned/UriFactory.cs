@@ -12,7 +12,7 @@ internal static class UriFactory
   /// <summary>
   /// Gets the bas euri of the breaches endpoint
   /// </summary>
-  private static readonly Uri BreachesUri = new(Constants.BreachesUri);
+  private static readonly Uri BreachesUri = new(Constants.Uris.BreachesUri);
 
   /// <summary>
   /// Gets the <see cref="Uri"/> to get all breaches available in the system
@@ -41,7 +41,7 @@ internal static class UriFactory
 
     Uri? result;
 
-    var baseUri = $"{Constants.BreachedAccountBaseUri}/{account}";
+    var baseUri = $"{Constants.Uris.BreachedAccountBaseUri}/{account}";
 
     if (modes.HasFlag(BreachMode.ExcludeUnverified))
     {
@@ -74,7 +74,7 @@ internal static class UriFactory
   {
     Throw.ArgumentNull.WhenNullOrEmpty(emailAddress, nameof(emailAddress));
 
-    var result = new Uri($"{Constants.PasteAccountBaseUri}/{emailAddress}");
+    var result = new Uri($"{Constants.Uris.PasteAccountBaseUri}/{emailAddress}");
 
     return result;
   }
@@ -93,7 +93,7 @@ internal static class UriFactory
   {
     Throw.ArgumentNull.WhenNullOrEmpty(kAnonimitySuffixPart, nameof(kAnonimitySuffixPart));
 
-    var result = new Uri($"{Constants.PwnedPasswordsBaseUri}/{kAnonimitySuffixPart}");
+    var result = new Uri($"{Constants.Uris.PwnedPasswordsBaseUri}/{kAnonimitySuffixPart}");
 
     return result;
   }

@@ -51,5 +51,5 @@ public class HaveIBeenPwnedClientSettings
   {
     get;
     set;
-  } = Constants.PaddingForPwnedPasswordsDefaultValue;
+  } = Constants.Settings.PaddingForPwnedPasswordsDefaultValue;
 }
