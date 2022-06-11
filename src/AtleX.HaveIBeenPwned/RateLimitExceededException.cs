@@ -6,7 +6,6 @@ namespace AtleX.HaveIBeenPwned;
 /// <summary>
 /// Represents a <see cref="HaveIBeenPwnedClientException"/> for exceeding the rate limit
 /// </summary>
-[Serializable]
 public sealed class RateLimitExceededException
   : HaveIBeenPwnedClientException
 {
@@ -21,8 +20,7 @@ public sealed class RateLimitExceededException
   /// <summary>
   /// Gets a message that describes the current exception
   /// </summary>
-  public override string Message
-    => $"Rate limit exceeded, retry after {this.RetryAfter.TotalSeconds} seconds"; // PERF We create the message here instead of in the constructor to avoid the overhead of string formatting in the case the exception is handled in code.
+  public override string Message => "Rate limit exceeded";
 
   /// <summary>
   /// Initializes a new instance of <see cref="RateLimitExceededException"/>

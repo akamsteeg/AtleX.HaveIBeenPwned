@@ -48,7 +48,7 @@ public sealed class Breach
   /// <returns>
   /// A hash code for the current object
   /// </returns>
-  public override int GetHashCode() => HashCodeHelper.GetHashCode(this.Name ?? string.Empty);
+  public override int GetHashCode() => HashCodeHelper.GetHashCode(this.Name!);
 
   /// <summary>
   /// Returns a string that represents the current object

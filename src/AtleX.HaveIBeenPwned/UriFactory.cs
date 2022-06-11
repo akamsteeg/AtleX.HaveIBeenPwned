@@ -10,29 +10,9 @@ namespace AtleX.HaveIBeenPwned;
 internal static class UriFactory
 {
   /// <summary>
-  /// Gets the base uri of the HaveIBeenPwned.com API
-  /// </summary>
-  private const string ApiBaseUri = "https://haveibeenpwned.com/api/v3";
-
-  /// <summary>
-  /// Gets the base uri of the HaveIBeenPwned.com Pwned PAsswords API
-  /// </summary>
-  private const string PwnedPasswordsBaseUri = "https://api.pwnedpasswords.com/range";
-
-  /// <summary>
-  /// Gets the base uri of the breachedaccount endpoint
-  /// </summary>
-  private const string BreachedAccountBaseUri = ApiBaseUri + "/breachedaccount";
-
-  /// <summary>
-  /// Gets the base uri of the pasteaccount endpoint
-  /// </summary>
-  private const string PasteAccountBaseUri = ApiBaseUri + "/pasteaccount";
-
-  /// <summary>
   /// Gets the bas euri of the breaches endpoint
   /// </summary>
-  private static readonly Uri BreachesUri = new(ApiBaseUri + "/breaches");
+  private static readonly Uri BreachesUri = new(Constants.Uris.BreachesUri);
 
   /// <summary>
   /// Gets the <see cref="Uri"/> to get all breaches available in the system
@@ -61,7 +41,7 @@ internal static class UriFactory
 
     Uri? result;
 
-    var baseUri = $"{BreachedAccountBaseUri}/{account}";
+    var baseUri = $"{Constants.Uris.BreachedAccountBaseUri}/{account}";
 
     if (modes.HasFlag(BreachMode.ExcludeUnverified))
     {
@@ -74,7 +54,7 @@ internal static class UriFactory
     }
     else
     {
-      result = new Uri(baseUri);
+      result = new(baseUri);
     }
 
     return result;
@@ -94,7 +74,7 @@ internal static class UriFactory
   {
     Throw.ArgumentNull.WhenNullOrEmpty(emailAddress, nameof(emailAddress));
 
-    var result = new Uri($"{PasteAccountBaseUri}/{emailAddress}");
+    var result = new Uri($"{Constants.Uris.PasteAccountBaseUri}/{emailAddress}");
 
     return result;
   }
@@ -107,13 +87,13 @@ internal static class UriFactory
   /// The prefix of the KAnonimity hashes
   /// </param>
   /// <returns>
-  /// The <see cref="Uri"/> to get the KAnonimy suffixes 
+  /// The <see cref="Uri"/> to get the KAnonimy suffixes
   /// </returns>
   public static Uri GetPwnedPasswordUri(string kAnonimitySuffixPart)
   {
     Throw.ArgumentNull.WhenNullOrEmpty(kAnonimitySuffixPart, nameof(kAnonimitySuffixPart));
 
-    var result = new Uri($"{PwnedPasswordsBaseUri}/{kAnonimitySuffixPart}");
+    var result = new Uri($"{Constants.Uris.PwnedPasswordsBaseUri}/{kAnonimitySuffixPart}");
 
     return result;
   }

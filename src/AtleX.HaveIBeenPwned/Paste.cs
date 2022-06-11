@@ -17,17 +17,17 @@ public sealed class Paste
   /// <summary>
   /// Gets or sets the source of the paste
   /// </summary>
-  public string? Source { get; set; } = default;
+  public string? Source { get; set; }
 
   /// <summary>
   /// Gets or sets the Id of the paste
   /// </summary>
-  public string? Id { get; set; } = default;
+  public string? Id { get; set; }
 
   /// <summary>
   /// Gets or sets the title of the paste
   /// </summary>
-  public string? Title { get; set; } = default;
+  public string? Title { get; set; }
 
   /// <summary>
   /// Gets or sets the <see cref="DateTime"/> the paste was posted
@@ -68,7 +68,7 @@ public sealed class Paste
   /// <returns>
   /// A hash code for the current object
   /// </returns>
-  public override int GetHashCode() => HashCodeHelper.GetHashCode(this.Id ?? string.Empty, this.Source ?? string.Empty);
+  public override int GetHashCode() => HashCodeHelper.GetHashCode(this.Id!);
 
   /// <summary>
   /// Returns a string that represents the current object

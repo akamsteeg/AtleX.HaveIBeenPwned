@@ -3,32 +3,31 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AtleX.HaveIBeenPwned.IntegrationTests
+namespace AtleX.HaveIBeenPwned.IntegrationTests;
+
+public class HaveIBeenPwnedClientTests_GetAllBreachesAsync
+  : HaveIBeenPwnedClientIntegrationTestsBase
 {
-  public class HaveIBeenPwnedClientTests_GetAllBreachesAsync
-    : HaveIBeenPwnedClientIntegrationTestsBase
+  [Fact]
+  public async Task GetAllBreachesAsync_DoesNotThrow()
   {
-    [Fact]
-    public async Task GetAllBreachesAsync_DoesNotThrow()
-    {
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
+    using var httpClient = new HttpClient();
+    using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-      var result = await c.GetAllBreachesAsync();
+    var result = await c.GetAllBreachesAsync();
 
-      Assert.NotNull(result);
-    }
+    Assert.NotNull(result);
+  }
 
-    [Fact]
-    public async Task GetAllBreachesAsync_WithCancellationToken_DoesNotThrow()
-    {
-      using var cancellationTokenSource = new CancellationTokenSource();
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
+  [Fact]
+  public async Task GetAllBreachesAsync_WithCancellationToken_DoesNotThrow()
+  {
+    using var cancellationTokenSource = new CancellationTokenSource();
+    using var httpClient = new HttpClient();
+    using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-      var result = await c.GetAllBreachesAsync(cancellationTokenSource.Token);
+    var result = await c.GetAllBreachesAsync(cancellationTokenSource.Token);
 
-      Assert.NotNull(result);
-    }
+    Assert.NotNull(result);
   }
 }

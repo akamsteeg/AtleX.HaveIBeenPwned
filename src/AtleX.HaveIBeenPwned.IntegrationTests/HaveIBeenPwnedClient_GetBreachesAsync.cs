@@ -3,55 +3,54 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AtleX.HaveIBeenPwned.IntegrationTests
+namespace AtleX.HaveIBeenPwned.IntegrationTests;
+
+public class HaveIBeenPwnedClientTests_GetBreachesAsync
+  : HaveIBeenPwnedClientIntegrationTestsBase
 {
-  public class HaveIBeenPwnedClientTests_GetBreachesAsync
-    : HaveIBeenPwnedClientIntegrationTestsBase
+  [Fact]
+  public async Task GetBreachesAsync_WithValidInput_DoesNotThrow()
   {
-    [Fact]
-    public async Task GetBreachesAsync_WithValidInput_DoesNotThrow()
-    {
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
+    using var httpClient = new HttpClient();
+    using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-      var result = await c.GetBreachesAsync("test@example.com");
+    var result = await c.GetBreachesAsync("test@example.com");
 
-      Assert.NotNull(result);
-    }
+    Assert.NotNull(result);
+  }
 
-    [Fact]
-    public async Task GetBreachesAsync_WithValidInputAndExludeUnVerifiedBreaches_DoesNotThrow()
-    {
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
+  [Fact]
+  public async Task GetBreachesAsync_WithValidInputAndExludeUnVerifiedBreaches_DoesNotThrow()
+  {
+    using var httpClient = new HttpClient();
+    using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-      var result = await c.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified);
+    var result = await c.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified);
 
-      Assert.NotNull(result);
-    }
+    Assert.NotNull(result);
+  }
 
-    [Fact]
-    public async Task GetBreachesAsync_WithValidInputAndCancellationToken_DoesNotThrow()
-    {
-      using var cancellationTokenSource = new CancellationTokenSource();
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
+  [Fact]
+  public async Task GetBreachesAsync_WithValidInputAndCancellationToken_DoesNotThrow()
+  {
+    using var cancellationTokenSource = new CancellationTokenSource();
+    using var httpClient = new HttpClient();
+    using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-      var result = await c.GetBreachesAsync("test@example.com", cancellationTokenSource.Token);
+    var result = await c.GetBreachesAsync("test@example.com", cancellationTokenSource.Token);
 
-      Assert.NotNull(result);
-    }
+    Assert.NotNull(result);
+  }
 
-    [Fact]
-    public async Task GetBreachesAsync_WithValidInputAndExludeUnVerifiedBreachesAndCancellationToken_DoesNotThrow()
-    {
-      using var cancellationTokenSource = new CancellationTokenSource();
-      using var httpClient = new HttpClient();
-      using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
+  [Fact]
+  public async Task GetBreachesAsync_WithValidInputAndExludeUnVerifiedBreachesAndCancellationToken_DoesNotThrow()
+  {
+    using var cancellationTokenSource = new CancellationTokenSource();
+    using var httpClient = new HttpClient();
+    using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-      var result = await c.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified, cancellationTokenSource.Token);
+    var result = await c.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified, cancellationTokenSource.Token);
 
-      Assert.NotNull(result);
-    }
+    Assert.NotNull(result);
   }
 }

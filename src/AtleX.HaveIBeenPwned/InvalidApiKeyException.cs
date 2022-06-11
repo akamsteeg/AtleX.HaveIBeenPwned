@@ -1,11 +1,8 @@
-﻿using System;
-
-namespace AtleX.HaveIBeenPwned;
+﻿namespace AtleX.HaveIBeenPwned;
 
 /// <summary>
 /// Represents a <see cref="HaveIBeenPwnedClientException"/> for an unknown or expired API key
 /// </summary>
-[Serializable]
 public sealed class InvalidApiKeyException
   : HaveIBeenPwnedClientException
 {

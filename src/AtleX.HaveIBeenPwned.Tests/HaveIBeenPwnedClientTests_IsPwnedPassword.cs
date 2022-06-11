@@ -5,131 +5,126 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AtleX.HaveIBeenPwned.Tests
+namespace AtleX.HaveIBeenPwned.Tests;
+
+public class HaveIBeenPwnedClientTests_IsPwnedPassword
+  : HaveIBeenPwnedClientTestsBase
 {
-  public class HaveIBeenPwnedClientTests_IsPwnedPassword
-    : HaveIBeenPwnedClientTestsBase
+  [Fact]
+  public async Task IsPwnedPasswordAsync_WithNullValueForPassword_Throws()
   {
-    [Fact]
-    public async Task IsPwnedPasswordAsync_WithNullValueForPassword_Throws()
-    {
-      using var httpClient = new HttpClient(new MockHttpMessageHandler());
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
+    using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-      await Assert.ThrowsAsync<ArgumentNullException>(() => c.IsPwnedPasswordAsync(null));
-    }
+    await Assert.ThrowsAsync<ArgumentNullException>(() => c.IsPwnedPasswordAsync(null));
+  }
 
-    [Fact]
-    public async Task IsPwnedPasswordAsync_CancellationToken_WithNullValueForPassword_Throws()
-    {
-      using var httpClient = new HttpClient(new MockHttpMessageHandler());
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+  [Fact]
+  public async Task IsPwnedPasswordAsync_CancellationToken_WithNullValueForPassword_Throws()
+  {
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
+    using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-      await Assert.ThrowsAsync<ArgumentNullException>(() => c.IsPwnedPasswordAsync(null, CancellationToken.None));
-    }
+    await Assert.ThrowsAsync<ArgumentNullException>(() => c.IsPwnedPasswordAsync(null, CancellationToken.None));
+  }
 
-    [Fact]
-    public async Task IsPwnedPasswordAsync_AfterDispose_Throws()
-    {
-      using var httpClient = new HttpClient(new MockHttpMessageHandler());
+  [Fact]
+  public async Task IsPwnedPasswordAsync_AfterDispose_Throws()
+  {
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
 
-      var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
-      c.Dispose();
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    c.Dispose();
 
-      await Assert.ThrowsAsync<ObjectDisposedException>(() => c.IsPwnedPasswordAsync("DUMMY"));
-    }
+    await Assert.ThrowsAsync<ObjectDisposedException>(() => c.IsPwnedPasswordAsync("DUMMY"));
+  }
 
-    [Fact]
-    public async Task IsPwnedPasswordAsync_CancellationToken_AfterDispose_Throws()
-    {
-      using var httpClient = new HttpClient(new MockHttpMessageHandler());
+  [Fact]
+  public async Task IsPwnedPasswordAsync_CancellationToken_AfterDispose_Throws()
+  {
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
 
-      var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
-      c.Dispose();
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    c.Dispose();
 
-      await Assert.ThrowsAsync<ObjectDisposedException>(() => c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None));
-    }
-    
-    [Fact]
-    public async Task IsPwnedPasswordAsync_RateLimitExceeded_ThrowsRateLimitExceededException()
-    {
-      using var cancellationTokenSource = new CancellationTokenSource();
-      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429));
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    await Assert.ThrowsAsync<ObjectDisposedException>(() => c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None));
+  }
 
-      await Assert.ThrowsAsync<RateLimitExceededException>(() => c.IsPwnedPasswordAsync("DUMMY"));
-    }
+  [Fact]
+  public async Task IsPwnedPasswordAsync_NotFound_ThrowsHaveIBeenPwnedClientException()
+  {
+    using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
+    using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-    [Fact]
-    public async Task IsPwnedPasswordAsync_WithCancellationToken_RateLimitExceeded_ThrowsRateLimitExceededException()
-    {
-      using var cancellationTokenSource = new CancellationTokenSource();
-      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429));
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.IsPwnedPasswordAsync("UNKNOWN"));
+  }
 
-      await Assert.ThrowsAsync<RateLimitExceededException>(() => c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None));
-    }
+  [Fact]
+  public async Task IsPwnedPasswordAsync_CancellationToken_NotFound_ThrowsHaveIBeenPwnedClientException()
+  {
+    using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
+    using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-    [Fact]
-    public async Task IsPwnedPasswordAsync_WithImATeapot_Throws()
-    {
-      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418));
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.IsPwnedPasswordAsync("UNKNOWN", CancellationToken.None));
+  }
 
-      await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.IsPwnedPasswordAsync("DUMMY"));
-    }
+  [Fact]
+  public async Task IsPwnedPasswordAsync_RateLimitExceeded_ThrowsRateLimitExceededException()
+  {
+    using var cancellationTokenSource = new CancellationTokenSource();
+    using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429));
+    using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-    [Fact]
-    public async Task IsPwnedPasswordAsync_CancellationToken_WithImATeapot_Throws()
-    {
-      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418));
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    await Assert.ThrowsAsync<RateLimitExceededException>(() => c.IsPwnedPasswordAsync("DUMMY"));
+  }
 
-      await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None));
-    }
+  [Fact]
+  public async Task IsPwnedPasswordAsync_WithCancellationToken_RateLimitExceeded_ThrowsRateLimitExceededException()
+  {
+    using var cancellationTokenSource = new CancellationTokenSource();
+    using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429));
+    using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-    [Fact]
-    public async Task IsPwnedPasswordAsync_KnownInput_Succeeds()
-    {
-      using var httpClient = new HttpClient(new MockHttpMessageHandler());
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    await Assert.ThrowsAsync<RateLimitExceededException>(() => c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None));
+  }
 
-      var result = await c.IsPwnedPasswordAsync("P@ssw0rd");
+  [Fact]
+  public async Task IsPwnedPasswordAsync_WithImATeapot_Throws()
+  {
+    using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418));
+    using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-      Assert.True(result);
-    }
+    await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.IsPwnedPasswordAsync("DUMMY"));
+  }
 
-    [Fact]
-    public async Task IsPwnedPasswordAsync_CancellationToken_KnownInput_Succeeds()
-    {
-      using var httpClient = new HttpClient(new MockHttpMessageHandler());
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+  [Fact]
+  public async Task IsPwnedPasswordAsync_CancellationToken_WithImATeapot_Throws()
+  {
+    using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 418));
+    using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-      var result = await c.IsPwnedPasswordAsync("P@ssw0rd", CancellationToken.None);
+    await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.IsPwnedPasswordAsync("DUMMY", CancellationToken.None));
+  }
 
-      Assert.True(result);
-    }
-    
-    [Fact]
-    public async Task IsPwnedPasswordAsync_UnknownInputSucceeds()
-    {
-      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+  [Fact]
+  public async Task IsPwnedPasswordAsync_KnownInput_Succeeds()
+  {
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
+    using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-      var result = await c.IsPwnedPasswordAsync("UNKNOWN");
+    var result = await c.IsPwnedPasswordAsync("P@ssw0rd");
 
-      Assert.False(result);
-    }
+    Assert.True(result);
+  }
 
-    [Fact]
-    public async Task IsPwnedPasswordAsync_CancellationToken_UnknownInputSucceeds()
-    {
-      using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
-      using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+  [Fact]
+  public async Task IsPwnedPasswordAsync_CancellationToken_KnownInput_Succeeds()
+  {
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
+    using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-      var result = await c.IsPwnedPasswordAsync("UNKNOWN", CancellationToken.None);
+    var result = await c.IsPwnedPasswordAsync("P@ssw0rd", CancellationToken.None);
 
-      Assert.False(result);
-    }
+    Assert.True(result);
   }
 }

@@ -1,89 +1,88 @@
 ﻿using System;
 using Xunit;
 
-namespace AtleX.HaveIBeenPwned.Tests
+namespace AtleX.HaveIBeenPwned.Tests;
+
+public class UriFactoryTests
 {
-  public class UriFactoryTests
+  [Fact]
+  public void GetAllBreachesUri_ReturnsCorrectUri()
   {
-    [Fact]
-    public void GetAllBreachesUri_ReturnsCorrectUri()
-    {
-      var expected = new Uri("https://haveibeenpwned.com/api/v3/breaches");
+    var expected = new Uri("https://haveibeenpwned.com/api/v3/breaches");
 
-      var actual = UriFactory.GetAllBreachesUri();
+    var actual = UriFactory.GetAllBreachesUri();
 
-      Assert.Equal(expected, actual);
-    }
+    Assert.Equal(expected, actual);
+  }
 
-    [Theory]
-    [InlineData((string)null)]
-    [InlineData("")]
-    public void GetBreachesForAccountUri_WithNullOrEmptyAccount_ThrowsArgumentNullException(string account)
-    {
-      Assert.ThrowsAny<ArgumentNullException>(() => UriFactory.GetBreachesForAccountUri(account, BreachMode.Default));
-    }
+  [Theory]
+  [InlineData((string)null)]
+  [InlineData("")]
+  public void GetBreachesForAccountUri_WithNullOrEmptyAccount_ThrowsArgumentNullException(string account)
+  {
+    Assert.ThrowsAny<ArgumentNullException>(() => UriFactory.GetBreachesForAccountUri(account, BreachMode.Default));
+  }
 
-    [Fact]
-    public void GetBreachesForAccountUri_WithBreachModeDefault_ReturnsCorrectUri()
-    {
-      const string account = "TESTACCOUNT";
+  [Fact]
+  public void GetBreachesForAccountUri_WithBreachModeDefault_ReturnsCorrectUri()
+  {
+    const string account = "TESTACCOUNT";
 
-      var expected = new Uri($"https://haveibeenpwned.com/api/v3/breachedaccount/{account}");
+    var expected = new Uri($"https://haveibeenpwned.com/api/v3/breachedaccount/{account}");
 
-      var actual = UriFactory.GetBreachesForAccountUri(account, BreachMode.Default);
+    var actual = UriFactory.GetBreachesForAccountUri(account, BreachMode.Default);
 
-      Assert.Equal(expected, actual);
-    }
+    Assert.Equal(expected, actual);
+  }
 
-    [Theory]
-    [InlineData(BreachMode.ExcludeUnverified, "includeUnverified=false")]
-    public void GetBreachesForAccountUri_WithBreachModeOtherThanDefault_ReturnsCorrectUri(BreachMode breachMode, string expectedQueryStringPart)
-    {
-      const string account = "TESTACCOUNT";
+  [Theory]
+  [InlineData(BreachMode.ExcludeUnverified, "includeUnverified=false")]
+  public void GetBreachesForAccountUri_WithBreachModeOtherThanDefault_ReturnsCorrectUri(BreachMode breachMode, string expectedQueryStringPart)
+  {
+    const string account = "TESTACCOUNT";
 
-      var result = UriFactory.GetBreachesForAccountUri(account, breachMode);
+    var result = UriFactory.GetBreachesForAccountUri(account, breachMode);
 
-      Assert.Contains(expectedQueryStringPart, result.Query);
-    }
+    Assert.Contains(expectedQueryStringPart, result.Query);
+  }
 
-    [Theory]
-    [InlineData((string)null)]
-    [InlineData("")]
-    public void GetPasteAccountUri_WithNullOrEmptyAccount_ThrowsArgumentNullException(string account)
-    {
-      Assert.ThrowsAny<ArgumentNullException>(() => UriFactory.GetPasteAccountUri(account));
-    }
+  [Theory]
+  [InlineData((string)null)]
+  [InlineData("")]
+  public void GetPasteAccountUri_WithNullOrEmptyAccount_ThrowsArgumentNullException(string account)
+  {
+    Assert.ThrowsAny<ArgumentNullException>(() => UriFactory.GetPasteAccountUri(account));
+  }
 
-    [Fact]
-    public void GetPasteAccountUri_ReturnsCorrectUri()
-    {
-      const string account = "TESTACCOUNT";
+  [Fact]
+  public void GetPasteAccountUri_ReturnsCorrectUri()
+  {
+    const string account = "TESTACCOUNT";
 
-      var expected = new Uri($"https://haveibeenpwned.com/api/v3/pasteaccount/{account}");
+    var expected = new Uri($"https://haveibeenpwned.com/api/v3/pasteaccount/{account}");
 
-      var actual = UriFactory.GetPasteAccountUri(account);
+    var actual = UriFactory.GetPasteAccountUri(account);
 
-      Assert.Equal(expected, actual);
-    }
+    Assert.Equal(expected, actual);
+  }
 
-    [Theory]
-    [InlineData((string)null)]
-    [InlineData("")]
-    public void GetPwnedPasswordUri_WithNullOrEmptSuffix_ThrowsArgumentNullException(string suffix)
-    {
-      Assert.ThrowsAny<ArgumentNullException>(() => UriFactory.GetPwnedPasswordUri(suffix));
-    }
+  [Theory]
+  [InlineData((string)null)]
+  [InlineData("")]
+  public void GetPwnedPasswordUri_WithNullOrEmptSuffix_ThrowsArgumentNullException(string suffix)
+  {
+    Assert.ThrowsAny<ArgumentNullException>(() => UriFactory.GetPwnedPasswordUri(suffix));
+  }
 
-    [Fact]
-    public void GetPwnedPasswordUri_WithCorrectSuffix_ReturnsCorrectUri()
-    {
-      const string kAnonimitySuffix = "TESTSUFFIS";
+  [Fact]
+  public void GetPwnedPasswordUri_WithCorrectSuffix_ReturnsCorrectUri()
+  {
+    const string kAnonimitySuffix = "TESTSUFFIS";
 
-      var expected = new Uri($"https://api.pwnedpasswords.com/range/{kAnonimitySuffix}");
+    var expected = new Uri($"https://api.pwnedpasswords.com/range/{kAnonimitySuffix}");
 
-      var actual = UriFactory.GetPwnedPasswordUri(kAnonimitySuffix);
+    var actual = UriFactory.GetPwnedPasswordUri(kAnonimitySuffix);
 
-      Assert.Equal(expected, actual);
-    }
+    Assert.Equal(expected, actual);
   }
 }

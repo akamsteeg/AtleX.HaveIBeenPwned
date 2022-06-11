@@ -1,36 +1,33 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-
-namespace AtleX.HaveIBeenPwned;
+﻿namespace AtleX.HaveIBeenPwned;
 
 /// <summary>
 /// Represents the settings for an <see cref="HaveIBeenPwnedClient"/>
 /// </summary>
-[ExcludeFromCodeCoverage]
 public class HaveIBeenPwnedClientSettings
 {
   /// <summary>
-  /// Gets or sets the application name
+  /// <para>
+  /// Gets or sets the application name. This cannot be null or an empty string.
+  /// </para>
+  /// <para>
+  /// For more information see: <see href="https://haveibeenpwned.com/API/v3#UserAgent"/>
+  /// </para>
   /// </summary>
-  public string? ApplicationName
+  public string ApplicationName
   {
     get;
     set;
-  }
+  } = string.Empty;
 
   /// <summary>
-  /// Gets or sets the <see cref="TimeSpan"/> as timeout when communicating
-  /// with the HaveIBeenPwned.com service (defaults to 10 seconds)
-  /// </summary>
-  [Obsolete("The timeout must now be configured on the HTTP client itself")]
-  public TimeSpan TimeOut
-  {
-    get;
-    set;
-  }
-
-  /// <summary>
-  /// Gets or sets the API key used to authenticate when checking breaches or pastes
+  /// <para>
+  /// Gets or sets the API key used to authenticate when checking breaches or
+  /// pastes. This can be left null or empty if you only want to check passwords
+  /// or get all the breaches from the system
+  /// </para>
+  /// <para>
+  /// For more information see: <see href="https://haveibeenpwned.com/API/Key"/>
+  /// </para>
   /// </summary>
   public string? ApiKey
   {
@@ -40,24 +37,19 @@ public class HaveIBeenPwnedClientSettings
 
   /// <summary>
   ///<para>
-  /// Gets or sets whether to pad the responses for pwned password checks with bogus data for additional security
+  /// Gets or sets whether to pad the responses for pwned password checks with bogus data
+  /// for additional security. Defaults to true. (Recommended)
   ///</para>
   /// <para>
-  /// The responses are bigger and use additional bandwith
+  /// When set to true, the responses are bigger and use additional bandwith
   /// </para>
   /// <para>
-  /// For more information see: https://haveibeenpwned.com/API/v3#PwnedPasswordsPadding
+  /// For more information see: <see href="https://haveibeenpwned.com/API/v3#PwnedPasswordsPadding"/>
   /// </para>
   /// </summary>
   public bool RequestPaddingForPwnedPasswordResponses
   {
     get;
     set;
-  }
-
-  /// <summary>
-  /// Gets the default <see cref="HaveIBeenPwnedClientSettings"/>
-  /// </summary>
-  [Obsolete("Instantiate HaveIBeenPwnedClientSettings and provide values for the required properties", error: true)]
-  public static HaveIBeenPwnedClientSettings Default => throw new NotImplementedException("HaveIBeenPwnedClientSettings.Default is obsolete and must no longer be used");
+  } = Constants.Settings.PaddingForPwnedPasswordsDefaultValue;
 }

@@ -4,32 +4,31 @@ using BenchmarkDotNet.Running;
 using BenchmarkDotNet.Toolchains.CsProj;
 using System.Reflection;
 
-namespace AtleX.HaveIBeenPwned.Benchmarks
+namespace AtleX.HaveIBeenPwned.Benchmarks;
+
+public static class Program
 {
-  public static class Program
+  private static void Main(string[] args)
   {
-    private static void Main(string[] args)
-    {
-      var config = GetConfig();
-      BenchmarkSwitcher
-        .FromAssembly(Assembly.GetExecutingAssembly())
-        .Run(args, config);
-    }
+    var config = GetConfig();
+    BenchmarkSwitcher
+      .FromAssembly(Assembly.GetExecutingAssembly())
+      .Run(args, config);
+  }
 
-    private static IConfig GetConfig()
-    {
-      var config = ManualConfig.Create(DefaultConfig.Instance);
+  private static IConfig GetConfig()
+  {
+    var config = ManualConfig.Create(DefaultConfig.Instance);
 
-      config
-        .AddDiagnoser(BenchmarkDotNet.Diagnosers.MemoryDiagnoser.Default);
+    config
+      .AddDiagnoser(BenchmarkDotNet.Diagnosers.MemoryDiagnoser.Default);
 
-      config.AddJob(
-        Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp60).AsBaseline(),
-        Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp31),
-        Job.Default.WithToolchain(CsProjClassicNetToolchain.Net48)
-        );
+    config.AddJob(
+      Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp60).AsBaseline(),
+      Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp31),
+      Job.Default.WithToolchain(CsProjClassicNetToolchain.Net48)
+      );
 
-      return config;
-    }
+    return config;
   }
 }

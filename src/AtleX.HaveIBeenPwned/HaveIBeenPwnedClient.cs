@@ -13,8 +13,10 @@ using System.Threading.Tasks;
 namespace AtleX.HaveIBeenPwned;
 
 /// <summary>
-/// Represents an <see cref="IHaveIBeenPwnedClient"/> that communicates via HTTPS with
-/// the HaveIBeenPwned.com API
+/// <para>Represents an <see cref="IHaveIBeenPwnedClient"/> that communicates via HTTPS with
+/// the HaveIBeenPwned.com API.</para>
+///
+/// <para>This class is thread-safe.</para>
 /// </summary>
 public sealed class HaveIBeenPwnedClient
   : Disposable, IHaveIBeenPwnedClient
@@ -148,7 +150,7 @@ public sealed class HaveIBeenPwnedClient
       .ConfigureAwait(false);
 
   /// <inheritdoc />
-  protected override void Dispose(bool disposing)
+  protected sealed override void Dispose(bool disposing)
   {
     if (disposing && this._enableClientDisposing)
     {
@@ -334,7 +336,9 @@ public sealed class HaveIBeenPwnedClient
     using var response = await this.ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
     using var content = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
 
-    var result = await JsonSerializer.DeserializeAsync<T>(content).ConfigureAwait(false);
+    var result = await JsonSerializer
+      .DeserializeAsync<T>(content, cancellationToken: cancellationToken)
+      .ConfigureAwait(false);
 
     if (result is null)
     {
@@ -381,25 +385,39 @@ public sealed class HaveIBeenPwnedClient
   /// </param>
   private static void HandleErrorResponse(HttpResponseMessage response)
   {
-    switch ((int)response.StatusCode)
+    var statusCode = (int)response.StatusCode;
+
+    switch (statusCode)
     {
-      case 429: // Rate limit exceeded
+      // Rate limit exceeded
+      case 429:
         {
-          // If we don't get a retry-after value from the HaveIBeenPwnedService, we revert to their specified default of 1500 ms.
-          var retryAfter = response.Headers.RetryAfter.Delta ?? 1500.MilliSeconds();
+          // If we don't get a retry-after value from the HaveIBeenPwnedService,
+          // we revert to the default value specified in the docs (https://haveibeenpwned.com/API/v3#RateLimiting)
+          var retryAfter = response.Headers.RetryAfter.Delta ?? Constants.DefaultRetryValue.MilliSeconds();
           throw new RateLimitExceededException(retryAfter);
         }
-      case 404: // Not found
-        {
-          return; // Do nothing
-        }
+      // Unauthorized
       case 401:
         {
           throw new InvalidApiKeyException();
         }
+      // Not found
+      // This is only valid for breaches for an account. Pastes for an account must return an empty collection when nothing
+      // is available according to the API documentation and Pwned passwords should never return a 404. So we can only
+      // ignore 404s for the breaches for an account.
+      case 404 when response.RequestMessage.RequestUri.AbsoluteUri.StartsWith(Constants.Uris.BreachedAccountBaseUri, StringComparison.OrdinalIgnoreCase):
+        {
+          return; // Do nothing
+        }
+      // Service unavailable
+      case 503:
+        {
+          throw new HaveIBeenPwnedClientException("The service is currently unavailable");
+        }
       default:
         {
-          throw new HaveIBeenPwnedClientException($"An error occured ({(int)response.StatusCode} {response.ReasonPhrase})");
+          throw new HaveIBeenPwnedClientException($"An error occured ({statusCode} {response.ReasonPhrase})");
         }
     }
   }
