@@ -18,11 +18,6 @@ public sealed class RateLimitExceededException
   }
 
   /// <summary>
-  /// Gets a message that describes the current exception
-  /// </summary>
-  public override string Message => "Rate limit exceeded";
-
-  /// <summary>
   /// Initializes a new instance of <see cref="RateLimitExceededException"/>
   /// with the <see cref="TimeSpan"/> to wait before retrying
   /// </summary>
@@ -30,6 +25,7 @@ public sealed class RateLimitExceededException
   /// The <see cref="TimeSpan"/> to wait before retrying
   /// </param>
   public RateLimitExceededException(TimeSpan retryAfter)
+    : base("Rate limit exceeded")
   {
     Throw.ArgumentOutOfRange.WhenLessThan(retryAfter.TotalSeconds, 0d, nameof(retryAfter));
 
