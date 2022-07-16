@@ -6,11 +6,15 @@ namespace AtleX.HaveIBeenPwned;
 /// <summary>
 /// Represents a <see cref="HaveIBeenPwnedClientException"/> for exceeding the rate limit
 /// </summary>
+#pragma warning disable RCS1194 // Implement exception constructors.
+// You exceeded the rate limit and have all the info you need in this
+// exception. Therefor there's no need to override constructors.
 public sealed class RateLimitExceededException
+#pragma warning restore RCS1194 // Implement exception constructors.
   : HaveIBeenPwnedClientException
 {
   /// <summary>
-  /// Gets the number of seconds to wait before retrying
+  /// Gets the <see cref="TimeSpan"/> to wait before retrying
   /// </summary>
   public TimeSpan RetryAfter
   {
