@@ -127,4 +127,17 @@ public class HaveIBeenPwnedClientTests_IsPwnedPassword
 
     Assert.True(result);
   }
+
+  [Fact]
+  public async Task IsPwnedPasswordAsync_CancellationToken_WithCancellationRequested_Throws()
+  {
+    using var cts = new CancellationTokenSource();
+
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    cts.Cancel();
+
+    await Assert.ThrowsAsync<OperationCanceledException>(() => c.IsPwnedPasswordAsync("DUMMY", cts.Token));
+  }
 }

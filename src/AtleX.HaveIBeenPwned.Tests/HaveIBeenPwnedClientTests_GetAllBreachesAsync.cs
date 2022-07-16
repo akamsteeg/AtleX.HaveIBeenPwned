@@ -113,4 +113,17 @@ public class HaveIBeenPwnedClientTests_GetAllBreachesAsync
 
     await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetAllBreachesAsync(CancellationToken.None));
   }
+
+  [Fact]
+  public async Task GetAllBreachesAsync_CancellationToken_WithCancellationRequested_Throws()
+  {
+    using var cts = new CancellationTokenSource();
+
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    cts.Cancel();
+
+    await Assert.ThrowsAsync<OperationCanceledException>(() => c.GetAllBreachesAsync(cts.Token));
+  }
 }

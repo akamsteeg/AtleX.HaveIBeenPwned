@@ -171,6 +171,7 @@ public sealed class HaveIBeenPwnedClient
   private async Task<IEnumerable<SiteBreach>> GetAllBreachesInternalAsync(CancellationToken cancellationToken)
   {
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     var uri = UriFactory.GetAllBreachesUri();
 
@@ -202,6 +203,7 @@ public sealed class HaveIBeenPwnedClient
   {
     Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     var uri = UriFactory.GetBreachesForAccountUri(account, modes);
 
@@ -228,6 +230,7 @@ public sealed class HaveIBeenPwnedClient
   {
     Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     var requestUri = UriFactory.GetPasteAccountUri(emailAddress);
 
@@ -254,6 +257,7 @@ public sealed class HaveIBeenPwnedClient
   {
     Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     var result = false;
 
@@ -301,8 +305,8 @@ public sealed class HaveIBeenPwnedClient
     where T : notnull
   {
     Throw<InvalidApiKeyException>.When(this._clientSettings.ApiKey.IsNullOrWhiteSpace());
-
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     using var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
 
@@ -332,6 +336,7 @@ public sealed class HaveIBeenPwnedClient
     where T : notnull
   {
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     using var response = await this.ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
     using var content = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
@@ -364,6 +369,7 @@ public sealed class HaveIBeenPwnedClient
   {
     if (requestMessage.Method != HttpMethod.Get) { throw new InvalidOperationException($"Request method '{requestMessage.Method}' not supported"); }
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     var result = await this._httpClient
        .SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
