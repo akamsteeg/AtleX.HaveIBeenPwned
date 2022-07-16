@@ -107,14 +107,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<None Include="packageReadme.md" Pack="true" PackagePath="\"/>
+		<None Include="packageReadme.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Pitcher" Version="2.1.1" />
 		<PackageReference Include="SwissArmyKnife" Version="2.2.0" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
-		<PackageReference Include="System.Text.Json" Version="6.0.4" />
+		<PackageReference Include="System.Text.Json" Version="6.0.5" />
 	</ItemGroup>
 
 	<!-- SourceLink-->
