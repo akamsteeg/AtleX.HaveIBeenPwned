@@ -347,7 +347,10 @@ public sealed class HaveIBeenPwnedClient
 
     if (result is null)
     {
-      throw new InvalidOperationException($"Response could not be parsed to {nameof(T)}");
+      throw new HaveIBeenPwnedClientException(
+        "Response from the HaveIBeenPwned API could not be parsed",
+        new InvalidOperationException($"Deserialization to '{nameof(T)}' resulted in a null value")
+      );
     }
 
     return result;
