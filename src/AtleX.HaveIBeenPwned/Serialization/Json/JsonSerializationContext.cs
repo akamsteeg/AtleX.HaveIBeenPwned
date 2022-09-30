@@ -10,6 +10,8 @@ namespace AtleX.HaveIBeenPwned.Serialization.Json;
 [JsonSerializable(typeof(BreachMode))]
 [JsonSerializable(typeof(Paste))]
 [JsonSerializable(typeof(SiteBreach))]
+
+[ExcludeFromCodeCoverage]
 internal sealed partial class JsonSerializationContext
   : JsonSerializerContext
 {
