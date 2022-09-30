@@ -44,6 +44,11 @@ public sealed class HaveIBeenPwnedClient
   private readonly bool _enableClientDisposing;
 
   /// <summary>
+  /// Gets the <see cref="JsonSerializerOptions"/> to use when (de)serializing JSON
+  /// </summary>
+  private readonly JsonSerializerOptions _jsonOptions;
+
+  /// <summary>
   /// Initializes a new instance of <see cref="HaveIBeenPwnedClient"/> with the
   /// specified <see cref="HaveIBeenPwnedClientSettings"/> and <see cref="HttpClient"/>
   /// </summary>
@@ -97,6 +102,12 @@ public sealed class HaveIBeenPwnedClient
     this._clientSettings = settings;
     this._httpClient = ConfigureHttpClient(client, settings);
     this._enableClientDisposing = mustDisposeClient;
+
+    this._jsonOptions = new();
+
+#if NET6_0_OR_GREATER
+    this._jsonOptions.AddContext<AtleX.HaveIBeenPwned.Serialization.Json.JsonSerializationContext>();
+#endif
   }
 
   /// <inheritdoc />
@@ -277,7 +288,11 @@ public sealed class HaveIBeenPwnedClient
     if (response.StatusCode == HttpStatusCode.OK)
     {
       var content = await response.Content
+#if NET6_0_OR_GREATER
+        .ReadAsStringAsync(cancellationToken)
+#else
         .ReadAsStringAsync()
+#endif
         .ConfigureAwait(false);
 
       result = content.Contains(kAnonimityRemainder);
@@ -339,10 +354,17 @@ public sealed class HaveIBeenPwnedClient
     cancellationToken.ThrowIfCancellationRequested();
 
     using var response = await this.ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
-    using var content = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+    using var content = await response
+      .Content
+#if NET6_0_OR_GREATER
+        .ReadAsStreamAsync(cancellationToken)
+#else
+        .ReadAsStreamAsync()
+#endif
+      .ConfigureAwait(false);
 
     var result = await JsonSerializer
-      .DeserializeAsync<T>(content, cancellationToken: cancellationToken)
+      .DeserializeAsync<T>(content, this._jsonOptions, cancellationToken)
       .ConfigureAwait(false);
 
     if (result is null)
@@ -403,7 +425,7 @@ public sealed class HaveIBeenPwnedClient
         {
           // If we don't get a retry-after value from the HaveIBeenPwnedService,
           // we revert to the default value specified in the docs (https://haveibeenpwned.com/API/v3#RateLimiting)
-          var retryAfter = response.Headers.RetryAfter.Delta ?? Constants.DefaultRetryValue.MilliSeconds();
+          var retryAfter = response.Headers.RetryAfter!.Delta ?? Constants.DefaultRetryValue.MilliSeconds();
           throw new RateLimitExceededException(retryAfter);
         }
       // Unauthorized
@@ -415,7 +437,7 @@ public sealed class HaveIBeenPwnedClient
       // This is only valid for breaches for an account. Pastes for an account must return an empty collection when nothing
       // is available according to the API documentation and Pwned passwords should never return a 404. So we can only
       // ignore 404s for the breaches for an account.
-      case 404 when response.RequestMessage.RequestUri.AbsoluteUri.StartsWith(Constants.Uris.BreachedAccountBaseUri, StringComparison.OrdinalIgnoreCase):
+      case 404 when response.RequestMessage!.RequestUri!.AbsoluteUri.StartsWith(Constants.Uris.BreachedAccountBaseUri, StringComparison.OrdinalIgnoreCase):
         {
           return; // Do nothing
         }

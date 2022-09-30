@@ -89,7 +89,7 @@ public sealed class SiteBreach
   /// <returns>
   /// True if the specified object is equal to the current object; false otherwise
   /// </returns>
-  public override bool Equals(object obj) => EqualityHelper.Equals(this, obj);
+  public override bool Equals(object? obj) => EqualityHelper.Equals(this, obj);
 
   /// <summary>
   /// Indicates whether the current object is equal to another object of the
@@ -101,7 +101,7 @@ public sealed class SiteBreach
   /// <returns>
   /// True if the current object is equal to the other parameter; false otherwise
   /// </returns>
-  public bool Equals(SiteBreach other) => EqualityHelper.Equals(this, other);
+  public bool Equals(SiteBreach? other) => EqualityHelper.Equals(this, other);
 
   /// <summary>
   /// Serves as the default hash function
