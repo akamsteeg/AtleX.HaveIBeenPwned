@@ -9,10 +9,13 @@ public class RateLimitExceededExceptionTests
   [Theory]
   [InlineData(-1)]
   [InlineData(-1000)]
-  public void Ctor_WithLessThanZeroValueForRetryAfterParam_Throws(int milliseconds)
+  public void Ctor_WithLessThanZeroValueForRetryAfterParam_SetRetryAfterToZero(int milliseconds)
   {
     var value = TimeSpan.FromMilliseconds(milliseconds);
-    Assert.Throws<ArgumentOutOfRangeException>(() => new RateLimitExceededException(value));
+
+    var e = new RateLimitExceededException(value);
+
+    Assert.Equal(0.Seconds(), e.RetryAfter);
   }
 
   [Theory]
@@ -22,7 +25,9 @@ public class RateLimitExceededExceptionTests
   {
     var value = TimeSpan.FromMilliseconds(milliseconds);
 
-    new RateLimitExceededException(value);
+    var e = new RateLimitExceededException(value);
+
+    Assert.Equal(milliseconds, e.RetryAfter.TotalMilliseconds);
   }
 
   [Fact]
