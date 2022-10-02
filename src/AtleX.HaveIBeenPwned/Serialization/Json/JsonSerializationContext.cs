@@ -8,7 +8,6 @@ namespace AtleX.HaveIBeenPwned.Serialization.Json;
 [JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Default)]
 
 [JsonSerializable(typeof(Breach))]
-[JsonSerializable(typeof(BreachMode))]
 [JsonSerializable(typeof(Paste))]
 [JsonSerializable(typeof(SiteBreach))]
 
