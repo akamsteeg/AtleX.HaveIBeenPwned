@@ -1,4 +1,5 @@
 ﻿using AtleX.HaveIBeenPwned.Helpers;
+using AtleX.HaveIBeenPwned.Serialization.Json;
 using Pitcher;
 using SwissArmyKnife;
 using System;
@@ -46,7 +47,7 @@ public sealed class HaveIBeenPwnedClient
   /// <summary>
   /// Gets the <see cref="JsonSerializerOptions"/> to use when (de)serializing JSON
   /// </summary>
-  private readonly JsonSerializerOptions _jsonOptions;
+  private static readonly JsonSerializerOptions JsonOptions = JsonSerializerOptionsFactory.Create();
 
   /// <summary>
   /// Initializes a new instance of <see cref="HaveIBeenPwnedClient"/> with the
@@ -102,12 +103,6 @@ public sealed class HaveIBeenPwnedClient
     this._clientSettings = settings;
     this._httpClient = ConfigureHttpClient(client, settings);
     this._enableClientDisposing = mustDisposeClient;
-
-    this._jsonOptions = new();
-
-#if NET6_0_OR_GREATER
-    this._jsonOptions.AddContext<AtleX.HaveIBeenPwned.Serialization.Json.JsonSerializationContext>();
-#endif
   }
 
   /// <inheritdoc />
@@ -364,7 +359,7 @@ public sealed class HaveIBeenPwnedClient
       .ConfigureAwait(false);
 
     var result = await JsonSerializer
-      .DeserializeAsync<T>(content, this._jsonOptions, cancellationToken)
+      .DeserializeAsync<T>(content, JsonOptions, cancellationToken)
       .ConfigureAwait(false);
 
     if (result is null)
