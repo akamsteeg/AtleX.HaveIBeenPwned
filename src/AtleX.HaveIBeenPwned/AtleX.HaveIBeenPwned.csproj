@@ -25,10 +25,14 @@
 		<PackageTags>haveibeenpwned breach password hibp security pwned email emailaddress client</PackageTags>
 		<PackageReadmeFile>packageReadme.md</PackageReadmeFile>
 
-		<Version>6.0.0</Version>
+		<Version>6.0.1</Version>
 
 		<PackageReleaseNotes>
-6.0.0
+6.0.1:
+- [Feature] Performance improvement when (de)serializing requests and responses (#74)
+- [Fix] RateLimitExceededException no longer throws an exception when the retry-after value is 0 seconds or less (#73)
+- [Fix] Internal improvements (#69)
+6.0.0:
 - [Breaking] Removed SerializeAttribute from exceptions (#50)
 - [Breaking] Removed obsolete and no longer used settings from HaveIBeenPwnedClientSettings (#60)
 - [Feature] Add support for padded pwned password checks (Enabled by default, #55)
