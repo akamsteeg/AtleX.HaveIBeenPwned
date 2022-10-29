@@ -32,6 +32,7 @@
 - [Feature] Performance improvement when (de)serializing requests and responses (#74)
 - [Fix] RateLimitExceededException no longer throws an exception when the retry-after value is 0 seconds or less (#73)
 - [Fix] Internal improvements (#69)
+
 6.0.0:
 - [Breaking] Removed SerializeAttribute from exceptions (#50)
 - [Breaking] Removed obsolete and no longer used settings from HaveIBeenPwnedClientSettings (#60)
