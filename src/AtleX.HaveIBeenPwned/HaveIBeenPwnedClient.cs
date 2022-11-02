@@ -1,4 +1,5 @@
-﻿using AtleX.HaveIBeenPwned.Helpers;
+﻿using AtleX.HaveIBeenPwned.Communication.Http;
+using AtleX.HaveIBeenPwned.Helpers;
 using AtleX.HaveIBeenPwned.Serialization.Json;
 using Pitcher;
 using SwissArmyKnife;
@@ -6,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -95,13 +95,10 @@ public sealed class HaveIBeenPwnedClient
   private HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings settings, HttpClient client, bool mustDisposeClient)
   {
     Throw.ArgumentNull.WhenNull(settings, nameof(settings));
-    Throw.ArgumentNull.WhenNullOrWhiteSpace(settings.ApplicationName,
-      nameof(settings.ApplicationName),
-      $"{nameof(HaveIBeenPwnedClientSettings)}.{nameof(settings.ApplicationName)} cannot be null or empty");
     Throw.ArgumentNull.WhenNull(client, nameof(client));
 
     this._clientSettings = settings;
-    this._httpClient = ConfigureHttpClient(client, settings);
+    this._httpClient = client.ConfigureForHaveIBeenPwnedApi(settings);
     this._enableClientDisposing = mustDisposeClient;
   }
 
@@ -446,26 +443,5 @@ public sealed class HaveIBeenPwnedClient
           throw new HaveIBeenPwnedClientException($"An error occured ({statusCode} {response.ReasonPhrase})");
         }
     }
-  }
-
-  /// <summary>
-  /// Configure the <see cref="HttpClient"/> with the specified <see cref="HaveIBeenPwnedClientSettings"/>
-  /// </summary>
-  /// <param name="client">
-  /// The <see cref="HttpClient"/> to setup
-  /// </param>
-  /// <param name="settings">
-  /// The <see cref="HaveIBeenPwnedClientSettings"/>
-  /// </param>
-  /// <returns>
-  /// The configured <see cref="HttpClient"/>
-  /// </returns>
-  private static HttpClient ConfigureHttpClient(HttpClient client, HaveIBeenPwnedClientSettings settings)
-  {
-    var acceptJsonHeader = new MediaTypeWithQualityHeaderValue("application/json");
-    client.DefaultRequestHeaders.Accept.Add(acceptJsonHeader);
-    client.DefaultRequestHeaders.Add("User-Agent", settings.ApplicationName);
-
-    return client;
   }
 }
