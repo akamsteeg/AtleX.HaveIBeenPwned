@@ -13,6 +13,16 @@ namespace AtleX.HaveIBeenPwned.Helpers;
 internal static class HashCodeHelper
 {
   /// <summary>
+  /// Gets the prime number to start the calculation of the hash code with
+  /// </summary>
+  private const int primeInitial = 17;
+
+  /// <summary>
+  /// Gets the prime number to multiply a previously calculated value with
+  /// </summary>
+  private const int primeMultiplier = 23;
+
+  /// <summary>
   /// Calculate the hash code for the specified value
   /// </summary>
   /// <returns>
@@ -23,8 +33,8 @@ internal static class HashCodeHelper
   {
     Throw.ArgumentNull.WhenNull(value1, nameof(value1));
 
-    var result = 17;
-    result = (result * 23) + value1.GetHashCode();
+    var result = primeInitial;
+    result = (result * primeMultiplier) + value1.GetHashCode();
 
     return result;
   }
@@ -42,9 +52,9 @@ internal static class HashCodeHelper
     Throw.ArgumentNull.WhenNull(value1, nameof(value1));
     Throw.ArgumentNull.WhenNull(value2, nameof(value2));
 
-    var result = 17;
-    result = (result * 23) + value1.GetHashCode();
-    result = (result * 23) + value2.GetHashCode();
+    var result = primeInitial;
+    result = (result * primeMultiplier) + value1.GetHashCode();
+    result = (result * primeMultiplier) + value2.GetHashCode();
 
     return result;
   }
