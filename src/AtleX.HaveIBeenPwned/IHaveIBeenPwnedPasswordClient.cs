@@ -20,9 +20,9 @@ public interface IHaveIBeenPwnedPasswordClient
   /// indicating whether the password was found or not
   /// </returns>
   /// <remarks>
-  ///The pwned passwords API uses k-anonimity so no passwords are send
-  ///to the HaveIBeenPwned.com API. See also
-  ///<see href="https://haveibeenpwned.com/API/v3#PwnedPasswords"/>.
+  /// The pwned passwords API uses k-anonimity so no passwords are send
+  /// to the HaveIBeenPwned.com API. See also
+  /// <see href="https://haveibeenpwned.com/API/v3#PwnedPasswords"/>.
   /// </remarks>
   Task<bool> IsPwnedPasswordAsync(string password);
 
@@ -40,9 +40,9 @@ public interface IHaveIBeenPwnedPasswordClient
   /// indicating whether the password was found or not
   /// </returns>
   /// <remarks>
-  ///The pwned passwords API uses k-anonimity so no passwords are send
-  ///to the HaveIBeenPwned.com API. See also
-  ///<see href="https://haveibeenpwned.com/API/v3#PwnedPasswords"/>.
+  /// The pwned passwords API uses k-anonimity so no passwords are send
+  /// to the HaveIBeenPwned.com API. See also
+  /// <see href="https://haveibeenpwned.com/API/v3#PwnedPasswords"/>.
   /// </remarks>
   Task<bool> IsPwnedPasswordAsync(string password, CancellationToken cancellationToken);
 }
