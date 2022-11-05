@@ -15,7 +15,7 @@ public class RateLimitExceededExceptionTests
 
     var e = new RateLimitExceededException(value);
 
-    Assert.Equal(0.Seconds(), e.RetryAfter);
+    Assert.Equal(TimeSpan.Zero, e.RetryAfter);
   }
 
   [Theory]
