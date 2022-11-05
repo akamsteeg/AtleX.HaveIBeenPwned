@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 namespace AtleX.HaveIBeenPwned;
 
 /// <summary>
-/// Represents a client for the leaked passwords functionality of the HaveIBeenPwned service
+/// Represents a client for the leaked passwords functionality of the
+/// HaveIBeenPwned service
 /// </summary>
 public interface IHaveIBeenPwnedPasswordClient
 {
@@ -18,6 +19,11 @@ public interface IHaveIBeenPwnedPasswordClient
   /// An awaitable <see cref="Task{TResult}"/> with a <see cref="bool"/>
   /// indicating whether the password was found or not
   /// </returns>
+  /// <remarks>
+  ///The pwned passwords API uses k-anonimity so no passwords are send
+  ///to the HaveIBeenPwned.com API. See also
+  ///<see href="https://haveibeenpwned.com/API/v3#PwnedPasswords"/>.
+  /// </remarks>
   Task<bool> IsPwnedPasswordAsync(string password);
 
   /// <summary>
@@ -33,5 +39,10 @@ public interface IHaveIBeenPwnedPasswordClient
   /// An awaitable <see cref="Task{TResult}"/> with a <see cref="bool"/>
   /// indicating whether the password was found or not
   /// </returns>
+  /// <remarks>
+  ///The pwned passwords API uses k-anonimity so no passwords are send
+  ///to the HaveIBeenPwned.com API. See also
+  ///<see href="https://haveibeenpwned.com/API/v3#PwnedPasswords"/>.
+  /// </remarks>
   Task<bool> IsPwnedPasswordAsync(string password, CancellationToken cancellationToken);
 }
