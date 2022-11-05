@@ -1,6 +1,4 @@
-﻿using Pitcher;
-using SwissArmyKnife;
-using System;
+﻿using System;
 
 namespace AtleX.HaveIBeenPwned;
 
@@ -32,6 +30,6 @@ public sealed class RateLimitExceededException
   public RateLimitExceededException(TimeSpan retryAfter)
     : base("Rate limit exceeded")
   {
-    this.RetryAfter = (retryAfter.TotalSeconds >= 0) ? retryAfter : 0.Seconds();
+    this.RetryAfter = (retryAfter.TotalSeconds >= 0d) ? retryAfter : TimeSpan.Zero;
   }
 }
