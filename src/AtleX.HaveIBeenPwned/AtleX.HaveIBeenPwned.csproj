@@ -25,9 +25,20 @@
 		<PackageTags>haveibeenpwned breach password hibp security pwned email emailaddress client</PackageTags>
 		<PackageReadmeFile>packageReadme.md</PackageReadmeFile>
 
-		<Version>6.0.1</Version>
+		<Version>7.0.0</Version>
 
 		<PackageReleaseNotes>
+7.0.0
+This is for a large part a maintenance release to make the library ready for the future with 
+as few breaking changes as possible. Most users should be able to just install this version, 
+re-compile and deploy their app without any issues.
+
+- [Breaking] Throw exception when the CancellationToken is cancelled as soon as possible (#70)
+- [Breaking] Wrap InvalidOperationException in HaveIBeenPwnedClientException (#71)
+- [Feature] Add .NET 6.0 target and use source generators for JSON (de)serialization (#72)
+- [Feature] Improved documentation and support for more information provided by the service (#79)
+- [Feature] Many internal improvements to make this the best and most performant version ever (#75, #76, #77, #78, #79)
+
 6.0.1:
 - [Feature] Performance improvement when (de)serializing requests and responses (#74)
 - [Fix] RateLimitExceededException no longer throws an exception when the retry-after value is 0 seconds or less (#73)
