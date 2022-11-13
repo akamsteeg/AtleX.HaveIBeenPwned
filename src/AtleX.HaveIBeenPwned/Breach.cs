@@ -9,6 +9,10 @@ namespace AtleX.HaveIBeenPwned;
 /// <summary>
 /// Represents a single breach in the system
 /// </summary>
+/// <remarks>
+/// See <see href="https://haveibeenpwned.com/API/v3#BreachesForAccount"/> for
+/// more information
+/// </remarks>
 [DebuggerDisplay("{Name}")]
 [ExcludeFromCodeCoverage]
 public sealed class Breach

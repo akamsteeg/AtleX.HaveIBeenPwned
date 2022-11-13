@@ -10,13 +10,16 @@ namespace AtleX.HaveIBeenPwned;
 /// <summary>
 /// Represents a single site breach in the system
 /// </summary>
+/// <remarks>
+/// See <see href="https://haveibeenpwned.com/API/v3#BreachModel"/> for more information
+/// </remarks>
 [DebuggerDisplay("{Name}")]
 [ExcludeFromCodeCoverage]
 public sealed class SiteBreach
   : IEquatable<SiteBreach>
 {
   /// <summary>
-  /// Gets or sets the name of the breach
+  /// Gets or sets the name of the breach. This is the identifier of the breach
   /// </summary>
   public string? Name { get; set; }
 
@@ -24,6 +27,11 @@ public sealed class SiteBreach
   /// Gets or sets the title of the breach
   /// </summary>
   public string? Title { get; set; }
+
+  /// <summary>
+  /// Gets or sets the title of the breach
+  /// </summary>
+  public string? Domain { get; set; }
 
   /// <summary>
   /// Gets or sets the date of the breach
@@ -79,6 +87,16 @@ public sealed class SiteBreach
   /// Gets or sets whether the breach is from a spam list or not
   /// </summary>
   public bool IsSpamList { get; set; }
+
+  /// <summary>
+  /// Gets or sets whether the breach is from malware or not
+  /// </summary>
+  public bool IsMalware { get; set; }
+
+  /// <summary>
+  /// Gets or sets whether the breach is from malware or not
+  /// </summary>
+  public Uri? LogoPath { get; set; }
 
   /// <summary>
   /// Determines whether the specified object is equal to the current object
