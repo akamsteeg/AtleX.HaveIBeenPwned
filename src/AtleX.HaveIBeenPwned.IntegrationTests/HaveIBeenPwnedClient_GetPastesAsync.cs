@@ -52,6 +52,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
     var settings = new HaveIBeenPwnedClientSettings()
     {
       ApiKey = "DUMMYAPIKEY",
+      ApplicationName = Constants.Tests.ApplicationName,
     };
 
     using var cancellationTokenSource = new CancellationTokenSource();
@@ -67,6 +68,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
     var settings = new HaveIBeenPwnedClientSettings()
     {
       ApiKey = "DUMMYAPIKEY",
+      ApplicationName = Constants.Tests.ApplicationName,
     };
 
     using var cancellationTokenSource = new CancellationTokenSource();

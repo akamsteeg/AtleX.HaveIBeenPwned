@@ -17,7 +17,7 @@ public abstract class HaveIBeenPwnedClientIntegrationTestsBase
     var result = new HaveIBeenPwnedClientSettings()
     {
       ApiKey = PrivateConstants.ApiKey,
-      ApplicationName = "AtleX.HaveIBeenPwned.IntegrationTests",
+      ApplicationName = Constants.Tests.ApplicationName,
     };
 
     return result;

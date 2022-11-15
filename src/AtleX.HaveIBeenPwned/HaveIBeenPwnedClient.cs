@@ -5,6 +5,7 @@ using Pitcher;
 using SwissArmyKnife;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.Json;
@@ -240,7 +241,7 @@ public sealed class HaveIBeenPwnedClient
     var results = await this.GetAuthenticatedAsync<IEnumerable<Paste>>(requestUri, cancellationToken)
       .ConfigureAwait(false);
 
-    return results;
+    return results ?? Enumerable.Empty<Paste>();
   }
 
   /// <summary>
@@ -346,28 +347,30 @@ public sealed class HaveIBeenPwnedClient
     cancellationToken.ThrowIfCancellationRequested();
 
     using var response = await this.ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
-    using var content = await response
-      .Content
+
+    T? result = default;
+
+    if (response.IsSuccessStatusCode)
+    {
+      using var content = await response
+     .Content
 #if NET6_0_OR_GREATER
-        .ReadAsStreamAsync(cancellationToken)
+       .ReadAsStreamAsync(cancellationToken)
 #else
         .ReadAsStreamAsync()
 #endif
-      .ConfigureAwait(false);
+     .ConfigureAwait(false);
 
-    var result = await JsonSerializer
-      .DeserializeAsync<T>(content, JsonOptions, cancellationToken)
-      .ConfigureAwait(false);
-
-    if (result is null)
+      result = await JsonSerializer
+     .DeserializeAsync<T>(content, JsonOptions, cancellationToken)
+     .ConfigureAwait(false);
+    }
+    else
     {
-      throw new HaveIBeenPwnedClientException(
-        "Response from the HaveIBeenPwned API could not be parsed",
-        new InvalidOperationException($"Deserialization to '{nameof(T)}' resulted in a null value")
-      );
+      HandleErrorResponse(response);
     }
 
-    return result;
+    return result!;
   }
 
   /// <summary>
@@ -430,6 +433,7 @@ public sealed class HaveIBeenPwnedClient
       // is available according to the API documentation and Pwned passwords should never return a 404. So we can only
       // ignore 404s for the breaches for an account.
       case 404 when response.RequestMessage!.RequestUri!.AbsoluteUri.StartsWith(Constants.Uris.BreachedAccountBaseUri, StringComparison.OrdinalIgnoreCase):
+      case 404 when response.RequestMessage!.RequestUri!.AbsoluteUri.StartsWith(Constants.Uris.PasteAccountBaseUri, StringComparison.OrdinalIgnoreCase):
         {
           return; // Do nothing
         }

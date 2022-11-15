@@ -11,6 +11,8 @@ internal static class Constants
     /// </summary>
     public static readonly TimeSpan DelayBetweenTests = 7.Seconds();
 
+    public const string ApplicationName = "AtleX.HaveIBeenPwned.IntegrationTests";
+
     public static class Categories
     {
       public static class RequiresApiKeyCategory
