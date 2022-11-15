@@ -6,7 +6,7 @@ public abstract class HaveIBeenPwnedClientIntegrationTestsBase
   {
     var result = new HaveIBeenPwnedClientSettings()
     {
-      ApiKey = "DUMMYKEY",
+      ApiKey = PrivateConstants.ApiKey,
       ApplicationName = "AtleX.HaveIBeenPwned.IntegrationTests",
     };
 
