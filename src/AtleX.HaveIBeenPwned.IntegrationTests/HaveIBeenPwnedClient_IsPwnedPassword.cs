@@ -9,6 +9,11 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests;
 public class HaveIBeenPwnedClientTests_IsPwnedPassword
   : HaveIBeenPwnedClientIntegrationTestsBase
 {
+  public override void Dispose()
+  {
+    // NOP We don't need to wait between requests since this type does not have a rate limit
+  }
+
   [Theory]
   [InlineData("1234", true, true)]
   [InlineData("1234", true, false)]
