@@ -29,14 +29,12 @@
 
 		<PackageReleaseNotes>
 7.0.0
-This is for a large part a maintenance release to make the library ready for the future with 
-as few breaking changes as possible. Most users should be able to just install this version, 
-re-compile and deploy their app without any issues.
-
 - [Breaking] Throw exception when the CancellationToken is cancelled as soon as possible (#70)
 - [Breaking] Wrap InvalidOperationException in HaveIBeenPwnedClientException (#71)
+- [Breaking][Fix] GetPastesAsync() now returns an empty collection instead of throwing an exception when no pastes are found (#82)
 - [Feature] Add .NET 6.0 target and use source generators for JSON (de)serialization (#72)
-- [Feature] Improved documentation and support for more information provided by the service (#79)
+- [Feature] Add more properties to the SiteBreach model (#79)
+- [Feature] Improved documentation
 - [Feature] Many internal improvements to make this the best and most performant version ever (#75, #76, #77, #78, #79)
 
 6.0.1:
