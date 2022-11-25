@@ -194,7 +194,8 @@ UpgradeLog*.htm
 FakesAssemblies/
 
 # Coverlet file
-/src/AtleX.CommandLineArguments.Tests/coverage.json
+/src/*/coverage.json
+/src/*/coverage.*.json
 
 # Secrets that should not end up in source control
 /src/AtleX.HaveIBeenPwned.IntegrationTests/PrivateConstants.cs
