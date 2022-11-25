@@ -82,21 +82,23 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
   }
 
   [Fact]
-  public async Task GetPastesAsync_NotFound_ThrowsHaveIBeenPwnedClientException()
+  public async Task GetPastesAsync_NotFound_ReturnsEmptyEnumerable()
   {
     using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
     using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-    await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetPastesAsync("UNKNOWN"));
+    var pastes = await c.GetPastesAsync("UNKNOWN");
+    Assert.Empty(pastes);
   }
 
   [Fact]
-  public async Task GetPastesAsync_CancellationToken_NotFound_ThrowsHaveIBeenPwnedClientException()
+  public async Task GetPastesAsync_CancellationToken_NotFound_ReturnsEmptyEnumerable()
   {
     using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 404));
     using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-    await Assert.ThrowsAsync<HaveIBeenPwnedClientException>(() => c.GetPastesAsync("UNKNOWN", CancellationToken.None));
+    var pastes = await c.GetPastesAsync("UNKNOWN", CancellationToken.None);
+    Assert.Empty(pastes);
   }
 
   [Fact]
@@ -159,5 +161,18 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
 
     Assert.NotNull(result);
     Assert.NotEmpty(result);
+  }
+
+  [Fact]
+  public async Task GetPastesAsync_CancellationToken_WithCancellationRequested_Throws()
+  {
+    using var cts = new CancellationTokenSource();
+
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    cts.Cancel();
+
+    await Assert.ThrowsAsync<OperationCanceledException>(() => c.GetPastesAsync("test@example.com", cts.Token));
   }
 }

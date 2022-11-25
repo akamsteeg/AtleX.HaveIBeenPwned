@@ -2,7 +2,7 @@ jobs:
 - template: build-templates/build-package.job.yml
   parameters:
     name: Windows
-    vmImage: 'windows-2022'
+    vmImage: 'windows-latest'
     publishBuildArtifacts: 'true'
     publishCodeCoverage: 'true'
     
@@ -13,9 +13,9 @@ jobs:
     publishBuildArtifacts: 'true'
     publishCodeCoverage: 'true'
 
-#- template: build-templates/build-package.job.yml
-#  parameters:
-#    name: MacOS
-#    vmImage: 'macOS-10.14'
-#    publishBuildArtifacts: 'false'
-#    publishCodeCoverage: 'false'
+- template: build-templates/build-package.job.yml
+  parameters:
+    name: MacOS
+    vmImage: 'macOS-latest'
+    publishBuildArtifacts: 'false'
+    publishCodeCoverage: 'false'

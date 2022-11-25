@@ -50,6 +50,23 @@ internal static class Constants
   }
 
   /// <summary>
+  /// Represents constant values for communication with the HaveIBeenPwned.com API
+  /// </summary>
+  internal static class Communication
+  {
+    /// <summary>
+    /// Represents constant values for communication via HTTP with the HaveIBeenPwned.com API
+    /// </summary>
+    internal static class Http
+    {
+      /// <summary>
+      /// Gets the media type
+      /// </summary>
+      public const string MediaType = "application/json";
+    }
+  }
+
+  /// <summary>
   /// Gets the default retry timeout in milliseconds when a HTTP/429 response is received
   /// </summary>
   public const int DefaultRetryValue = 1500;

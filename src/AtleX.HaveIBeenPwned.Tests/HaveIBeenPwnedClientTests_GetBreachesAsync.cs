@@ -245,4 +245,20 @@ public class HaveIBeenPwnedClientTests_GetBreachesAsync
     Assert.NotNull(result);
     Assert.NotEmpty(result);
   }
+
+
+  [Theory]
+  [InlineData(BreachMode.All)]
+  [InlineData(BreachMode.ExcludeUnverified)]
+  public async Task GetBreachesAsync_CancellationToken_WithCancellationRequested_Throws(BreachMode breachMode)
+  {
+    using var cts = new CancellationTokenSource();
+
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    cts.Cancel();
+
+    await Assert.ThrowsAsync<OperationCanceledException>(() => c.GetBreachesAsync("test@example.com", breachMode, cts.Token));
+  }
 }

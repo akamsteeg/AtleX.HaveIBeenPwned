@@ -10,13 +10,16 @@ namespace AtleX.HaveIBeenPwned;
 /// <summary>
 /// Represents a single site breach in the system
 /// </summary>
+/// <remarks>
+/// See <see href="https://haveibeenpwned.com/API/v3#BreachModel"/> for more information
+/// </remarks>
 [DebuggerDisplay("{Name}")]
 [ExcludeFromCodeCoverage]
 public sealed class SiteBreach
   : IEquatable<SiteBreach>
 {
   /// <summary>
-  /// Gets or sets the name of the breach
+  /// Gets or sets the name of the breach. This is the identifier of the breach
   /// </summary>
   public string? Name { get; set; }
 
@@ -24,6 +27,11 @@ public sealed class SiteBreach
   /// Gets or sets the title of the breach
   /// </summary>
   public string? Title { get; set; }
+
+  /// <summary>
+  /// Gets or sets the title of the breach
+  /// </summary>
+  public string? Domain { get; set; }
 
   /// <summary>
   /// Gets or sets the date of the breach
@@ -81,6 +89,16 @@ public sealed class SiteBreach
   public bool IsSpamList { get; set; }
 
   /// <summary>
+  /// Gets or sets whether the breach is from malware or not
+  /// </summary>
+  public bool IsMalware { get; set; }
+
+  /// <summary>
+  /// Gets or sets whether the breach is from malware or not
+  /// </summary>
+  public Uri? LogoPath { get; set; }
+
+  /// <summary>
   /// Determines whether the specified object is equal to the current object
   /// </summary>
   /// <param name="obj">
@@ -89,7 +107,7 @@ public sealed class SiteBreach
   /// <returns>
   /// True if the specified object is equal to the current object; false otherwise
   /// </returns>
-  public override bool Equals(object obj) => EqualityHelper.Equals(this, obj);
+  public override bool Equals(object? obj) => EqualityHelper.Equals(this, obj);
 
   /// <summary>
   /// Indicates whether the current object is equal to another object of the
@@ -101,7 +119,7 @@ public sealed class SiteBreach
   /// <returns>
   /// True if the current object is equal to the other parameter; false otherwise
   /// </returns>
-  public bool Equals(SiteBreach other) => EqualityHelper.Equals(this, other);
+  public bool Equals(SiteBreach? other) => EqualityHelper.Equals(this, other);
 
   /// <summary>
   /// Serves as the default hash function

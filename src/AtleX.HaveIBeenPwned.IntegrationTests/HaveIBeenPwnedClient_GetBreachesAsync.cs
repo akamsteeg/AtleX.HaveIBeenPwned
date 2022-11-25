@@ -5,6 +5,7 @@ using Xunit;
 
 namespace AtleX.HaveIBeenPwned.IntegrationTests;
 
+[Trait(Constants.Tests.Categories.RequiresApiKeyCategory.Name, "true")]
 public class HaveIBeenPwnedClientTests_GetBreachesAsync
   : HaveIBeenPwnedClientIntegrationTestsBase
 {

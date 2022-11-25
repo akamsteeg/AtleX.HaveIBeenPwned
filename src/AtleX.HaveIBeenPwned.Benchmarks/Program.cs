@@ -26,7 +26,7 @@ public static class Program
     config.AddJob(
       Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp60).AsBaseline(),
       Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp31),
-      Job.Default.WithToolchain(CsProjClassicNetToolchain.Net48)
+      Job.Default.WithToolchain(CsProjClassicNetToolchain.Net481)
       );
 
     return config;

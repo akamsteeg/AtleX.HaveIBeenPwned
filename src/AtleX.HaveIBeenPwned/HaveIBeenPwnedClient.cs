@@ -1,12 +1,13 @@
-﻿using AtleX.HaveIBeenPwned.Helpers;
+﻿using AtleX.HaveIBeenPwned.Communication.Http;
+using AtleX.HaveIBeenPwned.Helpers;
 using AtleX.HaveIBeenPwned.Serialization.Json;
 using Pitcher;
 using SwissArmyKnife;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -95,13 +96,10 @@ public sealed class HaveIBeenPwnedClient
   private HaveIBeenPwnedClient(HaveIBeenPwnedClientSettings settings, HttpClient client, bool mustDisposeClient)
   {
     Throw.ArgumentNull.WhenNull(settings, nameof(settings));
-    Throw.ArgumentNull.WhenNullOrWhiteSpace(settings.ApplicationName,
-      nameof(settings.ApplicationName),
-      $"{nameof(HaveIBeenPwnedClientSettings)}.{nameof(settings.ApplicationName)} cannot be null or empty");
     Throw.ArgumentNull.WhenNull(client, nameof(client));
 
     this._clientSettings = settings;
-    this._httpClient = ConfigureHttpClient(client, settings);
+    this._httpClient = client.ConfigureForHaveIBeenPwnedApi(settings);
     this._enableClientDisposing = mustDisposeClient;
   }
 
@@ -177,6 +175,7 @@ public sealed class HaveIBeenPwnedClient
   private async Task<IEnumerable<SiteBreach>> GetAllBreachesInternalAsync(CancellationToken cancellationToken)
   {
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     var uri = UriFactory.GetAllBreachesUri();
 
@@ -208,6 +207,7 @@ public sealed class HaveIBeenPwnedClient
   {
     Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     var uri = UriFactory.GetBreachesForAccountUri(account, modes);
 
@@ -234,13 +234,14 @@ public sealed class HaveIBeenPwnedClient
   {
     Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     var requestUri = UriFactory.GetPasteAccountUri(emailAddress);
 
     var results = await this.GetAuthenticatedAsync<IEnumerable<Paste>>(requestUri, cancellationToken)
       .ConfigureAwait(false);
 
-    return results;
+    return results ?? Enumerable.Empty<Paste>();
   }
 
   /// <summary>
@@ -260,6 +261,7 @@ public sealed class HaveIBeenPwnedClient
   {
     Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     var result = false;
 
@@ -279,7 +281,11 @@ public sealed class HaveIBeenPwnedClient
     if (response.StatusCode == HttpStatusCode.OK)
     {
       var content = await response.Content
+#if NET6_0_OR_GREATER
+        .ReadAsStringAsync(cancellationToken)
+#else
         .ReadAsStringAsync()
+#endif
         .ConfigureAwait(false);
 
       result = content.Contains(kAnonimityRemainder);
@@ -307,8 +313,8 @@ public sealed class HaveIBeenPwnedClient
     where T : notnull
   {
     Throw<InvalidApiKeyException>.When(this._clientSettings.ApiKey.IsNullOrWhiteSpace());
-
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     using var requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
 
@@ -338,20 +344,33 @@ public sealed class HaveIBeenPwnedClient
     where T : notnull
   {
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     using var response = await this.ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
-    using var content = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
 
-    var result = await JsonSerializer
-      .DeserializeAsync<T>(content, options: JsonOptions, cancellationToken: cancellationToken)
-      .ConfigureAwait(false);
+    T? result = default;
 
-    if (result is null)
+    if (response.IsSuccessStatusCode)
     {
-      throw new InvalidOperationException($"Response could not be parsed to {nameof(T)}");
+      using var content = await response
+     .Content
+#if NET6_0_OR_GREATER
+       .ReadAsStreamAsync(cancellationToken)
+#else
+        .ReadAsStreamAsync()
+#endif
+     .ConfigureAwait(false);
+
+      result = await JsonSerializer
+     .DeserializeAsync<T>(content, JsonOptions, cancellationToken)
+     .ConfigureAwait(false);
+    }
+    else
+    {
+      HandleErrorResponse(response);
     }
 
-    return result;
+    return result!;
   }
 
   /// <summary>
@@ -370,6 +389,7 @@ public sealed class HaveIBeenPwnedClient
   {
     if (requestMessage.Method != HttpMethod.Get) { throw new InvalidOperationException($"Request method '{requestMessage.Method}' not supported"); }
     this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
 
     var result = await this._httpClient
        .SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
@@ -400,7 +420,7 @@ public sealed class HaveIBeenPwnedClient
         {
           // If we don't get a retry-after value from the HaveIBeenPwnedService,
           // we revert to the default value specified in the docs (https://haveibeenpwned.com/API/v3#RateLimiting)
-          var retryAfter = response.Headers.RetryAfter.Delta ?? Constants.DefaultRetryValue.MilliSeconds();
+          var retryAfter = response.Headers.RetryAfter?.Delta ?? Constants.DefaultRetryValue.MilliSeconds();
           throw new RateLimitExceededException(retryAfter);
         }
       // Unauthorized
@@ -412,7 +432,8 @@ public sealed class HaveIBeenPwnedClient
       // This is only valid for breaches for an account. Pastes for an account must return an empty collection when nothing
       // is available according to the API documentation and Pwned passwords should never return a 404. So we can only
       // ignore 404s for the breaches for an account.
-      case 404 when response.RequestMessage.RequestUri.AbsoluteUri.StartsWith(Constants.Uris.BreachedAccountBaseUri, StringComparison.OrdinalIgnoreCase):
+      case 404 when response.RequestMessage!.RequestUri!.AbsoluteUri.StartsWith(Constants.Uris.BreachedAccountBaseUri, StringComparison.OrdinalIgnoreCase):
+      case 404 when response.RequestMessage!.RequestUri!.AbsoluteUri.StartsWith(Constants.Uris.PasteAccountBaseUri, StringComparison.OrdinalIgnoreCase):
         {
           return; // Do nothing
         }
@@ -426,26 +447,5 @@ public sealed class HaveIBeenPwnedClient
           throw new HaveIBeenPwnedClientException($"An error occured ({statusCode} {response.ReasonPhrase})");
         }
     }
-  }
-
-  /// <summary>
-  /// Configure the <see cref="HttpClient"/> with the specified <see cref="HaveIBeenPwnedClientSettings"/>
-  /// </summary>
-  /// <param name="client">
-  /// The <see cref="HttpClient"/> to setup
-  /// </param>
-  /// <param name="settings">
-  /// The <see cref="HaveIBeenPwnedClientSettings"/>
-  /// </param>
-  /// <returns>
-  /// The configured <see cref="HttpClient"/>
-  /// </returns>
-  private static HttpClient ConfigureHttpClient(HttpClient client, HaveIBeenPwnedClientSettings settings)
-  {
-    var acceptJsonHeader = new MediaTypeWithQualityHeaderValue("application/json");
-    client.DefaultRequestHeaders.Accept.Add(acceptJsonHeader);
-    client.DefaultRequestHeaders.Add("User-Agent", settings.ApplicationName);
-
-    return client;
   }
 }
