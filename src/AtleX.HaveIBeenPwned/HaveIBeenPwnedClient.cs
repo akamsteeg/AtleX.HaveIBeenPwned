@@ -413,6 +413,8 @@ public sealed class HaveIBeenPwnedClient
   {
     var statusCode = (int)response.StatusCode;
 
+    var requestUri = response.RequestMessage?.RequestUri?.AbsoluteUri;
+
     switch (statusCode)
     {
       // Rate limit exceeded
@@ -432,8 +434,8 @@ public sealed class HaveIBeenPwnedClient
       // This is only valid for breaches for an account. Pastes for an account must return an empty collection when nothing
       // is available according to the API documentation and Pwned passwords should never return a 404. So we can only
       // ignore 404s for the breaches for an account.
-      case 404 when response.RequestMessage!.RequestUri!.AbsoluteUri.StartsWith(Constants.Uris.BreachedAccountBaseUri, StringComparison.OrdinalIgnoreCase):
-      case 404 when response.RequestMessage!.RequestUri!.AbsoluteUri.StartsWith(Constants.Uris.PasteAccountBaseUri, StringComparison.OrdinalIgnoreCase):
+      case 404 when requestUri!.StartsWith(Constants.Uris.BreachedAccountBaseUri, StringComparison.OrdinalIgnoreCase):
+      case 404 when requestUri!.StartsWith(Constants.Uris.PasteAccountBaseUri, StringComparison.OrdinalIgnoreCase):
         {
           return; // Do nothing
         }
