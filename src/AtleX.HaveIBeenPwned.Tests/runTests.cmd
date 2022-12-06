@@ -1,0 +1,1 @@
+dotnet.exe build -c Release && dotnet.exe test -c Release --collect:"XPlat Code Coverage"
