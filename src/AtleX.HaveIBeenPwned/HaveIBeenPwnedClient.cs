@@ -15,9 +15,11 @@ using System.Threading.Tasks;
 namespace AtleX.HaveIBeenPwned;
 
 /// <summary>
-/// <para>Represents an <see cref="IHaveIBeenPwnedClient"/> that communicates via HTTPS with
-/// the HaveIBeenPwned.com API.</para>
-///
+/// <para>
+/// Represents an <see cref="IHaveIBeenPwnedClient"/> that communicates via
+/// HTTPS with the <see href="https://haveibeenpwned.com/">HaveIBeenPwned</see>
+/// service API.
+/// </para>
 /// <para>This class is thread-safe.</para>
 /// </summary>
 public sealed class HaveIBeenPwnedClient
@@ -184,7 +186,7 @@ public sealed class HaveIBeenPwnedClient
     var result = await this.GetAsync<IEnumerable<SiteBreach>>(requestMessage, cancellationToken)
       .ConfigureAwait(false);
 
-    return result;
+    return result ?? Enumerable.Empty<SiteBreach>();
   }
 
   /// <summary>
@@ -214,7 +216,7 @@ public sealed class HaveIBeenPwnedClient
     var results = await this.GetAuthenticatedAsync<IEnumerable<Breach>>(uri, cancellationToken)
       .ConfigureAwait(false);
 
-    return results;
+    return results ?? Enumerable.Empty<Breach>();
   }
 
   /// <summary>
@@ -309,7 +311,7 @@ public sealed class HaveIBeenPwnedClient
   /// <returns>
   /// An awaitable <see cref="Task{TResult}"/> of the specified type
   /// </returns>
-  private async Task<T> GetAuthenticatedAsync<T>(Uri url, CancellationToken cancellationToken)
+  private async Task<T?> GetAuthenticatedAsync<T>(Uri url, CancellationToken cancellationToken)
     where T : notnull
   {
     Throw<InvalidApiKeyException>.When(this._clientSettings.ApiKey.IsNullOrWhiteSpace());
@@ -340,7 +342,7 @@ public sealed class HaveIBeenPwnedClient
   /// <returns>
   /// An awaitable <see cref="Task{TResult}"/> of the specified type
   /// </returns>
-  private async Task<T> GetAsync<T>(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+  private async Task<T?> GetAsync<T>(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
     where T : notnull
   {
     this.ThrowIfDisposed();
@@ -370,7 +372,7 @@ public sealed class HaveIBeenPwnedClient
       HandleErrorResponse(response);
     }
 
-    return result!;
+    return result;
   }
 
   /// <summary>
