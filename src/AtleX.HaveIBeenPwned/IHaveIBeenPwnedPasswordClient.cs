@@ -5,7 +5,7 @@ namespace AtleX.HaveIBeenPwned;
 
 /// <summary>
 /// Represents a client for the leaked passwords functionality of the
-/// HaveIBeenPwned service
+/// <see href="https://haveibeenpwned.com/">HaveIBeenPwned</see> service
 /// </summary>
 /// <remarks>
 /// The pwned passwords API uses k-anonimity so no passwords are send

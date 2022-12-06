@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 namespace AtleX.HaveIBeenPwned;
 
 /// <summary>
-/// Represents a client for the pastes functionality of the HaveIBeenPwned service
+/// Represents a client for the pastes functionality of the <see
+/// href="https://haveibeenpwned.com/">HaveIBeenPwned</see> service
 /// </summary>
 public interface IHaveIBeenPwnedPastesClient
 {

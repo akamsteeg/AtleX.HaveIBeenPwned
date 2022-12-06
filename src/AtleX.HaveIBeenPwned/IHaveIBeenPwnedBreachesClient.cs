@@ -3,10 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace AtleX.HaveIBeenPwned;
-  /// <summary>
-  /// Represents a client for the breaches functionality of the HaveIBeenPwned service
-  /// </summary>
-  public interface IHaveIBeenPwnedBreachesClient
+/// <summary>
+/// Represents a client for the breaches functionality of the <see
+/// href="https://haveibeenpwned.com/">HaveIBeenPwned</see> service
+/// </summary>
+public interface IHaveIBeenPwnedBreachesClient
   {
     /// <summary>
     /// Get all site breaches in the system
