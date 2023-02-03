@@ -12,7 +12,7 @@
 		<AssemblyOriginatorKeyFile>AtleX.HaveIBeenPwned.Tests.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp31'">
+	<PropertyGroup Condition="'$(TargetFramework)' != 'net48'">
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
