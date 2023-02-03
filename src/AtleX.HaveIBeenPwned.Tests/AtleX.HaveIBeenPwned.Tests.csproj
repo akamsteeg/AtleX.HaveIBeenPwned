@@ -2,10 +2,8 @@
 	<PropertyGroup>
 		<!-- Dev machine-->
 		<TargetFrameworks Condition="'$(OS)' == 'Windows_NT' And '$(TF_BUILD)' != 'true'">net60;netcoreapp3.1;net48</TargetFrameworks>
-		<!-- CI/CD build - Windows agent-->
-		<TargetFrameworks Condition="'$(OS)' == 'Windows_NT' And '$(TF_BUILD)' == 'true'">net60;netcoreapp3.1</TargetFrameworks>
-		<!-- Ci/CD build - Linux/MacOS -->
-		<TargetFrameworks Condition="'$(OS)' != 'Windows_NT'">net60;netcoreapp3.1</TargetFrameworks>
+		<!-- CI/CD build-->
+		<TargetFrameworks Condition="'$(TF_BUILD)' == 'true'">net60</TargetFrameworks>
 		<LangVersion>10.0</LangVersion>
 		<IsPackable>false</IsPackable>
 
