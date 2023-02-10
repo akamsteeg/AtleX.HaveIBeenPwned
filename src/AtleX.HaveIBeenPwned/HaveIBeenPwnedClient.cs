@@ -424,7 +424,7 @@ public sealed class HaveIBeenPwnedClient
         {
           // If we don't get a retry-after value from the HaveIBeenPwnedService,
           // we revert to the default value specified in the docs (https://haveibeenpwned.com/API/v3#RateLimiting)
-          var retryAfter = response.Headers.RetryAfter?.Delta ?? Constants.DefaultRetryValue.MilliSeconds();
+          var retryAfter = response.Headers.RetryAfter?.Delta ?? Constants.Communication.Http.DefaultRetryValue.MilliSeconds();
           throw new RateLimitExceededException(retryAfter);
         }
       // Unauthorized

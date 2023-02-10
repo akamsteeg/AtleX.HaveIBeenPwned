@@ -63,11 +63,11 @@ internal static class Constants
       /// Gets the media type
       /// </summary>
       public const string MediaType = "application/json";
+
+      /// <summary>
+      /// Gets the default retry timeout in milliseconds when a HTTP/429 response is received
+      /// </summary>
+      public const int DefaultRetryValue = 1500;
     }
   }
-
-  /// <summary>
-  /// Gets the default retry timeout in milliseconds when a HTTP/429 response is received
-  /// </summary>
-  public const int DefaultRetryValue = 1500;
 }
