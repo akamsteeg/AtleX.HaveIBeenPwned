@@ -4,7 +4,8 @@ AtleX.HaveIBeenPwned is a client library for the [HaveIBeenPwned.com website](ht
 finding breaches an account was in, which pastes contained the user's email address and to check whether a password
 was in a breach or not.
 
-It's highly optimized for great performance and low resource usage.
+The AtleX.HaveIBeenPwned library is highly optimized for ease of use, great performance and low resource usage. It is 
+thread safe, simple to plug into ASP.net Core(+)'s dependency injection system and usable on many platforms.
 
 :warning: For some actions, like getting the pastes and breaches for an account, the [HaveIBeenPwned.com API](https://haveibeenpwned.com/) 
 requires a API key. These API keys are available on the [HaveIBeenPwned.com website](https://haveibeenpwned.com/API/Key).
@@ -14,9 +15,9 @@ requires a API key. These API keys are available on the [HaveIBeenPwned.com webs
 
 # Platform support
 
-|  .NET (5.0+)       |  .NET Core (2.0+)  | .NET Framework (4.7.2+) |
-|:------------------:|:------------------:|:-----------------------:|
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:      |
+|  .NET (5.0+)       |  .NET Core (2.0+)  | .NET Standard (2.0+)    | .NET Framework (4.7.2+) |
+|:------------------:|:------------------:|:-----------------------:|:-----------------------:|
+| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:      | :heavy_check_mark:      |
 
 
 # Installation
