@@ -15,7 +15,7 @@ public class HaveIBeenPwnedClientTests_GetBreachesAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-    var result = await c.GetBreachesAsync("test@example.com");
+    var result = await c.GetBreachesAsync("account-exists@hibp-integration-tests.com");
 
     Assert.NotNull(result);
   }
@@ -26,7 +26,7 @@ public class HaveIBeenPwnedClientTests_GetBreachesAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-    var result = await c.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified);
+    var result = await c.GetBreachesAsync("not-active-breach@hibp-integration-tests.com", BreachMode.ExcludeUnverified);
 
     Assert.NotNull(result);
   }
@@ -38,7 +38,7 @@ public class HaveIBeenPwnedClientTests_GetBreachesAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-    var result = await c.GetBreachesAsync("test@example.com", cancellationTokenSource.Token);
+    var result = await c.GetBreachesAsync("account-exists@hibp-integration-tests.com", cancellationTokenSource.Token);
 
     Assert.NotNull(result);
   }
@@ -50,7 +50,7 @@ public class HaveIBeenPwnedClientTests_GetBreachesAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-    var result = await c.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified, cancellationTokenSource.Token);
+    var result = await c.GetBreachesAsync("not-active-breach@hibp-integration-tests.com", BreachMode.ExcludeUnverified, cancellationTokenSource.Token);
 
     Assert.NotNull(result);
   }

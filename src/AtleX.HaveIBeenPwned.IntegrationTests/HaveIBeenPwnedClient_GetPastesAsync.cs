@@ -15,7 +15,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-    var result = await c.GetPastesAsync("test@example.com");
+    var result = await c.GetPastesAsync("account-exists@hibp-integration-tests.com");
 
     Assert.NotNull(result);
     Assert.NotEmpty(result);
@@ -27,7 +27,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-    var result = await c.GetPastesAsync("random@example.com");
+    var result = await c.GetPastesAsync("opt-out@hibp-integration-tests.com");
 
     Assert.NotNull(result);
     Assert.Empty(result);
@@ -40,7 +40,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-    var result = await c.GetPastesAsync("test@example.com", cancellationTokenSource.Token);
+    var result = await c.GetPastesAsync("account-exists@hibp-integration-tests.com", cancellationTokenSource.Token);
 
     Assert.NotNull(result);
     Assert.NotEmpty(result);
@@ -59,7 +59,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(settings, httpClient);
 
-    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("test@example.com"));
+    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("opt-out@hibp-integration-tests.com"));
   }
 
   [Fact]
@@ -75,7 +75,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(settings, httpClient);
 
-    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("test@example.com", cancellationTokenSource.Token));
+    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("account-exists@hibp-integration-tests.com", cancellationTokenSource.Token));
   }
 
   [Fact]
@@ -85,7 +85,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-    var result = await c.GetPastesAsync("random@example.com", cancellationTokenSource.Token);
+    var result = await c.GetPastesAsync("opt-out@hibp-integration-tests.com", cancellationTokenSource.Token);
 
     Assert.NotNull(result);
     Assert.Empty(result);
