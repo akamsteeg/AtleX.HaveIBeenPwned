@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using AtleX.HaveIBeenPwned.IntegrationTests.XUnit;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -6,6 +7,7 @@ using Xunit;
 namespace AtleX.HaveIBeenPwned.IntegrationTests;
 
 [Trait(Constants.Tests.Categories.RequiresApiKeyCategory.Name, "true")]
+[WithApiKey]
 public class HaveIBeenPwnedClientTests_GetPastesAsync
   : HaveIBeenPwnedClientIntegrationTestsBase
 {

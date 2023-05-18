@@ -9,11 +9,6 @@ namespace AtleX.HaveIBeenPwned.IntegrationTests;
 public class HaveIBeenPwnedClientTests_GetAllBreachesAsync
   : HaveIBeenPwnedClientIntegrationTestsBase
 {
-  public override void Dispose()
-  {
-    // NOP We don't need to wait between requests since this type does not have a rate limit
-  }
-
   [Fact]
   public async Task GetAllBreachesAsync_DoesNotThrow()
   {
@@ -35,7 +30,5 @@ public class HaveIBeenPwnedClientTests_GetAllBreachesAsync
     var result = await c.GetAllBreachesAsync(cancellationTokenSource.Token);
 
     Assert.NotNull(result);
-
-    await Task.Delay(Constants.Tests.DelayBetweenTests);
   }
 }
