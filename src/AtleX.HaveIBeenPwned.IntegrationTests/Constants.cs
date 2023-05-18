@@ -2,6 +2,7 @@
 using System;
 
 namespace AtleX.HaveIBeenPwned.IntegrationTests;
+
 internal static class Constants
 {
   public static class Tests
@@ -9,7 +10,7 @@ internal static class Constants
     /// <summary>
     /// Gets the <see cref="TimeSpan"/> to wait at the end of each test to prevent hotting the rate limit
     /// </summary>
-    public static readonly TimeSpan DelayBetweenTests = 9.Seconds();
+    public static readonly TimeSpan DelayBetweenTests = 6050.MilliSeconds();
 
     /// <summary>
     /// Gets the name of the integration tests to use as the application name
