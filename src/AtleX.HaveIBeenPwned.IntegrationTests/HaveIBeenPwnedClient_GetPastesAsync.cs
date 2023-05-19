@@ -7,11 +7,11 @@ using Xunit;
 namespace AtleX.HaveIBeenPwned.IntegrationTests;
 
 [Trait(Constants.Tests.Categories.RequiresApiKeyCategory.Name, "true")]
-[WithApiKey]
+[ApiKeyRequestDelayer]
 public class HaveIBeenPwnedClientTests_GetPastesAsync
   : HaveIBeenPwnedClientIntegrationTestsBase
 {
-  [Fact]
+  [FactWithApiKey]
   public async Task GetPastesAsync_WithValidInput_ReturnsResults()
   {
     using var httpClient = new HttpClient();
@@ -23,7 +23,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
     Assert.NotEmpty(result);
   }
 
-  [Fact]
+  [FactWithApiKey]
   public async Task GetPastesAsync_WithUnknownEmail_DoesNotThrow()
   {
     using var httpClient = new HttpClient();
@@ -35,7 +35,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
     Assert.Empty(result);
   }
 
-  [Fact]
+  [FactWithApiKey]
   public async Task GetPastesAsync_WithValidInputAndCancellationToken_ReturnsResults()
   {
     using var cancellationTokenSource = new CancellationTokenSource();
@@ -48,7 +48,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
     Assert.NotEmpty(result);
   }
 
-  [Fact]
+  [FactWithApiKey]
   public async Task GetPastesAsync_WithInvalidApiKey_ThrowsInvalidApiKeyException()
   {
     var settings = new HaveIBeenPwnedClientSettings()
@@ -64,7 +64,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
     await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("opt-out@hibp-integration-tests.com"));
   }
 
-  [Fact]
+  [FactWithApiKey]
   public async Task GetPastesAsync_WithCancellationTokenAndInvalidApiKey_ThrowsInvalidApiKeyException()
   {
     var settings = new HaveIBeenPwnedClientSettings()
@@ -80,7 +80,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
     await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("account-exists@hibp-integration-tests.com", cancellationTokenSource.Token));
   }
 
-  [Fact]
+  [FactWithApiKey]
   public async Task GetPastesAsync_WithUnknownEmailAndCancellationToken_DoesNotThrow()
   {
     using var cancellationTokenSource = new CancellationTokenSource();

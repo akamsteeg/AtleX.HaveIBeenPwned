@@ -7,11 +7,11 @@ using Xunit;
 namespace AtleX.HaveIBeenPwned.IntegrationTests;
 
 [Trait(Constants.Tests.Categories.RequiresApiKeyCategory.Name, "true")]
-[WithApiKey]
+[ApiKeyRequestDelayer]
 public class HaveIBeenPwnedClientTests_GetBreachesAsync
   : HaveIBeenPwnedClientIntegrationTestsBase
 {
-  [Fact]
+  [FactWithApiKey]
   public async Task GetBreachesAsync_WithValidInput_DoesNotThrow()
   {
     using var httpClient = new HttpClient();
@@ -22,7 +22,7 @@ public class HaveIBeenPwnedClientTests_GetBreachesAsync
     Assert.NotNull(result);
   }
 
-  [Fact]
+  [FactWithApiKey]
   public async Task GetBreachesAsync_WithValidInputAndExludeUnVerifiedBreaches_DoesNotThrow()
   {
     using var httpClient = new HttpClient();
@@ -33,7 +33,7 @@ public class HaveIBeenPwnedClientTests_GetBreachesAsync
     Assert.NotNull(result);
   }
 
-  [Fact]
+  [FactWithApiKey]
   public async Task GetBreachesAsync_WithValidInputAndCancellationToken_DoesNotThrow()
   {
     using var cancellationTokenSource = new CancellationTokenSource();
@@ -45,7 +45,7 @@ public class HaveIBeenPwnedClientTests_GetBreachesAsync
     Assert.NotNull(result);
   }
 
-  [Fact]
+  [FactWithApiKey]
   public async Task GetBreachesAsync_WithValidInputAndExludeUnVerifiedBreachesAndCancellationToken_DoesNotThrow()
   {
     using var cancellationTokenSource = new CancellationTokenSource();
