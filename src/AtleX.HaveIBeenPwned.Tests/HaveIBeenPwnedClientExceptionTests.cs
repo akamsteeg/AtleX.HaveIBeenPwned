@@ -11,16 +11,14 @@ public class HaveIBeenPwnedClientExceptionTests
     var e = new HaveIBeenPwnedClientException();
   }
 
-  [Fact]
-  public void Ctor_WithEmptyMessage_DoesNotThrow()
+  [Theory]
+  [InlineData("")]
+  [InlineData("MESSAGE")]
+  public void Ctor_WithMessage_SetsMessageProperty(string message)
   {
-    var e = new HaveIBeenPwnedClientException("");
-  }
+    var e = new HaveIBeenPwnedClientException(message);
 
-  [Fact]
-  public void Ctor_WithMessage_DoesNotThrow()
-  {
-    var e = new HaveIBeenPwnedClientException("TEST");
+    Assert.Equal(message, e.Message);
   }
 
   [Fact]
@@ -30,8 +28,11 @@ public class HaveIBeenPwnedClientExceptionTests
   }
 
   [Fact]
-  public void Ctor_WithMessageAndInnerException_DoesNotThrow()
+  public void Ctor_WithMessageAndInnerException_Succeed()
   {
-    var e = new HaveIBeenPwnedClientException("TEST", new Exception());
+    var e = new HaveIBeenPwnedClientException("TEST", new Exception("INNEREXCEPTION"));
+
+    Assert.NotNull(e.InnerException);
+    Assert.Equal("INNEREXCEPTION", e.InnerException.Message);
   }
 }

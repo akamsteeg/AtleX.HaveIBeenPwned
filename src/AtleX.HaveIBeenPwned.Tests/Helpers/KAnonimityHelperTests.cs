@@ -21,15 +21,11 @@ public class KAnonimityHelperTests
     Assert.Equal(expectedKAnonimityRemainder, kAnonimityRemainder);
   }
 
-  [Fact]
-  public void GetKAnonimityPartsForPassword_WithEmptyPassword_ThrowsArgumentNullException()
+  [Theory]
+  [InlineData("")]
+  [InlineData((string)null)]
+  public void GetKAnonimityPartsForPassword_WithNullOrEmptyPassword_ThrowsArgumentNullException(string password)
   {
-    Assert.Throws<ArgumentNullException>(() => KAnonimityHelper.GetKAnonimityPartsForPassword(string.Empty));
-  }
-
-  [Fact]
-  public void GetKAnonimityPartsForPassword_WithNullPassword_ThrowsArgumentNullException()
-  {
-    Assert.Throws<ArgumentNullException>(() => KAnonimityHelper.GetKAnonimityPartsForPassword(null));
+    Assert.Throws<ArgumentNullException>(() => KAnonimityHelper.GetKAnonimityPartsForPassword(password));
   }
 }

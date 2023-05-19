@@ -12,28 +12,23 @@ public class HaveIBeenPwnedClientTests
   [Fact]
   public void Ctor_WithNullValueForSettingsParam_Throws()
   {
-    using (var httpClient = new HttpClient())
-    {
-      Assert.Throws<ArgumentNullException>(() => new HaveIBeenPwnedClient(null, httpClient));
-    }
+    using var httpClient = new HttpClient();
+
+    Assert.Throws<ArgumentNullException>(() => new HaveIBeenPwnedClient(null, httpClient));
   }
 
   [Fact]
   public void Ctor_WithNullValueForClientParam_Throws()
   {
-    using (var httpClient = new HttpClient())
-    {
-      Assert.Throws<ArgumentNullException>(() => new HaveIBeenPwnedClient(this.ClientSettings, null));
-    }
+    using var httpClient = new HttpClient();
+
+    Assert.Throws<ArgumentNullException>(() => new HaveIBeenPwnedClient(this.ClientSettings, null));
   }
 
   [Fact]
   public void Ctor_WithValueForSettingsParam_DoesNotThrow()
   {
-    using (new HaveIBeenPwnedClient(this.ClientSettings))
-    {
-      
-    }
+    using var x = new HaveIBeenPwnedClient(this.ClientSettings);
   }
 
   [Fact]
@@ -50,100 +45,92 @@ public class HaveIBeenPwnedClientTests
   [Fact]
   public void Ctor_WithNullValueForApplicationNameInSettingsParamAndValidHttpClient_ThrowsArgumentNullException()
   {
-    using (var httpClient = new HttpClient())
-    {
-      var s = new HaveIBeenPwnedClientSettings()
-      {
-        ApplicationName = null,
-      };
+    using var httpClient = new HttpClient();
 
-      Assert.Throws<ArgumentNullException>(() => new HaveIBeenPwnedClient(s, httpClient));
-    }
+    var s = new HaveIBeenPwnedClientSettings()
+    {
+      ApplicationName = null,
+    };
+
+    Assert.Throws<ArgumentNullException>(() => new HaveIBeenPwnedClient(s, httpClient));
   }
 
   [Fact]
   public void Ctor_OverridesUserAgentOfHttpClient()
   {
-    using (var httpClient = new HttpClient())
-    using (var client = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-    {
-      Assert.Equal(this.ClientSettings.ApplicationName, httpClient.DefaultRequestHeaders.UserAgent.ToString());
-    }
+    using var httpClient = new HttpClient();
+    using var client = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    Assert.Equal(this.ClientSettings.ApplicationName, httpClient.DefaultRequestHeaders.UserAgent.ToString());
   }
 
   [Fact]
   public void Ctor_AppendsAplicationJsonMediaTypeToAcceptHeader()
   {
-    using (var httpClient = new HttpClient())
-    using (var client = new HaveIBeenPwnedClient(this.ClientSettings, httpClient))
-    {
-      Assert.Contains("application/json", httpClient.DefaultRequestHeaders.Accept.ToString());
-    }
+    using var httpClient = new HttpClient();
+    using var client = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    Assert.Contains("application/json", httpClient.DefaultRequestHeaders.Accept.ToString());
   }
 
   [Fact]
   public void Dispose_DoesNotThrow()
   {
     var c = new HaveIBeenPwnedClient(this.ClientSettings);
-    
+
     c.Dispose();
   }
 
   [Fact]
   public async Task Dispose_WhenCreatedWithHttpClient_DoesNotDisposeInjectedHttpClient()
   {
-    using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
-    {
-      var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
-      c.Dispose();
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
 
-      await Assert.ThrowsAsync<InvalidOperationException>(() => httpClient.GetAsync("/")); // Not an ObjectDisposedException
-    }
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    c.Dispose();
+
+    await Assert.ThrowsAsync<InvalidOperationException>(() => httpClient.GetAsync("/")); // Not an ObjectDisposedException
   }
 
   [Fact]
   public void Object_ImplementsIHaveIBeenPwnedBreachesClient()
   {
-    using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
-    {
-      var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
 
-      Assert.IsAssignableFrom<IHaveIBeenPwnedBreachesClient>(c);
-    }
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    Assert.IsAssignableFrom<IHaveIBeenPwnedBreachesClient>(c);
   }
 
   [Fact]
   public void Object_ImplementsIHaveIBeenPwnedPasswordClient()
   {
-    using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
-    {
-      var settings = this.ClientSettings;
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
 
-      var c = new HaveIBeenPwnedClient(settings, httpClient);
+    var settings = this.ClientSettings;
 
-      Assert.IsAssignableFrom<IHaveIBeenPwnedPasswordClient>(c);
-    }
+    var c = new HaveIBeenPwnedClient(settings, httpClient);
+
+    Assert.IsAssignableFrom<IHaveIBeenPwnedPasswordClient>(c);
   }
 
   [Fact]
   public void Object_ImplementsIHaveIBeenPwnedPastesClient()
   {
-    using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
-    {
-      var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
 
-      Assert.IsAssignableFrom<IHaveIBeenPwnedPastesClient>(c);
-    }
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    Assert.IsAssignableFrom<IHaveIBeenPwnedPastesClient>(c);
   }
 
   [Fact]
   public void Object_ImplementsIHaveIBeenPwnedClient()
   {
-    using (var httpClient = new HttpClient(new MockHttpMessageHandler()))
-    {
-      var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
 
-      Assert.IsAssignableFrom<IHaveIBeenPwnedClient>(c);
-    }
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    Assert.IsAssignableFrom<IHaveIBeenPwnedClient>(c);
   }
 }

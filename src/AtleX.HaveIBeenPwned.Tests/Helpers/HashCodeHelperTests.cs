@@ -1,4 +1,5 @@
 ﻿using AtleX.HaveIBeenPwned.Helpers;
+using System;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests.Helpers;
@@ -17,6 +18,20 @@ public class HashCodeHelperTests
   }
 
   [Fact]
+  public void GetHashCode_WithSingleNullValue_ThrowsArgumentNullException()
+  {
+    Assert.Throws<ArgumentNullException>(() => HashCodeHelper.GetHashCode((string)null));
+  }
+
+  [Theory]
+  [InlineData((string)null, "", "value1")]
+  [InlineData("", (string)null, "value2")]
+  public void GetHashCode_WithTwoValues_ThrowsArgumentNullException(string value1, string value2, string parameterName)
+  {
+    Assert.Throws<ArgumentNullException>(parameterName, () => HashCodeHelper.GetHashCode(value1, value2));
+  }
+
+  [Fact]
   public void GetHashCode_WithTwoValues_ReturnsSameCodeForSameValues()
   {
     const string TestValue1 = "TESTVALUE1";
@@ -32,6 +47,7 @@ public class HashCodeHelperTests
   [InlineData(1, 392)]
   [InlineData(2.0, 1073742215)]
   public void GetHashCode_WithSpecifiedInput_ReturnsExpectedOutput<T>(T testValue, int expectedResult)
+    where T: notnull
   {
     var hashCode = HashCodeHelper.GetHashCode(testValue);
 
@@ -42,6 +58,7 @@ public class HashCodeHelperTests
   [InlineData(1, 2, 9018)]
   [InlineData(1.0, 2.0, -24108255)]
   public void GetHashCode_WithMultipleSpecifiedInputs_ReturnsExpectedOutput<T>(T testValue1, T testValue2, int expectedResult)
+    where T : notnull
   {
     var hashCode = HashCodeHelper.GetHashCode(testValue1, testValue2);
 
