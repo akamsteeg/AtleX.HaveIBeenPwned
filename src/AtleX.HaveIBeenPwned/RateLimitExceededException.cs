@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace AtleX.HaveIBeenPwned;
 
@@ -16,6 +17,7 @@ namespace AtleX.HaveIBeenPwned;
 #pragma warning disable RCS1194 // Implement exception constructors.
 // You exceeded the rate limit and have all the info you need in this
 // exception. Therefor there's no need to override constructors.
+[DebuggerDisplay("Retry after {RetryAfter.TotalMilliseconds} ms.")]
 public sealed class RateLimitExceededException
 #pragma warning restore RCS1194 // Implement exception constructors.
   : HaveIBeenPwnedClientException
