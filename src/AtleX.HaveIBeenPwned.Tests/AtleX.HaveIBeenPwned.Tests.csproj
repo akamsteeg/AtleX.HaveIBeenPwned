@@ -3,11 +3,9 @@
 		<!-- Dev machine-->
 		<TargetFrameworks Condition="'$(OS)' == 'Windows_NT' And '$(TF_BUILD)' != 'true'">net6.0;netcoreapp3.1;net48</TargetFrameworks>
 		<!-- CI/CD build-->
-		<TargetFrameworks Condition="'$(TF_BUILD)' == 'true'">net6.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(TF_BUILD)' == 'true'">netcoreapp3.1;net6.0</TargetFrameworks>
 		<LangVersion>10.0</LangVersion>
 		<IsPackable>false</IsPackable>
-
-		<Nullable Condition="'$(TargetFramework)' != 'net48'">enable</Nullable>
 
 		<SignAssembly>true</SignAssembly>
 		<DelaySign>false</DelaySign>
@@ -15,7 +13,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="coverlet.collector" Version="3.2.0">
+		<PackageReference Include="coverlet.collector" Version="6.0.0">
 		  <PrivateAssets>all</PrivateAssets>
 		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
