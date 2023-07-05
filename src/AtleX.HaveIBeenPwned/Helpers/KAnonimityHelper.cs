@@ -25,6 +25,12 @@ internal static class KAnonimityHelper
   private const int KAnonimityRemainderLength = 35;
 
   /// <summary>
+  /// Gets the length of the complete SHA1 hash of the password, the combined
+  /// lenght of the KAnonimity part and the remainder
+  /// </summary>
+  private const int HashTotalLength = KAnonimityPartLength + KAnonimityRemainderLength;  // SHA1 hash is 40 characters long
+
+  /// <summary>
   /// Gets SHA1 KAnonomity part and remainder for the specified password
   /// </summary>
   /// <param name="password">
@@ -40,7 +46,7 @@ internal static class KAnonimityHelper
 
     var hash = GetSHA1HashForPassword(password);
 
-    var kAnonimityHashPart = new StringBuilder(40); // SHA1 hash is 40 characters long
+    var kAnonimityHashPart = new StringBuilder(HashTotalLength);
     foreach (var currentByte in hash)
     {
       kAnonimityHashPart.AppendFormat(CultureInfo.InvariantCulture, "{0:X2}", currentByte);
