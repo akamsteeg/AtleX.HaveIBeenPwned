@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtleX.HaveIBeenPwned.Integr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtleX.HaveIBeenPwned.Benchmarks", "AtleX.HaveIBeenPwned.Benchmarks\AtleX.HaveIBeenPwned.Benchmarks.csproj", "{8D818A95-C16B-432F-B138-FC228267E6AF}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AtleX.HaveIBeenPwned.Tests.FSharp", "AtleX.HaveIBeenPwned.Tests.FSharp\AtleX.HaveIBeenPwned.Tests.FSharp.fsproj", "{1E0EF7DA-6D78-47C5-8E3B-F93083D3527C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
