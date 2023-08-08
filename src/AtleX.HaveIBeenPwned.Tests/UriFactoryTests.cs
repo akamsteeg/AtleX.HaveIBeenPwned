@@ -46,6 +46,27 @@ public class UriFactoryTests
     Assert.Contains(expectedQueryStringPart, result.Query);
   }
 
+
+  [Theory]
+  [InlineData((string)null)]
+  [InlineData("")]
+  public void GetBreachedDomainUsersUri_WithNullOrEmptSuffix_ThrowsArgumentNullException(string domain)
+  {
+    Assert.ThrowsAny<ArgumentNullException>(() => UriFactory.GetBreachedDomainUsersUri(domain));
+  }
+
+  [Fact]
+  public void GetBreachedDomainUsersUri_WithCorrectSuffix_ReturnsCorrectUri()
+  {
+    const string kDomain = "TESTDOMAIN";
+
+    var expected = new Uri($"https://haveibeenpwned.com/api/v3/breacheddomain/{kDomain}");
+
+    var actual = UriFactory.GetBreachedDomainUsersUri(kDomain);
+
+    Assert.Equal(expected, actual);
+  }
+
   [Theory]
   [InlineData((string)null)]
   [InlineData("")]
@@ -77,7 +98,7 @@ public class UriFactoryTests
   [Fact]
   public void GetPwnedPasswordUri_WithCorrectSuffix_ReturnsCorrectUri()
   {
-    const string kAnonimitySuffix = "TESTSUFFIS";
+    const string kAnonimitySuffix = "TESTSUFFIX";
 
     var expected = new Uri($"https://api.pwnedpasswords.com/range/{kAnonimitySuffix}");
 

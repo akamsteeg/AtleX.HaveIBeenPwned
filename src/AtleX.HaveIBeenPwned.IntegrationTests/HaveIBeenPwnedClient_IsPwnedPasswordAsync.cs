@@ -6,7 +6,7 @@ using Xunit;
 
 namespace AtleX.HaveIBeenPwned.IntegrationTests;
 
-public class HaveIBeenPwnedClientTests_IsPwnedPassword
+public class HaveIBeenPwnedClientTests_IsPwnedPasswordAsync
   : HaveIBeenPwnedClientIntegrationTestsBase
 {
   [Theory]

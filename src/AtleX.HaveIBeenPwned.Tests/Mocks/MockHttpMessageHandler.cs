@@ -26,6 +26,17 @@ internal sealed class MockHttpMessageHandler
 
             ]";
     }
+    if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/domainUsers")) // Breaches for a domain
+    {
+      response = @"[
+        {
+          ""Alias"": ""user@"",
+          ""Breaches"": [
+                    ""000webhost""
+              ] 
+
+            ]";
+    }
     if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/pasteaccount")) // Pastes
     {
       response = @"[

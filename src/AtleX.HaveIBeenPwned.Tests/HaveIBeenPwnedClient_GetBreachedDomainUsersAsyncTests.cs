@@ -1,0 +1,89 @@
+﻿using AtleX.HaveIBeenPwned.Tests.Mocks;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace AtleX.HaveIBeenPwned.Tests;
+public class HaveIBeenPwnedClient_GetBreachedDomainUsersAsyncTests
+  : HaveIBeenPwnedClientTestsBase
+{
+  [Fact]
+  public async Task GetBreachedDomainUsersAsync_WithNullValueForDomain_Throws()
+  {
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
+
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetBreachedDomainUsersAsync(null));
+  }
+
+  [Fact]
+  public async Task GetBreachedDomainUsersAsync_CancellationToken_WithNullValueForDomain_Throws()
+  {
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
+
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    await Assert.ThrowsAsync<ArgumentNullException>(() => c.GetBreachedDomainUsersAsync(null, CancellationToken.None));
+  }
+
+  [Fact]
+  public async Task GetBreachedDomainUsersAsync_AfterDispose_Throws()
+  {
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
+
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    c.Dispose();
+
+    await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetBreachedDomainUsersAsync("DUMMY"));
+  }
+
+  [Fact]
+  public async Task GetBreachedDomainUsersAsync_CancellationToken_AfterDispose_Throws()
+  {
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
+
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+    c.Dispose();
+
+    await Assert.ThrowsAsync<ObjectDisposedException>(() => c.GetBreachedDomainUsersAsync("DUMMY", CancellationToken.None));
+  }
+
+  [Fact]
+  public async Task GetBreachedDomainUsersAsync_RateLimitExceeded_ThrowsRateLimitExceededException()
+  {
+    using var cancellationTokenSource = new CancellationTokenSource();
+    using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429));
+    using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetBreachedDomainUsersAsync("DUMMY"));
+  }
+
+  [Fact]
+  public async Task GetBreachedDomainUsersAsync_WithCancellationToken_RateLimitExceeded_ThrowsRateLimitExceededException()
+  {
+    using var cancellationTokenSource = new CancellationTokenSource();
+    using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429));
+    using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetBreachedDomainUsersAsync("DUMMY", CancellationToken.None));
+  }
+
+  [Fact]
+  public async Task GetBreachedDomainUsersAsync_WithInvalidApiKey_Throws()
+  {
+    using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401));
+
+    var settings = this.ClientSettings;
+    settings.ApiKey = string.Empty;
+
+    using var c = new HaveIBeenPwnedClient(settings, httpClient);
+
+    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachedDomainUsersAsync("DUMMY"));
+  }
+}

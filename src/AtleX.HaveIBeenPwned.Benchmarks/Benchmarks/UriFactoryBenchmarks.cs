@@ -7,6 +7,8 @@ public class UriFactoryBenchmarks
 {
   private const string Account = "mail@example.com";
 
+  private const string Domain = "example.com";
+
   [Benchmark]
   public Uri GetAllBreachesUri()
   {
@@ -31,5 +33,11 @@ public class UriFactoryBenchmarks
   public Uri GetPwnedPasswordUri()
   {
     return UriFactory.GetPwnedPasswordUri("5BAA6");
+  }
+
+  [Benchmark]
+  public Uri GetBreachedDomainUsersUri()
+  {
+    return UriFactory.GetBreachedDomainUsersUri(Domain);
   }
 }

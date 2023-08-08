@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -156,6 +157,16 @@ public sealed class HaveIBeenPwnedClient
       .ConfigureAwait(false);
 
   /// <inheritdoc />
+  public async Task<IEnumerable<DomainUser>> GetBreachedDomainUsersAsync(string domain) =>
+    await this.GetBreachedDomainUsersInternalAsync(domain, CancellationToken.None)
+    .ConfigureAwait(false);
+
+  /// <inheritdoc />
+  public async Task<IEnumerable<DomainUser>> GetBreachedDomainUsersAsync(string domain, CancellationToken cancellationToken) =>
+    await this.GetBreachedDomainUsersInternalAsync(domain, cancellationToken)
+    .ConfigureAwait(false);
+
+  /// <inheritdoc />
   protected sealed override void Dispose(bool disposing)
   {
     if (disposing && this._enableClientDisposing)
@@ -164,16 +175,7 @@ public sealed class HaveIBeenPwnedClient
     }
   }
 
-  /// <summary>
-  /// Get all site breaches in the system
-  /// </summary>
-  /// <param name="cancellationToken">
-  /// The <see cref="CancellationToken"/> for this operation
-  /// </param>
-  /// <returns>
-  /// An awaitable <see cref="Task{TResult}"/> with the collection of every
-  /// <see cref="SiteBreach"/> in the system
-  /// </returns>
+  /// <inheritdoc cref="IHaveIBeenPwnedBreachesClient.GetAllBreachesAsync(CancellationToken)"/>
   private async Task<IEnumerable<SiteBreach>> GetAllBreachesInternalAsync(CancellationToken cancellationToken)
   {
     this.ThrowIfDisposed();
@@ -189,22 +191,7 @@ public sealed class HaveIBeenPwnedClient
     return result ?? Enumerable.Empty<SiteBreach>();
   }
 
-  /// <summary>
-  /// Get the breaches for an account
-  /// </summary>
-  /// <param name="account">
-  /// The account to get the breaches for
-  /// </param>
-  /// <param name="modes">
-  /// The <see cref="BreachMode"/> flags to specify extra breaches to get
-  /// </param>
-  /// <param name="cancellationToken">
-  /// The <see cref="CancellationToken"/> for this operation
-  /// </param>
-  /// <returns>
-  /// An awaitable <see cref="Task{TResult}"/> with the collection of every
-  /// <see cref="Breach"/> the account was found in
-  /// </returns>
+  /// <inheritdoc cref="IHaveIBeenPwnedBreachesClient.GetBreachesAsync(string, BreachMode, CancellationToken)"/>
   private async Task<IEnumerable<Breach>> GetBreachesInternalAsync(string account, BreachMode modes, CancellationToken cancellationToken)
   {
     Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
@@ -219,19 +206,7 @@ public sealed class HaveIBeenPwnedClient
     return results ?? Enumerable.Empty<Breach>();
   }
 
-  /// <summary>
-  /// Get the pastes for an email address
-  /// </summary>
-  /// <param name="emailAddress">
-  /// The email address to get the pastes for
-  /// </param>
-  /// <param name="cancellationToken">
-  /// The <see cref="CancellationToken"/> for this operation
-  /// </param>
-  /// <returns>
-  /// An awaitable <see cref="Task{TResult}"/> with the collection of every
-  /// <see cref="Paste"/> the email address was found in
-  /// </returns>
+  /// <inheritdoc cref="IHaveIBeenPwnedPastesClient.GetPastesAsync(string, CancellationToken)"/>
   private async Task<IEnumerable<Paste>> GetPastesInternalAsync(string emailAddress, CancellationToken cancellationToken)
   {
     Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
@@ -246,19 +221,7 @@ public sealed class HaveIBeenPwnedClient
     return results ?? Enumerable.Empty<Paste>();
   }
 
-  /// <summary>
-  /// Gets whether the specified password is found in a password list
-  /// </summary>
-  /// <param name="password">
-  /// The password to check
-  /// </param>
-  /// <param name="cancellationToken">
-  /// The <see cref="CancellationToken"/> for this operation
-  /// </param>
-  /// <returns>
-  /// An awaitable <see cref="Task{TResult}"/> with a <see cref="bool"/>
-  /// indicating whether the password was found or not
-  /// </returns>
+  /// <inheritdoc cref="IHaveIBeenPwnedPasswordClient.IsPwnedPasswordAsync(string, CancellationToken)"/>
   private async Task<bool> IsPwnedPasswordInternalAsync(string password, CancellationToken cancellationToken)
   {
     Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
@@ -294,6 +257,21 @@ public sealed class HaveIBeenPwnedClient
     }
 
     return result;
+  }
+
+  /// <inheritdoc cref="IHaveIBeenPwnedDomainClient.GetBreachedDomainUsersAsync(string, CancellationToken)"/>
+  private async Task<IEnumerable<DomainUser>> GetBreachedDomainUsersInternalAsync(string domain, CancellationToken cancellationToken)
+  {
+    Throw.ArgumentNull.WhenNullOrWhiteSpace(domain, nameof(domain));
+    this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
+
+    var requestUri = UriFactory.GetBreachedDomainUsersUri(domain);
+
+    var results = await this.GetAuthenticatedAsync<IEnumerable<DomainUser>>(requestUri, cancellationToken)
+      .ConfigureAwait(false);
+
+    return results ?? Enumerable.Empty<DomainUser>();
   }
 
   /// <summary>

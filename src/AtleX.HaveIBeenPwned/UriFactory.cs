@@ -97,4 +97,23 @@ internal static class UriFactory
 
     return result;
   }
+
+  /// <summary>
+  /// Gets the <see cref="Uri"/> to get the pastes the specified account was
+  /// part of
+  /// </summary>
+  /// <param name="domain">
+  /// The email address to search the pastes for
+  /// </param>
+  /// <returns>
+  /// The <see cref="Uri"/> to get the pastes
+  /// </returns>
+  public static Uri GetBreachedDomainUsersUri(string domain)
+  {
+    Throw.ArgumentNull.WhenNullOrEmpty(domain, nameof(domain));
+
+    var result = new Uri($"{Constants.Uris.BreachedDomainBaseUri}/{domain}");
+
+    return result;
+  }
 }

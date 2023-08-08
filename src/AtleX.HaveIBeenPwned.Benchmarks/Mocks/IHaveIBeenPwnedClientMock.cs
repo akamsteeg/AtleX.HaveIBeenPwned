@@ -14,6 +14,8 @@ public class IHaveIBeenPwnedClientMock
 
   private static readonly IEnumerable<Paste> pastes = A.ListOf<Paste>(30);
 
+  private static readonly IEnumerable<DomainUser> domainUsers = A.ListOf<DomainUser>(30);
+
   public Task<IEnumerable<SiteBreach>> GetAllBreachesAsync()
   {
     return Task.FromResult(siteBreaches);
@@ -21,6 +23,16 @@ public class IHaveIBeenPwnedClientMock
   public Task<IEnumerable<SiteBreach>> GetAllBreachesAsync(CancellationToken cancellationToken)
   {
     return Task.FromResult(siteBreaches);
+  }
+
+  public Task<IEnumerable<DomainUser>> GetBreachedDomainUsersAsync(string domain)
+  {
+    return Task.FromResult(domainUsers);
+  }
+
+  public Task<IEnumerable<DomainUser>> GetBreachedDomainUsersAsync(string domain, CancellationToken cancellationToken)
+  {
+    return Task.FromResult(domainUsers);
   }
 
   public Task<IEnumerable<Breach>> GetBreachesAsync(string account)

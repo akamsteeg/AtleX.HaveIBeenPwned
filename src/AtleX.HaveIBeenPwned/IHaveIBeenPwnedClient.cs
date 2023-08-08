@@ -5,6 +5,9 @@
 /// href="https://haveibeenpwned.com/">HaveIBeenPwned</see> service
 /// </summary>
 public interface IHaveIBeenPwnedClient
-  : IHaveIBeenPwnedBreachesClient, IHaveIBeenPwnedPastesClient, IHaveIBeenPwnedPasswordClient
+  : IHaveIBeenPwnedBreachesClient,
+  IHaveIBeenPwnedPastesClient,
+  IHaveIBeenPwnedPasswordClient,
+  IHaveIBeenPwnedDomainClient
 {
 }
