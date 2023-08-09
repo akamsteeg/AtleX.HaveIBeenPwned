@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using BenchmarkDotNet.Columns;
 using GenFu;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks.Mocks;
@@ -9,6 +10,8 @@ public class IHaveIBeenPwnedClientMock
   : IHaveIBeenPwnedClient
 {
   private static readonly IEnumerable<Breach> breaches = A.ListOf<Breach>(30);
+
+  private static readonly SiteBreach latestBreach = A.New<SiteBreach>();
 
   private static readonly IEnumerable<SiteBreach> siteBreaches = A.ListOf<SiteBreach>(30);
 
@@ -23,6 +26,16 @@ public class IHaveIBeenPwnedClientMock
   public Task<IEnumerable<SiteBreach>> GetAllBreachesAsync(CancellationToken cancellationToken)
   {
     return Task.FromResult(siteBreaches);
+  }
+
+  public Task<SiteBreach> GetLatestBreachAsync()
+  {
+    return Task.FromResult(latestBreach);
+  }
+
+  public Task<SiteBreach> GetLatestBreachAsync(CancellationToken cancellationToken)
+  {
+    return Task.FromResult(latestBreach);
   }
 
   public Task<IEnumerable<DomainUser>> GetBreachedDomainUsersAsync(string domain)

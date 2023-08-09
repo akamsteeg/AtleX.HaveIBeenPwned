@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -136,6 +137,16 @@ public sealed class HaveIBeenPwnedClient
       .ConfigureAwait(false);
 
   /// <inheritdoc />
+  public async Task<SiteBreach?> GetLatestBreachAsync() =>
+    await this.GetLatestBreachInternalAsync(CancellationToken.None)
+    .ConfigureAwait(false);
+
+  /// <inheritdoc />
+  public async Task<SiteBreach?> GetLatestBreachAsync(CancellationToken cancellationToken) =>
+    await this.GetLatestBreachInternalAsync(cancellationToken)
+    .ConfigureAwait(false);
+
+  /// <inheritdoc />
   public async Task<IEnumerable<Paste>> GetPastesAsync(string emailAddress) =>
     await this.GetPastesInternalAsync(emailAddress, CancellationToken.None)
       .ConfigureAwait(false);
@@ -203,6 +214,22 @@ public sealed class HaveIBeenPwnedClient
       .ConfigureAwait(false);
 
     return results ?? Enumerable.Empty<Breach>();
+  }
+
+  /// <inheritdoc cref="IHaveIBeenPwnedBreachesClient.GetLatestBreachAsync(CancellationToken)"/>
+  private async Task<SiteBreach?> GetLatestBreachInternalAsync(CancellationToken cancellationToken)
+  {
+    this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
+
+    var uri = UriFactory.GetLatestBreachUri();
+
+    using var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
+
+    var result = await this.GetAsync<SiteBreach>(requestMessage, cancellationToken)
+      .ConfigureAwait(false);
+
+    return result;
   }
 
   /// <inheritdoc cref="IHaveIBeenPwnedPastesClient.GetPastesAsync(string, CancellationToken)"/>

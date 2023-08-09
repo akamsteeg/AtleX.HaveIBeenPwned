@@ -15,6 +15,17 @@ public class UriFactoryTests
     Assert.Equal(expected, actual);
   }
 
+
+  [Fact]
+  public void GetLatestBreachUri_ReturnsCorrectUri()
+  {
+    var expected = new Uri("https://haveibeenpwned.com/api/v3/latestbreach");
+
+    var actual = UriFactory.GetLatestBreachUri();
+
+    Assert.Equal(expected, actual);
+  }
+
   [Theory]
   [InlineData((string)null)]
   [InlineData("")]

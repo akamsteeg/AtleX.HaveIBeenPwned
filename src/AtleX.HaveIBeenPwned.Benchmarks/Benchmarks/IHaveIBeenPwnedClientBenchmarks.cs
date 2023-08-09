@@ -14,6 +14,12 @@ public abstract class IHaveIBeenPwnedClientBenchmarks
   }
 
   [Benchmark]
+  public async Task GetLatestBreachAsync()
+  {
+    var result = await this._client.GetLatestBreachAsync();
+  }
+
+  [Benchmark]
   public async Task GetBreachesAsync()
   {
     var result = await this._client.GetBreachesAsync("benchmark");

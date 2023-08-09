@@ -36,9 +36,14 @@ internal static class Constants
     public const string PasteAccountBaseUri = ApiBaseUri + "/pasteaccount";
 
     /// <summary>
-    /// Gets the bas euri of the breaches endpoint
+    /// Gets the base uri of the breaches endpoint
     /// </summary>
     public const string BreachesUri = ApiBaseUri + "/breaches";
+
+    /// <summary>
+    /// Gets the uri for the latest breach
+    /// </summary>
+    public const string LatestBreachUri = ApiBaseUri + "/latestbreach";
   }
 
   /// <summary>

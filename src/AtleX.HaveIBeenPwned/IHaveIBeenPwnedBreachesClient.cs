@@ -90,30 +90,24 @@ public interface IHaveIBeenPwnedBreachesClient
   /// </returns>
   Task<IEnumerable<Breach>> GetBreachesAsync(string account, BreachMode modes, CancellationToken cancellationToken);
 
-  ///// <summary>
-  ///// Get the latest breach for an account
-  ///// </summary>
-  ///// <param name="account">
-  ///// The account to get the latest breach for
-  ///// </param>
-  ///// <returns>
-  ///// An awaitable <see cref="Task{TResult}"/> with the latest
-  ///// <see cref="Breach"/> the account was found in
-  ///// </returns>
-  //Task<Breach> GetLatestBreachAsync(string account);
+  /// <summary>
+  /// Get the latest breach added to the system
+  /// </summary>
+  /// <returns>
+  /// An awaitable <see cref="Task{TResult}"/> with the latest
+  /// <see cref="Breach"/> added to the system
+  /// </returns>
+  Task<SiteBreach?> GetLatestBreachAsync();
 
-  ///// <summary>
-  ///// Get the latest breach for an account
-  ///// </summary>
-  ///// <param name="account">
-  ///// The account to get the latest breach for
-  ///// </param>
-  ///// <param name="cancellationToken">
-  ///// The <see cref="CancellationToken"/> for this operation
-  ///// </param>
-  ///// <returns>
-  ///// An awaitable <see cref="Task{TResult}"/> with the latest
-  ///// <see cref="Breach"/> the account was found in
-  ///// </returns>
-  //Task<Breach> GetLatestBreachAsync(string account, CancellationToken cancellationToken);
+  /// <summary>
+  /// Get the latest breach added to the system
+  /// </summary>
+  /// <param name="cancellationToken">
+  /// The <see cref="CancellationToken"/> for this operation
+  /// </param>
+  /// <returns>
+  /// An awaitable <see cref="Task{TResult}"/> with the latest
+  /// <see cref="Breach"/> added to the system
+  /// </returns>
+  Task<SiteBreach?> GetLatestBreachAsync(CancellationToken cancellationToken);
 }

@@ -10,9 +10,14 @@ namespace AtleX.HaveIBeenPwned;
 internal static class UriFactory
 {
   /// <summary>
-  /// Gets the bas euri of the breaches endpoint
+  /// Gets the base uri of the breaches endpoint
   /// </summary>
   private static readonly Uri BreachesUri = new(Constants.Uris.BreachesUri);
+
+  /// <summary>
+  /// Gets the uri for the latest breach
+  /// </summary>
+  private static readonly Uri LatestBreachUri = new(Constants.Uris.LatestBreachUri);
 
   /// <summary>
   /// Gets the <see cref="Uri"/> to get all breaches available in the system
@@ -59,6 +64,16 @@ internal static class UriFactory
 
     return result;
   }
+
+  /// <summary>
+  /// Gets the <see cref="Uri"/> for retrieving the latest <see cref="Breach"/>
+  /// added to the system
+  /// </summary>
+  /// <returns>
+  /// The <see cref="Uri"/> to retrieve the latest <see cref="Breach"/> added to
+  /// the system
+  /// </returns>
+  public static Uri GetLatestBreachUri() => LatestBreachUri;
 
   /// <summary>
   /// Gets the <see cref="Uri"/> to get the pastes the specified account was

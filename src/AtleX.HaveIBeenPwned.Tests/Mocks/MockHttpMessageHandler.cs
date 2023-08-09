@@ -18,15 +18,18 @@ internal sealed class MockHttpMessageHandler
 
             ]";
     }
-
-    if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/breachedaccount")) // Breaches
+    else if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/latestbreach"))
+    {
+      response = @"{""Name"":""000webhost"",""Title"":""000webhost"",""Domain"":""000webhost.com"",""BreachDate"":""2015-03-01"",""AddedDate"":""2015-10-26T23:35:45Z"",""ModifiedDate"":""2017-12-10T21:44:27Z"",""PwnCount"":14936670,""Description"":"""",""LogoType"":""png"",""DataClasses"":[""Email addresses"", ""IP addresses"", ""Names"", ""Passwords""], ""IsVerified"":true, ""IsFabricated"":false, ""IsSensitive"":false, ""IsRetired"":false, ""IsSpamList"":false}";
+    }
+    else if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/breachedaccount")) // Breaches
     {
       response = @"[
                     {""Name"":""000webhost""}
 
             ]";
     }
-    if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/breacheddomain")) // Breaches for a domain
+    else if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/breacheddomain")) // Breaches for a domain
     {
       response = @"
         {
