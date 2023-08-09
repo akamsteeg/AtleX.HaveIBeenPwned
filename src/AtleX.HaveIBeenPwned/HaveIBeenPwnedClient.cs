@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Mail;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -268,10 +267,30 @@ public sealed class HaveIBeenPwnedClient
 
     var requestUri = UriFactory.GetBreachedDomainUsersUri(domain);
 
-    var results = await this.GetAuthenticatedAsync<IEnumerable<DomainUser>>(requestUri, cancellationToken)
+    var records = await this.GetAuthenticatedAsync<Dictionary<string, IEnumerable<string>>>(requestUri, cancellationToken)
       .ConfigureAwait(false);
 
-    return results ?? Enumerable.Empty<DomainUser>();
+    var result = Enumerable.Empty<DomainUser>();
+
+    if (records is not null)
+    {
+      var users = new List<DomainUser>();
+
+      foreach (var currentRecord in records)
+      {
+        var newDomainUser = new DomainUser()
+        {
+          Alias = currentRecord.Key,
+          Breaches = currentRecord.Value,
+        };
+
+        users.Add(newDomainUser);
+      }
+
+      result = users;
+    }
+
+    return result;
   }
 
   /// <summary>
@@ -409,6 +428,13 @@ public sealed class HaveIBeenPwnedClient
       case 401:
         {
           throw new InvalidApiKeyException();
+        }
+      // Forbidden
+      // When trying to access the users of a domain that the
+      // specified API key doesn't have access to, a 403 is returned.
+      case 403 when requestUri!.StartsWith(Constants.Uris.BreachedDomainBaseUri, StringComparison.OrdinalIgnoreCase):
+        {
+          throw new DomainForbiddenException();
         }
       // Not found
       // This is only valid for breaches for an account. Pastes for an account must return an empty collection when nothing

@@ -12,7 +12,7 @@ namespace AtleX.HaveIBeenPwned;
 /// href="https://haveibeenpwned.com/API/v3#RateLimiting"/> it is recommended to
 /// not retry after the timespan specified in <see cref="RetryAfter"/> but wait
 /// an additional few milliseconds. The documentation recommends waiting an
-/// additional 100 milliseoncs.
+/// additional 100 milliseconds.
 /// </remarks>
 #pragma warning disable RCS1194 // Implement exception constructors.
 // You exceeded the rate limit and have all the info you need in this

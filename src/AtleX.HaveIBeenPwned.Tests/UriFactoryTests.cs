@@ -106,4 +106,24 @@ public class UriFactoryTests
 
     Assert.Equal(expected, actual);
   }
+
+  [Theory]
+  [InlineData((string)null)]
+  [InlineData("")]
+  public void GetBreachedDomainUsersUri_WithNullOrEmptDomain_ThrowsArgumentNullException(string suffix)
+  {
+    Assert.ThrowsAny<ArgumentNullException>(() => UriFactory.GetBreachedDomainUsersUri(suffix));
+  }
+
+  [Fact]
+  public void GetBreachedDomainUsersUri_WithCorrectDomain_ReturnsCorrectUri()
+  {
+    const string domain = "example.com";
+
+    var expected = new Uri($"https://haveibeenpwned.com/api/v3/breacheddomain/{domain}");
+
+    var actual = UriFactory.GetBreachedDomainUsersUri(domain);
+
+    Assert.Equal(expected, actual);
+  }
 }

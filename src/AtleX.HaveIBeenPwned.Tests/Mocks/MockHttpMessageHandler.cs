@@ -26,16 +26,14 @@ internal sealed class MockHttpMessageHandler
 
             ]";
     }
-    if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/domainUsers")) // Breaches for a domain
+    if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/breacheddomain")) // Breaches for a domain
     {
-      response = @"[
+      response = @"
         {
-          ""Alias"": ""user@"",
-          ""Breaches"": [
+          ""user"": [
                     ""000webhost""
-              ] 
-
-            ]";
+                  ]   
+         }";
     }
     if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/pasteaccount")) // Pastes
     {

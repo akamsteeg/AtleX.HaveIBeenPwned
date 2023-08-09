@@ -27,6 +27,18 @@ public class MockHttpMessageHandler
         Content = new StringContent("[{\"Name\": \"000webhost\"}]"),
       };
     }
+    else if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/breacheddomain"))
+    {
+      result = new HttpResponseMessage(HttpStatusCode.OK)
+      {
+        Content = new StringContent(@"
+        {
+          ""user"": [
+                    ""000webhost""
+                  ]   
+         }"),
+      };
+    }
     else if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/pasteaccount/"))
     {
       result = new HttpResponseMessage(HttpStatusCode.OK)

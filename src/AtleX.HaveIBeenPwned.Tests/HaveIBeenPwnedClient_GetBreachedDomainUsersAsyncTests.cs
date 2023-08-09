@@ -1,9 +1,6 @@
 ﻿using AtleX.HaveIBeenPwned.Tests.Mocks;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -12,6 +9,19 @@ namespace AtleX.HaveIBeenPwned.Tests;
 public class HaveIBeenPwnedClient_GetBreachedDomainUsersAsyncTests
   : HaveIBeenPwnedClientTestsBase
 {
+  [Fact]
+  public async Task GetBreachedDomainUsersAsync_WithValidValueForDomain_Succeeds()
+  {
+    using var httpClient = new HttpClient(new MockHttpMessageHandler());
+
+    var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
+
+    var result = await c.GetBreachedDomainUsersAsync("atlex.nl");
+
+    Assert.NotNull(result);
+    Assert.NotEmpty(result);
+  }
+
   [Fact]
   public async Task GetBreachedDomainUsersAsync_WithNullValueForDomain_Throws()
   {
