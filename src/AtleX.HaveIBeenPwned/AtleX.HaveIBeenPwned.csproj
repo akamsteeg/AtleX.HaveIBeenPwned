@@ -25,9 +25,14 @@
 		<PackageTags>haveibeenpwned breach password hibp security pwned email emailaddress client</PackageTags>
 		<PackageReadmeFile>packageReadme.md</PackageReadmeFile>
 
-		<Version>7.0.0</Version>
+		<Version>8.0.0</Version>
 
 		<PackageReleaseNotes>
+8.0.0
+- [Feature][Breaking] Add support for domain searches (#86)
+- [Feature][Breaking] Add support for retrieving only the latest breach in the system (#87)
+- [Feature] Improved documentation
+- [Feature] Internal improvements
 7.0.0
 - [Breaking] Throw exception when the CancellationToken is cancelled as soon as possible (#70)
 - [Breaking] Wrap InvalidOperationException in HaveIBeenPwnedClientException (#71)
