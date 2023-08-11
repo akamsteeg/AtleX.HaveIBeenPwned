@@ -43,10 +43,16 @@ using (var client = new HaveIBeenPwnedClient(settings))
     // Get all breaches in the system with their details
     var breaches = await client.GetAllBreachesAsync();
 
+    // Get the latest breach in the system
+    var latestBreach = await client.GetLatestBreachAsync();
+
     // Get the breaches for an account. This returns a collection of breaches with their 
     // name. Use the response from GetAllBreachesAsync() to find the corresponding details 
     // by name
     var breaches = await client.GetBreachesAsync("test@example.com"); // Requires an API key
+
+    // Get the breached users of a domain.
+    var breachedUsers = await client.GetBreachedDomainUsersAsync("example.com"); // Requires an API key
 
     // Get breaches for an account, excluding unverified breaches
     var breaches = await client.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified); // Requires an API key
