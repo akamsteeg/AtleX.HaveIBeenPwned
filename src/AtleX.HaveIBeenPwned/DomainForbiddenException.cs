@@ -12,7 +12,6 @@ public sealed class DomainForbiddenException
 #pragma warning restore RCS1194 // Implement exception constructors.
   : HaveIBeenPwnedClientException
 {
-
   /// <summary>
   /// Initializes a new instance of <see cref="DomainForbiddenException"/>
   /// </summary>
