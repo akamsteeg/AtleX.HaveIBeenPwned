@@ -10,6 +10,12 @@ internal static class Constants
   /// </summary>
   internal static class Uris
   {
+
+#pragma warning disable S1075 // Refactor your code not to use hardcoded absolute paths or URIs
+    // The HaveIBeenPwned.com API uses these URIs. It's the way it is. For private
+    // implementations, maybe with a proxy, users of the lib are free to implement
+    // one of the interfaces themselves
+
     /// <summary>
     /// Gets the base uri of the HaveIBeenPwned.com API
     /// </summary>
@@ -19,6 +25,8 @@ internal static class Constants
     /// Gets the base uri of the HaveIBeenPwned.com Pwned PAsswords API
     /// </summary>
     public const string PwnedPasswordsBaseUri = "https://api.pwnedpasswords.com/range";
+
+#pragma warning restore S1075
 
     /// <summary>
     /// Gets the base uri of the breachedaccount endpoint
