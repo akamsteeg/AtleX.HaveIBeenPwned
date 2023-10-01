@@ -131,7 +131,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Pitcher" Version="2.1.1" />
-		<PackageReference Include="SwissArmyKnife" Version="2.2.0" />
+		<PackageReference Include="SwissArmyKnife" Version="2.3.1" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
 		<PackageReference Include="System.Text.Json" Version="6.0.8" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
 	</ItemGroup>
