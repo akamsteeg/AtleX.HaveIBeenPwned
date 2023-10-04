@@ -25,6 +25,9 @@ internal static class HashCodeHelper
   /// <summary>
   /// Calculate the hash code for the specified value
   /// </summary>
+  /// <typeparam name="T1">
+  /// The <see cref="System.Type"/> of the parameter
+  /// </typeparam>
   /// <returns>
   /// A hash code for the specified value
   /// </returns>
@@ -42,12 +45,14 @@ internal static class HashCodeHelper
   /// <summary>
   /// Calculate the hash code for the specified values
   /// </summary>
+  /// <typeparam name="T1">
+  /// The <see cref="System.Type"/> of the parameters
+  /// </typeparam>
   /// <returns>
   /// A hash code for the specified values
   /// </returns>
-  public static int GetHashCode<T1, T2>(T1 value1, T2 value2)
+  public static int GetHashCode<T1>(T1 value1, T1 value2)
     where T1 : notnull
-    where T2 : notnull
   {
     Throw.ArgumentNull.WhenNull(value1, nameof(value1));
     Throw.ArgumentNull.WhenNull(value2, nameof(value2));
