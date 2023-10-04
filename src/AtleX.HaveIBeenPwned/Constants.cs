@@ -10,7 +10,6 @@ internal static class Constants
   /// </summary>
   internal static class Uris
   {
-
 #pragma warning disable S1075 // Refactor your code not to use hardcoded absolute paths or URIs
     // The HaveIBeenPwned.com API uses these URIs. It's the way it is. For private
     // implementations, maybe with a proxy, users of the lib are free to implement
