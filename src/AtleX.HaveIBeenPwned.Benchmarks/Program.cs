@@ -33,6 +33,7 @@ public static class Program
 
     config.AddJob(
       Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp60).AsBaseline(),
+      Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp80),
       Job.Default.WithToolchain(CsProjClassicNetToolchain.Net481)
       );
 
