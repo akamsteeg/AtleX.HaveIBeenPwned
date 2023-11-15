@@ -44,4 +44,10 @@ public abstract class IHaveIBeenPwnedClientBenchmarks
   {
     var result = await this._client.IsPwnedPasswordAsync("benchmark");
   }
+
+  [Benchmark]
+  public async Task GetBreachedDomainUsersAsync()
+  {
+    var result = await this._client.GetBreachedDomainUsersAsync("example.com");
+  }
 }
