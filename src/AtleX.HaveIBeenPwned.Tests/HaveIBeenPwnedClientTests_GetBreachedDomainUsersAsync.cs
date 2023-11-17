@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests;
-public class HaveIBeenPwnedClient_GetBreachedDomainUsersAsyncTests
+public class HaveIBeenPwnedClientTests_GetBreachedDomainUsersAsync
   : HaveIBeenPwnedClientTestsBase
 {
   [Fact]
