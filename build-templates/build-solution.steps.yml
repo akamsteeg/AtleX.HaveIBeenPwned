@@ -4,7 +4,7 @@ parameters:
   buildConfiguration: 'Release'
 
 steps:
-- task: UseDotNet@2
+- task: DotNetCoreInstaller@1
   displayName: 'Install .NET 8 SDK'
   inputs:
     packageType: 'sdk'
