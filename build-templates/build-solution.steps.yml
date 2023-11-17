@@ -4,6 +4,11 @@ parameters:
   buildConfiguration: 'Release'
 
 steps:
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '8.x'
+    
 - task: DotNetCoreCLI@2
   displayName: 'Restore packages'
   inputs:
