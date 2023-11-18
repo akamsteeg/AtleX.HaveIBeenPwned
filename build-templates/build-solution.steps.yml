@@ -9,7 +9,7 @@ steps:
   inputs:
     packageType: 'sdk'
     version: '8.x'
-    installationPath: '$(Agent.ToolsDirectory)/dotnet8sdk
+    installationPath: '$(Agent.ToolsDirectory)/dotnet8sdk'
     
 - task: DotNetCoreCLI@2
   displayName: 'Restore packages'
