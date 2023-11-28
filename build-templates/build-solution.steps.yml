@@ -3,14 +3,7 @@
 parameters:
   buildConfiguration: 'Release'
 
-steps:
-- task: DotNetCoreInstaller@1
-  displayName: 'Install .NET 8 SDK'
-  inputs:
-    packageType: 'sdk'
-    version: '8.x'
-    installationPath: '$(Agent.ToolsDirectory)/dotnet8sdk'
-    
+steps:   
 - task: DotNetCoreCLI@2
   displayName: 'Restore packages'
   inputs:
