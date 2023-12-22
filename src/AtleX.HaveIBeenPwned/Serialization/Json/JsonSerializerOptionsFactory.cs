@@ -17,7 +17,9 @@ internal static class JsonSerializerOptionsFactory
   {
     var result = new JsonSerializerOptions();
 
-#if NET6_0_OR_GREATER
+#if NET8_0_OR_GREATER
+    result.TypeInfoResolverChain.Add(new JsonSerializationContext());
+#elif NET6_0_OR_GREATER                  
     result.AddContext<JsonSerializationContext>();
 #endif
 
