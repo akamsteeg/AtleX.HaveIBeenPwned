@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Security.Cryptography;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -267,7 +266,9 @@ public sealed class HaveIBeenPwnedClient
       requestMessage.Headers.Add("Add-Padding", "true");
     }
 
-    using var response = await this.ExecuteRequestAsync(requestMessage, cancellationToken).ConfigureAwait(false);
+    using var response = await this
+      .ExecuteRequestAsync(requestMessage, cancellationToken)
+      .ConfigureAwait(false);
 
     if (response.StatusCode == HttpStatusCode.OK)
     {
@@ -336,7 +337,7 @@ public sealed class HaveIBeenPwnedClient
   /// An awaitable <see cref="Task{TResult}"/> of the specified type
   /// </returns>
   private async Task<T?> GetAuthenticatedAsync<T>(Uri url, CancellationToken cancellationToken)
-    where T : notnull
+    where T : class
   {
     Throw<InvalidApiKeyException>.When(this._clientSettings.ApiKey.IsNullOrWhiteSpace());
     this.ThrowIfDisposed();
@@ -367,7 +368,7 @@ public sealed class HaveIBeenPwnedClient
   /// An awaitable <see cref="Task{TResult}"/> of the specified type
   /// </returns>
   private async Task<T?> GetAsync<T>(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
-    where T : notnull
+    where T : class
   {
     this.ThrowIfDisposed();
     cancellationToken.ThrowIfCancellationRequested();
@@ -387,9 +388,17 @@ public sealed class HaveIBeenPwnedClient
 #endif
      .ConfigureAwait(false);
 
-      result = await JsonSerializer
-     .DeserializeAsync<T>(content, JsonOptions, cancellationToken)
-     .ConfigureAwait(false);
+      result =
+#if NET8_0_OR_GREATER // PERF: Be AOT and trimming compatible
+        (await JsonSerializer
+          .DeserializeAsync(content, JsonOptions.GetTypeInfo(typeof(T)), cancellationToken)
+          .ConfigureAwait(false)
+         ) as T;
+#else
+     await JsonSerializer
+      .DeserializeAsync<T>(content, JsonOptions, cancellationToken)
+      .ConfigureAwait(false);
+#endif
     }
     else
     {

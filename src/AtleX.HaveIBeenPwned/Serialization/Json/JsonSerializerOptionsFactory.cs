@@ -19,6 +19,8 @@ internal static class JsonSerializerOptionsFactory
 
 #if NET8_0_OR_GREATER
     result.TypeInfoResolverChain.Add(new JsonSerializationContext());
+
+    result.MakeReadOnly(); // Guard against modifications
 #elif NET6_0_OR_GREATER                  
     result.AddContext<JsonSerializationContext>();
 #endif

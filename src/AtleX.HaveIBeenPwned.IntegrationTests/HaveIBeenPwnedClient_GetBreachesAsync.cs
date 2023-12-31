@@ -1,4 +1,5 @@
 ﻿using AtleX.HaveIBeenPwned.IntegrationTests.XUnit;
+using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -43,6 +44,8 @@ public class HaveIBeenPwnedClientTests_GetBreachesAsync
     var result = await c.GetBreachesAsync("account-exists@hibp-integration-tests.com", cancellationTokenSource.Token);
 
     Assert.NotNull(result);
+    Assert.NotEmpty(result);
+    Assert.Equal("Adobe", result.First().Name);
   }
 
   [FactWithApiKey]
