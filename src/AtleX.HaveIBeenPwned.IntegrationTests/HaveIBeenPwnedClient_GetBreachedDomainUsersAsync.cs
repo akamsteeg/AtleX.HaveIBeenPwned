@@ -11,13 +11,14 @@ public class HaveIBeenPwnedClient_GetBreachedDomainUsersAsync
   : HaveIBeenPwnedClientIntegrationTestsBase
 {
   private const string UnknownDomain = "dba9f72.com";
+
   [FactWithApiKey]
   public async Task GetBreachedDomainUsersAsync_WithValidInput_ReturnsResults()
   {
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-    var result = await c.GetBreachedDomainUsersAsync("atlex.nl");
+    var result = await c.GetBreachedDomainUsersAsync(PrivateConstants.OwnedDomain);
 
     Assert.NotNull(result);
     Assert.NotEmpty(result);
@@ -30,7 +31,7 @@ public class HaveIBeenPwnedClient_GetBreachedDomainUsersAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-    var result = await c.GetBreachedDomainUsersAsync("atlex.nl", cancellationTokenSource.Token);
+    var result = await c.GetBreachedDomainUsersAsync(PrivateConstants.OwnedDomain, cancellationTokenSource.Token);
 
     Assert.NotNull(result);
     Assert.NotEmpty(result);
@@ -68,7 +69,7 @@ public class HaveIBeenPwnedClient_GetBreachedDomainUsersAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(settings, httpClient);
 
-    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachedDomainUsersAsync("atlex.nl"));
+    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachedDomainUsersAsync(PrivateConstants.OwnedDomain));
   }
 
   [FactWithApiKey]
@@ -84,6 +85,6 @@ public class HaveIBeenPwnedClient_GetBreachedDomainUsersAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(settings, httpClient);
 
-    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachedDomainUsersAsync("atlex.nl", cancellationTokenSource.Token));
+    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachedDomainUsersAsync(PrivateConstants.OwnedDomain, cancellationTokenSource.Token));
   }
 }
