@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using AtleX.HaveIBeenPwned.Serialization.Json.Convertors;
+using System.Text.Json;
 
 namespace AtleX.HaveIBeenPwned.Serialization.Json;
 
@@ -16,6 +17,8 @@ internal static class JsonSerializerOptionsFactory
   public static JsonSerializerOptions Create()
   {
     var result = new JsonSerializerOptions();
+
+    result.Converters.Add(new DomainUserConvertor());
 
 #if NET8_0_OR_GREATER
     result.TypeInfoResolverChain.Add(new JsonSerializationContext());

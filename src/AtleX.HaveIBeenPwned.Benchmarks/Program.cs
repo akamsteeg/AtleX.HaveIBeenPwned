@@ -11,7 +11,7 @@ namespace AtleX.HaveIBeenPwned.Benchmarks;
 
 public static class Program
 {
-  private static void Main(string[] args)
+  public static void Main(string[] args)
   {
     var config = GetConfig();
     BenchmarkSwitcher

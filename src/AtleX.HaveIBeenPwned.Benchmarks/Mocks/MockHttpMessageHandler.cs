@@ -9,7 +9,6 @@ namespace AtleX.HaveIBeenPwned.Benchmarks.Mocks;
 public class MockHttpMessageHandler
   : HttpMessageHandler
 {
-
   protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
   {
     HttpResponseMessage result;

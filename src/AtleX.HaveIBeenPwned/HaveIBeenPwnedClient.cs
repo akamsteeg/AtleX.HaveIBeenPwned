@@ -295,30 +295,11 @@ public sealed class HaveIBeenPwnedClient
 
     var requestUri = UriFactory.GetBreachedDomainUsersUri(domain);
 
-    var records = await this.GetAuthenticatedAsync<Dictionary<string, IEnumerable<string>>>(requestUri, cancellationToken)
+    var result = await this.GetAuthenticatedAsync<IEnumerable<DomainUser>>(requestUri, cancellationToken)
       .ConfigureAwait(false);
+       
 
-    var result = Enumerable.Empty<DomainUser>();
-
-    if (records is not null)
-    {
-      var users = new List<DomainUser>();
-
-      foreach (var currentRecord in records)
-      {
-        var newDomainUser = new DomainUser()
-        {
-          Alias = currentRecord.Key,
-          Breaches = currentRecord.Value,
-        };
-
-        users.Add(newDomainUser);
-      }
-
-      result = users;
-    }
-
-    return result;
+    return result ?? Enumerable.Empty<DomainUser>();
   }
 
   /// <summary>

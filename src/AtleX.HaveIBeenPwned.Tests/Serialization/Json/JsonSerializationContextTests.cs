@@ -16,7 +16,7 @@ public class JsonSerializationContextTests
   [InlineData(typeof(IEnumerable<Paste>))]
   [InlineData(typeof(SiteBreach))]
   [InlineData(typeof(IEnumerable<SiteBreach>))]
-  [InlineData(typeof(Dictionary<string, IEnumerable<string>>))]
+  [InlineData(typeof(IEnumerable<DomainUser>))]
   public void Context_SupportsType(Type type)
   {
     var c = new JsonSerializationContext();
