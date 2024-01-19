@@ -13,10 +13,10 @@ internal sealed class DomainUserConvertor : JsonConverter<IEnumerable<DomainUser
   /// <inheritDoc />
   public override IEnumerable<DomainUser>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
   {
-    var result = new List<DomainUser>();
+    List<DomainUser> result = [];
 
     var alias = string.Empty;
-    List<string> breaches = new();
+    List<string> breaches = [];
 
     while (reader.Read())
     {
@@ -29,7 +29,7 @@ internal sealed class DomainUserConvertor : JsonConverter<IEnumerable<DomainUser
           }
         case JsonTokenType.StartArray: // The breaches a user is in are stored in an array of strings
           {
-            breaches = new List<string>();
+            breaches = [];
             break;
           }
         case JsonTokenType.String: // The values in the array of breaches
