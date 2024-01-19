@@ -2,11 +2,9 @@
 using System.Threading.Tasks;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks;
-
-public abstract class IHaveIBeenPwnedClientBenchmarks
+public class IHaveIBeenPwnedBreachesClientBenchmarks
+  : HaveIBeenPwnedClientBenchmarksBase
 {
-  protected IHaveIBeenPwnedClient _client;
-
   [Benchmark]
   public async Task GetAllBreachesAsync()
   {
@@ -31,23 +29,5 @@ public abstract class IHaveIBeenPwnedClientBenchmarks
   public async Task GetBreachesAsync_BreachMode(BreachMode breachMode)
   {
     var result = await this._client.GetBreachesAsync("benchmark", breachMode);
-  }
-
-  [Benchmark]
-  public async Task GetPastesAsync()
-  {
-    var result = await this._client.GetPastesAsync("benchmark");
-  }
-
-  [Benchmark]
-  public async Task IsPwnedPasswordAsync()
-  {
-    var result = await this._client.IsPwnedPasswordAsync("benchmark");
-  }
-
-  [Benchmark]
-  public async Task GetBreachedDomainUsersAsync()
-  {
-    var result = await this._client.GetBreachedDomainUsersAsync("example.com");
   }
 }

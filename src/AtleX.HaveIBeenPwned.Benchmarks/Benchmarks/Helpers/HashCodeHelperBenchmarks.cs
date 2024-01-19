@@ -3,6 +3,7 @@ using BenchmarkDotNet.Attributes;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks.Helpers;
 
+[BenchmarkCategory("Helpers")]
 public class HashCodeHelperBenchmarks
 {
   [Benchmark]

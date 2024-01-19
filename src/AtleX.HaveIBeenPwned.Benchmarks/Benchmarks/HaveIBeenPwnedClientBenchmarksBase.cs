@@ -4,9 +4,10 @@ using System.Net.Http;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks;
 
-public class HaveIBeenPwnedClientBenchmarks
-  : IHaveIBeenPwnedClientBenchmarks
+public abstract class HaveIBeenPwnedClientBenchmarksBase
 {
+  protected IHaveIBeenPwnedClient _client;
+
   [GlobalSetup]
   public void GlobalSetup()
   {
@@ -17,7 +18,7 @@ public class HaveIBeenPwnedClientBenchmarks
     var settings = new HaveIBeenPwnedClientSettings()
     {
       ApiKey = "DUMMYKEY",
-      ApplicationName = "Unit.Tests",
+      ApplicationName = "Benchmarks",
     };
 
     this._client = new HaveIBeenPwnedClient(settings, testHttpClient);
