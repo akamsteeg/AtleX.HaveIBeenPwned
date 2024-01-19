@@ -30,42 +30,43 @@
 		<Version>8.1.0</Version>
 
 		<PackageReleaseNotes>
-			8.1.0:
-			- [Feature] Add .NET 8+ compatiblity
-			- [Feature] Add support for trimming and AOT on .NET 8 or higher (#85)
-			-
-			8.0.0
-			- [Feature][Breaking] Add support for domain searches (#86)
-			- [Feature][Breaking] Add support for retrieving only the latest breach in the system (#87)
-			- [Feature] Improved documentation
-			- [Feature] Internal improvements
-			7.0.0
-			- [Breaking] Throw exception when the CancellationToken is cancelled as soon as possible (#70)
-			- [Breaking] Wrap InvalidOperationException in HaveIBeenPwnedClientException (#71)
-			- [Breaking][Fix] GetPastesAsync() now returns an empty collection instead of throwing an exception when no pastes are found (#82)
-			- [Feature] Add .NET 6.0 target and use source generators for JSON (de)serialization (#72)
-			- [Feature] Add more properties to the SiteBreach model (#79)
-			- [Feature] Improved documentation
-			- [Feature] Many internal improvements to make this the best and most performant version ever (#75, #76, #77, #78, #79)
+8.1.0:
+- [Feature] Add .NET 8+ compatiblity
+- [Feature] Add support for trimming and AOT on .NET 8 or higher (#85)
 
-			6.0.1:
-			- [Feature] Performance improvement when (de)serializing requests and responses (#74)
-			- [Fix] RateLimitExceededException no longer throws an exception when the retry-after value is 0 seconds or less (#73)
-			- [Fix] Internal improvements (#69)
+8.0.0
+- [Feature][Breaking] Add support for domain searches (#86)
+- [Feature][Breaking] Add support for retrieving only the latest breach in the system (#87)
+- [Feature] Improved documentation
+- [Feature] Internal improvements
 
-			6.0.0:
-			- [Breaking] Removed SerializeAttribute from exceptions (#50)
-			- [Breaking] Removed obsolete and no longer used settings from HaveIBeenPwnedClientSettings (#60)
-			- [Feature] Add support for padded pwned password checks (Enabled by default, #55)
-			- [Feature] Improved IntelliSense documentation (#61)
-			- [Feature] Internal improvements (#56, #57, #58)
+7.0.0
+- [Breaking] Throw exception when the CancellationToken is cancelled as soon as possible (#70)
+- [Breaking] Wrap InvalidOperationException in HaveIBeenPwnedClientException (#71)
+- [Breaking][Fix] GetPastesAsync() now returns an empty collection instead of throwing an exception when no pastes are found (#82)
+- [Feature] Add .NET 6.0 target and use source generators for JSON (de)serialization (#72)
+- [Feature] Add more properties to the SiteBreach model (#79)
+- [Feature] Improved documentation
+- [Feature] Many internal improvements to make this the best and most performant version ever (#75, #76, #77, #78, #79)
 
-			5.0.3:
-			- Internal refactoring, build improvements and code simplification
+6.0.1:
+- [Feature] Performance improvement when (de)serializing requests and responses (#74)
+- [Fix] RateLimitExceededException no longer throws an exception when the retry-after value is 0 seconds or less (#73)
+- [Fix] Internal improvements (#69)
 
-			5.0.2:
-			- [Fix] In RateLimitExceededException, only construct the message when it's needed (#49)
-			- [Fix] Standardize IEquatable&lt;T&gt; implementations (#52)
+6.0.0:
+- [Breaking] Removed SerializeAttribute from exceptions (#50)
+- [Breaking] Removed obsolete and no longer used settings from HaveIBeenPwnedClientSettings (#60)
+- [Feature] Add support for padded pwned password checks (Enabled by default, #55)
+- [Feature] Improved IntelliSense documentation (#61)
+- [Feature] Internal improvements (#56, #57, #58)
+
+5.0.3:
+- Internal refactoring, build improvements and code simplification
+
+5.0.2:
+- [Fix] In RateLimitExceededException, only construct the message when it's needed (#49)
+- [Fix] Standardize IEquatable&lt;T&gt; implementations (#52)
 
 5.0.1:
 - [Fix] Drastically reduced memory usage in HaveIBeenPwnedClient.IsPwnedPasswordAsync() (#47)
