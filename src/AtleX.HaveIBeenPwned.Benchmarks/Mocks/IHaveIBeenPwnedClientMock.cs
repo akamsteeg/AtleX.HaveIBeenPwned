@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using BenchmarkDotNet.Columns;
-using GenFu;
+using Bogus;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks.Mocks;
 
 public class IHaveIBeenPwnedClientMock
   : IHaveIBeenPwnedClient
 {
-  private static readonly IEnumerable<Breach> breaches = A.ListOf<Breach>(30);
+  private static readonly IEnumerable<Breach> breaches = new Faker<Breach>().Generate(10);
 
-  private static readonly SiteBreach latestBreach = A.New<SiteBreach>();
+  private static readonly SiteBreach latestBreach = new Faker<SiteBreach>().Generate();
 
-  private static readonly IEnumerable<SiteBreach> siteBreaches = A.ListOf<SiteBreach>(30);
+  private static readonly IEnumerable<SiteBreach> siteBreaches = new Faker<SiteBreach>().Generate(30);
 
-  private static readonly IEnumerable<Paste> pastes = A.ListOf<Paste>(30);
+  private static readonly IEnumerable<Paste> pastes = new Faker<Paste>().Generate(30);
 
-  private static readonly IEnumerable<DomainUser> domainUsers = A.ListOf<DomainUser>(30);
+  private static readonly IEnumerable<DomainUser> domainUsers = new Faker<DomainUser>().Generate(30);
 
   public Task<IEnumerable<SiteBreach>> GetAllBreachesAsync()
   {
