@@ -21,7 +21,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\AtleX.HaveIBeenPwned.Benchmarks\AtleX.HaveIBeenPwned.Benchmarks.csproj" />
 		<ProjectReference Include="..\AtleX.HaveIBeenPwned\AtleX.HaveIBeenPwned.csproj" />
 	</ItemGroup>
 
