@@ -29,13 +29,16 @@ public static class Program
     if (Environment.OSVersion.Platform == PlatformID.Win32NT)
     {
       config.AddDiagnoser(new JitStatsDiagnoser());
+
+      config.AddJob(Job.Default.WithToolchain(CsProjClassicNetToolchain.Net481));
     }
 
     config.AddJob(
       Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp80).AsBaseline(),
-      Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp60),
-      Job.Default.WithToolchain(CsProjClassicNetToolchain.Net481)
+      Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp60)
       );
+
+
 
     return config;
   }
