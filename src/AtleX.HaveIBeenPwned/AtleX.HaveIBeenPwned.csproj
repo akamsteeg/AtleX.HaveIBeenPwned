@@ -18,7 +18,7 @@
 		<AnalysisMode>Recommended</AnalysisMode>
 		<AnalysisLevel>latest</AnalysisLevel>
 
-		<Authors>Alex Kamsteeg (https://atlex.nl/)</Authors>
+		<Authors>Alex Kamsteeg (https://atlex.nl/) and contributors</Authors>
 		<Company />
 		<PackageProjectUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned</PackageProjectUrl>
 		<Description>AtleX.HaveIBeenPwned is a fully async and super fast .NET Standard client library for HaveIBeenPwned.com.</Description>
