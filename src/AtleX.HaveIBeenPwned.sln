@@ -11,7 +11,31 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtleX.HaveIBeenPwned.Integr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtleX.HaveIBeenPwned.Benchmarks", "AtleX.HaveIBeenPwned.Benchmarks\AtleX.HaveIBeenPwned.Benchmarks.csproj", "{8D818A95-C16B-432F-B138-FC228267E6AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtleX.HaveIBeenPwned.TrimTest", "AtleX.HaveIBeenPwned.TrimTest\AtleX.HaveIBeenPwned.TrimTest.csproj", "{E7AFADD5-192F-43CD-85E0-710F17EB26D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtleX.HaveIBeenPwned.TrimTest", "AtleX.HaveIBeenPwned.TrimTest\AtleX.HaveIBeenPwned.TrimTest.csproj", "{E7AFADD5-192F-43CD-85E0-710F17EB26D8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{E171587D-85A8-4FBF-9960-55EADDB655BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build-templates", "build-templates", "{C2AE4033-90E0-4020-9A00-AE0418E00789}"
+	ProjectSection(SolutionItems) = preProject
+		..\azure-pipelines.yml = ..\azure-pipelines.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "jobs", "jobs", "{D0AE296B-F275-4ED5-B9B6-7F459E6B9752}"
+	ProjectSection(SolutionItems) = preProject
+		..\build-templates\build-package.job.yml = ..\build-templates\build-package.job.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "steps", "steps", "{3882680D-21C4-49F9-9DE2-D575205AF766}"
+	ProjectSection(SolutionItems) = preProject
+		..\build-templates\build-solution.steps.yml = ..\build-templates\build-solution.steps.yml
+		..\build-templates\publish-nuget-package-artifacts.steps.yml = ..\build-templates\publish-nuget-package-artifacts.steps.yml
+		..\build-templates\run-xunit-unit-tests.steps.yml = ..\build-templates\run-xunit-unit-tests.steps.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{F96E4137-74D3-4AEF-86CA-661BD5E2C817}"
+	ProjectSection(SolutionItems) = preProject
+		..\readme.md = ..\readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +66,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C2AE4033-90E0-4020-9A00-AE0418E00789} = {E171587D-85A8-4FBF-9960-55EADDB655BD}
+		{D0AE296B-F275-4ED5-B9B6-7F459E6B9752} = {C2AE4033-90E0-4020-9A00-AE0418E00789}
+		{3882680D-21C4-49F9-9DE2-D575205AF766} = {C2AE4033-90E0-4020-9A00-AE0418E00789}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2D6310D3-72F6-4607-81AA-0995DD78FFF4}
