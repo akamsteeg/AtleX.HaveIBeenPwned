@@ -197,7 +197,7 @@ public sealed class HaveIBeenPwnedClient
     var result = await this.GetAsync<IEnumerable<SiteBreach>>(requestMessage, cancellationToken)
       .ConfigureAwait(false);
 
-    return result ?? Enumerable.Empty<SiteBreach>();
+    return result ?? [];
   }
 
   /// <inheritdoc cref="IHaveIBeenPwnedBreachesClient.GetBreachesAsync(string, BreachMode, CancellationToken)"/>
@@ -212,7 +212,7 @@ public sealed class HaveIBeenPwnedClient
     var results = await this.GetAuthenticatedAsync<IEnumerable<Breach>>(uri, cancellationToken)
       .ConfigureAwait(false);
 
-    return results ?? Enumerable.Empty<Breach>();
+    return results ?? [];
   }
 
   /// <inheritdoc cref="IHaveIBeenPwnedBreachesClient.GetLatestBreachAsync(CancellationToken)"/>
@@ -243,7 +243,7 @@ public sealed class HaveIBeenPwnedClient
     var results = await this.GetAuthenticatedAsync<IEnumerable<Paste>>(requestUri, cancellationToken)
       .ConfigureAwait(false);
 
-    return results ?? Enumerable.Empty<Paste>();
+    return results ?? [];
   }
 
   /// <inheritdoc cref="IHaveIBeenPwnedPasswordClient.IsPwnedPasswordAsync(string, CancellationToken)"/>
@@ -297,9 +297,8 @@ public sealed class HaveIBeenPwnedClient
 
     var result = await this.GetAuthenticatedAsync<IEnumerable<DomainUser>>(requestUri, cancellationToken)
       .ConfigureAwait(false);
-       
 
-    return result ?? Enumerable.Empty<DomainUser>();
+    return result ?? [];
   }
 
   /// <summary>
