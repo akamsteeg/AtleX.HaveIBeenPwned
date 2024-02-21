@@ -38,8 +38,6 @@ public static class Program
       Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp60)
       );
 
-
-
     return config;
   }
 }

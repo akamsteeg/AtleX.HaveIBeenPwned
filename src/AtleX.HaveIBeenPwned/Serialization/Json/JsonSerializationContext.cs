@@ -21,8 +21,5 @@ namespace AtleX.HaveIBeenPwned.Serialization.Json;
 
 [ExcludeFromCodeCoverage]
 internal sealed partial class JsonSerializationContext
-  : JsonSerializerContext
-{
-}
-
+  : JsonSerializerContext;
 #endif
