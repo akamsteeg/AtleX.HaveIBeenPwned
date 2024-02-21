@@ -25,11 +25,14 @@ internal static class JsonSerializerOptionsExtensions
   /// <typeparamref name="T"/> is not valid for serialization.
   /// </exception>
   /// <remarks>
+  /// <para>
   /// Returned metadata can be downcast to <see cref="JsonTypeInfo{T}"/> and
   /// used with the relevant <see cref="JsonSerializer"/> overloads.
-  ///
+  ///</para>
+  ///<para>
   /// If the <see cref="JsonSerializerOptions"/> instance is locked for
   /// modification, the method will return a cached instance for the metadata.
+  /// </para>
   /// </remarks>
   public static JsonTypeInfo GetTypeInfo<T>(this JsonSerializerOptions options)
     => options.GetTypeInfo(typeof(T));

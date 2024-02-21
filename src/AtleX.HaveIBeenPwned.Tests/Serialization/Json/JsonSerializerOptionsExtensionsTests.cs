@@ -1,6 +1,7 @@
 ﻿#if NET8_0_OR_GREATER
 
 using AtleX.HaveIBeenPwned.Serialization.Json;
+using System;
 using System.Text.Json.Serialization.Metadata;
 using Xunit;
 
@@ -16,6 +17,14 @@ public class JsonSerializerOptionsExtensionsTests
 
     Assert.NotNull(typeInfo);
     Assert.IsType<JsonTypeInfo<Breach>>(typeInfo);
+  }
+
+  [Fact]
+  public void GetTypeInfoT_WithNotSupportedType_ThrowsNotSupportedException()
+  {
+    var o = JsonSerializerOptionsFactory.Create();
+
+    Assert.Throws<NotSupportedException>(() =>  o.GetTypeInfo<FactAttribute>());
   }
 }
 #endif
