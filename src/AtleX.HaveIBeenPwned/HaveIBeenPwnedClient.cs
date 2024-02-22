@@ -52,6 +52,13 @@ public sealed class HaveIBeenPwnedClient
   private static readonly JsonSerializerOptions JsonOptions = JsonSerializerOptionsFactory.Create();
 
   /// <summary>
+  /// Gets the cached <see cref="Func{TResult}"/> that throws an <see
+  /// cref="InvalidOperationException"/> when the specified request method in a <see
+  /// cref="HttpRequestMessage"/> is not GET
+  /// </summary>
+  private static readonly Func<InvalidOperationException> CachedRequestMethodExceptionProducer = () => new InvalidOperationException($"Request method must be GET");
+
+  /// <summary>
   /// Initializes a new instance of <see cref="HaveIBeenPwnedClient"/> with the
   /// specified <see cref="HaveIBeenPwnedClientSettings"/> and <see cref="HttpClient"/>
   /// </summary>
@@ -184,7 +191,7 @@ public sealed class HaveIBeenPwnedClient
   }
 
   /// <inheritdoc cref="IHaveIBeenPwnedBreachesClient.GetAllBreachesAsync(CancellationToken)"/>
-  private async Task<IEnumerable<SiteBreach>> GetAllBreachesInternalAsync(CancellationToken cancellationToken)
+  private async ValueTask<IEnumerable<SiteBreach>> GetAllBreachesInternalAsync(CancellationToken cancellationToken)
   {
     this.ThrowIfDisposed();
     cancellationToken.ThrowIfCancellationRequested();
@@ -200,7 +207,7 @@ public sealed class HaveIBeenPwnedClient
   }
 
   /// <inheritdoc cref="IHaveIBeenPwnedBreachesClient.GetBreachesAsync(string, BreachMode, CancellationToken)"/>
-  private async Task<IEnumerable<Breach>> GetBreachesInternalAsync(string account, BreachMode modes, CancellationToken cancellationToken)
+  private async ValueTask<IEnumerable<Breach>> GetBreachesInternalAsync(string account, BreachMode modes, CancellationToken cancellationToken)
   {
     Throw.ArgumentNull.WhenNullOrWhiteSpace(account, nameof(account));
     this.ThrowIfDisposed();
@@ -215,7 +222,7 @@ public sealed class HaveIBeenPwnedClient
   }
 
   /// <inheritdoc cref="IHaveIBeenPwnedBreachesClient.GetLatestBreachAsync(CancellationToken)"/>
-  private async Task<SiteBreach?> GetLatestBreachInternalAsync(CancellationToken cancellationToken)
+  private async ValueTask<SiteBreach?> GetLatestBreachInternalAsync(CancellationToken cancellationToken)
   {
     this.ThrowIfDisposed();
     cancellationToken.ThrowIfCancellationRequested();
@@ -231,7 +238,7 @@ public sealed class HaveIBeenPwnedClient
   }
 
   /// <inheritdoc cref="IHaveIBeenPwnedPastesClient.GetPastesAsync(string, CancellationToken)"/>
-  private async Task<IEnumerable<Paste>> GetPastesInternalAsync(string emailAddress, CancellationToken cancellationToken)
+  private async ValueTask<IEnumerable<Paste>> GetPastesInternalAsync(string emailAddress, CancellationToken cancellationToken)
   {
     Throw.ArgumentNull.WhenNullOrWhiteSpace(emailAddress, nameof(emailAddress));
     this.ThrowIfDisposed();
@@ -246,7 +253,7 @@ public sealed class HaveIBeenPwnedClient
   }
 
   /// <inheritdoc cref="IHaveIBeenPwnedPasswordClient.IsPwnedPasswordAsync(string, CancellationToken)"/>
-  private async Task<bool> IsPwnedPasswordInternalAsync(string password, CancellationToken cancellationToken)
+  private async ValueTask<bool> IsPwnedPasswordInternalAsync(string password, CancellationToken cancellationToken)
   {
     Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
     this.ThrowIfDisposed();
@@ -286,7 +293,7 @@ public sealed class HaveIBeenPwnedClient
   }
 
   /// <inheritdoc cref="IHaveIBeenPwnedDomainClient.GetBreachedDomainUsersAsync(string, CancellationToken)"/>
-  private async Task<IEnumerable<DomainUser>> GetBreachedDomainUsersInternalAsync(string domain, CancellationToken cancellationToken)
+  private async ValueTask<IEnumerable<DomainUser>> GetBreachedDomainUsersInternalAsync(string domain, CancellationToken cancellationToken)
   {
     Throw.ArgumentNull.WhenNullOrWhiteSpace(domain, nameof(domain));
     this.ThrowIfDisposed();
@@ -315,7 +322,7 @@ public sealed class HaveIBeenPwnedClient
   /// <returns>
   /// An awaitable <see cref="Task{TResult}"/> of the specified type
   /// </returns>
-  private async Task<T?> GetAuthenticatedAsync<T>(Uri url, CancellationToken cancellationToken)
+  private async ValueTask<T?> GetAuthenticatedAsync<T>(Uri url, CancellationToken cancellationToken)
     where T : class
   {
     Throw<InvalidApiKeyException>.When(this._clientSettings.ApiKey.IsNullOrWhiteSpace());
@@ -346,9 +353,10 @@ public sealed class HaveIBeenPwnedClient
   /// <returns>
   /// An awaitable <see cref="Task{TResult}"/> of the specified type
   /// </returns>
-  private async Task<T?> GetAsync<T>(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+  private async ValueTask<T?> GetAsync<T>(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
     where T : class
   {
+    Throw.When(requestMessage.Method != HttpMethod.Get, CachedRequestMethodExceptionProducer);
     this.ThrowIfDisposed();
     cancellationToken.ThrowIfCancellationRequested();
 
@@ -399,9 +407,8 @@ public sealed class HaveIBeenPwnedClient
   /// <returns>
   /// An awaitable <see cref="Task{TResult}"/> of <see cref="HttpResponseMessage"/>
   /// </returns>
-  private async Task<HttpResponseMessage> ExecuteRequestAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
+  private async ValueTask<HttpResponseMessage> ExecuteRequestAsync(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
   {
-    if (requestMessage.Method != HttpMethod.Get) { throw new InvalidOperationException($"Request method '{requestMessage.Method}' not supported"); }
     this.ThrowIfDisposed();
     cancellationToken.ThrowIfCancellationRequested();
 
