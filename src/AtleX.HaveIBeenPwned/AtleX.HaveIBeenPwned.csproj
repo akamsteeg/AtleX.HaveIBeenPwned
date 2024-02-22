@@ -27,9 +27,11 @@
 		<PackageTags>haveibeenpwned breach password hibp security pwned email emailaddress client</PackageTags>
 		<PackageReadmeFile>packageReadme.md</PackageReadmeFile>
 
-		<Version>8.1.0</Version>
+		<Version>8.1.1</Version>
 
 		<PackageReleaseNotes>
+8.1.1:
+- [Feature] Internal (performance) improvements. (#94,and other commits)
 8.1.0:
 - [Feature] Add .NET 8+ compatiblity
 - [Feature] Add support for trimming and AOT on .NET 8 or higher (#85)
