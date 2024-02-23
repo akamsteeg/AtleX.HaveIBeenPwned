@@ -8,10 +8,13 @@ namespace AtleX.HaveIBeenPwned;
 [Flags]
 public enum BreachMode
 {
+#pragma warning disable S2346 // Flags enumerations zero-value members should be named "None"
+
   /// <summary>
   /// The default, verified and unverified, breaches
   /// </summary>
   Default,
+#pragma warning restore S2346 // Flags enumerations zero-value members should be named "None"
 
   /// <summary>
   /// Exclude unverified breaches

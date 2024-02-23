@@ -24,7 +24,6 @@ internal static class Constants
     /// Gets the base uri of the HaveIBeenPwned.com Pwned PAsswords API
     /// </summary>
     public const string PwnedPasswordsBaseUri = "https://api.pwnedpasswords.com/range";
-
 #pragma warning restore S1075
 
     /// <summary>

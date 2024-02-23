@@ -140,6 +140,10 @@
 
 	<ItemGroup>
 		<PackageReference Include="Pitcher" Version="2.1.1" />
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="9.20.0.85982">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="SwissArmyKnife" Version="2.3.1" />
 		<PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" />
 		<PackageReference Include="System.Text.Json" Version="8.0.2" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
