@@ -96,4 +96,30 @@ public class HaveIBeenPwnedClientTests_GetBreachedDomainUsersAsync
 
     await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachedDomainUsersAsync("DUMMY"));
   }
+
+  [Fact]
+  public async Task GetBreachedDomainUsersAsync_WithNotOwnedDomain_Throws()
+  {
+    using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 403));
+
+    var settings = this.ClientSettings;
+    settings.ApiKey = "Valid";
+
+    using var c = new HaveIBeenPwnedClient(settings, httpClient);
+
+    await Assert.ThrowsAsync<DomainForbiddenException>(() => c.GetBreachedDomainUsersAsync("DUMMY"));
+  }
+
+  [Fact]
+  public async Task GetBreachedDomainUsersAsync_WithCancellationToken_WithNotOwnedDomain_Throws()
+  {
+    using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 403));
+
+    var settings = this.ClientSettings;
+    settings.ApiKey = "Valid";
+
+    using var c = new HaveIBeenPwnedClient(settings, httpClient);
+
+    await Assert.ThrowsAsync<DomainForbiddenException>(() => c.GetBreachedDomainUsersAsync("DUMMY", CancellationToken.None));
+  }
 }
