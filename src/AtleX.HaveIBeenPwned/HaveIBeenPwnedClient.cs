@@ -56,7 +56,7 @@ public sealed class HaveIBeenPwnedClient
   /// cref="InvalidOperationException"/> when the specified request method in a <see
   /// cref="HttpRequestMessage"/> is not GET
   /// </summary>
-  private static readonly Func<InvalidOperationException> CachedRequestMethodExceptionProducer = () => new InvalidOperationException($"Request method must be GET");
+  private static readonly Func<InvalidOperationException> CachedRequestMethodExceptionProducer = () => new InvalidOperationException("Request method must be GET");
 
   /// <summary>
   /// Initializes a new instance of <see cref="HaveIBeenPwnedClient"/> with the
@@ -366,14 +366,17 @@ public sealed class HaveIBeenPwnedClient
 
     if (response.IsSuccessStatusCode)
     {
-      using var content = await response
-     .Content
 #if NET6_0_OR_GREATER
-       .ReadAsStreamAsync(cancellationToken)
+      await using var content = await response
+        .Content
+        .ReadAsStreamAsync(cancellationToken)
+        .ConfigureAwait(false);
 #else
+      using var content = await response
+        .Content
         .ReadAsStreamAsync()
+        .ConfigureAwait(false);
 #endif
-     .ConfigureAwait(false);
 
       result =
 #if NET8_0_OR_GREATER // PERF: Be AOT and trimming compatible
