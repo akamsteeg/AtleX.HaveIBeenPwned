@@ -8,6 +8,7 @@ public class KAnonimityHelperTests
 {
   [Theory]
   [InlineData("DUMMY", "9600B", "5F6438B9ED6A23BBEF20A8C2B0C53A39449")]
+  [InlineData("-&HxcB_dH+M@BZAX", "8B3D6", "3D8F7F721C1D728A23B31B01939DFCA265B")]
   public void GetKAnonimityPartsForPassword_WithPassword_GeneratesValidKAnonimityParts(string password, string expectedKAnonimityPart, string expectedKAnonimityRemainder)
   {
     var (kAnonimityPart, kAnonimityRemainder) = KAnonimityHelper.GetKAnonimityPartsForPassword(password);

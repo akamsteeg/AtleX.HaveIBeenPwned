@@ -24,11 +24,13 @@ internal static class KAnonimityHelper
   /// </summary>
   private const int KAnonimityRemainderLength = 35;
 
+#if NETSTANDARD2_0
   /// <summary>
   /// Gets the length of the complete SHA1 hash of the password, the combined
   /// lenght of the KAnonimity part and the remainder
   /// </summary>
   private const int HashTotalLength = KAnonimityPartLength + KAnonimityRemainderLength;  // SHA1 hash is 40 characters long
+#endif
 
   /// <summary>
   /// Gets SHA1 KAnonomity part and remainder for the specified password
@@ -46,6 +48,14 @@ internal static class KAnonimityHelper
 
     var hash = GetSHA1HashForPassword(password);
 
+#if NET6_0_OR_GREATER
+    var kAnonimityHash = Convert.ToHexString(hash).AsSpan();
+
+    var result = (
+       kAnonimityHash[..KAnonimityPartLength].ToString(),
+        kAnonimityHash.Slice(KAnonimityPartLength, KAnonimityRemainderLength).ToString()
+      );
+#else
     var kAnonimityHashPart = new StringBuilder(HashTotalLength);
     foreach (var currentByte in hash)
     {
@@ -56,6 +66,7 @@ internal static class KAnonimityHelper
       kAnonimityHashPart.ToString(0, KAnonimityPartLength),
       kAnonimityHashPart.ToString(KAnonimityPartLength, KAnonimityRemainderLength)
       );
+#endif
 
     return result;
   }
