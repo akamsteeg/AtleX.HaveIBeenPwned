@@ -27,6 +27,8 @@ in a tool like [ILSpy](https://github.com/icsharpcode/ILSpy) or use a debugger t
 |:------------------:|:------------------:|:-----------------------:|:-----------------------:|
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:      | :heavy_check_mark:      |
 
+(A full overview of explicitly and implicitly [supported frameworks is available on NuGet.org](https://www.nuget.org/packages/AtleX.HaveIBeenPwned/#supportedframeworks-body-tab).)
+
 
 # Installation
 
