@@ -13,6 +13,14 @@ requires a API key. These API keys are available on the [HaveIBeenPwned.com webs
 [![Build status](https://interastra.visualstudio.com/OSS%20-%20CI/_apis/build/status/AtleX.HaveIBeenPwned%20CI?branchName=master)](https://dev.azure.com/interastra/OSS%20-%20CI/_build?definitionId=11&_a=summary) [![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/interastra/OSS%20-%20CI/11.svg?maxAge=3600)](https://dev.azure.com/interastra/OSS%20-%20CI/_build?definitionId=11&_a=summary) 
 
 
+## Trust
+
+Leaked data can be a sensitive subject. Just like the [HaveIBeenPwned.com website and API](https://haveibeenpwned.com/), this 
+library is carefully designed to be trustworthy and require the least amount of data possible to work. There is no collection
+of data. All published packages have reproducible builds, meaning that a build from a certain source version will always
+result in the same binaries. Additionally, not a single part of the library is obfuscated. Anyone can easily inspect binaries
+in a tool like [ILSpy](https://github.com/icsharpcode/ILSpy) or use a debugger to step through and inspect everything.
+
 # Platform support
 
 |  .NET (5.0+)       |  .NET Core (2.0+)  | .NET Standard (2.0+)    | .NET Framework (4.7.2+) |
@@ -22,7 +30,8 @@ requires a API key. These API keys are available on the [HaveIBeenPwned.com webs
 
 # Installation
 
-AtleX.HaveIBeenPwned is available as NuGet package: [![NuGet](https://img.shields.io/nuget/v/AtleX.HaveIBeenPwned.svg?maxAge=3600)](https://www.nuget.org/packages/AtleX.HaveIBeenPwned/)
+AtleX.HaveIBeenPwned is available as NuGet package: 
+[![NuGet](https://img.shields.io/nuget/v/AtleX.HaveIBeenPwned.svg?cacheSeconds=3600)](https://www.nuget.org/packages/AtleX.HaveIBeenPwned/) ![Downloads from NuGet](https://img.shields.io/nuget/dt/atlex.haveibeenpwned?cacheSeconds=3600)
 
 ```
 install-package AtleX.HaveIBeenPwned

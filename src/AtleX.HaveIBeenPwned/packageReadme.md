@@ -10,6 +10,14 @@ thread safe, simple to plug into ASP.net Core(+)'s dependency injection system a
 :warning: For some actions, like getting the pastes and breaches for an account, the [HaveIBeenPwned.com API](https://haveibeenpwned.com/) 
 requires a API key. These API keys are available on the [HaveIBeenPwned.com website](https://haveibeenpwned.com/API/Key).
 
+## Trust
+
+Leaked data can be a sensitive subject. Just like the [HaveIBeenPwned.com website and API](https://haveibeenpwned.com/), this 
+library is carefully designed to be trustworthy and require the least amount of data possible to work. There is no collection
+of data. All published packages have reproducible builds, meaning that a build from a certain source version will always
+result in the same binaries. Additionally, not a single part of the library is obfuscated. Anyone can easily inspect binaries
+in a tool like [ILSpy](https://github.com/icsharpcode/ILSpy) or use a debugger to step through and inspect everything.
+
 # Platform support
 
 |  .NET (5.0+)       |  .NET Core (2.0+)  | .NET Standard (2.0+)    | .NET Framework (4.7.2+) |
