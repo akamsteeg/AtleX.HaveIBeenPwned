@@ -30,9 +30,9 @@ in a tool like [ILSpy](https://github.com/icsharpcode/ILSpy) or use a debugger t
 
 # Installation
 
-[![NuGet](https://img.shields.io/nuget/v/AtleX.HaveIBeenPwned.svg?cacheSeconds=3600)](https://www.nuget.org/packages/AtleX.HaveIBeenPwned/) ![Downloads from NuGet](https://img.shields.io/nuget/dt/atlex.haveibeenpwned?cacheSeconds=3600)
+[![NuGet](https://img.shields.io/nuget/v/AtleX.HaveIBeenPwned.svg?cacheSeconds=3600)](https://www.nuget.org/packages/AtleX.HaveIBeenPwned/) [![Downloads from NuGet](https://img.shields.io/nuget/dt/atlex.haveibeenpwned?cacheSeconds=3600)](https://www.nuget.org/stats/packages/AtleX.HaveIBeenPwned?groupby=Version)
 
-AtleX.HaveIBeenPwned is available as NuGet package: 
+AtleX.HaveIBeenPwned is available as a NuGet package: 
 
 ```
 install-package AtleX.HaveIBeenPwned
