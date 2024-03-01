@@ -24,14 +24,6 @@ internal static class KAnonimityHelper
   /// </summary>
   private const int KAnonimityRemainderLength = 35;
 
-#if NETSTANDARD2_0
-  /// <summary>
-  /// Gets the length of the complete SHA1 hash of the password, the combined
-  /// lenght of the KAnonimity part and the remainder
-  /// </summary>
-  private const int HashTotalLength = KAnonimityPartLength + KAnonimityRemainderLength;  // SHA1 hash is 40 characters long
-#endif
-
   /// <summary>
   /// Gets SHA1 KAnonomity part and remainder for the specified password
   /// </summary>
@@ -56,7 +48,7 @@ internal static class KAnonimityHelper
         kAnonimityHash.Slice(KAnonimityPartLength, KAnonimityRemainderLength).ToString()
       );
 #else
-    var kAnonimityHashPart = new StringBuilder(HashTotalLength);
+    var kAnonimityHashPart = new StringBuilder(KAnonimityPartLength + KAnonimityRemainderLength); // SHA1 hash is 40 characters long
     foreach (var currentByte in hash)
     {
       kAnonimityHashPart.AppendFormat(CultureInfo.InvariantCulture, "{0:X2}", currentByte);
@@ -91,11 +83,11 @@ internal static class KAnonimityHelper
     // works. And it's not used as a hashing algorithm that must be
     // cryptographically secure.
 
-#if NETSTANDARD2_0_OR_GREATER
+#if NET6_0_OR_GREATER
+    var result = SHA1.HashData(passwordRaw);
+#elif NETSTANDARD2_0_OR_GREATER
     using var sha1 = SHA1.Create();
     var result = sha1.ComputeHash(passwordRaw);
-#elif NET6_0_OR_GREATER
-    var result = SHA1.HashData(passwordRaw);
 #endif
 
 #pragma warning restore CA5350 // Do Not Use Weak Cryptographic Algorithms
