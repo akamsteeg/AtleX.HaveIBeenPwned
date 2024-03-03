@@ -59,7 +59,5 @@ internal sealed class DomainUserConvertor : JsonConverter<IEnumerable<DomainUser
 
   /// <inheritDoc />
   public override void Write(Utf8JsonWriter writer, IEnumerable<DomainUser> value, JsonSerializerOptions options)
-  {
-    throw new NotImplementedException();
-  }
+    => throw new NotImplementedException();
 }
