@@ -1,5 +1,10 @@
 <Project>
   <PropertyGroup>
+  
+	<!-- Documentation: https://github.com/dotnet/project-system/blob/main/docs/build-acceleration.md -->
+  
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+	
+	<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
 </Project>
