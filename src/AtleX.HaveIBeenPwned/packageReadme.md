@@ -56,3 +56,18 @@ using (var client = new HaveIBeenPwnedClient(settings))
 ```
 
 All async methods have overrides with `CancellationToken` support.
+
+## Depedency injection
+
+Usage with the dependency injection system of ASP.net Core/.NET Core or higher is fully supported.
+
+```csharp
+builder.Services
+  .AddSingleton(_ => new HaveIBeenPwnedClientSettings() 
+    { 
+      ApplicationName = "YourAppName", 
+      ApiKey = "YourApiKey" // Only necessary for methods thar require an API key. Can be left blank otherwise
+    })
+  .AddScoped<IHaveIBeenPwnedClient, HaveIBeenPwnedClient>() // You can also use one of the more specialized interfaces
+  .AddHttpClient<HaveIBeenPwnedClient>();
+```
