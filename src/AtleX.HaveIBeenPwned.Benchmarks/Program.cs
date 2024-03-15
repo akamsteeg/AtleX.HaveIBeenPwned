@@ -19,7 +19,7 @@ public static class Program
       .Run(args, config);
   }
 
-  private static IConfig GetConfig()
+  private static ManualConfig GetConfig()
   {
     var config = ManualConfig.Create(DefaultConfig.Instance);
 
