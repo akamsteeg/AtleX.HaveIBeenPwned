@@ -18,12 +18,6 @@ of data. All published packages have reproducible builds, meaning that a build f
 result in the same binaries. Additionally, not a single part of the library is obfuscated. Anyone can easily inspect binaries
 in a tool like [ILSpy](https://github.com/icsharpcode/ILSpy) or use a debugger to step through and inspect everything.
 
-# Platform support
-
-|  .NET (5.0+)       |  .NET Core (2.0+)  | .NET Standard (2.0+)    | .NET Framework (4.7.2+) |
-|:------------------:|:------------------:|:-----------------------:|:-----------------------:|
-| :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:      | :heavy_check_mark:      |
-
 # Examples
 
 ```csharp

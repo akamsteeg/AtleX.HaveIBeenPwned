@@ -79,6 +79,17 @@ using (var client = new HaveIBeenPwnedClient(settings))
 
 All async methods have overrides with `CancellationToken` support.
 
+## Depedency injection
+
+Registering this client in ASP.net (Core) its dependency injection system is easy,
+
+```csharp
+builder.Services
+  .AddSingleton(_ => new HaveIBeenPwnedClientSettings() { ApplicationName = "YourAppName", ApiKey = "YourApiKey" })
+  .AddScoped<IHaveIBeenPwnedPasswordClient, HaveIBeenPwnedClient>()
+  .AddHttpClient<HaveIBeenPwnedClient>();
+```
+
 # License
 
 AtleX.HaveIBeenPwned uses the MIT license, see the LICENSE file.
