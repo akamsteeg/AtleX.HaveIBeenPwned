@@ -8,5 +8,5 @@ steps:
   displayName: 'Run integration tests'
   inputs:
     command: test
-    projects: '${{ parameters.pathToUnitIntegrationTestProject }}'
+    projects: '${{ parameters.pathToIntegrationTestProject }}'
     arguments: '--configuration ${{ parameters.buildConfiguration }}'
