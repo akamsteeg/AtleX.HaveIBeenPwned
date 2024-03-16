@@ -276,7 +276,7 @@ public sealed class HaveIBeenPwnedClient
       .ExecuteRequestAsync(requestMessage, cancellationToken)
       .ConfigureAwait(false);
 
-    if (response.StatusCode == HttpStatusCode.OK)
+    if (response.StatusCode is HttpStatusCode.OK)
     {
       var content = await response.Content
 #if NET6_0_OR_GREATER
@@ -389,10 +389,6 @@ public sealed class HaveIBeenPwnedClient
       .DeserializeAsync<T>(content, JsonOptions, cancellationToken)
       .ConfigureAwait(false);
 #endif
-    }
-    else
-    {
-      HandleErrorResponse(response);
     }
 
     return result;

@@ -1,6 +1,5 @@
 ﻿using Pitcher;
 using System;
-using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -51,7 +50,7 @@ internal static class KAnonimityHelper
     var kAnonimityHashPart = new StringBuilder(KAnonimityPartLength + KAnonimityRemainderLength); // SHA1 hash is 40 characters long
     foreach (var currentByte in hash)
     {
-      kAnonimityHashPart.AppendFormat(CultureInfo.InvariantCulture, "{0:X2}", currentByte);
+      kAnonimityHashPart.AppendFormat(System.Globalization.CultureInfo.InvariantCulture, "{0:X2}", currentByte);
     }
 
     var result = (

@@ -55,7 +55,7 @@ public class HaveIBeenPwnedClientTests_GetPastesAsync
   {
     using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 401));
     using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
-    
+
     await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetPastesAsync("DUMMY", CancellationToken.None));
   }
 
