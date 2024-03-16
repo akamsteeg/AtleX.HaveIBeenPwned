@@ -11,7 +11,7 @@ jobs:
     name: Linux
     vmImage: 'ubuntu-latest'
     publishBuildArtifacts: 'true'
-    publishCodeCoverage: 'true'
+    publishCodeCoverage: 'false'
 
 - template: build-templates/build-package.job.yml
   parameters:
