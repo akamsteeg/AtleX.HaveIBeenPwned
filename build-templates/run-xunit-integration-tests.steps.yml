@@ -1,0 +1,12 @@
+# Run the XUnit integration tests
+parameters:
+  buildConfiguration: 'Release'
+  pathToIntegrationTestProject: '$(Build.SourcesDirectory)/**/*.IntegrationTests.csproj'
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: 'Run integration tests'
+  inputs:
+    command: test
+    projects: '${{ parameters.pathToUnitIntegrationTestProject }}'
+    arguments: '--configuration ${{ parameters.buildConfiguration }}'

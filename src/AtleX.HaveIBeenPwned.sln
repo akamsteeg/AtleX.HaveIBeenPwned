@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "steps", "steps", "{3882680D
 	ProjectSection(SolutionItems) = preProject
 		..\build-templates\build-solution.steps.yml = ..\build-templates\build-solution.steps.yml
 		..\build-templates\publish-nuget-package-artifacts.steps.yml = ..\build-templates\publish-nuget-package-artifacts.steps.yml
+		..\build-templates\run-xunit-integration-tests.steps.yml = ..\build-templates\run-xunit-integration-tests.steps.yml
 		..\build-templates\run-xunit-unit-tests.steps.yml = ..\build-templates\run-xunit-unit-tests.steps.yml
 	EndProjectSection
 EndProject

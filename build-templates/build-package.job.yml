@@ -22,5 +22,9 @@ jobs:
         buildConfiguration: ${{ parameters.buildConfiguration }}
         pathToUnitTestProject: '$(Build.SourcesDirectory)/src/**/*.Tests.csproj'
         publishCodeCoverage: ${{ parameters.publishCodeCoverage }}
+    - template: run-xunit-integration-tests.steps.yml
+      parameters:
+        buildConfiguration: ${{ parameters.buildConfiguration }}
+        pathToIntegrationTestProject: '$(Build.SourcesDirectory)/src/**/*.IntegrationTests.csproj'
     - ${{ if eq(parameters.publishBuildArtifacts, 'true') }}:
       - template: publish-nuget-package-artifacts.steps.yml
