@@ -9,7 +9,7 @@ public abstract class HaveIBeenPwnedClientIntegrationTestsBase
   {
     var result = new HaveIBeenPwnedClientSettings()
     {
-      ApiKey = PrivateConstants.ApiKey,
+      ApiKey = PrivateSettings.ApiKey,
       ApplicationName = Constants.Tests.ApplicationName,
     };
 

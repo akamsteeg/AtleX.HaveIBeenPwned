@@ -14,7 +14,7 @@ internal sealed class FactWithApiKeyAttribute : FactAttribute
   /// </summary>
   public FactWithApiKeyAttribute()
   {
-    if (PrivateConstants.ApiKey.IsNullOrEmpty())
+    if (PrivateSettings.ApiKey.IsNullOrEmpty())
     {
       this.Skip = "No API key set";
     }

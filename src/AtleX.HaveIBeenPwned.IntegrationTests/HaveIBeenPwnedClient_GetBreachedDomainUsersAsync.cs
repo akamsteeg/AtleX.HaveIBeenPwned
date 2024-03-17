@@ -18,7 +18,7 @@ public class HaveIBeenPwnedClient_GetBreachedDomainUsersAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-    var result = await c.GetBreachedDomainUsersAsync(PrivateConstants.OwnedDomain);
+    var result = await c.GetBreachedDomainUsersAsync(PrivateSettings.OwnedDomain);
 
     Assert.NotNull(result);
     Assert.NotEmpty(result);
@@ -31,7 +31,7 @@ public class HaveIBeenPwnedClient_GetBreachedDomainUsersAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(CreateSettings(), httpClient);
 
-    var result = await c.GetBreachedDomainUsersAsync(PrivateConstants.OwnedDomain, cancellationTokenSource.Token);
+    var result = await c.GetBreachedDomainUsersAsync(PrivateSettings.OwnedDomain, cancellationTokenSource.Token);
 
     Assert.NotNull(result);
     Assert.NotEmpty(result);
@@ -69,7 +69,7 @@ public class HaveIBeenPwnedClient_GetBreachedDomainUsersAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(settings, httpClient);
 
-    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachedDomainUsersAsync(PrivateConstants.OwnedDomain));
+    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachedDomainUsersAsync(PrivateSettings.OwnedDomain));
   }
 
   [FactWithApiKey]
@@ -85,6 +85,6 @@ public class HaveIBeenPwnedClient_GetBreachedDomainUsersAsync
     using var httpClient = new HttpClient();
     using var c = new HaveIBeenPwnedClient(settings, httpClient);
 
-    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachedDomainUsersAsync(PrivateConstants.OwnedDomain, cancellationTokenSource.Token));
+    await Assert.ThrowsAsync<InvalidApiKeyException>(() => c.GetBreachedDomainUsersAsync(PrivateSettings.OwnedDomain, cancellationTokenSource.Token));
   }
 }
