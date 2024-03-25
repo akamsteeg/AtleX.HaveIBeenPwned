@@ -1,10 +1,13 @@
 <Project>
+  <!-- General shared properties -->
   <PropertyGroup>
+    <Product>$(MSBuildProjectName) ($(Configuration)</Product>
+  </PropertyGroup>
   
-	<!-- Documentation: https://github.com/dotnet/project-system/blob/main/docs/build-acceleration.md -->
-  
+  <!-- Build acceleration -->
+  <PropertyGroup>  
+    <!-- Documentation: https://github.com/dotnet/project-system/blob/main/docs/build-acceleration.md -->
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
-	
-	<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
   </PropertyGroup>
 </Project>

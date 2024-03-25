@@ -1,10 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;net6.0;net8.0</TargetFrameworks>
 		<LangVersion>12</LangVersion>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
 		<IsAotCompatible Condition="'$(TargetFramework)' == 'net8.0'">true</IsAotCompatible>
 
@@ -15,16 +14,20 @@
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<AnalysisMode>Recommended</AnalysisMode>
 		<AnalysisLevel>latest</AnalysisLevel>
+		
+		<NuGetAuditMode>all</NuGetAuditMode>
+		<NuGetAuditLevel>low</NuGetAuditLevel>
 
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 
-		<Authors>Alex Kamsteeg (https://atlex.nl/) and contributors</Authors>
-		<Company />
 		<PackageProjectUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned</PackageProjectUrl>
-		<Description>AtleX.HaveIBeenPwned is a fully async and super fast .NET Standard client library for HaveIBeenPwned.com.</Description>
+		
+		<Authors>Alex Kamsteeg (https://atlex.nl/) and contributors</Authors>
 		<Copyright>© Alex Kamsteeg</Copyright>
+		<Company />
+		<Description>AtleX.HaveIBeenPwned is a fully async and super fast .NET Standard client library for HaveIBeenPwned.com.</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageTags>haveibeenpwned breach password hibp security pwned email emailaddress client</PackageTags>
 		<PackageReadmeFile>packageReadme.md</PackageReadmeFile>
