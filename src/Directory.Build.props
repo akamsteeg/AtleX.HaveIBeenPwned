@@ -1,7 +1,7 @@
 <Project>
   <!-- General shared properties -->
   <PropertyGroup>
-    <Product>$(MSBuildProjectName) ($(Configuration)</Product>
+    <Product>$(MSBuildProjectName) ($(TargetFramework))</Product>
   </PropertyGroup>
   
   <!-- Build acceleration -->
