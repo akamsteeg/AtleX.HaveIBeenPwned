@@ -1,13 +1,17 @@
 <Project>
-  <!-- General shared properties -->
-  <PropertyGroup>
-    <Product>$(MSBuildProjectName) ($(TargetFramework))</Product>
-  </PropertyGroup>
-  
-  <!-- Build acceleration -->
-  <PropertyGroup>  
-    <!-- Documentation: https://github.com/dotnet/project-system/blob/main/docs/build-acceleration.md -->
-    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
-    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-  </PropertyGroup>
+	<!-- General shared properties -->
+	<PropertyGroup>
+		<Product>$(MSBuildProjectName) ($(TargetFramework))</Product>
+
+		<!-- NuGet dependencies audit mode-->
+		<NuGetAuditMode>all</NuGetAuditMode>
+		<NuGetAuditLevel>low</NuGetAuditLevel>
+	</PropertyGroup>
+
+	<!-- Build acceleration -->
+	<PropertyGroup>
+		<!-- Documentation: https://github.com/dotnet/project-system/blob/main/docs/build-acceleration.md -->
+		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+	</PropertyGroup>
 </Project>
