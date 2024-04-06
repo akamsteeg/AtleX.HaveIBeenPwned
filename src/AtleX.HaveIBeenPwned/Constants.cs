@@ -71,7 +71,8 @@ internal static class Constants
   internal static class Communication
   {
     /// <summary>
-    /// Represents constant values for communication via HTTP with the HaveIBeenPwned.com API
+    /// Represents constant values for communication via HTTP with the
+    /// HaveIBeenPwned.com API
     /// </summary>
     internal static class Http
     {
@@ -81,9 +82,41 @@ internal static class Constants
       public const string MediaType = "application/json";
 
       /// <summary>
-      /// Gets the default retry timeout in milliseconds when a HTTP/429 response is received
+      /// Gets the default retry timeout in milliseconds when a HTTP/429
+      /// response is received
       /// </summary>
       public const int DefaultRetryValue = 1500;
     }
+  }
+
+  /// <summary>
+  /// Represents constant values for <see href="https://en.wikipedia.org/wiki/K-anonymity">KAnonimity</see>
+  /// </summary>
+  /// <remarks>
+  /// See <see
+  /// href="https://blog.cloudflare.com/validating-leaked-passwords-with-k-anonymity">the
+  /// CloudFlare blog</see> for more ifnromation about the usage in the
+  /// HaveIBeenPwned API
+  /// </remarks>
+  internal static class KAnonimity
+  {
+    /// <summary>
+    /// Gets the length of the KAnonimity part to send to the HaveIBeenPwned API
+    /// </summary>
+    public const int PartLength = 5;
+
+    /// <summary>
+    /// Gets the length of the remainder of the hash that serves as the suffix
+    /// of the KAnonimity system
+    /// </summary>
+    public const int RemainderLength = 35;
+
+    /// <summary>
+    /// Gets the total length of a hash for KAnonimity usage.
+    /// </summary>
+    /// <remarks>
+    /// Curently, this library only supports checking for SHA 1 hashes and not NTLM
+    /// </remarks>
+    public const int TotalLength = PartLength + RemainderLength;  // SHA1 hash is 40 characters long
   }
 }
