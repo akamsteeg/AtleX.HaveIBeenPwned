@@ -57,7 +57,7 @@ using (var client = new HaveIBeenPwnedClient(settings))
 
 All async methods have overrides with `CancellationToken` support.
 
-## Depedency injection
+## Dependency injection
 
 Usage with the dependency injection system of ASP.net Core/.NET Core or higher is fully supported.
 
