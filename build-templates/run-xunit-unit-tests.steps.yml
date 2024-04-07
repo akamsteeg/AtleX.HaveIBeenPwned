@@ -15,7 +15,7 @@ steps:
     arguments: '--configuration ${{ parameters.buildConfiguration }} /p:Exclude="${{ parameters.excludeFromCodeCoverage }}" --collect:"XPlat Code Coverage"'
 
 - ${{ if eq(parameters.publishCodeCoverage, 'true') }}:
-  - task: PublishCodeCoverageResults@1
+  - task: PublishCodeCoverageResults@2
     displayName: 'Publish code coverage results'
     inputs:
       summaryFileLocation: $(Agent.TempDirectory)/**/*.cobertura.xml
