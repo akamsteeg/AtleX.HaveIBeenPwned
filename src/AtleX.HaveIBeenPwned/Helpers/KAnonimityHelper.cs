@@ -35,19 +35,25 @@ internal static class KAnonimityHelper
 
     (string, string) result;
 
-    var maxByteCount = Encoding.UTF8.GetByteCount(password); // UTF8 has at most 4 bytes per character but this will give us an accurate number
+    var encoding = Encoding.UTF8;
+    var arrayPool = ArrayPool<byte>.Shared;
 
-    var hashBuffer = ArrayPool<byte>.Shared.Rent(maxByteCount); // PERF: Rent a buffer. It is at least the same size as the number of bytes of the password
+    var maxByteCount = encoding.GetByteCount(password); // UTF8 has at most 4 bytes per character but this will give us an accurate number
+
+    var characterBuffer = arrayPool.Rent(maxByteCount); // PERF: Rent a buffer. It is at least the same size as the number of bytes of the password
+    var hashBuffer = arrayPool.Rent(20); // PERF: Use a rented buffer to store the SHA1 hash. A SHA1 hash is always 20 bytes.
 
     try
     {
-      var numberOfEncodedBytes = Encoding.UTF8.GetBytes(password, hashBuffer);
+      var numberOfEncodedBytes = encoding.GetBytes(password, characterBuffer);
 
-      var usedPartOfBuffer = hashBuffer.AsSpan()[..numberOfEncodedBytes]; // The rented buffer can be larger, than the minimal size. We must only work on the part of the bufer that's used
+      var usedPartOfCharacterBuffer = characterBuffer.AsSpan()[..numberOfEncodedBytes]; // The rented buffer can be larger than the minimal size. We must only work on the part of the bufer that's used      
 
-      var hash = SHA1.HashData(usedPartOfBuffer);
+      var numberOfHashBytes = SHA1.HashData(usedPartOfCharacterBuffer, hashBuffer);
 
-      var kAnonimityHash = Convert.ToHexString(hash);
+      var usedPartOfHashBuffer = hashBuffer.AsSpan()[..numberOfHashBytes];
+
+      var kAnonimityHash = Convert.ToHexString(usedPartOfHashBuffer);
 
       var kAnonimityHashSpan = kAnonimityHash.AsSpan();
 
@@ -58,7 +64,10 @@ internal static class KAnonimityHelper
     }
     finally
     {
-      ArrayPool<byte>.Shared.Return(hashBuffer); // Make sure return the rented buffer
+      // Make sure return the rented buffers
+
+      arrayPool.Return(characterBuffer);
+      arrayPool.Return(hashBuffer);
     }
 
     return result;
