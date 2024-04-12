@@ -33,24 +33,33 @@ internal static class KAnonimityHelper
   {
     Throw.ArgumentNull.WhenNullOrEmpty(password, nameof(password));
 
+    (string, string) result;
+
     var maxByteCount = Encoding.UTF8.GetByteCount(password); // UTF8 has at most 4 bytes per character but this will give us an accurate number
 
-    var hashBuffer = ArrayPool<byte>.Shared.Rent(maxByteCount);
+    var hashBuffer = ArrayPool<byte>.Shared.Rent(maxByteCount); // PERF: Rent a buffer. It is at least the same size as the number of bytes of the password
 
-    var numberOfEncodedBytes = Encoding.UTF8.GetBytes(password, hashBuffer);
+    try
+    {
+      var numberOfEncodedBytes = Encoding.UTF8.GetBytes(password, hashBuffer);
 
-    var usedPartOfBuffer = hashBuffer.AsSpan()[..numberOfEncodedBytes];
+      var usedPartOfBuffer = hashBuffer.AsSpan()[..numberOfEncodedBytes]; // The rented buffer can be larger, than the minimal size. We must only work on the part of the bufer that's used
 
-    var hash = SHA1.HashData(usedPartOfBuffer);
+      var hash = SHA1.HashData(usedPartOfBuffer);
 
-    var kAnonimityHash = Convert.ToHexString(hash).AsSpan();
+      var kAnonimityHash = Convert.ToHexString(hash);
 
-    var result = (
-      kAnonimityHash[..Constants.KAnonimity.PartLength].ToString(),
-       kAnonimityHash.Slice(Constants.KAnonimity.PartLength, Constants.KAnonimity.RemainderLength).ToString()
-       );
+      var kAnonimityHashSpan = kAnonimityHash.AsSpan();
 
-    ArrayPool<byte>.Shared.Return(hashBuffer);
+      result = (
+        kAnonimityHashSpan[..Constants.KAnonimity.PartLength].ToString(),
+         kAnonimityHashSpan.Slice(Constants.KAnonimity.PartLength, Constants.KAnonimity.RemainderLength).ToString()
+         );
+    }
+    finally
+    {
+      ArrayPool<byte>.Shared.Return(hashBuffer); // Make sure return the rented buffer
+    }
 
     return result;
   }
