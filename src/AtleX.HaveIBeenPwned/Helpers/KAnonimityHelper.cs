@@ -20,7 +20,7 @@ internal static class KAnonimityHelper
 #if NET6_0_OR_GREATER
 
   /// <summary>
-  /// Gets SHA1 KAnonomity part and remainder for the specified password
+  /// Gets SHA1 KAnonomity part and remainder for the specified <paramref name="password"/>
   /// </summary>
   /// <param name="password">
   /// The password to get the SHA1 hash from
@@ -46,15 +46,12 @@ internal static class KAnonimityHelper
     try
     {
       var numberOfEncodedBytes = encoding.GetBytes(password, characterBuffer);
-
       var usedPartOfCharacterBuffer = characterBuffer.AsSpan()[..numberOfEncodedBytes]; // The rented buffer can be larger than the minimal size. We must only work on the part of the bufer that's used      
 
       var numberOfHashBytes = SHA1.HashData(usedPartOfCharacterBuffer, hashBuffer);
-
       var usedPartOfHashBuffer = hashBuffer.AsSpan()[..numberOfHashBytes];
 
       var kAnonimityHash = Convert.ToHexString(usedPartOfHashBuffer);
-
       var kAnonimityHashSpan = kAnonimityHash.AsSpan();
 
       result = (
@@ -75,7 +72,7 @@ internal static class KAnonimityHelper
 
 #else
     /// <summary>
-    /// Gets SHA1 KAnonomity part and remainder for the specified password
+    /// Gets SHA1 KAnonomity part and remainder for the specified <paramref name="password"/>
     /// </summary>
     /// <param name="password">
     /// The password to get the SHA1 hash from
