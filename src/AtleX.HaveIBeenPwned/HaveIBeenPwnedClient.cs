@@ -378,16 +378,16 @@ public sealed class HaveIBeenPwnedClient
         .ConfigureAwait(false);
 #endif
 
-      result =
 #if NET8_0_OR_GREATER // PERF: Be AOT and trimming compatible
-        (await JsonSerializer
-          .DeserializeAsync(content, JsonOptions.GetTypeInfo<T>(), cancellationToken)
-          .ConfigureAwait(false)
-         ) as T;
+      var deserializedResponse = await JsonSerializer
+        .DeserializeAsync(content, JsonOptions.GetTypeInfo<T>(), cancellationToken)
+        .ConfigureAwait(false);
+
+        result = deserializedResponse as T;
 #else
-     await JsonSerializer
-      .DeserializeAsync<T>(content, JsonOptions, cancellationToken)
-      .ConfigureAwait(false);
+      result = await JsonSerializer
+        .DeserializeAsync<T>(content, JsonOptions, cancellationToken)
+        .ConfigureAwait(false);
 #endif
     }
 
