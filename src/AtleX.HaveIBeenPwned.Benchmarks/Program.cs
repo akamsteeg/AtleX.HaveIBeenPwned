@@ -2,9 +2,11 @@
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Diagnosers;
 using BenchmarkDotNet.Jobs;
+using BenchmarkDotNet.Order;
 using BenchmarkDotNet.Reports;
 using BenchmarkDotNet.Running;
 using BenchmarkDotNet.Toolchains.CsProj;
+using BenchmarkDotNet.Validators;
 using System;
 using System.Reflection;
 
@@ -36,6 +38,10 @@ public static class Program
 
     config.SummaryStyle = SummaryStyle.Default
       .WithRatioStyle(RatioStyle.Percentage);
+
+    config.AddValidator(JitOptimizationsValidator.FailOnError); // Fail when any of the referenced assemblies are not optimized
+
+    config.WithOrderer(new DefaultOrderer(SummaryOrderPolicy.FastestToSlowest));
 
     return config;
   }
