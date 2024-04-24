@@ -36,42 +36,27 @@ public sealed class DomainUser
   /// </summary>
   public IEnumerable<string> Breaches { get; set; } = Enumerable.Empty<string>();
 
-  /// <summary>
-  /// Determines whether the specified object is equal to the current object
-  /// </summary>
-  /// <param name="obj">
-  /// The object to compare with the current object
-  /// </param>
-  /// <returns>
-  /// True if the specified object is equal to the current object; false otherwise
-  /// </returns>
-  public override bool Equals(object? obj) => EqualityHelper.Equals(this, obj);
+  /// <inheritDoc />
+  public override bool Equals(object? obj) => this == obj;
 
-  /// <summary>
-  /// Indicates whether the current object is equal to another object of the
-  /// same type
-  /// </summary>
-  /// <param name="other">
-  /// An object to compare with this object
-  /// </param>
-  /// <returns>
-  /// True if the current object is equal to the other parameter; false otherwise
-  /// </returns>
-  public bool Equals(DomainUser? other) => EqualityHelper.Equals(this, other);
+  /// <inheritDoc />
+  public bool Equals(DomainUser? other) => this == other;
 
-  /// <summary>
-  /// Serves as the default hash function
-  /// </summary>
-  /// <returns>
-  /// A hash code for the current object
-  /// </returns>
+  /// <inheritDoc />
   public override int GetHashCode() => HashCodeHelper.GetHashCode(this.Alias!);
 
-  /// <summary>
-  /// Returns a string that represents the current object
-  /// </summary>
-  /// <returns>
-  /// A string that represents the current object
-  /// </returns>
+  /// <inheritDoc />
   public override string ToString() => this.Alias ?? string.Empty;
+
+  /// <inheritDoc />
+  public static bool operator ==(DomainUser? left, DomainUser? right) => EqualityHelper.Equals(left, right);
+
+  /// <inheritDoc />
+  public static bool operator ==(DomainUser? left, object? right) => EqualityHelper.Equals(left, right);
+
+  /// <inheritDoc />
+  public static bool operator !=(DomainUser? left, DomainUser? right) => !EqualityHelper.Equals(left, right);
+
+  /// <inheritDoc />
+  public static bool operator !=(DomainUser? left, object? right) => !EqualityHelper.Equals(left, right);
 }
