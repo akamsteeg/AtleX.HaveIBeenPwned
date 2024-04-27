@@ -132,4 +132,66 @@ public class DomainUserTests
 
     Assert.Equal(du.GetHashCode(), other.GetHashCode());
   }
+
+  [Fact]
+  public void EqualsOperater_WithNull_IsFalse()
+  {
+    var du = new DomainUser()
+    {
+      Alias = "FIRST",
+    };
+
+    DomainUser other = null;
+
+    Assert.False(du == other);
+  }
+
+  [Theory]
+  [InlineData("domainuser", true)]
+  [InlineData("DUMMY", false)]
+  public void EqualsOperater_WithSameType_IsExpected(string alias, bool expected)
+  {
+    var du = new DomainUser()
+    {
+      Alias = "domainuser",
+    };
+
+    var other = new DomainUser()
+    {
+      Alias = alias
+    };
+
+    Assert.Equal(expected, du == other);
+  }
+
+  [Theory]
+  [InlineData("domainuser", true)]
+  [InlineData("DUMMY", false)]
+  public void EqualsOperater_WithObject_IsExpected(string alias, bool expected)
+  {
+    var du = new DomainUser()
+    {
+      Alias = "domainuser",
+    };
+
+    var other = new DomainUser()
+    {
+      Alias = alias
+    };
+
+    Assert.Equal(expected, du == (object)other);
+  }
+
+  [Fact]
+  public void EqualsOperater_WithObjectOfDifferentType_IsFalsed()
+  {
+    var du = new DomainUser()
+    {
+      Alias = "domainuser",
+    };
+
+    var other = new Paste();
+
+    Assert.False(du == other);
+  }
 }

@@ -128,4 +128,60 @@ public class PasteTests
 
     Assert.Equal(p.GetHashCode(), other.GetHashCode());
   }
+
+  [Fact]
+  public void EqualsOperater_WithNull_IsFalse()
+  {
+    var p = new Paste();
+
+    DomainUser other = null;
+
+    Assert.False(p == other);
+  }
+
+  [Theory]
+  [InlineData("paste", true)]
+  [InlineData("DUMMY", false)]
+  public void EqualsOperater_WithSameType_IsExpected(string id, bool expected)
+  {
+    var p = new Paste()
+    {
+      Id = "paste"
+    };
+
+    var other = new Paste()
+    {
+      Id = id
+    };
+
+    Assert.Equal(expected, p == other);
+  }
+
+  [Theory]
+  [InlineData("paste", true)]
+  [InlineData("DUMMY", false)]
+  public void EqualsOperater_WithObject_IsExpected(string id, bool expected)
+  {
+    var p = new Paste()
+    {
+      Id = "paste"
+    };
+
+    var other = new Paste()
+    {
+      Id = id
+    };
+
+    Assert.Equal(expected, p == (object)other);
+  }
+
+  [Fact]
+  public void EqualsOperater_WithObjectOfDifferentType_IsFalsed()
+  {
+    var p = new Paste();
+
+    var other = new DomainUser();
+
+    Assert.False(p == other);
+  }
 }

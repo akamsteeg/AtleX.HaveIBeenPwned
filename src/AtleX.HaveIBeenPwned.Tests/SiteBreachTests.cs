@@ -128,4 +128,66 @@ public class SiteBreachTests
 
     Assert.Equal(p.GetHashCode(), other.GetHashCode());
   }
+
+  [Fact]
+  public void EqualsOperater_WithNull_IsFalse()
+  {
+    var sb = new SiteBreach()
+    {
+      Name = "FIRST",
+    };
+
+    SiteBreach other = null;
+
+    Assert.False(sb == other);
+  }
+
+  [Theory]
+  [InlineData("sitebreah", true)]
+  [InlineData("DUMMY", false)]
+  public void EqualsOperater_WithSameType_IsExpected(string name, bool expected)
+  {
+    var sb = new SiteBreach()
+    {
+      Name = "sitebreah",
+    };
+
+    var other = new SiteBreach()
+    {
+      Name = name
+    };
+
+    Assert.Equal(expected, sb == other);
+  }
+
+  [Theory]
+  [InlineData("sitebreah", true)]
+  [InlineData("DUMMY", false)]
+  public void EqualsOperater_WithObject_IsExpected(string name, bool expected)
+  {
+    var sb = new SiteBreach()
+    {
+      Name = "sitebreah",
+    };
+
+    var other = new SiteBreach()
+    {
+      Name = name
+    };
+
+    Assert.Equal(expected, sb == (object)other);
+  }
+
+  [Fact]
+  public void EqualsOperater_WithObjectOfDifferentType_IsFalsed()
+  {
+    var sb = new SiteBreach()
+    {
+      Name = "SiteBreach",
+    };
+
+    var other = new DomainUser();
+
+    Assert.False(sb == other);
+  }
 }

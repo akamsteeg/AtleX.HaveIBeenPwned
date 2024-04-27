@@ -20,23 +20,23 @@ public class BreachTests
   [Fact]
   public void Equals_WithNullObject_ReturnsFalse()
   {
-    var p = new Breach();
+    var b = new Breach();
 
-    Assert.False(p.Equals((object)null));
+    Assert.False(b.Equals((object)null));
   }
 
   [Fact]
   public void Equals_WithWrongTypeObject_ReturnsFalse()
   {
-    var p = new Breach();
+    var b = new Breach();
 
-    Assert.False(p.Equals(string.Empty));
+    Assert.False(b.Equals(string.Empty));
   }
 
   [Fact]
   public void Equals_WithSameTypeObjectButDifferentValues_ReturnsFalse()
   {
-    var p = new Breach()
+    var b = new Breach()
     {
       Name = "FIRST",
     };
@@ -46,13 +46,13 @@ public class BreachTests
       Name = "SECOND",
     };
 
-    Assert.False(p.Equals((object)other));
+    Assert.False(b.Equals((object)other));
   }
 
   [Fact]
   public void Equals_WithSameTypeObjectAndSameValues_ReturnsTrue()
   {
-    var p = new Breach()
+    var b = new Breach()
     {
       Name = "VALUE",
     };
@@ -62,13 +62,13 @@ public class BreachTests
       Name = "VALUE",
     };
 
-    Assert.True(p.Equals((object)other));
+    Assert.True(b.Equals((object)other));
   }
 
   [Fact]
   public void Equals_WithSameTypeButDifferentValues_ReturnsFalse()
   {
-    var p = new Breach()
+    var b = new Breach()
     {
       Name = "FIRST",
     };
@@ -78,13 +78,13 @@ public class BreachTests
       Name = "SECOND",
     };
 
-    Assert.False(p.Equals(other));
+    Assert.False(b.Equals(other));
   }
 
   [Fact]
   public void Equals_WithSameTypeAndSameValues_ReturnsTrue()
   {
-    var p = new Breach()
+    var b = new Breach()
     {
       Name = "VALUE",
     };
@@ -94,13 +94,13 @@ public class BreachTests
       Name = "VALUE",
     };
 
-    Assert.True(p.Equals(other));
+    Assert.True(b.Equals(other));
   }
 
   [Fact]
   public void GetHashCode_ReturnsDifferentHashCodesForDifferentValues()
   {
-    var p = new Breach()
+    var b = new Breach()
     {
       Name = "FIRST",
     };
@@ -110,13 +110,13 @@ public class BreachTests
       Name = "SECOND",
     };
 
-    Assert.NotEqual(p.GetHashCode(), other.GetHashCode());
+    Assert.NotEqual(b.GetHashCode(), other.GetHashCode());
   }
 
   [Fact]
   public void GetHashCode_ReturnsSameHashCodesForSameValues()
   {
-    var p = new Breach()
+    var b = new Breach()
     {
       Name = "VALUE",
     };
@@ -126,6 +126,68 @@ public class BreachTests
       Name = "VALUE",
     };
 
-    Assert.Equal(p.GetHashCode(), other.GetHashCode());
+    Assert.Equal(b.GetHashCode(), other.GetHashCode());
+  }
+
+  [Fact]
+  public void EqualsOperater_WithNull_IsFalse()
+  {
+    var b = new Breach()
+    {
+      Name = "FIRST",
+    };
+
+    Breach other = null;
+
+    Assert.False(b == other);
+  }
+
+  [Theory]
+  [InlineData("breach", true)]
+  [InlineData("DUMMY", false)]
+  public void EqualsOperater_WithSameType_IsExpected(string name, bool expected)
+  {
+    var b = new Breach()
+    {
+      Name = "breach",
+    };
+
+    var other = new Breach()
+    {
+      Name = name
+    };
+
+    Assert.Equal(expected, b == other);
+  }
+
+  [Theory]
+  [InlineData("breach", true)]
+  [InlineData("DUMMY", false)]
+  public void EqualsOperater_WithObject_IsExpected(string name, bool expected)
+  {
+    var b = new Breach()
+    {
+      Name = "breach",
+    };
+
+    var other = new Breach()
+    {
+      Name = name
+    };
+
+    Assert.Equal(expected, b == (object)other);
+  }
+
+  [Fact]
+  public void EqualsOperater_WithObjectOfDifferentType_IsFalsed()
+  {
+    var b = new Breach()
+    {
+      Name = "breach",
+    };
+
+    var other = new Paste();
+
+    Assert.False(b == other);
   }
 }
