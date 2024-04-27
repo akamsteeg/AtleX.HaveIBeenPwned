@@ -179,7 +179,7 @@ public class SiteBreachTests
   }
 
   [Fact]
-  public void EqualsOperater_WithObjectOfDifferentType_IsFalsed()
+  public void EqualsOperater_WithObjectOfDifferentType_IsFalse()
   {
     var sb = new SiteBreach()
     {

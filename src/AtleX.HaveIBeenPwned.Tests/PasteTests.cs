@@ -176,7 +176,7 @@ public class PasteTests
   }
 
   [Fact]
-  public void EqualsOperater_WithObjectOfDifferentType_IsFalsed()
+  public void EqualsOperater_WithObjectOfDifferentType_IsFalse()
   {
     var p = new Paste();
 
