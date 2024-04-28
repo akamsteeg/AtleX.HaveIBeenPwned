@@ -190,4 +190,66 @@ public class SiteBreachTests
 
     Assert.False(sb == other);
   }
+
+  [Fact]
+  public void NotEqualsOperater_WithNull_IsTrue()
+  {
+    var sb = new SiteBreach()
+    {
+      Name = "SiteBreach",
+    };
+
+    SiteBreach other = null;
+
+    Assert.True(sb != other);
+  }
+
+  [Theory]
+  [InlineData("SiteBreach", false)]
+  [InlineData("DUMMY", true)]
+  public void NotEqualsOperater_WithSameType_IsExpected(string name, bool expected)
+  {
+    var sb = new SiteBreach()
+    {
+      Name = "SiteBreach",
+    };
+
+    var other = new SiteBreach()
+    {
+      Name = name
+    };
+
+    Assert.Equal(expected, sb != other);
+  }
+
+  [Theory]
+  [InlineData("SiteBreach", false)]
+  [InlineData("DUMMY", true)]
+  public void NotEqualsOperater_WithObject_IsExpected(string name, bool expected)
+  {
+    var sb = new SiteBreach()
+    {
+      Name = "SiteBreach",
+    };
+
+    var other = new SiteBreach()
+    {
+      Name = name
+    };
+
+    Assert.Equal(expected, sb != (object)other);
+  }
+
+  [Fact]
+  public void NotEqualsOperater_WithObjectOfDifferentType_IsTrue()
+  {
+    var sb = new SiteBreach()
+    {
+      Name = "SiteBreach",
+    };
+
+    var other = new Paste();
+
+    Assert.True(sb != other);
+  }
 }

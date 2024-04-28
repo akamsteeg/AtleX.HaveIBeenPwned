@@ -184,4 +184,66 @@ public class PasteTests
 
     Assert.False(p == other);
   }
+
+  [Fact]
+  public void NotEqualsOperater_WithNull_IsTrue()
+  {
+    var p = new Paste()
+    {
+      Id = "paste",
+    };
+
+    Paste other = null;
+
+    Assert.True(p != other);
+  }
+
+  [Theory]
+  [InlineData("paste", false)]
+  [InlineData("DUMMY", true)]
+  public void NotEqualsOperater_WithSameType_IsExpected(string id, bool expected)
+  {
+    var p = new Paste()
+    {
+      Id = "paste",
+    };
+
+    var other = new Paste()
+    {
+      Id = id
+    };
+
+    Assert.Equal(expected, p != other);
+  }
+
+  [Theory]
+  [InlineData("paste", false)]
+  [InlineData("DUMMY", true)]
+  public void NotEqualsOperater_WithObject_IsExpected(string id, bool expected)
+  {
+    var p = new Paste()
+    {
+      Id = "paste",
+    };
+
+    var other = new Paste()
+    {
+      Id = id
+    };
+
+    Assert.Equal(expected, p != (object)other);
+  }
+
+  [Fact]
+  public void NotEqualsOperater_WithObjectOfDifferentType_IsTrue()
+  {
+    var p = new Paste()
+    {
+      Id = "paste",
+    };
+
+    var other = new DomainUser();
+
+    Assert.True(p != other);
+  }
 }

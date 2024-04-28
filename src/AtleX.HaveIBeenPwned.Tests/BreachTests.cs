@@ -190,4 +190,66 @@ public class BreachTests
 
     Assert.False(b == other);
   }
+
+  [Fact]
+  public void NotEqualsOperater_WithNull_IsTrue()
+  {
+    var b = new Breach()
+    {
+      Name = "breach",
+    };
+
+    Breach other = null;
+
+    Assert.True(b != other);
+  }
+
+  [Theory]
+  [InlineData("breach", false)]
+  [InlineData("DUMMY", true)]
+  public void NotEqualsOperater_WithSameType_IsExpected(string name, bool expected)
+  {
+    var b = new Breach()
+    {
+      Name = "breach",
+    };
+
+    var other = new Breach()
+    {
+      Name = name
+    };
+
+    Assert.Equal(expected, b != other);
+  }
+
+  [Theory]
+  [InlineData("breach", false)]
+  [InlineData("DUMMY", true)]
+  public void NotEqualsOperater_WithObject_IsExpected(string name, bool expected)
+  {
+    var b = new Breach()
+    {
+      Name = "breach",
+    };
+
+    var other = new Breach()
+    {
+      Name = name
+    };
+
+    Assert.Equal(expected, b != (object)other);
+  }
+
+  [Fact]
+  public void NotEqualsOperater_WithObjectOfDifferentType_IsTrue()
+  {
+    var b = new Breach()
+    {
+      Name = "breach",
+    };
+
+    var other = new Paste();
+
+    Assert.True(b != other);
+  }
 }
