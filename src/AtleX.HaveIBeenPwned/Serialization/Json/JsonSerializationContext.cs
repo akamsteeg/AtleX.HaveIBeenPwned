@@ -1,6 +1,5 @@
 ﻿#if NET6_0_OR_GREATER
 
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json.Serialization;
 
@@ -9,15 +8,9 @@ namespace AtleX.HaveIBeenPwned.Serialization.Json;
 [JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Default)]
 
 [JsonSerializable(typeof(Breach))]
-[JsonSerializable(typeof(IEnumerable<Breach>))]
-
 [JsonSerializable(typeof(Paste))]
-[JsonSerializable(typeof(IEnumerable<Paste>))]
-
 [JsonSerializable(typeof(SiteBreach))]
-[JsonSerializable(typeof(IEnumerable<SiteBreach>))]
-
-[JsonSerializable(typeof(IEnumerable<DomainUser>))] // For domain breaches
+[JsonSerializable(typeof(DomainUser))]
 
 [ExcludeFromCodeCoverage]
 internal sealed partial class JsonSerializationContext
