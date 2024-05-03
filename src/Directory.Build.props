@@ -128,7 +128,7 @@
 	</PropertyGroup>
 
 	<!-- Assembly signing -->
-	<PropertyGroup Label="Assembly signing">
+	<PropertyGroup Label="Assembly signing" Condition="$(MSBuildProjectName.StartsWith('AtleX'))">
 		<SignAssembly>true</SignAssembly>
 		<DelaySign>false</DelaySign>
 		<AssemblyOriginatorKeyFile>$(MSBuildProjectName).snk</AssemblyOriginatorKeyFile>
