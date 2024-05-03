@@ -28,17 +28,19 @@ public static class Program
 
   private static ManualConfig GetConfig()
   {
+    var job = Job.Default;
+
     var config = ManualConfig.Create(DefaultConfig.Instance)
       .AddJob(
-        Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp80).AsBaseline(),
-        Job.Default.WithToolchain(NativeAotToolchain.CreateBuilder().UseNuGet().IlcInstructionSet("native").ToToolchain()), // Must be changed to Job.Default.WithRuntime(NativeAotRuntime.Net80), when BenchmarkDotNet 0.14 is released
-        Job.Default.WithToolchain(CsProjCoreToolchain.NetCoreApp60)
+        job.WithToolchain(CsProjCoreToolchain.NetCoreApp80).AsBaseline(),
+        job.WithToolchain(NativeAotToolchain.CreateBuilder().UseNuGet().IlcInstructionSet("native").ToToolchain()), // Must be changed to Job.Default.WithRuntime(NativeAotRuntime.Net80), when BenchmarkDotNet 0.14 is released
+        job.WithToolchain(CsProjCoreToolchain.NetCoreApp60)
         )
       .AddDiagnoser(MemoryDiagnoser.Default);
 
     if (Environment.OSVersion.Platform == PlatformID.Win32NT)
     {
-      config.AddJob(Job.Default.WithToolchain(CsProjClassicNetToolchain.Net481));
+      config.AddJob(job.WithToolchain(CsProjClassicNetToolchain.Net481));
     }
 
     config.SummaryStyle = SummaryStyle.Default
