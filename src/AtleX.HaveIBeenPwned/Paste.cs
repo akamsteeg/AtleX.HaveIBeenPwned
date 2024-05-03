@@ -16,7 +16,6 @@ namespace AtleX.HaveIBeenPwned;
 /// See <see href="https://haveibeenpwned.com/API/v3#PasteModel"/> for more information
 /// </remarks>
 [DebuggerDisplay("{Title}")]
-[ExcludeFromCodeCoverage]
 public sealed class Paste
   : IEquatable<Paste>
 {

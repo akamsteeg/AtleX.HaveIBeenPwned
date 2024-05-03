@@ -17,7 +17,6 @@ namespace AtleX.HaveIBeenPwned;
 /// more information
 /// </remarks>
 [DebuggerDisplay("{Name}")]
-[ExcludeFromCodeCoverage]
 public sealed class Breach
   : IEquatable<Breach>
 {

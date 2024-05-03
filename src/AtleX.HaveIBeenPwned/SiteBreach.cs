@@ -17,7 +17,6 @@ namespace AtleX.HaveIBeenPwned;
 /// See <see href="https://haveibeenpwned.com/API/v3#BreachModel"/> for more information
 /// </remarks>
 [DebuggerDisplay("{Name}")]
-[ExcludeFromCodeCoverage]
 public sealed class SiteBreach
   : IEquatable<SiteBreach>
 {
