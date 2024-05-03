@@ -1,8 +1,8 @@
 # AtleX.HaveIBeenPwned
 
-AtleX.HaveIBeenPwned is a client library for the [HaveIBeenPwned.com website](https://haveibeenpwned.com/). It supports 
-finding breaches an account was in, which pastes contained the user's email address and to check whether a password
-was in a breach or not.
+AtleX.HaveIBeenPwned is a client library for [HaveIBeenPwned.com](https://haveibeenpwned.com/). It supports 
+finding breaches an account was in, which pastes contained the user's email address, getting the breaches a
+domain's mail addresses were in and to check whether a password was in a breach or not.
 
 The AtleX.HaveIBeenPwned library is highly optimized for ease of use, great performance and low resource usage. It is 
 thread safe, simple to plug into ASP.net Core(+)'s dependency injection system and usable on many platforms.
@@ -28,6 +28,8 @@ in a tool like [ILSpy](https://github.com/icsharpcode/ILSpy) or use a debugger t
 | :heavy_check_mark: | :heavy_check_mark: | :heavy_check_mark:      | :heavy_check_mark:      |
 
 A full overview of explicitly and implicitly [supported frameworks is available on NuGet.org](https://www.nuget.org/packages/AtleX.HaveIBeenPwned/#supportedframeworks-body-tab).
+
+:information_source: Native AOT is supported from .NET 8 onwards.
 
 
 # Installation
@@ -96,4 +98,4 @@ builder.Services
 
 # License
 
-AtleX.HaveIBeenPwned uses the MIT license, see the LICENSE file.
+AtleX.HaveIBeenPwned uses the MIT license, see [the LICENSE file](https://github.com/akamsteeg/AtleX.HaveIBeenPwned/blob/master/readme.md).

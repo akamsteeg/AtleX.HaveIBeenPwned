@@ -1,11 +1,11 @@
 ﻿# AtleX.HaveIBeenPwned
 
-AtleX.HaveIBeenPwned is a client library for the [HaveIBeenPwned.com website](https://haveibeenpwned.com/). It supports 
-finding breaches an account was in, which pastes contained the user's email address and to check whether a password
-was in a breach or not.
+AtleX.HaveIBeenPwned is a client library for [HaveIBeenPwned.com](https://haveibeenpwned.com/). It supports 
+finding breaches an account was in, which pastes contained the user's email address, getting the breaches a
+domain's mail addresses were in and to check whether a password was in a breach or not.
 
 The AtleX.HaveIBeenPwned library is highly optimized for ease of use, great performance and low resource usage. It is 
-thread safe, simple to plug into ASP.net Core(+)'s dependency injection system and usable on many platforms.
+thread safe, simple to plug into ASP.net Core(+)'s dependency injection system and [usable on many platforms](https://www.nuget.org/packages/AtleX.HaveIBeenPwned#supportedframeworks-body-tab).
 
 :warning: For some actions, like getting the pastes and breaches for an account, the [HaveIBeenPwned.com API](https://haveibeenpwned.com/) 
 requires a API key. These API keys are available on the [HaveIBeenPwned.com website](https://haveibeenpwned.com/API/Key).
