@@ -19,7 +19,6 @@ namespace AtleX.HaveIBeenPwned;
 /// more information
 /// </remarks>
 [DebuggerDisplay("{Alias}")]
-[ExcludeFromCodeCoverage]
 public sealed class DomainUser
   : IEquatable<DomainUser>
 {
