@@ -1,9 +1,11 @@
 root = true
 
-[*.cs]
+[*]
 indent_size = 2
 indent_style = space
 trim_trailing_whitespace = true
+
+[*.cs]
 # Enable "this."
 dotnet_style_qualification_for_field = true:warning
 dotnet_style_qualification_for_property = true:warning
@@ -29,3 +31,5 @@ csharp_style_throw_expression = true:error
 csharp_style_namespace_declarations = file_scoped:error
 # Primary constructors
 csharp_style_prefer_primary_constructors = file_scoped:warning
+# File header
+file_header_template = Copyright (c) Alex Kamsteeg (https://atlex.nl/)\nLicense: MIT (See LICENSE file)
