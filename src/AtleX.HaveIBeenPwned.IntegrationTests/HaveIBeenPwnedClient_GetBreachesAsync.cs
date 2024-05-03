@@ -1,4 +1,7 @@
-﻿using AtleX.HaveIBeenPwned.IntegrationTests.XUnit;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+using AtleX.HaveIBeenPwned.IntegrationTests.XUnit;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;

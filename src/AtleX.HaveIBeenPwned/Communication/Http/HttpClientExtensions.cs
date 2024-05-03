@@ -1,4 +1,7 @@
-﻿using System.Net.Http.Headers;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+using System.Net.Http.Headers;
 using System.Net.Http;
 using Pitcher;
 

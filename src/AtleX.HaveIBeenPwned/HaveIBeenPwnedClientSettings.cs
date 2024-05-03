@@ -1,4 +1,7 @@
-﻿namespace AtleX.HaveIBeenPwned;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+namespace AtleX.HaveIBeenPwned;
 
 /// <summary>
 /// Represents the settings for an <see cref="HaveIBeenPwnedClient"/>

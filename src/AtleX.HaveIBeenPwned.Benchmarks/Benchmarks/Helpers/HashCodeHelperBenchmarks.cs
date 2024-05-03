@@ -1,4 +1,7 @@
-﻿using AtleX.HaveIBeenPwned.Helpers;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+using AtleX.HaveIBeenPwned.Helpers;
 using BenchmarkDotNet.Attributes;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks.Helpers;

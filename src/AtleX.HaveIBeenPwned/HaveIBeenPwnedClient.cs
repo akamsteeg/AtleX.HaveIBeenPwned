@@ -1,4 +1,7 @@
-﻿using AtleX.HaveIBeenPwned.Communication.Http;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+using AtleX.HaveIBeenPwned.Communication.Http;
 using AtleX.HaveIBeenPwned.Helpers;
 using AtleX.HaveIBeenPwned.Serialization.Json;
 using Pitcher;

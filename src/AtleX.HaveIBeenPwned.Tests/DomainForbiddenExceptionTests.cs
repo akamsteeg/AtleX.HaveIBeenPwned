@@ -1,4 +1,7 @@
-﻿using Xunit;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests;
 public class DomainForbiddenExceptionTests

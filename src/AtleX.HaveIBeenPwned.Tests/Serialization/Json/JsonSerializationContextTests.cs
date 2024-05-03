@@ -1,4 +1,7 @@
-﻿#if NET6_0_OR_GREATER
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+#if NET6_0_OR_GREATER
 
 using AtleX.HaveIBeenPwned.Serialization.Json;
 using System;

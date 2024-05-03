@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Bogus;

@@ -1,4 +1,7 @@
-﻿using SwissArmyKnife;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+using SwissArmyKnife;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.IntegrationTests.XUnit;

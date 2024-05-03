@@ -1,4 +1,7 @@
-﻿using AtleX.HaveIBeenPwned.Serialization.Json.Convertors;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+using AtleX.HaveIBeenPwned.Serialization.Json.Convertors;
 using System.Text.Json;
 
 namespace AtleX.HaveIBeenPwned.Serialization.Json;

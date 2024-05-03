@@ -1,4 +1,7 @@
-﻿using System;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+using System;
 
 namespace AtleX.HaveIBeenPwned.IntegrationTests;
 /// <summary>

@@ -1,4 +1,7 @@
-﻿#if NET8_0_OR_GREATER
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+#if NET8_0_OR_GREATER
 
 using System;
 using System.Text.Json;

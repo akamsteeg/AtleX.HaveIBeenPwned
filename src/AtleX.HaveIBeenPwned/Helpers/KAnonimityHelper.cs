@@ -1,4 +1,7 @@
-﻿using Pitcher;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+using Pitcher;
 using System;
 using System.Buffers;
 using System.Security.Cryptography;

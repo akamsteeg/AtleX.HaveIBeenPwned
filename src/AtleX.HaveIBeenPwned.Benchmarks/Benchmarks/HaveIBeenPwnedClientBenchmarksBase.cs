@@ -1,4 +1,7 @@
-﻿using AtleX.HaveIBeenPwned.Benchmarks.Mocks;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+using AtleX.HaveIBeenPwned.Benchmarks.Mocks;
 using BenchmarkDotNet.Attributes;
 using System.Net.Http;
 

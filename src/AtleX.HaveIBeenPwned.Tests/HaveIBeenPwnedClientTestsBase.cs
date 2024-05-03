@@ -1,4 +1,7 @@
-﻿namespace AtleX.HaveIBeenPwned.Tests;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+namespace AtleX.HaveIBeenPwned.Tests;
 
 public abstract class HaveIBeenPwnedClientTestsBase
 {

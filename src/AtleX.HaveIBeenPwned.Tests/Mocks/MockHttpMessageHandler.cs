@@ -1,4 +1,7 @@
-﻿using System.Net.Http;
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+// License: MIT (See LICENSE file)
+
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
