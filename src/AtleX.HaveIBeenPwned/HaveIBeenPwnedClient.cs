@@ -4,6 +4,7 @@
 using AtleX.HaveIBeenPwned.Communication.Http;
 using AtleX.HaveIBeenPwned.Helpers;
 using AtleX.HaveIBeenPwned.Serialization.Json;
+using AtleX.HaveIBeenPwned.Telemetry;
 using Pitcher;
 using SwissArmyKnife;
 using System;
@@ -199,6 +200,8 @@ public sealed class HaveIBeenPwnedClient
     this.ThrowIfDisposed();
     cancellationToken.ThrowIfCancellationRequested();
 
+    using var trace = TelemetryProvider.TraceRequest(nameof(GetAllBreachesAsync));
+
     var uri = UriFactory.GetAllBreachesUri();
 
     using var requestMessage = new HttpRequestMessage(HttpMethod.Get, uri);
@@ -216,6 +219,8 @@ public sealed class HaveIBeenPwnedClient
     this.ThrowIfDisposed();
     cancellationToken.ThrowIfCancellationRequested();
 
+    using var trace = TelemetryProvider.TraceRequest(nameof(GetBreachesAsync));
+
     var uri = UriFactory.GetBreachesForAccountUri(account, modes);
 
     var results = await this.GetAuthenticatedAsync<IEnumerable<Breach>>(uri, cancellationToken)
@@ -229,6 +234,8 @@ public sealed class HaveIBeenPwnedClient
   {
     this.ThrowIfDisposed();
     cancellationToken.ThrowIfCancellationRequested();
+
+    using var trace = TelemetryProvider.TraceRequest(nameof(GetLatestBreachAsync));
 
     var uri = UriFactory.GetLatestBreachUri();
 
@@ -247,6 +254,8 @@ public sealed class HaveIBeenPwnedClient
     this.ThrowIfDisposed();
     cancellationToken.ThrowIfCancellationRequested();
 
+    using var trace = TelemetryProvider.TraceRequest(nameof(GetPastesAsync));
+
     var requestUri = UriFactory.GetPasteAccountUri(emailAddress);
 
     var results = await this.GetAuthenticatedAsync<IEnumerable<Paste>>(requestUri, cancellationToken)
@@ -261,6 +270,8 @@ public sealed class HaveIBeenPwnedClient
     Throw.ArgumentNull.WhenNullOrWhiteSpace(password, nameof(password));
     this.ThrowIfDisposed();
     cancellationToken.ThrowIfCancellationRequested();
+
+    using var trace = TelemetryProvider.TraceRequest(nameof(IsPwnedPasswordAsync));
 
     var result = false;
 
@@ -301,6 +312,8 @@ public sealed class HaveIBeenPwnedClient
     Throw.ArgumentNull.WhenNullOrWhiteSpace(domain, nameof(domain));
     this.ThrowIfDisposed();
     cancellationToken.ThrowIfCancellationRequested();
+
+    using var trace = TelemetryProvider.TraceRequest(nameof(GetBreachedDomainUsersAsync));
 
     var requestUri = UriFactory.GetBreachedDomainUsersUri(domain);
 
@@ -413,6 +426,8 @@ public sealed class HaveIBeenPwnedClient
   {
     this.ThrowIfDisposed();
     cancellationToken.ThrowIfCancellationRequested();
+
+    TelemetryProvider.IncrementTotalRequestsCounter();
 
     var result = await this._httpClient
        .SendAsync(requestMessage, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
