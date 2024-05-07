@@ -33,7 +33,7 @@ public static class Program
     var config = ManualConfig.Create(DefaultConfig.Instance)
       .AddJob(
         job.WithToolchain(CsProjCoreToolchain.NetCoreApp80).AsBaseline(),
-        job.WithToolchain(NativeAotToolchain.CreateBuilder().UseNuGet().IlcInstructionSet("native").ToToolchain()), // Must be changed to Job.Default.WithRuntime(NativeAotRuntime.Net80), when BenchmarkDotNet 0.14 is released
+        //job.WithToolchain(NativeAotToolchain.CreateBuilder().UseNuGet().IlcInstructionSet("native").ToToolchain()), // Must be changed to Job.Default.WithRuntime(NativeAotRuntime.Net80), when BenchmarkDotNet 0.14 is released
         job.WithToolchain(CsProjCoreToolchain.NetCoreApp60)
         )
       .AddDiagnoser(MemoryDiagnoser.Default);

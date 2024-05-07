@@ -40,12 +40,23 @@ public class MockHttpMessageHandler
     {
       result = new HttpResponseMessage(HttpStatusCode.OK)
       {
-        Content = new StringContent(@"
+        Content = new StringContent("""
+
         {
-          ""user"": [
-                    ""000webhost""
-                  ]   
-         }"),
+          "user0": [
+                    "000webhost",
+                    "8tracks"
+                  ],
+          "user1": [
+                    "000webhost",
+                    "8tracks"
+                  ],
+          "user2": [
+                    "000webhost",
+                    "8tracks"
+                  ]
+        }
+        """)
       };
     }
     else if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/pasteaccount/"))
