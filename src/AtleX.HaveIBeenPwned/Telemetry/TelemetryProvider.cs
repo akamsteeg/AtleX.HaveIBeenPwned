@@ -11,13 +11,27 @@ namespace AtleX.HaveIBeenPwned.Telemetry;
 /// </summary>
 internal static class TelemetryProvider
 {
+  /// <summary>
+  /// Gets the version of the library
+  /// </summary>
   private static readonly string AssemblyVersion = typeof(IHaveIBeenPwnedClient).Assembly.GetName().Version!.ToString();
 
+  /// <summary>
+  /// Gets the <see cref="System.Diagnostics.ActivitySource"/> for tracing
+  /// </summary>
   private static readonly ActivitySource ActivitySource = new(TelemetryNames.RootName, AssemblyVersion);
 
+  /// <summary>
+  /// Gets a <see cref="System.Diagnostics.Metrics.Meter"/> for counting values
+  /// </summary>
   private static readonly Meter Meter = new (TelemetryNames.RootName, AssemblyVersion);
 
-  private static readonly Counter<long> TotalRequests = Meter.CreateCounter<long>(TelemetryNames.Meters.TotalNumberOfRequests, "requests");
+  /// <summary>
+  /// Gets the <see cref="Counter{T}"/> for counting the total number of
+  /// requests performed with all instances of <see
+  /// cref="HaveIBeenPwnedClient"/> over the lifetime of the application
+  /// </summary>
+  private static readonly Counter<long> TotalRequests = Meter.CreateCounter<long>(TelemetryNames.Counters.TotalNumberOfRequests, "requests");
 
   /// <summary>
   /// Gets the <see cref="Activity"/> used for tracing the requests

@@ -28,13 +28,14 @@ public static class TelemetryNames
   }
 
   /// <summary>
-  /// Represents the names of the meters
+  /// Represents the names of the counters
   /// </summary>
-  public static class Meters
+  public static class Counters
   {
     /// <summary>
-    /// Gets the name of the <see cref="Meter"/> with the total number of
-    /// requests in the lifetime of the application
+    /// Gets the name of the <see cref="Counter{T}"/> with the total number of
+    /// requests from all instances of <see cref="HaveIBeenPwnedClient"/> during
+    /// the lifetime of the application
     /// </summary>
     public const string TotalNumberOfRequests = "TotalNumberOfRequests";
   }

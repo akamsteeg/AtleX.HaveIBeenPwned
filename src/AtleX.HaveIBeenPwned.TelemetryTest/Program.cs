@@ -58,7 +58,7 @@ builder
             .AddSource(TelemetryNames.RootName)
             .AddConsoleExporter(c => c.Targets = OpenTelemetry.Exporter.ConsoleExporterOutputTargets.Console);
         });
-});
+  });
 
 var host = builder.Build();
 
