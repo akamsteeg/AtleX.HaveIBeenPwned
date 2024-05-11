@@ -18,7 +18,7 @@
     <PackageVersion Include="System.Text.Json" Version="8.0.3" />
     <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" />
     <PackageVersion Include="Roslynator.Analyzers" Version="4.12.2" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.24.0.89429" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.25.0.90414" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.13.12" />
     <PackageVersion Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.13.12" />
     <PackageVersion Include="Bogus" Version="35.5.1" />
