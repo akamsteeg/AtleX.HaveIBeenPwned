@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <!-- Analyzer settings -->
-  <PropertyGroup Label="Analyzzr settings">
+  <PropertyGroup Label="Analyzer settings">
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisMode>Recommended</AnalysisMode>
     <AnalysisLevel>latest</AnalysisLevel>
@@ -38,14 +38,14 @@
   </ItemGroup>
 
   <!-- SourceLink-->
-  <PropertyGroup>
+  <PropertyGroup Label="SourceLink">
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <!-- Deterministic builds -->
-  <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
+  <PropertyGroup Label="Deterministic builds" Condition="'$(TF_BUILD)' == 'true'">
     <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
