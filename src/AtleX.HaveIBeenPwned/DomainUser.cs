@@ -2,7 +2,6 @@
 // License: MIT (See LICENSE file)
 
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics;
 using System;
 using AtleX.HaveIBeenPwned.Helpers;
