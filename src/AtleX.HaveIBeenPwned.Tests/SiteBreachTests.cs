@@ -10,14 +10,14 @@ public class SiteBreachTests
   [Fact]
   public void ToString_ReturnsValueOfNameProperty()
   {
-    const string title = "BREACH_TITLE";
+    const string name = "BREACH_NAME";
 
     var p = new SiteBreach()
     {
-      Title = title,
+      Name = name,
     };
 
-    Assert.Equal(title, p.Title);
+    Assert.Equal(name, p.ToString());
   }
 
   [Fact]

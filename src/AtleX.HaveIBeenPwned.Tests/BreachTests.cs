@@ -17,7 +17,7 @@ public class BreachTests
       Name = name,
     };
 
-    Assert.Equal(name, b.Name);
+    Assert.Equal(name, b.ToString());
   }
 
   [Fact]

@@ -12,7 +12,7 @@ namespace AtleX.HaveIBeenPwned.Tests;
 public class DomainUserTests
 {
   [Fact]
-  public void ToString_ReturnsValueOfNameProperty()
+  public void ToString_ReturnsValueOfAliasProperty()
   {
     const string alias = "example";
 
@@ -21,7 +21,7 @@ public class DomainUserTests
       Alias = alias,
     };
 
-    Assert.Equal(alias, du.Alias);
+    Assert.Equal(alias, du.ToString());
   }
 
   [Fact]

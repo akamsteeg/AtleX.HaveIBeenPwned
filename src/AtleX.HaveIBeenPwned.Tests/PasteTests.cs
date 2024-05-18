@@ -8,7 +8,7 @@ namespace AtleX.HaveIBeenPwned.Tests;
 public class PasteTests
 {
   [Fact]
-  public void ToString_ReturnsValueOfNameProperty()
+  public void ToString_ReturnsValueOfTitleProperty()
   {
     const string title = "PASTE_TITLE";
 
@@ -17,7 +17,7 @@ public class PasteTests
       Title = title,
     };
 
-    Assert.Equal(title, p.Title);
+    Assert.Equal(title, p.ToString());
   }
 
   [Fact]

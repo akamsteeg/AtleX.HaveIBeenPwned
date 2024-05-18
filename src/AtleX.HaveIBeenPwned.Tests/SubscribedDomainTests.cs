@@ -16,7 +16,7 @@ public class SubscribedDomainTests
       DomainName = domainName,
     };
 
-    Assert.Equal(domainName, sd.DomainName);
+    Assert.Equal(domainName, sd.ToString());
   }
 
   [Fact]
