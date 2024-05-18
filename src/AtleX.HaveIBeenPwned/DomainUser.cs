@@ -35,7 +35,7 @@ public sealed class DomainUser
   /// <summary>
   /// The collection of names of breaches. This maps to <see cref="Breach.Name"/>.
   /// </summary>
-  public IEnumerable<string> Breaches { get; set; } = Enumerable.Empty<string>();
+  public IEnumerable<string> Breaches { get; set; } = [];
 
   /// <inheritDoc />
   public override bool Equals(object? obj) => this == obj;

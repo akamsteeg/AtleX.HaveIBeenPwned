@@ -41,6 +41,13 @@ internal sealed class MockHttpMessageHandler
                   ]   
          }";
     }
+    else if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/subscribeddomains")) // Subscribed domains
+    {
+      response = @"[
+                    {""DomainName"":""example.com""}
+
+            ]";
+    }
     if (request.RequestUri.AbsolutePath.StartsWith("/api/v3/pasteaccount")) // Pastes
     {
       response = @"[

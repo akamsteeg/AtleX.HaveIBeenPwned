@@ -40,6 +40,11 @@ internal static class Constants
     public const string BreachedDomainBaseUri = ApiBaseUri + "/breacheddomain";
 
     /// <summary>
+    /// Gets the uri of the subscribed domains
+    /// </summary>
+    public const string SubscribedDomainsUri = ApiBaseUri + "/subscribeddomains";
+
+    /// <summary>
     /// Gets the base uri of the pasteaccount endpoint
     /// </summary>
     public const string PasteAccountBaseUri = ApiBaseUri + "/pasteaccount";

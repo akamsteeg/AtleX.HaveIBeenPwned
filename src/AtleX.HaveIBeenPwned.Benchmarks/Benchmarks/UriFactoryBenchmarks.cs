@@ -43,4 +43,10 @@ public class UriFactoryBenchmarks
   {
     return UriFactory.GetBreachedDomainUsersUri(Domain);
   }
+
+  [Benchmark]
+  public Uri GetSubscribedDomainsUri()
+  {
+    return UriFactory.GetSubscribedDomainsUri();
+  }
 }

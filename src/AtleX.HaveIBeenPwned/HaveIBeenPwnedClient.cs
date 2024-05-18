@@ -186,6 +186,16 @@ public sealed class HaveIBeenPwnedClient
     .ConfigureAwait(false);
 
   /// <inheritdoc />
+  public async Task<IEnumerable<SubscribedDomain>> GetSubscribedDomainsAsync() =>
+    await this.GetSubscribedDomainsInternalAsync(CancellationToken.None)
+    .ConfigureAwait(false);
+
+  /// <inheritdoc />
+  public async Task<IEnumerable<SubscribedDomain>> GetSubscribedDomainsAsync(CancellationToken cancellationToken) =>
+    await this.GetSubscribedDomainsInternalAsync(cancellationToken)
+    .ConfigureAwait(false);
+
+  /// <inheritdoc />
   protected sealed override void Dispose(bool disposing)
   {
     if (disposing && this._enableClientDisposing)
@@ -318,6 +328,22 @@ public sealed class HaveIBeenPwnedClient
     var requestUri = UriFactory.GetBreachedDomainUsersUri(domain);
 
     var result = await this.GetAuthenticatedAsync<IEnumerable<DomainUser>>(requestUri, cancellationToken)
+      .ConfigureAwait(false);
+
+    return result ?? [];
+  }
+
+  /// <inheritdoc cref="IHaveIBeenPwnedDomainClient.GetSubscribedDomainsAsync(CancellationToken)"/>
+  private async ValueTask<IEnumerable<SubscribedDomain>> GetSubscribedDomainsInternalAsync(CancellationToken cancellationToken)
+  {
+    this.ThrowIfDisposed();
+    cancellationToken.ThrowIfCancellationRequested();
+
+    using var trace = TelemetryProvider.TraceRequest(nameof(GetSubscribedDomainsInternalAsync));
+
+    var requestUri = UriFactory.GetSubscribedDomainsUri();
+
+    var result = await this.GetAuthenticatedAsync<IEnumerable<SubscribedDomain>>(requestUri, cancellationToken)
       .ConfigureAwait(false);
 
     return result ?? [];

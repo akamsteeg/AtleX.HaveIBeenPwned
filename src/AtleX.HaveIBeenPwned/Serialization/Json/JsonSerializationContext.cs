@@ -22,6 +22,8 @@ namespace AtleX.HaveIBeenPwned.Serialization.Json;
 
 [JsonSerializable(typeof(IEnumerable<DomainUser>))] // For domain breaches
 
+[JsonSerializable(typeof(IEnumerable<SubscribedDomain>))]
+
 [ExcludeFromCodeCoverage]
 internal sealed partial class JsonSerializationContext
   : JsonSerializerContext;

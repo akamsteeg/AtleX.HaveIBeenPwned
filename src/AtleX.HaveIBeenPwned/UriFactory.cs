@@ -23,6 +23,11 @@ internal static class UriFactory
   private static readonly Uri LatestBreachUri = new(Constants.Uris.LatestBreachUri);
 
   /// <summary>
+  /// Gets the uri for the subscribed domains
+  /// </summary>
+  private static readonly Uri SubscribedDomainsUri = new(Constants.Uris.SubscribedDomainsUri);
+
+  /// <summary>
   /// Gets the <see cref="Uri"/> to get all breaches available in the system
   /// </summary>
   /// <returns>
@@ -134,4 +139,12 @@ internal static class UriFactory
 
     return result;
   }
+
+  /// <summary>
+  /// Gets the <see cref="Uri"/> to get all the subscribed domains
+  /// </summary>
+  /// <returns>
+  /// The <see cref="Uri"/> to get all the subscribed domains
+  /// </returns>
+  public static Uri GetSubscribedDomainsUri() => SubscribedDomainsUri;
 }

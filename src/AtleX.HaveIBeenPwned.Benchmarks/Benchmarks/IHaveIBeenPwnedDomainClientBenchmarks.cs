@@ -13,4 +13,9 @@ public class IHaveIBeenPwnedDomainClientBenchmarks
   {
     var result = await this._client.GetBreachedDomainUsersAsync("example.com");
   }
+
+  public async Task GetSubscribedDomainsAsync()
+  {
+    var result = await this._client.GetSubscribedDomainsAsync();
+  }
 }

@@ -21,6 +21,8 @@ public class IHaveIBeenPwnedClientMock
 
   private static readonly IEnumerable<DomainUser> domainUsers = new Faker<DomainUser>().Generate(30);
 
+  private static readonly IEnumerable<SubscribedDomain> subscribedDomains = new Faker<SubscribedDomain>().Generate(5);
+
   public Task<IEnumerable<SiteBreach>> GetAllBreachesAsync()
   {
     return Task.FromResult(siteBreaches);
@@ -88,5 +90,15 @@ public class IHaveIBeenPwnedClientMock
   public Task<bool> IsPwnedPasswordAsync(string password, CancellationToken cancellationToken)
   {
     return Task.FromResult(true);
+  }
+
+  public Task<IEnumerable<SubscribedDomain>> GetSubscribedDomainsAsync()
+  {
+    return Task.FromResult(subscribedDomains);
+  }
+
+  public Task<IEnumerable<SubscribedDomain>> GetSubscribedDomainsAsync(CancellationToken cancellationToken)
+  {
+    return Task.FromResult(subscribedDomains);
   }
 }

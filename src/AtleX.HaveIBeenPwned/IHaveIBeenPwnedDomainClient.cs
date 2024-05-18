@@ -39,4 +39,25 @@ public interface IHaveIBeenPwnedDomainClient
   /// breached <see cref="DomainUser"/> of the domain
   /// </returns>
   Task<IEnumerable<DomainUser>> GetBreachedDomainUsersAsync(string domain, CancellationToken cancellationToken);
+
+  /// <summary>
+  /// Gets the domains registered to an API key
+  /// </summary>
+  /// <returns>
+  /// An awaitable <see cref="Task{TResult}"/> with the collection of <see
+  /// cref="SubscribedDomain"/> registered to the API key
+  /// </returns>
+  Task<IEnumerable<SubscribedDomain>> GetSubscribedDomainsAsync();
+
+  /// <summary>
+  /// Gets the domains registered to an API key
+  /// </summary>
+  /// <param name="cancellationToken">
+  /// The <see cref="CancellationToken"/> for this operation
+  /// </param>
+  /// <returns>
+  /// An awaitable <see cref="Task{TResult}"/> with the collection of <see
+  /// cref="SubscribedDomain"/> registered to the API key
+  /// </returns>
+  Task<IEnumerable<SubscribedDomain>> GetSubscribedDomainsAsync(CancellationToken cancellationToken);
 }
