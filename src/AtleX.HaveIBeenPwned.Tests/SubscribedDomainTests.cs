@@ -1,11 +1,6 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
 // License: MIT (See LICENSE file)
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests;
@@ -144,7 +139,7 @@ public class SubscribedDomainTests
       DomainName = "FIRST",
     };
 
-    DomainUser other = null;
+    SubscribedDomain other = null;
 
     Assert.False(sd == other);
   }
@@ -206,7 +201,7 @@ public class SubscribedDomainTests
       DomainName = "FIRST",
     };
 
-    DomainUser other = null;
+    SubscribedDomain other = null;
 
     Assert.True(sd != other);
   }

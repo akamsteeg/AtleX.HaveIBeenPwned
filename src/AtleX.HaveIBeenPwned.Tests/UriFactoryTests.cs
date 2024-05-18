@@ -140,4 +140,14 @@ public class UriFactoryTests
 
     Assert.Equal(expected, actual);
   }
+
+  [Fact]
+  public void GetSubscribedDomainsUri_ReturnsCorrectUri()
+  {
+    var expected = new Uri($"https://haveibeenpwned.com/api/v3/subscribeddomains");
+
+    var actual = UriFactory.GetSubscribedDomainsUri();
+
+    Assert.Equal(expected, actual);
+  }
 }
