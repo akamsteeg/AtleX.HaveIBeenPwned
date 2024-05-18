@@ -20,6 +20,7 @@ public class JsonSerializationContextTests
   [InlineData(typeof(SiteBreach))]
   [InlineData(typeof(IEnumerable<SiteBreach>))]
   [InlineData(typeof(IEnumerable<DomainUser>))]
+  [InlineData(typeof(IEnumerable<SubscribedDomain>))]
   public void Context_SupportsType(Type type)
   {
     var c = new JsonSerializationContext();
