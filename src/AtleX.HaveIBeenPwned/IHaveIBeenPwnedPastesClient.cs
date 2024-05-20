@@ -11,11 +11,17 @@ namespace AtleX.HaveIBeenPwned;
 /// Represents a client for the pastes functionality of the <see
 /// href="https://haveibeenpwned.com/">HaveIBeenPwned</see> service
 /// </summary>
+/// <remarks>
+/// Some operations require an API key
+/// </remarks>
 public interface IHaveIBeenPwnedPastesClient
 {
   /// <summary>
   /// Get the pastes for an email address
   /// </summary>
+  /// <remarks>
+  /// This operation requires an API key
+  /// </remarks>
   /// <param name="emailAddress">
   /// The email address to get the pastes for
   /// </param>
@@ -28,6 +34,9 @@ public interface IHaveIBeenPwnedPastesClient
   /// <summary>
   /// Get the pastes for an email address
   /// </summary>
+  /// <remarks>
+  /// This operation requires an API key
+  /// </remarks>
   /// <param name="emailAddress">
   /// The email address to get the pastes for
   /// </param>

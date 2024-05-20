@@ -10,6 +10,9 @@ namespace AtleX.HaveIBeenPwned;
 /// Represents a client for the breaches functionality of the <see
 /// href="https://haveibeenpwned.com/">HaveIBeenPwned</see> service
 /// </summary>
+/// <remarks>
+/// Some operations require an API key
+/// </remarks>
 public interface IHaveIBeenPwnedBreachesClient
 {
   /// <summary>
@@ -36,6 +39,9 @@ public interface IHaveIBeenPwnedBreachesClient
   /// <summary>
   /// Get the breaches for an account
   /// </summary>
+  /// <remarks>
+  /// This operation requires an API key
+  /// </remarks>
   /// <param name="account">
   /// The account to get the breaches for
   /// </param>
@@ -48,6 +54,9 @@ public interface IHaveIBeenPwnedBreachesClient
   /// <summary>
   /// Get the breaches for an account
   /// </summary>
+  /// <remarks>
+  /// This operation requires an API key
+  /// </remarks>
   /// <param name="account">
   /// The account to get the breaches for
   /// </param>
@@ -63,6 +72,9 @@ public interface IHaveIBeenPwnedBreachesClient
   /// <summary>
   /// Get the breaches for an account
   /// </summary>
+  /// <remarks>
+  /// This operation requires an API key
+  /// </remarks>
   /// <param name="account">
   /// The account to get the breaches for
   /// </param>
@@ -78,6 +90,9 @@ public interface IHaveIBeenPwnedBreachesClient
   /// <summary>
   /// Get the breaches for an account
   /// </summary>
+  /// <remarks>
+  /// This operation requires an API key
+  /// </remarks>
   /// <param name="account">
   /// The account to get the breaches for
   /// </param>

@@ -11,11 +11,17 @@ namespace AtleX.HaveIBeenPwned;
 /// Represents a client for the domain search functionality of the <see
 /// href="https://haveibeenpwned.com/">HaveIBeenPwned</see> service
 /// </summary>
+/// <remarks>
+/// Some operations require an API key
+/// </remarks>
 public interface IHaveIBeenPwnedDomainClient
 {
   /// <summary>
   /// Get all the breached users in a domain with the breaches they appeared in
   /// </summary>
+  /// <remarks>
+  /// This operation requires an API key
+  /// </remarks>
   /// <param name="domain">
   /// The domain to get the breached users for
   /// </param>
@@ -28,6 +34,9 @@ public interface IHaveIBeenPwnedDomainClient
   /// <summary>
   /// Get all the breached users in a domain with the breaches they appeared in
   /// </summary>
+  /// <remarks>
+  /// This operation requires an API key
+  /// </remarks>
   /// <param name="domain">
   /// The domain to get the breached users for
   /// </param>
@@ -43,6 +52,9 @@ public interface IHaveIBeenPwnedDomainClient
   /// <summary>
   /// Gets the domains registered to an API key
   /// </summary>
+  /// <remarks>
+  /// This operation requires an API key
+  /// </remarks>
   /// <returns>
   /// An awaitable <see cref="Task{TResult}"/> with the collection of <see
   /// cref="SubscribedDomain"/> registered to the API key
@@ -52,6 +64,9 @@ public interface IHaveIBeenPwnedDomainClient
   /// <summary>
   /// Gets the domains registered to an API key
   /// </summary>
+  /// <remarks>
+  /// This operation requires an API key
+  /// </remarks>
   /// <param name="cancellationToken">
   /// The <see cref="CancellationToken"/> for this operation
   /// </param>
