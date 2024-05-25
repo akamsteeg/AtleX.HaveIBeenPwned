@@ -4,12 +4,14 @@
 using AtleX.HaveIBeenPwned.Helpers;
 using SwissArmyKnife.Helpers;
 using System;
+using System.Diagnostics;
 
 namespace AtleX.HaveIBeenPwned;
 
 /// <summary>
 /// Represents a breached domain in the system
 /// </summary>
+[DebuggerDisplay("{DomainName}")]
 public sealed class SubscribedDomain
   :IEquatable<SubscribedDomain>
 {
