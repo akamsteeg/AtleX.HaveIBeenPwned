@@ -4,6 +4,6 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: 'Check formatting'
   inputs:
-    command: format
-    projects: '**/*.sln'
+    command: 'custom'
+    custom: 'format'
     arguments: '--verify-no-changes'

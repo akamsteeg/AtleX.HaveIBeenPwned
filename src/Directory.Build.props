@@ -4,6 +4,8 @@
 		<LangVersion>12</LangVersion>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+
 		<Product>$(MSBuildProjectName) ($(TargetFramework))</Product>
 	</PropertyGroup>
 
