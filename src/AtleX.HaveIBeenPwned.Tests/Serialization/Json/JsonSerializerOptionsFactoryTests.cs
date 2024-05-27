@@ -26,7 +26,7 @@ public class JsonSerializerOptionsFactoryTests
   {
     var o = JsonSerializerOptionsFactory.Create();
 
-    var convertor = o.Converters.FirstOrDefault( c => c.GetType() == typeOfConvertor);
+    var convertor = o.Converters.FirstOrDefault(c => c.GetType() == typeOfConvertor);
 
     Assert.NotNull(convertor);
     Assert.IsType(typeOfConvertor, convertor);

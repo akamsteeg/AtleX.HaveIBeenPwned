@@ -24,7 +24,7 @@ internal static class TelemetryProvider
   /// <summary>
   /// Gets a <see cref="System.Diagnostics.Metrics.Meter"/> for counting values
   /// </summary>
-  private static readonly Meter Meter = new (TelemetryNames.RootName, AssemblyVersion);
+  private static readonly Meter Meter = new(TelemetryNames.RootName, AssemblyVersion);
 
   /// <summary>
   /// Gets the <see cref="Counter{T}"/> for counting the total number of

@@ -3,7 +3,6 @@
 
 using Pitcher;
 using System;
-using System.Buffers;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -21,7 +20,6 @@ namespace AtleX.HaveIBeenPwned.Helpers;
 internal static class KAnonimityHelper
 {
 #if NET6_0_OR_GREATER
-
   /// <summary>
   /// Gets SHA1 KAnonomity part and remainder for the specified <paramref name="password"/>
   /// </summary>
@@ -39,7 +37,7 @@ internal static class KAnonimityHelper
     (string, string) result;
 
     var encoding = Encoding.UTF8;
-    var arrayPool = ArrayPool<byte>.Shared;
+    var arrayPool = System.Buffers.ArrayPool<byte>.Shared;
 
     var maxByteCount = encoding.GetByteCount(password); // UTF8 has at most 4 bytes per character but this will give us an accurate number
 
@@ -74,17 +72,17 @@ internal static class KAnonimityHelper
   }
 
 #else
-    /// <summary>
-    /// Gets SHA1 KAnonomity part and remainder for the specified <paramref name="password"/>
-    /// </summary>
-    /// <param name="password">
-    /// The password to get the SHA1 hash from
-    /// </param>
-    /// <returns>
-    /// A <see cref="ValueTuple{T1, T2}"/> with the KAnonimity part of the password
-    /// and the KAnonimity remainder
-    /// </returns>
-    public static (string kAnonimityPart, string kAnonimityRemainder) GetKAnonimityPartsForPassword(string password)
+  /// <summary>
+  /// Gets SHA1 KAnonomity part and remainder for the specified <paramref name="password"/>
+  /// </summary>
+  /// <param name="password">
+  /// The password to get the SHA1 hash from
+  /// </param>
+  /// <returns>
+  /// A <see cref="ValueTuple{T1, T2}"/> with the KAnonimity part of the password
+  /// and the KAnonimity remainder
+  /// </returns>
+  public static (string kAnonimityPart, string kAnonimityRemainder) GetKAnonimityPartsForPassword(string password)
   {
     Throw.ArgumentNull.WhenNullOrEmpty(password, nameof(password));
 

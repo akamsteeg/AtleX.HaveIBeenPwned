@@ -13,7 +13,7 @@ namespace AtleX.HaveIBeenPwned;
 /// </summary>
 [DebuggerDisplay("{DomainName}")]
 public sealed class SubscribedDomain
-  :IEquatable<SubscribedDomain>
+  : IEquatable<SubscribedDomain>
 {
   /// <summary>
   /// Gets or sets the domain name

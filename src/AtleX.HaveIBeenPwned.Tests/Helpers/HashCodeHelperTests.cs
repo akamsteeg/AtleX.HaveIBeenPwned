@@ -50,7 +50,7 @@ public class HashCodeHelperTests
   [InlineData(1, 392)]
   [InlineData(2.0, 1073742215)]
   public void GetHashCode_WithSpecifiedInput_ReturnsExpectedOutput<T>(T testValue, int expectedResult)
-    where T: notnull
+    where T : notnull
   {
     var hashCode = HashCodeHelper.GetHashCode(testValue);
 

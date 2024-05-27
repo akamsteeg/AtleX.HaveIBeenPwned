@@ -17,6 +17,7 @@ jobs:
     - template: build-solution.steps.yml
       parameters:
         buildConfiguration: ${{ parameters.buildConfiguration }}
+    - template: check-formatting.steps.yml
     - template: run-xunit-unit-tests.steps.yml
       parameters:
         buildConfiguration: ${{ parameters.buildConfiguration }}

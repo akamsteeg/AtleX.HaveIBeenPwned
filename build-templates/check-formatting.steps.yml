@@ -1,0 +1,9 @@
+# Verify the formatting of a solution
+
+steps:   
+- task: DotNetCoreCLI@2
+  displayName: 'Check formatting'
+  inputs:
+    command: format
+    projects: '**/*.sln'
+    arguments: '--verify-no-changes'

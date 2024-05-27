@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System;
 using AtleX.HaveIBeenPwned.Helpers;
 using SwissArmyKnife.Helpers;
-using System.Linq;
 
 namespace AtleX.HaveIBeenPwned;
 

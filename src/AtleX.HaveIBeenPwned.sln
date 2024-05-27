@@ -31,6 +31,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "steps", "steps", "{3882680D-21C4-49F9-9DE2-D575205AF766}"
 	ProjectSection(SolutionItems) = preProject
 		..\build-templates\build-solution.steps.yml = ..\build-templates\build-solution.steps.yml
+		..\build-templates\check-formatting.steps.yml = ..\build-templates\check-formatting.steps.yml
 		..\build-templates\publish-nuget-package-artifacts.steps.yml = ..\build-templates\publish-nuget-package-artifacts.steps.yml
 		..\build-templates\run-xunit-integration-tests.steps.yml = ..\build-templates\run-xunit-integration-tests.steps.yml
 		..\build-templates\run-xunit-unit-tests.steps.yml = ..\build-templates\run-xunit-unit-tests.steps.yml
@@ -50,7 +51,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{739C3F8B-1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utility projects", "Utility projects", "{F4B58051-81A0-48D2-8597-A0FEDC43FCA6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtleX.HaveIBeenPwned.TelemetryTest", "AtleX.HaveIBeenPwned.TelemetryTest\AtleX.HaveIBeenPwned.TelemetryTest.csproj", "{46CF0E92-4BE1-4DE9-BF77-588F86B4B823}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtleX.HaveIBeenPwned.TelemetryTest", "AtleX.HaveIBeenPwned.TelemetryTest\AtleX.HaveIBeenPwned.TelemetryTest.csproj", "{46CF0E92-4BE1-4DE9-BF77-588F86B4B823}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

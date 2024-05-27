@@ -80,7 +80,7 @@ public class HaveIBeenPwnedClientTests_GetSubscribedDomainsAsync
     using var httpClient = new HttpClient(new MockErroringHttpMessageHandler(desiredResultStatusCode: 429));
     using var c = new HaveIBeenPwnedClient(this.ClientSettings, httpClient);
 
-    await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetSubscribedDomainsAsync( CancellationToken.None));
+    await Assert.ThrowsAsync<RateLimitExceededException>(() => c.GetSubscribedDomainsAsync(CancellationToken.None));
   }
 
   [Fact]
