@@ -6,4 +6,4 @@ steps:
   inputs:
     command: 'custom'
     custom: 'format'
-    arguments: '--verify-no-changes'
+    arguments: 'src/ --verify-no-changes '
