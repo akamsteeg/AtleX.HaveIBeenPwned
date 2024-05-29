@@ -1,4 +1,4 @@
-<Project>
+<Project Condition="$(MSBuildProjectName.StartsWith('AtleX'))">
   <!-- General shared properties -->
   <PropertyGroup Label="Build">
     <LangVersion>12</LangVersion>
@@ -130,7 +130,7 @@
   </PropertyGroup>
 
   <!-- Assembly signing -->
-  <PropertyGroup Label="Assembly signing" Condition="$(MSBuildProjectName.StartsWith('AtleX'))">
+  <PropertyGroup Label="Assembly signing">
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>$(MSBuildProjectName).snk</AssemblyOriginatorKeyFile>
