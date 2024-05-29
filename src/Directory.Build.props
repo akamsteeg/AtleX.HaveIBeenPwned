@@ -1,151 +1,151 @@
 <Project>
-	<!-- General shared properties -->
-	<PropertyGroup Label="Build">
-		<LangVersion>12</LangVersion>
-		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  <!-- General shared properties -->
+  <PropertyGroup Label="Build">
+    <LangVersion>12</LangVersion>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
-		<Product>$(MSBuildProjectName) ($(TargetFramework))</Product>
-	</PropertyGroup>
+    <Product>$(MSBuildProjectName) ($(TargetFramework))</Product>
+  </PropertyGroup>
 
-	<!-- NuGet package properties -->
-	<PropertyGroup Label="NuGet package properties">
-		<PackageProjectUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned</PackageProjectUrl>
+  <!-- NuGet package properties -->
+  <PropertyGroup Label="NuGet package properties">
+    <PackageProjectUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned</PackageProjectUrl>
 
-		<Authors>Alex Kamsteeg (https://atlex.nl/) and contributors</Authors>
-		<Copyright>© Alex Kamsteeg</Copyright>
-		<Company />
-		<Description>AtleX.HaveIBeenPwned is a fully async and super fast .NET Standard client library for HaveIBeenPwned.com.</Description>
-		<PackageLicenseExpression>MIT</PackageLicenseExpression>
-		<PackageTags>haveibeenpwned breach password hibp security pwned email emailaddress client</PackageTags>
-		<PackageReadmeFile>packageReadme.md</PackageReadmeFile>
+    <Authors>Alex Kamsteeg (https://atlex.nl/) and contributors</Authors>
+    <Copyright>© Alex Kamsteeg</Copyright>
+    <Company />
+    <Description>AtleX.HaveIBeenPwned is a fully async and super fast .NET Standard client library for HaveIBeenPwned.com.</Description>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>haveibeenpwned breach password hibp security pwned email emailaddress client</PackageTags>
+    <PackageReadmeFile>packageReadme.md</PackageReadmeFile>
 
-		<Version>8.1.1</Version>
+    <Version>8.1.1</Version>
 
-		<PackageReleaseNotes>
-			8.1.1:
-			- [Feature] Internal (performance) improvements. (#94,and other commits)
+    <PackageReleaseNotes>
+      8.1.1:
+      - [Feature] Internal (performance) improvements. (#94,and other commits)
 
-			8.1.0:
-			- [Feature] Add .NET 8+ compatiblity
-			- [Feature] Add support for trimming and AOT on .NET 8 or higher (#85)
+      8.1.0:
+      - [Feature] Add .NET 8+ compatiblity
+      - [Feature] Add support for trimming and AOT on .NET 8 or higher (#85)
 
-			8.0.0
-			- [Feature][Breaking] Add support for domain searches (#86)
-			- [Feature][Breaking] Add support for retrieving only the latest breach in the system (#87)
-			- [Feature] Improved documentation
-			- [Feature] Internal improvements
+      8.0.0
+      - [Feature][Breaking] Add support for domain searches (#86)
+      - [Feature][Breaking] Add support for retrieving only the latest breach in the system (#87)
+      - [Feature] Improved documentation
+      - [Feature] Internal improvements
 
-			7.0.0
-			- [Breaking] Throw exception when the CancellationToken is cancelled as soon as possible (#70)
-			- [Breaking] Wrap InvalidOperationException in HaveIBeenPwnedClientException (#71)
-			- [Breaking][Fix] GetPastesAsync() now returns an empty collection instead of throwing an exception when no pastes are found (#82)
-			- [Feature] Add .NET 6.0 target and use source generators for JSON (de)serialization (#72)
-			- [Feature] Add more properties to the SiteBreach model (#79)
-			- [Feature] Improved documentation
-			- [Feature] Many internal improvements to make this the best and most performant version ever (#75, #76, #77, #78, #79)
+      7.0.0
+      - [Breaking] Throw exception when the CancellationToken is cancelled as soon as possible (#70)
+      - [Breaking] Wrap InvalidOperationException in HaveIBeenPwnedClientException (#71)
+      - [Breaking][Fix] GetPastesAsync() now returns an empty collection instead of throwing an exception when no pastes are found (#82)
+      - [Feature] Add .NET 6.0 target and use source generators for JSON (de)serialization (#72)
+      - [Feature] Add more properties to the SiteBreach model (#79)
+      - [Feature] Improved documentation
+      - [Feature] Many internal improvements to make this the best and most performant version ever (#75, #76, #77, #78, #79)
 
-			6.0.1:
-			- [Feature] Performance improvement when (de)serializing requests and responses (#74)
-			- [Fix] RateLimitExceededException no longer throws an exception when the retry-after value is 0 seconds or less (#73)
-			- [Fix] Internal improvements (#69)
+      6.0.1:
+      - [Feature] Performance improvement when (de)serializing requests and responses (#74)
+      - [Fix] RateLimitExceededException no longer throws an exception when the retry-after value is 0 seconds or less (#73)
+      - [Fix] Internal improvements (#69)
 
-			6.0.0:
-			- [Breaking] Removed SerializeAttribute from exceptions (#50)
-			- [Breaking] Removed obsolete and no longer used settings from HaveIBeenPwnedClientSettings (#60)
-			- [Feature] Add support for padded pwned password checks (Enabled by default, #55)
-			- [Feature] Improved IntelliSense documentation (#61)
-			- [Feature] Internal improvements (#56, #57, #58)
+      6.0.0:
+      - [Breaking] Removed SerializeAttribute from exceptions (#50)
+      - [Breaking] Removed obsolete and no longer used settings from HaveIBeenPwnedClientSettings (#60)
+      - [Feature] Add support for padded pwned password checks (Enabled by default, #55)
+      - [Feature] Improved IntelliSense documentation (#61)
+      - [Feature] Internal improvements (#56, #57, #58)
 
-			5.0.3:
-			- Internal refactoring, build improvements and code simplification
+      5.0.3:
+      - Internal refactoring, build improvements and code simplification
 
-			5.0.2:
-			- [Fix] In RateLimitExceededException, only construct the message when it's needed (#49)
-			- [Fix] Standardize IEquatable&lt;T&gt; implementations (#52)
+      5.0.2:
+      - [Fix] In RateLimitExceededException, only construct the message when it's needed (#49)
+      - [Fix] Standardize IEquatable&lt;T&gt; implementations (#52)
 
-			5.0.1:
-			- [Fix] Drastically reduced memory usage in HaveIBeenPwnedClient.IsPwnedPasswordAsync() (#47)
+      5.0.1:
+      - [Fix] Drastically reduced memory usage in HaveIBeenPwnedClient.IsPwnedPasswordAsync() (#47)
 
-			5.0.0:
-			- [Feature] Enabled deterministic builds (43)
-			- [Feature] Implement IEquatable&lt;T&gt; on Paste, Breach and SiteBreach (#46)
-			- [Feature] Performance optimizations (#36, #44)
-			- [Feature] Replace NewtonSoft.Json with System.Text.Json (#25)
-			- [Feature] Add C#8 Nullable Reference Types support (#31)
-			- [Feature] Calling ToString() on Breach now returns the value of the Name property instead of the type name (#41)
-			- [Feature] Calling ToString() on Paste now returns the value of the Title property instead of the type name (#41)
-			- [Feature] Calling ToString() on SiteBreach now returns the value of the Name property instead of the type name (#41)
-			- [Breaking] Mark HaveIBeenPwnedClientSettings.TimeOut as obsolete (#37)
-			- [Breaking] Throw InvalidApiKeyException instead of InvalidOperationException when no API key is supplied (#34)
-			- [Breaking] HaveIBeenPwnedClientSettings.ApplicationName should default to an empty string and an exception must be thrown when it's not set (#30)
-			- [Breaking] AtleX.HaveIBeenPwned is now strong named (#32)
+      5.0.0:
+      - [Feature] Enabled deterministic builds (43)
+      - [Feature] Implement IEquatable&lt;T&gt; on Paste, Breach and SiteBreach (#46)
+      - [Feature] Performance optimizations (#36, #44)
+      - [Feature] Replace NewtonSoft.Json with System.Text.Json (#25)
+      - [Feature] Add C#8 Nullable Reference Types support (#31)
+      - [Feature] Calling ToString() on Breach now returns the value of the Name property instead of the type name (#41)
+      - [Feature] Calling ToString() on Paste now returns the value of the Title property instead of the type name (#41)
+      - [Feature] Calling ToString() on SiteBreach now returns the value of the Name property instead of the type name (#41)
+      - [Breaking] Mark HaveIBeenPwnedClientSettings.TimeOut as obsolete (#37)
+      - [Breaking] Throw InvalidApiKeyException instead of InvalidOperationException when no API key is supplied (#34)
+      - [Breaking] HaveIBeenPwnedClientSettings.ApplicationName should default to an empty string and an exception must be thrown when it's not set (#30)
+      - [Breaking] AtleX.HaveIBeenPwned is now strong named (#32)
 
-			4.1.0:
-			- [Feature] Introduce specialized API interfaces for specific functionality (#33)
-			- [Feature] Throw custom exception when an invalid or expired API key is used (#28)
+      4.1.0:
+      - [Feature] Introduce specialized API interfaces for specific functionality (#33)
+      - [Feature] Throw custom exception when an invalid or expired API key is used (#28)
 
-			4.0.0:
-			- [Breaking] Changed the HaveIBeenPwned.com API to V3. An API key is now mandatory for retrieving pastes and breaches (#27)
-			- [Breaking] Changed BreachMode.IncludeUnverified to BreachMode.ExcludeUnverified because the V3 API now returns unverifed breaches by default (#27)
-			- [Breaking] Fold HaveIBeenPwnedClient and HttpHaveIBeenPwnedClient into one (#26)
-			- [Breaking] Change RetryAfter property of RateLimitException from int to TimeSpan (#24)
+      4.0.0:
+      - [Breaking] Changed the HaveIBeenPwned.com API to V3. An API key is now mandatory for retrieving pastes and breaches (#27)
+      - [Breaking] Changed BreachMode.IncludeUnverified to BreachMode.ExcludeUnverified because the V3 API now returns unverifed breaches by default (#27)
+      - [Breaking] Fold HaveIBeenPwnedClient and HttpHaveIBeenPwnedClient into one (#26)
+      - [Breaking] Change RetryAfter property of RateLimitException from int to TimeSpan (#24)
 
-			3.0.1:
-			- [Fix] HttpHaveIBeenPwnedClient.GetAsync(Uri, CancellationToken) no longer resets the output stream when no data was loaded (#20)
-			- [Fix] HttpHaveIBeenPwnedClient.GetAsync(Uri, CancellationToken) no longer creates a new MemoryStream when no data was loaded (#21)
-			- [Fix] HttpHaveIBeenPwnedClient.GetBreachesInternalAsync(string, BreachMode, CancellationToken) no longer returns null instead of an empty enumerable when no data was loaded (#23)
+      3.0.1:
+      - [Fix] HttpHaveIBeenPwnedClient.GetAsync(Uri, CancellationToken) no longer resets the output stream when no data was loaded (#20)
+      - [Fix] HttpHaveIBeenPwnedClient.GetAsync(Uri, CancellationToken) no longer creates a new MemoryStream when no data was loaded (#21)
+      - [Fix] HttpHaveIBeenPwnedClient.GetBreachesInternalAsync(string, BreachMode, CancellationToken) no longer returns null instead of an empty enumerable when no data was loaded (#23)
 
-			3.0.0:
-			- [Feature] Moved from SourceLink with embedded PDB to a .snupkg on NuGet.org for debugging (#8)
-			- [Breaking] Removed the ClientSettings from the HaveIBeenPwnedClient (#12)
-			- [Breaking] Removed IDisposable from IHaveIBeenPwnedClient (#10)
-			- [Breaking] Renamed HttpServiceClient to HttpHaveIBeenPwnedClient (#13)
-			- [Breaking] Reorganised classes and namespaces (#16)
-			- [Breaking] Renamed BreachMode.None to BreachMode.Default (#15)
-			- [Breaking] Removed KAnonimityHelper from public API (#18)
-			- [Fix] HaveIBeenPwnedClient no longer disposes an injected IHaveIBeenPwnedClient (#11)
+      3.0.0:
+      - [Feature] Moved from SourceLink with embedded PDB to a .snupkg on NuGet.org for debugging (#8)
+      - [Breaking] Removed the ClientSettings from the HaveIBeenPwnedClient (#12)
+      - [Breaking] Removed IDisposable from IHaveIBeenPwnedClient (#10)
+      - [Breaking] Renamed HttpServiceClient to HttpHaveIBeenPwnedClient (#13)
+      - [Breaking] Reorganised classes and namespaces (#16)
+      - [Breaking] Renamed BreachMode.None to BreachMode.Default (#15)
+      - [Breaking] Removed KAnonimityHelper from public API (#18)
+      - [Fix] HaveIBeenPwnedClient no longer disposes an injected IHaveIBeenPwnedClient (#11)
 
-			2.1.0
-			- [Fix] An injected HttpClient is no longer disposed by the HttpServiceClient (#6)
-			- [Fix] The initial HTTP requests is no longer performed outside of error-handling code in HttpServiceClient (#7)
-			- [Feature] When using the HttpServiceClient directly, it's no longer necessary to inject a HttpClient
-			- [Feature] General code cleanup
+      2.1.0
+      - [Fix] An injected HttpClient is no longer disposed by the HttpServiceClient (#6)
+      - [Fix] The initial HTTP requests is no longer performed outside of error-handling code in HttpServiceClient (#7)
+      - [Feature] When using the HttpServiceClient directly, it's no longer necessary to inject a HttpClient
+      - [Feature] General code cleanup
 
-			2.0.0
-			- [Feature] Added support for cancellation tokens (#4)
-			- [Feature] Add injecting a HttpClient in the HttpServiceClient (#2)
-			- [Breaking] Changed base interface name from IServiceClient to IHaveIBeenPwnedClient (#5)
-			- Various performance optimizations and reliability improvements
+      2.0.0
+      - [Feature] Added support for cancellation tokens (#4)
+      - [Feature] Add injecting a HttpClient in the HttpServiceClient (#2)
+      - [Breaking] Changed base interface name from IServiceClient to IHaveIBeenPwnedClient (#5)
+      - Various performance optimizations and reliability improvements
 
-			1.1.0
-			- [Fix] Marked built-in exceptions as serializable (fixes #1)
+      1.1.0
+      - [Fix] Marked built-in exceptions as serializable (fixes #1)
 
-			1.0.0
-			- [Feature] Added support for getting the breaches for an account
-			- [Feature] Added support for getting the pastes for an email address
-			- [Feature] Added support for checking a password against the Pwned Passwords API
-		</PackageReleaseNotes>
-	</PropertyGroup>
+      1.0.0
+      - [Feature] Added support for getting the breaches for an account
+      - [Feature] Added support for getting the pastes for an email address
+      - [Feature] Added support for checking a password against the Pwned Passwords API
+    </PackageReleaseNotes>
+  </PropertyGroup>
 
-	<!-- Assembly signing -->
-	<PropertyGroup Label="Assembly signing" Condition="$(MSBuildProjectName.StartsWith('AtleX'))">
-		<SignAssembly>true</SignAssembly>
-		<DelaySign>false</DelaySign>
-		<AssemblyOriginatorKeyFile>$(MSBuildProjectName).snk</AssemblyOriginatorKeyFile>
-	</PropertyGroup>
-	
-		<!-- NuGet dependencies audit mode -->
-	<PropertyGroup Label="NuGet dependencies audit mode">
-		<NuGetAuditMode>all</NuGetAuditMode>
-		<NuGetAuditLevel>low</NuGetAuditLevel>
-	</PropertyGroup>
+  <!-- Assembly signing -->
+  <PropertyGroup Label="Assembly signing" Condition="$(MSBuildProjectName.StartsWith('AtleX'))">
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>$(MSBuildProjectName).snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  
+    <!-- NuGet dependencies audit mode -->
+  <PropertyGroup Label="NuGet dependencies audit mode">
+    <NuGetAuditMode>all</NuGetAuditMode>
+    <NuGetAuditLevel>low</NuGetAuditLevel>
+  </PropertyGroup>
 
-	<!-- Build acceleration -->
-	<PropertyGroup Label="Build acceleration">
-		<!-- Documentation: https://github.com/dotnet/project-system/blob/main/docs/build-acceleration.md -->
-		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
-		<ProduceReferenceAssembly>true</ProduceReferenceAssembly>
-	</PropertyGroup>
+  <!-- Build acceleration -->
+  <PropertyGroup Label="Build acceleration">
+    <!-- Documentation: https://github.com/dotnet/project-system/blob/main/docs/build-acceleration.md -->
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
 </Project>
