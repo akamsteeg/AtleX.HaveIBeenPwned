@@ -31,5 +31,9 @@ csharp_style_throw_expression = true:error
 csharp_style_namespace_declarations = file_scoped:error
 # Primary constructors
 csharp_style_prefer_primary_constructors = file_scoped:warning
+# Allow expression bodied methods, properties
+dotnet_diagnostic.IDE0022.severity = none
+dotnet_diagnostic.IDE0023.severity = none
+dotnet_diagnostic.IDE0024.severity = none
 # File header
 file_header_template = Copyright (c) Alex Kamsteeg (https://atlex.nl/)\nLicense: MIT (See LICENSE file)

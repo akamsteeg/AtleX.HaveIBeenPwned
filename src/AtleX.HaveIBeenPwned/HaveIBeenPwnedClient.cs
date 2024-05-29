@@ -425,7 +425,7 @@ public sealed class HaveIBeenPwnedClient
         .DeserializeAsync(content, JsonOptions.GetTypeInfo<T>(), cancellationToken)
         .ConfigureAwait(false);
 
-        result = deserializedResponse as T;
+      result = deserializedResponse as T;
 #else
       result = await JsonSerializer
         .DeserializeAsync<T>(content, JsonOptions, cancellationToken)

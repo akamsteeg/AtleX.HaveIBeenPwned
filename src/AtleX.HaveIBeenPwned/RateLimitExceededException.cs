@@ -16,13 +16,20 @@ namespace AtleX.HaveIBeenPwned;
 /// href="https://haveibeenpwned.com/API/v3#RateLimiting">The
 /// documentation</see> recommends waiting an additional 100 milliseconds.
 /// </remarks>
+/// <remarks>
+/// Initializes a new instance of <see cref="RateLimitExceededException"/>
+/// with the <see cref="TimeSpan"/> to wait before retrying
+/// </remarks>
+/// <param name="retryAfter">
+/// The <see cref="TimeSpan"/> to wait before retrying
+/// </param>
 #pragma warning disable RCS1194 // Implement exception constructors.
 // You exceeded the rate limit and have all the info you need in this
 // exception. Therefor there's no need to override constructors.
 [DebuggerDisplay("Retry after {RetryAfter.TotalMilliseconds} ms.")]
-public sealed class RateLimitExceededException
+public sealed class RateLimitExceededException(TimeSpan retryAfter)
 #pragma warning restore RCS1194 // Implement exception constructors.
-  : HaveIBeenPwnedClientException
+  : HaveIBeenPwnedClientException("Rate limit exceeded")
 {
   /// <summary>
   /// Gets the <see cref="TimeSpan"/> to wait before retrying
@@ -30,18 +37,5 @@ public sealed class RateLimitExceededException
   public TimeSpan RetryAfter
   {
     get;
-  }
-
-  /// <summary>
-  /// Initializes a new instance of <see cref="RateLimitExceededException"/>
-  /// with the <see cref="TimeSpan"/> to wait before retrying
-  /// </summary>
-  /// <param name="retryAfter">
-  /// The <see cref="TimeSpan"/> to wait before retrying
-  /// </param>
-  public RateLimitExceededException(TimeSpan retryAfter)
-    : base("Rate limit exceeded")
-  {
-    this.RetryAfter = (retryAfter.TotalSeconds >= 0d) ? retryAfter : TimeSpan.Zero;
-  }
+  } = (retryAfter.TotalSeconds >= 0d) ? retryAfter : TimeSpan.Zero;
 }
