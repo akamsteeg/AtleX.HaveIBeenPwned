@@ -11,7 +11,8 @@ namespace AtleX.HaveIBeenPwned.Serialization.Json.Convertors;
 /// <summary>
 /// Converts a JSON to an <see cref="IEnumerable{T}"/> of <see cref="DomainUser"/>
 /// </summary>
-internal sealed class DomainUserConvertor : JsonConverter<IEnumerable<DomainUser>>
+internal sealed class DomainUserConvertor
+  : JsonConverter<IEnumerable<DomainUser>>
 {
   /// <inheritDoc />
   public override IEnumerable<DomainUser>? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
