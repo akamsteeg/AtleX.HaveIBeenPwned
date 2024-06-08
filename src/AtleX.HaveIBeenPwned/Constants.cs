@@ -127,4 +127,20 @@ internal static class Constants
     /// </remarks>
     public const int TotalLength = PartLength + RemainderLength;  // SHA1 hash is 40 characters long
   }
+
+  /// <summary>
+  /// Represents constant values for <see cref="Helpers.HashCodeHelper"/>
+  /// </summary>
+  internal static class HashCode
+  {
+    /// <summary>
+    /// Gets the prime number to start the calculation of the hash code with
+    /// </summary>
+    public const int InitialPrimeNumber = 17;
+
+    /// <summary>
+    /// Gets the prime number to multiply a previously calculated value with
+    /// </summary>
+    public const int MultiplierPrimeNumber = 23;
+  }
 }
