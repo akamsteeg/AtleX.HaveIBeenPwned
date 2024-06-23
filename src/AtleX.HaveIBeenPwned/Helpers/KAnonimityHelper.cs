@@ -70,7 +70,6 @@ internal static class KAnonimityHelper
 
     return result;
   }
-
 #else
   /// <summary>
   /// Gets SHA1 KAnonomity part and remainder for the specified <paramref name="password"/>
