@@ -18,7 +18,7 @@
     <Company />
     <Description>AtleX.HaveIBeenPwned is a fully async and super fast .NET Standard client library for HaveIBeenPwned.com.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-t    <PackageTags>haveibeenpwned haveibeenpwned.com hibp security pwned password breach email emailaddress api client</PackageTags>
+    <PackageTags>haveibeenpwned haveibeenpwned.com hibp security pwned password breach email emailaddress api client</PackageTags>
     <PackageReadmeFile>packageReadme.md</PackageReadmeFile>
 
     <Version>8.1.1</Version>
