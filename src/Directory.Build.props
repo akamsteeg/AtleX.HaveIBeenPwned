@@ -22,11 +22,19 @@
     <PackageReadmeFile>packageReadme.md</PackageReadmeFile>
     <PackageIcon>packageicon.png</PackageIcon>
 
-    <Version>8.1.1</Version>
+    <Version>9.0.0</Version>
 
     <PackageReleaseNotes>
+9.0.0:
+- [Feature] Added support getting subscribed domains and their breached users (#104)
+- [Feature] Added basic telemetry so users can observe the usage and performance of the library (#102)
+- [Feature] Updated documentation (#97, #106)
+- [Feature] Implemented '==' and '!=' operators on models (#100)
+- [Feature] Add a package icon (#108)
+- [Fix] Performance improvements (#96, #98, #99)
+
 8.1.1:
-- [Feature] Internal (performance) improvements. (#94,and other commits)
+- [Feature] Internal (performance) improvements. (#94 and other commits)
 
 8.1.0:
 - [Feature] Add .NET 8+ compatiblity

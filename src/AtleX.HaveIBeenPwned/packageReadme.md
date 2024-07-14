@@ -47,6 +47,12 @@ using (var client = new HaveIBeenPwnedClient(settings))
     // Get breaches for an account, excluding unverified breaches
     var breaches = await client.GetBreachesAsync("test@example.com", BreachMode.ExcludeUnverified); // Requires an API key
 
+    // Get the subscribed domains for an API key
+    var domains = await client.GetSubscribedDomainsAsync)(); // Requires an API key
+
+    // Get breached users from a domain the API key is subscribed to
+    var breachedUsersOfDomain = await client.GetBreachedDomainUsersAsync("example.com"); // Requires an API key
+
     // Get pastes for an email address
     var pastes = await client.GetPastesAsync("test@example.com"); // Requires an API key
 
