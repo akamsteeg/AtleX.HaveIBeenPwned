@@ -53,6 +53,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utility projects", "Utility
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtleX.HaveIBeenPwned.TelemetryTest", "AtleX.HaveIBeenPwned.TelemetryTest\AtleX.HaveIBeenPwned.TelemetryTest.csproj", "{46CF0E92-4BE1-4DE9-BF77-588F86B4B823}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "assets", "assets", "{6C720A94-4381-413E-BC80-3186AD4662F5}"
+	ProjectSection(SolutionItems) = preProject
+		..\assets\packageicon.pdn = ..\assets\packageicon.pdn
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
