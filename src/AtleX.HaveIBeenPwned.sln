@@ -37,8 +37,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "steps", "steps", "{3882680D
 		..\build-templates\run-xunit-unit-tests.steps.yml = ..\build-templates\run-xunit-unit-tests.steps.yml
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{F96E4137-74D3-4AEF-86CA-661BD5E2C817}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "readme", "readme", "{F96E4137-74D3-4AEF-86CA-661BD5E2C817}"
 	ProjectSection(SolutionItems) = preProject
+		AtleX.HaveIBeenPwned\packageReadme.md = AtleX.HaveIBeenPwned\packageReadme.md
 		..\readme.md = ..\readme.md
 	EndProjectSection
 EndProject
@@ -49,7 +50,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "misc", "misc", "{739C3F8B-1
 		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Utility projects", "Utility projects", "{F4B58051-81A0-48D2-8597-A0FEDC43FCA6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "utility projects", "utility projects", "{F4B58051-81A0-48D2-8597-A0FEDC43FCA6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtleX.HaveIBeenPwned.TelemetryTest", "AtleX.HaveIBeenPwned.TelemetryTest\AtleX.HaveIBeenPwned.TelemetryTest.csproj", "{46CF0E92-4BE1-4DE9-BF77-588F86B4B823}"
 EndProject
