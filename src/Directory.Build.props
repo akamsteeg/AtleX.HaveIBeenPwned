@@ -2,7 +2,10 @@
   <!-- General shared properties -->
   <PropertyGroup Label="Build">
     <LangVersion>12</LangVersion>
+    
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!--NuGet warnings for packages with vulnerabilities (https://learn.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu1901-nu1904) -->
+    <WarningsNotAsErrors>NU1901;NU1902;NU1903;NU1904</WarningsNotAsErrors>
 
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
 
