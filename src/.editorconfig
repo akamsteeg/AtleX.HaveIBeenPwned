@@ -46,7 +46,7 @@ dotnet_diagnostic.IDE0023.severity = none
 dotnet_diagnostic.IDE0024.severity = none
 
 # File header
-file_header_template = Copyright (c) Alex Kamsteeg (https://atlex.nl/)\nLicense: MIT (See LICENSE file)
+file_header_template = Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors\nLicense: MIT (See LICENSE file)
 
 # Code metrics
 ## Avoid excessive inheritance

@@ -1,4 +1,4 @@
-﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/)
+﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
 using AtleX.HaveIBeenPwned.Serialization.Json;
