@@ -17,6 +17,13 @@
     <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
+  <!-- Code metrics -->
+  <ItemGroup>
+    <AdditionalFiles Include="../CodeMetricsConfig.txt" />
+  </ItemGroup>
+
+
+  <!-- Readme and icon-->
   <ItemGroup>
     <None Include="packageReadme.md" Pack="true" PackagePath="\" />
     <None Include="packageicon.png" Pack="true" PackagePath="\" />

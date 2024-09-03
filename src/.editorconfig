@@ -11,29 +11,49 @@ dotnet_style_qualification_for_field = true:warning
 dotnet_style_qualification_for_property = true:warning
 dotnet_style_qualification_for_method = true:warning
 dotnet_style_qualification_for_method = true:warning
+
 # use predefined type ("int") instead of framework names ("Int32")
 dotnet_style_predefined_type_for_locals_parameters_members = true:suggestion
 dotnet_style_predefined_type_for_member_access = true:suggestion
+
 # Access modifiers
 dotnet_style_require_accessibility_modifiers = always:error
+
 # Prefer "var"
 csharp_style_var_for_built_in_types = true:suggestion
 csharp_style_var_when_type_is_apparent = true:suggestion
 csharp_style_var_elsewhere = true:suggestion
+
 # Pattern match ("object is int i") over "is..as" dance
 csharp_style_pattern_matching_over_is_with_cast_check = true:warning
 csharp_style_pattern_matching_over_as_with_null_check = true:warning
+
 # Inline out variable
 csharp_style_inlined_variable_declaration = true:warning
+
 # Throw expressions
 csharp_style_throw_expression = true:error
+
 # File scoped namespaces
 csharp_style_namespace_declarations = file_scoped:error
+
 # Primary constructors
 csharp_style_prefer_primary_constructors = file_scoped:warning
+
 # Allow expression bodied methods, properties
 dotnet_diagnostic.IDE0022.severity = none
 dotnet_diagnostic.IDE0023.severity = none
 dotnet_diagnostic.IDE0024.severity = none
+
 # File header
 file_header_template = Copyright (c) Alex Kamsteeg (https://atlex.nl/)\nLicense: MIT (See LICENSE file)
+
+# Code metrics
+## Avoid excessive inheritance
+dotnet_diagnostic.CA1501.severity = suggestion
+## Cyclomatic complexity
+dotnet_diagnostic.CA1502.severity = suggestion
+## Avoid unmaintainable code
+dotnet_diagnostic.CA1505.severity = suggestion
+## Avoid excessive class coupling
+dotnet_diagnostic.CA1506.severity = suggestion 

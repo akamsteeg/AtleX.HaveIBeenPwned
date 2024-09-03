@@ -1,0 +1,25 @@
+CA1501: 5
+
+CA1502(Assembly): 25
+CA1502(Namespace): 25
+CA1502(Type): 25
+CA1502(Method): 25
+CA1502(Field): 25
+CA1502(Event): 25
+CA1502(Property): 25
+
+CA1505(Assembly): 10
+CA1505(Namespace): 10
+CA1505(Type): 10
+CA1505(Method): 10
+CA1505(Field): 10
+CA1505(Event): 10
+CA1505(Property): 10
+
+CA1506(Assembly): 40
+CA1506(Namespace): 40
+CA1506(Type): 95
+CA1506(Method): 40
+CA1506(Field): 40
+CA1506(Event): 40
+CA1506(Property): 40
