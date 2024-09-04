@@ -12,6 +12,7 @@ using BenchmarkDotNet.Running;
 using BenchmarkDotNet.Toolchains.CsProj;
 using BenchmarkDotNet.Toolchains.NativeAot;
 using BenchmarkDotNet.Validators;
+using Perfolizer.Horology;
 using System;
 using System.Reflection;
 
@@ -29,15 +30,17 @@ public static class Program
 
   private static ManualConfig GetConfig()
   {
-    var job = Job.Default;
+    var job = Job.Default
+                    .WithWarmupCount(1); // 1 warmup is enough for our purpose
 
-    var config = ManualConfig.Create(DefaultConfig.Instance)
+    var config = DefaultConfig.Instance
+      .AddDiagnoser(MemoryDiagnoser.Default)
+      .AddColumn(StatisticColumn.Median, StatisticColumn.Min, StatisticColumn.Max)
       .AddJob(
         job.WithToolchain(CsProjCoreToolchain.NetCoreApp80).AsBaseline(),
-        Job.Default.WithRuntime(NativeAotRuntime.Net80),
+        //job.WithRuntime(NativeAotRuntime.Net80),
         job.WithToolchain(CsProjCoreToolchain.NetCoreApp60)
-        )
-      .AddDiagnoser(MemoryDiagnoser.Default);
+        );
 
     if (Environment.OSVersion.Platform == PlatformID.Win32NT)
     {
