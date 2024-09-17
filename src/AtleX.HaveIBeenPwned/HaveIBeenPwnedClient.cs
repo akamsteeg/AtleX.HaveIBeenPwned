@@ -56,13 +56,6 @@ public sealed class HaveIBeenPwnedClient
   private static readonly JsonSerializerOptions JsonOptions = JsonSerializerOptionsFactory.Create();
 
   /// <summary>
-  /// Gets the cached <see cref="Func{TResult}"/> that throws an <see
-  /// cref="InvalidOperationException"/> when the specified request method in a <see
-  /// cref="HttpRequestMessage"/> is not GET
-  /// </summary>
-  private static readonly Func<InvalidOperationException> CachedRequestMethodExceptionProducer = () => new InvalidOperationException("Request method must be GET");
-
-  /// <summary>
   /// Initializes a new instance of <see cref="HaveIBeenPwnedClient"/> with the
   /// specified <see cref="HaveIBeenPwnedClientSettings"/> and <see cref="HttpClient"/>
   /// </summary>
@@ -398,7 +391,7 @@ public sealed class HaveIBeenPwnedClient
   private async ValueTask<T?> GetAsync<T>(HttpRequestMessage requestMessage, CancellationToken cancellationToken)
     where T : class
   {
-    Throw.When(requestMessage.Method != HttpMethod.Get, CachedRequestMethodExceptionProducer);
+    Throw.When(requestMessage.Method != HttpMethod.Get, static () => new InvalidOperationException("Request method must be GET"));
     this.ThrowIfDisposed();
     cancellationToken.ThrowIfCancellationRequested();
 
