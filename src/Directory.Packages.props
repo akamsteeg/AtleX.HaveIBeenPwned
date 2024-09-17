@@ -16,7 +16,7 @@
     <PackageVersion Include="SwissArmyKnife" Version="2.3.1" />
     <PackageVersion Include="System.Text.Json" Version="8.0.4" />
     <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="8.0.1" />
-    <PackageVersion Include="Roslynator.Analyzers" Version="4.12.4" />
+    <PackageVersion Include="Roslynator.Analyzers" Version="4.12.5" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="9.32.0.97167" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
     <PackageVersion Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.14.0" />
