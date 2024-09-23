@@ -5,6 +5,7 @@ using AtleX.HaveIBeenPwned.Communication.Http;
 using AtleX.HaveIBeenPwned.Helpers;
 using AtleX.HaveIBeenPwned.Serialization.Json;
 using AtleX.HaveIBeenPwned.Telemetry;
+using AtleX.HaveIBeenPwned.Polyfills;
 using Pitcher;
 using SwissArmyKnife;
 using System;
@@ -296,11 +297,7 @@ public sealed class HaveIBeenPwnedClient
     if (response.StatusCode is HttpStatusCode.OK)
     {
       var content = await response.Content
-#if NET6_0_OR_GREATER
         .ReadAsStringAsync(cancellationToken)
-#else
-        .ReadAsStringAsync()
-#endif
         .ConfigureAwait(false);
 
       result = content.Contains(kAnonimityRemainder);
@@ -401,17 +398,10 @@ public sealed class HaveIBeenPwnedClient
 
     if (response.IsSuccessStatusCode)
     {
-#if NET6_0_OR_GREATER
-      await using var content = await response
+      using var content = await response
         .Content
         .ReadAsStreamAsync(cancellationToken)
         .ConfigureAwait(false);
-#else
-      using var content = await response
-        .Content
-        .ReadAsStreamAsync()
-        .ConfigureAwait(false);
-#endif
 
 #if NET8_0_OR_GREATER // PERF: Be AOT and trimming compatible
       var deserializedResponse = await JsonSerializer
