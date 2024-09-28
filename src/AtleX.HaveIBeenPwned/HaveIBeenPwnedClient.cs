@@ -5,7 +5,6 @@ using AtleX.HaveIBeenPwned.Communication.Http;
 using AtleX.HaveIBeenPwned.Helpers;
 using AtleX.HaveIBeenPwned.Serialization.Json;
 using AtleX.HaveIBeenPwned.Telemetry;
-using AtleX.HaveIBeenPwned.Polyfills;
 using Pitcher;
 using SwissArmyKnife;
 using System;
@@ -15,6 +14,10 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+
+#if !NET6_0_OR_GREATER
+using AtleX.HaveIBeenPwned.Polyfills;
+#endif
 
 namespace AtleX.HaveIBeenPwned;
 
