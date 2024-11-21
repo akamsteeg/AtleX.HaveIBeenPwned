@@ -4,6 +4,9 @@
 # Visual studio files
 .vs/
 
+# JetBrains Rider files
+.idea/
+
 # BenchmarkDotNet
 BenchmarkDotNet.Artifacts/
 
