@@ -11,14 +11,16 @@ namespace AtleX.HaveIBeenPwned;
 /// rate limit
 /// </summary>
 /// <remarks>
-/// Itt is recommended to not retry after the timespan specified in <see
+/// <para>
+/// Initializes a new instance of <see cref="RateLimitExceededException"/>
+/// with the <see cref="TimeSpan"/> to wait before retrying
+/// </para>
+/// <para>
+/// It is recommended to not retry after the timespan specified in <see
 /// cref="RetryAfter"/> but wait an additional few milliseconds. <see
 /// href="https://haveibeenpwned.com/API/v3#RateLimiting">The
 /// documentation</see> recommends waiting an additional 100 milliseconds.
-/// </remarks>
-/// <remarks>
-/// Initializes a new instance of <see cref="RateLimitExceededException"/>
-/// with the <see cref="TimeSpan"/> to wait before retrying
+/// </para>
 /// </remarks>
 /// <param name="retryAfter">
 /// The <see cref="TimeSpan"/> to wait before retrying
@@ -34,6 +36,12 @@ public sealed class RateLimitExceededException(TimeSpan retryAfter)
   /// <summary>
   /// Gets the <see cref="TimeSpan"/> to wait before retrying
   /// </summary>
+  /// <remarks>
+  /// It is recommended to not retry immediately but wait an
+  /// additional few milliseconds. <see
+  /// href="https://haveibeenpwned.com/API/v3#RateLimiting">The
+  /// documentation</see> recommends waiting an additional 100 milliseconds.
+  /// </remarks>
   public TimeSpan RetryAfter
   {
     get;
