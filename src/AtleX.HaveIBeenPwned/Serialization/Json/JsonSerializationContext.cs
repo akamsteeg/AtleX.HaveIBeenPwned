@@ -5,11 +5,16 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace AtleX.HaveIBeenPwned.Serialization.Json;
 
+#if NET8_0_OR_GREATER
+[JsonSourceGenerationOptions(defaults: JsonSerializerDefaults.Web, GenerationMode = JsonSourceGenerationMode.Default)]
+#else
 [JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Default)]
+#endif
 
 [JsonSerializable(typeof(Breach))]
 [JsonSerializable(typeof(IEnumerable<Breach>))]
