@@ -37,7 +37,6 @@ public static class Program
       .AddDiagnoser(MemoryDiagnoser.Default)
       .AddColumn(StatisticColumn.Median, StatisticColumn.Min, StatisticColumn.Max)
       .AddJob(
-        job.WithToolchain(CsProjCoreToolchain.NetCoreApp90),
         job.WithToolchain(CsProjCoreToolchain.NetCoreApp80).AsBaseline(),
         //job.WithRuntime(NativeAotRuntime.Net80),
         job.WithToolchain(CsProjCoreToolchain.NetCoreApp60)
