@@ -1,7 +1,7 @@
 <Project>
   <!-- General shared properties -->
   <PropertyGroup Label="Build">
-    <LangVersion>13</LangVersion>
+    <LangVersion>latest</LangVersion>
     
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <!--NuGet warnings for packages with vulnerabilities (https://learn.microsoft.com/en-us/nuget/reference/errors-and-warnings/nu1901-nu1904) -->

@@ -5,12 +5,12 @@
 
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace AtleX.HaveIBeenPwned.Serialization.Json;
 
 #if NET8_0_OR_GREATER
+using System.Text.Json;
 [JsonSourceGenerationOptions(defaults: JsonSerializerDefaults.Web, GenerationMode = JsonSourceGenerationMode.Default)]
 #else
 [JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Default)]
