@@ -10,8 +10,7 @@ using System.Text.Json.Serialization;
 namespace AtleX.HaveIBeenPwned.Serialization.Json;
 
 #if NET8_0_OR_GREATER
-using System.Text.Json;
-[JsonSourceGenerationOptions(defaults: JsonSerializerDefaults.Web, GenerationMode = JsonSourceGenerationMode.Default)]
+[JsonSourceGenerationOptions(defaults: System.Text.Json.JsonSerializerDefaults.Web, GenerationMode = JsonSourceGenerationMode.Default)]
 #else
 [JsonSourceGenerationOptions(GenerationMode = JsonSourceGenerationMode.Default)]
 #endif
