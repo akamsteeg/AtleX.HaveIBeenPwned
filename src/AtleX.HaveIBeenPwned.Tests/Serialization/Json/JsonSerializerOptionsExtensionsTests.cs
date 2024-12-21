@@ -27,7 +27,7 @@ public class JsonSerializerOptionsExtensionsTests
   {
     var o = JsonSerializerOptionsFactory.Create();
 
-    Assert.Throws<NotSupportedException>(() =>  o.GetTypeInfo<FactAttribute>());
+    Assert.Throws<NotSupportedException>(() => o.GetTypeInfo<FactAttribute>());
   }
 }
 #endif
