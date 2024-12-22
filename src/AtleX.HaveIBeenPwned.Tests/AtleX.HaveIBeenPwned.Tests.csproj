@@ -5,7 +5,7 @@
 		<!-- Dev machine - non-Windows -->
 		<TargetFrameworks Condition="'$(OS)' != 'Windows_NT' And '$(TF_BUILD)' != 'true'">net6.0;net8.0;net9.0</TargetFrameworks>
 		<!-- CI/CD build-->
-		<TargetFrameworks Condition="'$(TF_BUILD)' == 'true'">net8.0;net9.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(TF_BUILD)' == 'true'">net8.0</TargetFrameworks>
 		
 		<IsPackable>false</IsPackable>
 	</PropertyGroup>
