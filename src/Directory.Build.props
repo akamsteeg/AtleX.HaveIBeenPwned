@@ -25,9 +25,14 @@
     <PackageReadmeFile>packageReadme.md</PackageReadmeFile>
     <PackageIcon>packageicon.png</PackageIcon>
 
-    <Version>9.0.0</Version>
+    <Version>9.0.1</Version>
 
     <PackageReleaseNotes>
+9.0.1:
+- [Feature] Updated documentation
+- [Feature] Improved JSON (de)serialization configuration on .NET 8+
+- [Feature] Updated dependencies
+      
 9.0.0:
 - [Feature] Added support getting subscribed domains and their breached users (#104)
 - [Feature] Added basic telemetry so users can observe the usage and performance of the library (#102)
