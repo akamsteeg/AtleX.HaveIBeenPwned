@@ -4,6 +4,7 @@ root = true
 indent_size = 2
 indent_style = space
 trim_trailing_whitespace = true
+charset = utf-8
 
 [*.cs]
 # Enable "this."
@@ -17,7 +18,7 @@ dotnet_style_predefined_type_for_locals_parameters_members = true:suggestion
 dotnet_style_predefined_type_for_member_access = true:suggestion
 
 # Access modifiers
-dotnet_style_require_accessibility_modifiers = always:error
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:error
 
 # Prefer "var"
 csharp_style_var_for_built_in_types = true:suggestion
@@ -40,10 +41,29 @@ csharp_style_namespace_declarations = file_scoped:error
 # Primary constructors
 csharp_style_prefer_primary_constructors = file_scoped:warning
 
+# Sort order of usings
+dotnet_sort_system_directives_first = true
+
 # Allow expression bodied methods, properties
 dotnet_diagnostic.IDE0022.severity = none
 dotnet_diagnostic.IDE0023.severity = none
 dotnet_diagnostic.IDE0024.severity = none
+
+# Suggest modern language features
+dotnet_style_object_initializer = true:suggestion
+dotnet_style_collection_initializer = true:suggestion
+dotnet_style_coalesce_expression = true:suggestion
+dotnet_style_null_propagation = true:suggestion
+dotnet_style_explicit_tuple_names = true:suggestion
+dotnet_style_prefer_is_null_check_over_reference_equality_method = true;warning
+
+# Newline settings
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_members_in_anonymous_types = true
 
 # File header
 file_header_template = Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors\nLicense: MIT (See LICENSE file)
