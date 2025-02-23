@@ -3,9 +3,9 @@
 
 #if NET6_0_OR_GREATER
 
-using AtleX.HaveIBeenPwned.Serialization.Json;
 using System;
 using System.Collections.Generic;
+using AtleX.HaveIBeenPwned.Serialization.Json;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests.Serialization.Json;

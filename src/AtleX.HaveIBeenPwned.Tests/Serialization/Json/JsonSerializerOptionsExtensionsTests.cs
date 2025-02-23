@@ -3,9 +3,9 @@
 
 #if NET8_0_OR_GREATER
 
-using AtleX.HaveIBeenPwned.Serialization.Json;
 using System;
 using System.Text.Json.Serialization.Metadata;
+using AtleX.HaveIBeenPwned.Serialization.Json;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests.Serialization.Json;
