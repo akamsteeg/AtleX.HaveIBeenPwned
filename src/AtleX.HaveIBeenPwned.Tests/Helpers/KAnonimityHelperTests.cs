@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
-using AtleX.HaveIBeenPwned.Helpers;
 using System;
+using AtleX.HaveIBeenPwned.Helpers;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests.Helpers;

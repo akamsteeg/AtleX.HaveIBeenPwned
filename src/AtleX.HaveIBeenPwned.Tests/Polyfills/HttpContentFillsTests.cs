@@ -3,12 +3,12 @@
 
 #if !NET6_0_OR_GREATER
 
-using AtleX.HaveIBeenPwned.Polyfills;
 using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using AtleX.HaveIBeenPwned.Polyfills;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests.Polyfills;

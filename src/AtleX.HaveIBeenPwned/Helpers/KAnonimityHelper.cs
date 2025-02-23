@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
-using Pitcher;
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using Pitcher;
 
 #pragma warning disable CA5350 // Do Not Use Weak Cryptographic Algorithms
 

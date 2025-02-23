@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
-using System.Diagnostics.Metrics;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 
 namespace AtleX.HaveIBeenPwned.Telemetry;
 

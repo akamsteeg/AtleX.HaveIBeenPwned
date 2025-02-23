@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
+using System.Net.Http;
 using AtleX.HaveIBeenPwned.Benchmarks.Mocks;
 using BenchmarkDotNet.Attributes;
-using System.Net.Http;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks.Benchmarks;
 

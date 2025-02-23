@@ -1,4 +1,4 @@
-﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
+// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
 namespace AtleX.HaveIBeenPwned.Polyfills;

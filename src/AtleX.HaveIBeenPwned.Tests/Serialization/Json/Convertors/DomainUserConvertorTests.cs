@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
-using AtleX.HaveIBeenPwned.Serialization.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using AtleX.HaveIBeenPwned.Serialization.Json;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests.Serialization.Json.Convertors;

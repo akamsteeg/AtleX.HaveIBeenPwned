@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
-using Pitcher;
 using System;
+using Pitcher;
 
 namespace AtleX.HaveIBeenPwned;
 

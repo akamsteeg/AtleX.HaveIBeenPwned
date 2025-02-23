@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
-using System.Net.Http.Headers;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using Pitcher;
 
 namespace AtleX.HaveIBeenPwned.Communication.Http;

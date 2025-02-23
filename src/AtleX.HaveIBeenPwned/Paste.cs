@@ -1,10 +1,10 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
-using AtleX.HaveIBeenPwned.Helpers;
-using SwissArmyKnife.Helpers;
 using System;
 using System.Diagnostics;
+using AtleX.HaveIBeenPwned.Helpers;
+using SwissArmyKnife.Helpers;
 
 namespace AtleX.HaveIBeenPwned;
 

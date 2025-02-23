@@ -1,12 +1,12 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
-using AtleX.HaveIBeenPwned.Tests.Mocks;
 using System;
 using System.Collections;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using AtleX.HaveIBeenPwned.Tests.Mocks;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests;

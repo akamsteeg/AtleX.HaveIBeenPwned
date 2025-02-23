@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System;
 using AtleX.HaveIBeenPwned.Helpers;
 using SwissArmyKnife.Helpers;
 

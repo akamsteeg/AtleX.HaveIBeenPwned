@@ -1,13 +1,13 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace AtleX.HaveIBeenPwned.TelemetryTest.Services;
 internal class PasswordCheckService(IHaveIBeenPwnedClient hibpClient, ILogger<PasswordCheckService> logger)

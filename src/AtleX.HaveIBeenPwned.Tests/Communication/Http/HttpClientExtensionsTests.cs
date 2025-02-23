@@ -1,9 +1,9 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
-using AtleX.HaveIBeenPwned.Communication.Http;
 using System;
 using System.Net.Http;
+using AtleX.HaveIBeenPwned.Communication.Http;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests.Communication.Http;

@@ -1,11 +1,11 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
-using AtleX.HaveIBeenPwned.IntegrationTests.XUnit;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using AtleX.HaveIBeenPwned.IntegrationTests.XUnit;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.IntegrationTests;

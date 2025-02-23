@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
+using System;
+using System.Reflection;
 using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Diagnosers;
@@ -13,8 +15,6 @@ using BenchmarkDotNet.Toolchains.CsProj;
 using BenchmarkDotNet.Toolchains.NativeAot;
 using BenchmarkDotNet.Validators;
 using Perfolizer.Horology;
-using System;
-using System.Reflection;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks;
 

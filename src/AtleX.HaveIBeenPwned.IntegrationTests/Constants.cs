@@ -1,8 +1,8 @@
 ﻿// Copyright (c) Alex Kamsteeg (https://atlex.nl/) and contributors
 // License: MIT (See LICENSE file)
 
-using SwissArmyKnife;
 using System;
+using SwissArmyKnife;
 
 namespace AtleX.HaveIBeenPwned.IntegrationTests;
 
