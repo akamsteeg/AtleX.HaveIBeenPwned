@@ -46,6 +46,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configs", "configs", "{739C3F8B-1FF9-4404-B344-F2709E4EADE8}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		BannedSymbols.txt = BannedSymbols.txt
 		CodeMetricsConfig.txt = CodeMetricsConfig.txt
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
