@@ -12,6 +12,12 @@
     <Product>$(MSBuildProjectName) ($(TargetFramework))</Product>
   </PropertyGroup>
 
+  <!-- Additional files for code metrics and banned api analyzers-->
+  <ItemGroup>
+    <AdditionalFiles Include="../CodeMetricsConfig.txt" />
+    <AdditionalFiles Include="../BannedSymbols.txt" />
+  </ItemGroup>
+
   <!-- NuGet package properties -->
   <PropertyGroup Label="NuGet package properties">
     <PackageProjectUrl>https://github.com/akamsteeg/AtleX.HaveIBeenPwned</PackageProjectUrl>

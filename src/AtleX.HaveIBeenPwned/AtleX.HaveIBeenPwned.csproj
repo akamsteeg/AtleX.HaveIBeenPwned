@@ -17,13 +17,6 @@
     <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
 
-  <!-- Code metrics -->
-  <ItemGroup>
-    <AdditionalFiles Include="../CodeMetricsConfig.txt" />
-    <AdditionalFiles Include="../BannedSymbols.txt" />
-  </ItemGroup>
-
-
   <!-- Readme and icon-->
   <ItemGroup>
     <None Include="packageReadme.md" Pack="true" PackagePath="\" />

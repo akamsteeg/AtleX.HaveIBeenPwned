@@ -35,7 +35,7 @@ internal class PasswordCheckService(IHaveIBeenPwnedClient hibpClient, ILogger<Pa
 
         var statusIdentifier = (isPwned) ? "Yes" : "No";
 
-        logger.LogInformation("Is '{currentPassword}' pwned? {statusIdentifier}", currentPassword, statusIdentifier);
+        logger.LogInformation("Is '{CurrentPassword}' pwned? {StatusIdentifier}", currentPassword, statusIdentifier);
 
         await Task.Delay(DelayBetweenRequests, stoppingToken);
       }
