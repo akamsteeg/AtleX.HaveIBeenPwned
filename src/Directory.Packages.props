@@ -10,15 +10,15 @@
     <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.2" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Console" Version="9.0.2" />
     <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="8.0.0" />
-    <PackageVersion Include="OpenTelemetry" Version="1.11.1" />
-    <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="1.11.1" />
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.11.1" />
+    <PackageVersion Include="OpenTelemetry" Version="1.11.2" />
+    <PackageVersion Include="OpenTelemetry.Exporter.Console" Version="1.11.2" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.11.2" />
     <PackageVersion Include="Pitcher" Version="2.1.1" />
     <PackageVersion Include="SwissArmyKnife" Version="2.3.1" />
     <PackageVersion Include="System.Text.Json" Version="9.0.2" />
     <PackageVersion Include="System.Diagnostics.DiagnosticSource" Version="9.0.2" />
-    <PackageVersion Include="Roslynator.Analyzers" Version="4.13.0" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.6.0.109712" />
+    <PackageVersion Include="Roslynator.Analyzers" Version="4.13.1" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.7.0.110445" />
     <PackageVersion Include="BenchmarkDotNet" Version="0.14.0" />
     <PackageVersion Include="BenchmarkDotNet.Diagnostics.Windows" Version="0.14.0" />
     <PackageVersion Include="Bogus" Version="35.6.2" />
