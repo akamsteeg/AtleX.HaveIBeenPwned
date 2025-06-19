@@ -30,21 +30,20 @@ public static class Program
 
   private static ManualConfig GetConfig()
   {
-    var job = Job.Default
-                    .WithWarmupCount(1); // 1 warmup is enough for our purpose
+    var job = Job.Default;
 
     var config = DefaultConfig.Instance
       .AddDiagnoser(MemoryDiagnoser.Default)
       .AddColumn(StatisticColumn.Median, StatisticColumn.Min, StatisticColumn.Max)
       .AddJob(
-        job.WithToolchain(CsProjCoreToolchain.NetCoreApp80).AsBaseline(),
-        //job.WithRuntime(NativeAotRuntime.Net80),
-        job.WithToolchain(CsProjCoreToolchain.NetCoreApp60)
-        );
+ job.WithRuntime(CoreRuntime.Core80).AsBaseline(),
+        job.WithRuntime(CoreRuntime.Core60),
+        job.WithRuntime(NativeAotRuntime.Net80)
+      );
 
     if (Environment.OSVersion.Platform == PlatformID.Win32NT)
     {
-      config.AddJob(job.WithToolchain(CsProjClassicNetToolchain.Net481));
+      config.AddJob(job.WithRuntime(ClrRuntime.Net481));
     }
 
     config.SummaryStyle = SummaryStyle.Default
