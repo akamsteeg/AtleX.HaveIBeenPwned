@@ -34,9 +34,8 @@ public static class Program
 
     var config = DefaultConfig.Instance
       .AddDiagnoser(MemoryDiagnoser.Default)
-      .AddColumn(StatisticColumn.Median, StatisticColumn.Min, StatisticColumn.Max)
       .AddJob(
- job.WithRuntime(CoreRuntime.Core80).AsBaseline(),
+        job.WithRuntime(CoreRuntime.Core80).AsBaseline(),
         job.WithRuntime(CoreRuntime.Core60),
         job.WithRuntime(NativeAotRuntime.Net80)
       );
@@ -45,6 +44,8 @@ public static class Program
     {
       config.AddJob(job.WithRuntime(ClrRuntime.Net481));
     }
+
+    config.AddColumn(StatisticColumn.P95, StatisticColumn.OperationsPerSecond);
 
     config.SummaryStyle = SummaryStyle.Default
       .WithRatioStyle(RatioStyle.Percentage);
