@@ -3,6 +3,7 @@
 
 using System;
 using System.Reflection;
+using BenchmarkDotNet.Analysers;
 using BenchmarkDotNet.Columns;
 using BenchmarkDotNet.Configs;
 using BenchmarkDotNet.Diagnosers;
@@ -50,6 +51,7 @@ public static class Program
     config.SummaryStyle = SummaryStyle.Default
       .WithRatioStyle(RatioStyle.Percentage);
 
+    config.AddAnalyser(EnvironmentAnalyser.Default);
     config.AddValidator(JitOptimizationsValidator.FailOnError); // Fail when any of the referenced assemblies are not optimized
 
     config.WithOrderer(new DefaultOrderer(SummaryOrderPolicy.FastestToSlowest));
