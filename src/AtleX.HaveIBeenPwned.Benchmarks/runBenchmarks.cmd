@@ -1,1 +1,1 @@
-dotnet.exe build -c Release && dotnet.exe run -c Release -f net8.0 --filter **
+dotnet clean -c Release && dotnet.exe build -c Release && dotnet.exe run -c Release -f net8.0 --filter **
