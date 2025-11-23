@@ -12,10 +12,7 @@ using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Order;
 using BenchmarkDotNet.Reports;
 using BenchmarkDotNet.Running;
-using BenchmarkDotNet.Toolchains.CsProj;
-using BenchmarkDotNet.Toolchains.NativeAot;
 using BenchmarkDotNet.Validators;
-using Perfolizer.Horology;
 
 namespace AtleX.HaveIBeenPwned.Benchmarks;
 
@@ -33,20 +30,25 @@ public static class Program
   {
     var job = Job.Default;
 
+    var memoryDiagnoser = new MemoryDiagnoser(new MemoryDiagnoserConfig(displayGenColumns: false));
+    //var disassemblyDiagnoser = new DisassemblyDiagnoser(new DisassemblyDiagnoserConfig());
+    //var jitStatsDiagnoser = new JitStatsDiagnoser();
+
     var config = DefaultConfig.Instance
-      .AddDiagnoser(MemoryDiagnoser.Default)
+      .AddDiagnoser(memoryDiagnoser)
+      //.AddDiagnoser(disassemblyDiagnoser)
+      //.AddDiagnoser(jitStatsDiagnoser)
+      .AddColumn(StatisticColumn.P95, StatisticColumn.OperationsPerSecond)
+      .HideColumns(Column.Job, Column.Error, Column.StdDev, Column.RatioSD)
       .AddJob(
-        job.WithRuntime(CoreRuntime.Core80).AsBaseline(),
-        job.WithRuntime(CoreRuntime.Core60),
-        job.WithRuntime(NativeAotRuntime.Net80)
+        job.WithRuntime(CoreRuntime.Core80),
+        job.WithRuntime(CoreRuntime.Core10_0).AsBaseline()
       );
 
     if (Environment.OSVersion.Platform == PlatformID.Win32NT)
     {
       config.AddJob(job.WithRuntime(ClrRuntime.Net481));
     }
-
-    config.AddColumn(StatisticColumn.P95, StatisticColumn.OperationsPerSecond);
 
     config.SummaryStyle = SummaryStyle.Default
       .WithRatioStyle(RatioStyle.Percentage);
