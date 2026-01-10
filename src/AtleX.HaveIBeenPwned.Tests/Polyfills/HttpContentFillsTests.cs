@@ -12,6 +12,7 @@ using AtleX.HaveIBeenPwned.Polyfills;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests.Polyfills;
+
 public class HttpContentFillsTests
 {
   [Theory]

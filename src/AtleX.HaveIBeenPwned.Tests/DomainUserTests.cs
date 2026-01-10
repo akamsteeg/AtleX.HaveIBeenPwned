@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests;
+
 public class DomainUserTests
 {
   [Fact]

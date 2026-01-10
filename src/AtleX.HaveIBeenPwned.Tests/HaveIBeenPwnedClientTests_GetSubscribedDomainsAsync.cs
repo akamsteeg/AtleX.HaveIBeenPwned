@@ -12,6 +12,7 @@ using AtleX.HaveIBeenPwned.Tests.Mocks;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests;
+
 public class HaveIBeenPwnedClientTests_GetSubscribedDomainsAsync
   : HaveIBeenPwnedClientTestsBase
 {

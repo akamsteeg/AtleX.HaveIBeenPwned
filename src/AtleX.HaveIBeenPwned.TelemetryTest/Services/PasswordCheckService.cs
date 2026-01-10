@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace AtleX.HaveIBeenPwned.TelemetryTest.Services;
+
 internal class PasswordCheckService(IHaveIBeenPwnedClient hibpClient, ILogger<PasswordCheckService> logger)
     : BackgroundService
 {

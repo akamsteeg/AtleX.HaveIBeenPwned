@@ -5,6 +5,7 @@ using System.Reflection;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests;
+
 public class AssemblyTests
 {
   [Fact]

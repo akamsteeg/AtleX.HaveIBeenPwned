@@ -4,6 +4,7 @@
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests;
+
 public class DomainForbiddenExceptionTests
 {
   [Fact]
