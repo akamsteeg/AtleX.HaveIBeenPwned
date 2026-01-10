@@ -9,6 +9,7 @@ using AtleX.HaveIBeenPwned.Serialization.Json;
 using Xunit;
 
 namespace AtleX.HaveIBeenPwned.Tests.Serialization.Json;
+
 public class JsonSerializerOptionsExtensionsTests
 {
   [Fact]
